@@ -24,6 +24,11 @@ public class Player : MonoBehaviour {
 	public float arrowSpeed = 10;
 	public float arrowDamage = 10;
 
+	public float dashDistance = 10;
+	public float dashSpeed = 15;
+	private bool dashing = false;
+	private Vector3 dashStartPoint;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -31,12 +36,52 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if(!dashing) {
+			updateMoveCharacter();
+		}
+
+		updateMeleeAttack ();
+
+		// Trigger secondary action
+		if (Input.GetButtonDown ("Fire2")) {
+
+			switch (secondaryAbility) {
+				case Ability.Arrow:
+					fireArrow(maxArrowDistance);
+					break;
+				case Ability.Dash:
+					startDashing();
+					break;
+			}
+		}
+
+		if(dashing && Vector3.Distance(transform.position, dashStartPoint) >= dashDistance) {
+			stopDashing();
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D coll) {
+		// If we're dashing and we collide with anything then stop dashing
+		if(dashing) {
+			stopDashing();
+		}
+	}
+
+	void OnCollisionStay2D(Collision2D coll) {
+		// If we're dashing and we collide with anything then stop dashing
+		if(dashing) {
+			stopDashing();
+		}
+	}
+
+	private void updateMoveCharacter() {
 		Vector2 stickDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
+		
 		stickDirection = stickDirection.normalized;
-
+		
 		if(stickDirection.sqrMagnitude > 0.031) {
-
+			
 			// Rotate the character
 			float moveAngle = Mathf.Atan2(stickDirection.y, stickDirection.x)*Mathf.Rad2Deg;
 			if(moveAngle < 0) {
@@ -44,7 +89,7 @@ public class Player : MonoBehaviour {
 			}
 			
 			//Debug.Log (moveAngle);
-
+			
 			// If the orientation of the character has changed then update it, but don't move the character yet
 			// because Unity has a minor bug where sometimes when you move and change orientation at the same
 			// time you move partly in a direction you dont want to go.
@@ -55,23 +100,9 @@ public class Player : MonoBehaviour {
 			else {
 				rigidbody2D.velocity = transform.right * speed;
 			}
-
+			
 		} else {
 			rigidbody2D.velocity = Vector2.zero;
-		}
-
-		updateMeleeAttack ();
-
-		if (Input.GetButtonDown ("Fire2")) {
-
-			switch (secondaryAbility) {
-				case Ability.Arrow:
-					fireArrow(maxArrowDistance);
-					break;
-				case Ability.Dash:
-					print("Case 2");
-					break;
-			}
 		}
 	}
 
@@ -98,24 +129,6 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void gainElementA() {
-		numOfElementA++;
-
-		secondaryAbility = Ability.Arrow;
-	}
-
-	public void gainElementB() {
-		numOfElementB++;
-
-		secondaryAbility = Ability.Dash;
-	}
-
-	public void gainElementC() {
-		numOfElementC++;
-
-		secondaryAbility = Ability.Bomb;
-	}
-
 	private void fireArrow(float distance) {
 		GameObject clone = Instantiate (projectile, spawnPoint.position, spawnPoint.rotation) as GameObject;
 		
@@ -126,4 +139,35 @@ public class Player : MonoBehaviour {
 
 		clone.rigidbody2D.velocity = transform.right * arrowSpeed;
 	}
+
+	private void startDashing() {
+		dashing = true;
+
+		dashStartPoint = transform.position;
+		rigidbody2D.velocity = transform.right * dashSpeed;
+	}
+
+	private void stopDashing() {
+		dashing = false;
+		rigidbody2D.velocity = Vector2.zero;
+	}
+	
+	public void gainElementA() {
+		numOfElementA++;
+		
+		secondaryAbility = Ability.Arrow;
+	}
+	
+	public void gainElementB() {
+		numOfElementB++;
+		
+		secondaryAbility = Ability.Dash;
+	}
+	
+	public void gainElementC() {
+		numOfElementC++;
+		
+		secondaryAbility = Ability.Bomb;
+	}
+
 }
