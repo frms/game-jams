@@ -10,6 +10,10 @@ public class Player : MonoBehaviour {
 	public float meleeTime = 1;
 	private float nextMelee = 0.0F;
 
+	public int numOfElementA = 0;
+	public int numOfElementB = 0;
+	public int numOfElementC = 0;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -94,5 +98,17 @@ public class Player : MonoBehaviour {
 		else {
 			meleeImage.SetActive(false);
 		}
+	}
+
+	public void gainElementA() {
+		numOfElementA++;
+	}
+
+	public void gainElementB() {
+		numOfElementB++;
+	}
+
+	public void gainElementC() {
+		numOfElementC++;
 	}
 }
