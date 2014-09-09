@@ -1,8 +1,9 @@
 fileFormatVersion: 2
-guid: 5fad4716a0fec3d449199a4e6e9f64be
+guid: 5fe8db52d3402e74186622b105d46e1b
 TextureImporter:
   fileIDToRecycleName:
-    21300000: player
+    21300000: PurpleCircle
+    21300002: purpleCircle
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
