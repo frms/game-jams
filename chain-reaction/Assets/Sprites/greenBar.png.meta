@@ -1,8 +1,9 @@
 fileFormatVersion: 2
-guid: d16eb75f4f5ba7b429d50a5197aed691
+guid: ac65b7d7eca683f4aaabc32a34f18751
 TextureImporter:
   fileIDToRecycleName:
-    21300000: block
+    21300000: bar
+    21300002: greenBar
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -35,7 +36,7 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
+  alignment: 4
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100

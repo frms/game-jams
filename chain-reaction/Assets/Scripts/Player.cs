@@ -5,6 +5,11 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour {
 	public float speed = 5;
 
+	public GameObject meleeImage;
+	public float meleeArc = 180;
+	public float meleeTime = 1;
+	private float nextMelee = 0.0F;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -33,6 +38,8 @@ public class Player : MonoBehaviour {
 		} else {
 			rigidbody2D.velocity = Vector2.zero;
 		}
+
+		updateMeleeAttack ();
 	}
 	
 	private float getDirection(float moveAngle) {
@@ -65,5 +72,27 @@ public class Player : MonoBehaviour {
 		Debug.Log ("SHOULD NOT BE REACHING THIS CODE");
 		return 315;
 	}
-	
+
+	private void updateMeleeAttack() {
+		// If melee button is hit and not already in a melee attack then start attacking
+		if(Input.GetButtonDown("Fire1") && Time.time > nextMelee) {
+			nextMelee = Time.time + meleeTime;
+		}
+
+		// If we are still melee attacking then animate it
+		if (nextMelee - Time.time >= 0) {
+			float angle = meleeArc * (1 - (nextMelee - Time.time) / meleeTime);
+			angle -= meleeArc/2f;
+			
+			Vector2 position = new Vector2 (Mathf.Cos (angle * Mathf.Deg2Rad), Mathf.Sin (angle * Mathf.Deg2Rad));
+			meleeImage.transform.localPosition = position*0.6f;
+			meleeImage.transform.localRotation = Quaternion.Euler(0, 0, angle);
+			
+			meleeImage.renderer.enabled = true;
+		}
+		// Else hide the attack image
+		else {
+			meleeImage.renderer.enabled = false;
+		}
+	}
 }
