@@ -14,6 +14,12 @@ public class Player : MonoBehaviour {
 	public int numOfElementB = 0;
 	public int numOfElementC = 0;
 
+	public GameObject projectile;
+	public Transform spawnPoint;
+	public float maxArrowDistance = 10;
+	public float arrowSpeed = 10;
+	public float arrowDamage = 10;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -44,6 +50,10 @@ public class Player : MonoBehaviour {
 		}
 
 		updateMeleeAttack ();
+
+		if (Input.GetButtonDown ("Fire2")) {
+			fireArrow(maxArrowDistance);
+		}
 	}
 	
 	private float getDirection(float moveAngle) {
@@ -110,5 +120,16 @@ public class Player : MonoBehaviour {
 
 	public void gainElementC() {
 		numOfElementC++;
+	}
+
+	private void fireArrow(float distance) {
+		GameObject clone = Instantiate (projectile, spawnPoint.position, spawnPoint.rotation) as GameObject;
+		
+		ArrowProperties props = new ArrowProperties ();
+		props.maxDistance = distance;
+		props.damage = arrowDamage;
+		clone.SendMessage ("setUp", props);
+
+		clone.rigidbody2D.velocity = transform.right * arrowSpeed;
 	}
 }
