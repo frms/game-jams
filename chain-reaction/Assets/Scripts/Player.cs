@@ -14,6 +14,10 @@ public class Player : MonoBehaviour {
 	public int numOfElementB = 0;
 	public int numOfElementC = 0;
 
+	public Ability secondaryAbility = Ability.None;
+
+	public enum Ability {None, Arrow, Dash, Bomb};
+
 	public GameObject projectile;
 	public Transform spawnPoint;
 	public float maxArrowDistance = 10;
@@ -59,7 +63,15 @@ public class Player : MonoBehaviour {
 		updateMeleeAttack ();
 
 		if (Input.GetButtonDown ("Fire2")) {
-			fireArrow(maxArrowDistance);
+
+			switch (secondaryAbility) {
+				case Ability.Arrow:
+					fireArrow(maxArrowDistance);
+					break;
+				case Ability.Dash:
+					print("Case 2");
+					break;
+			}
 		}
 	}
 
@@ -88,14 +100,20 @@ public class Player : MonoBehaviour {
 
 	public void gainElementA() {
 		numOfElementA++;
+
+		secondaryAbility = Ability.Arrow;
 	}
 
 	public void gainElementB() {
 		numOfElementB++;
+
+		secondaryAbility = Ability.Dash;
 	}
 
 	public void gainElementC() {
 		numOfElementC++;
+
+		secondaryAbility = Ability.Bomb;
 	}
 
 	private void fireArrow(float distance) {
