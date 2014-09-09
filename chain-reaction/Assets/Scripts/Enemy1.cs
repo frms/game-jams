@@ -26,4 +26,14 @@ public class Enemy1 : MonoBehaviour {
 		// Make the health bar scale to the current health
 		healthBar.localScale = new Vector3((health/maxHealth) * healthBarSize.x, healthBarSize.y, healthBarSize.z);
 	}
+
+	public void applyDamage(float damage) {
+		health -= damage;
+
+		// Kill the enemy if it loses all its health
+		if(health <= 0) {
+			Destroy(gameObject);
+			Destroy(healthBar.gameObject);
+		}
+	}
 }

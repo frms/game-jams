@@ -88,11 +88,11 @@ public class Player : MonoBehaviour {
 			meleeImage.transform.localPosition = position*0.6f;
 			meleeImage.transform.localRotation = Quaternion.Euler(0, 0, angle);
 			
-			meleeImage.renderer.enabled = true;
+			meleeImage.SetActive(true);
 		}
 		// Else hide the attack image
 		else {
-			meleeImage.renderer.enabled = false;
+			meleeImage.SetActive(false);
 		}
 	}
 }
