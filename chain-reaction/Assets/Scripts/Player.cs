@@ -27,7 +27,8 @@ public class Player : MonoBehaviour {
 			
 			//Debug.Log (moveAngle);
 			
-			float rotation = getDirection(moveAngle);
+			float rotation = moveAngle;
+			//float rotation = getDirection(moveAngle);
 			transform.rotation = Quaternion.Euler(0, 0, rotation);
 		} else {
 			rigidbody2D.velocity = Vector2.zero;
