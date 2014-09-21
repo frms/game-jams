@@ -9,6 +9,8 @@ public class GameCanvas : MonoBehaviour {
 	
 	void Start(){
 		tex = (Texture2D) renderer.material.mainTexture;
+
+		clearTexture();
 	}
 	
 	// Update is called once per frame
@@ -48,6 +50,18 @@ public class GameCanvas : MonoBehaviour {
 		print ((int)(pixelUV.x * tex.width) + "--" + (int)(pixelUV.y * tex.height));
 
 		tex.SetPixel((int) (pixelUV.x * tex.width), (int) (pixelUV.y * tex.height), Color.red);
+
+		tex.Apply();
+	}
+
+	private void clearTexture() {
+		Color[] pixels = new Color[tex.width*tex.height];
+
+		for(int i = 0; i < pixels.Length; i++) {
+			pixels[i] = Color.white;
+		}
+
+		tex.SetPixels(pixels);
 
 		tex.Apply();
 	}
