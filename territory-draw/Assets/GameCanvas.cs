@@ -48,5 +48,7 @@ public class GameCanvas : MonoBehaviour {
 		print ((int)(pixelUV.x * tex.width) + "--" + (int)(pixelUV.y * tex.height));
 
 		tex.SetPixel((int) (pixelUV.x * tex.width), (int) (pixelUV.y * tex.height), Color.red);
+
+		tex.Apply();
 	}
 }
