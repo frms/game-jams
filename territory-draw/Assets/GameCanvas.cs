@@ -8,9 +8,9 @@ public class GameCanvas : MonoBehaviour {
 	private Texture2D tex;
 	
 	void Start(){
-		tex = (Texture2D) renderer.material.mainTexture;
-
-		clearTexture();
+		// Clone the current texture so we don't modify the original one. I don't know why unity acts like this.
+		tex = Instantiate(renderer.material.mainTexture) as Texture2D;
+		renderer.material.mainTexture = tex;
 	}
 	
 	// Update is called once per frame
@@ -54,15 +54,4 @@ public class GameCanvas : MonoBehaviour {
 		tex.Apply();
 	}
 
-	private void clearTexture() {
-		Color[] pixels = new Color[tex.width*tex.height];
-
-		for(int i = 0; i < pixels.Length; i++) {
-			pixels[i] = Color.white;
-		}
-
-		tex.SetPixels(pixels);
-
-		tex.Apply();
-	}
 }
