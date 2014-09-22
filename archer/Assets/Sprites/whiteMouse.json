@@ -1,0 +1,44 @@
+{"frames": {
+
+"player1.png":
+{
+	"frame": {"x":122,"y":2,"w":38,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":48},
+	"sourceSize": {"w":38,"h":48}
+},
+"player2.png":
+{
+	"frame": {"x":82,"y":2,"w":38,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":48},
+	"sourceSize": {"w":38,"h":48}
+},
+"player3.png":
+{
+	"frame": {"x":42,"y":2,"w":38,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":48},
+	"sourceSize": {"w":38,"h":48}
+},
+"player4.png":
+{
+	"frame": {"x":2,"y":2,"w":38,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":48},
+	"sourceSize": {"w":38,"h":48}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "whiteMouse.png",
+	"format": "RGBA8888",
+	"size": {"w":162,"h":52},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:086d3d22856ed49f9b4d7e36b5253a22:583cd7acb85dde0482330066a6630dba:4d0a9745f0bbeaea6ea1f2e75159563a$"
+}
+}
