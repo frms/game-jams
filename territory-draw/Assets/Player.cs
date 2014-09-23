@@ -5,14 +5,18 @@ public class Player : MonoBehaviour {
 
 	public float speed = 5;
 
+	private GameCanvas canvas;
+
 	// Use this for initialization
 	void Start () {
-	
+		canvas = GameObject.Find ("GameCanvas").GetComponent<GameCanvas> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		updateMoveCharacter ();
+
+		canvas.drawColor (transform.position, Color.red);
 	}
 
 	private void updateMoveCharacter() {

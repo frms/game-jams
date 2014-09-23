@@ -4,13 +4,19 @@ using System.Collections;
 public class GameCanvas : MonoBehaviour {
 	public int x = 0;
 	public int y = 0;
-	
+
+	private Vector2 originWorldCoords;
 	private Texture2D tex;
 	
 	void Start(){
 		// Clone the current texture so we don't modify the original one. I don't know why unity acts like this.
 		tex = Instantiate(renderer.material.mainTexture) as Texture2D;
 		renderer.material.mainTexture = tex;
+
+		// Calculate the world coordinates of the texture's 0,0 position
+		float x = transform.position.x - (transform.localScale.x / 2);
+		float y = transform.position.y - (transform.localScale.y / 2);
+		originWorldCoords = new Vector3 (x, y);
 	}
 	
 	// Update is called once per frame
@@ -52,6 +58,19 @@ public class GameCanvas : MonoBehaviour {
 		tex.SetPixel((int) (pixelUV.x * tex.width), (int) (pixelUV.y * tex.height), Color.red);
 
 		tex.Apply();
+	}
+
+	public void drawColor(Vector2 worldPosition, Color color) {
+		//Debug.Log (worldPosition);
+
+		Vector2 offsetCoords = worldPosition - originWorldCoords;
+		int x = (int) ( (offsetCoords.x / transform.localScale.x) * tex.width );
+		int y = (int) ( (offsetCoords.y / transform.localScale.y) * tex.height );
+
+		//Debug.Log (texCoords);
+
+		tex.SetPixel (x, y, color);
+		tex.Apply ();
 	}
 
 }
