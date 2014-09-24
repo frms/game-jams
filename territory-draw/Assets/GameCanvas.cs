@@ -70,11 +70,12 @@ public class GameCanvas : MonoBehaviour {
 		//Debug.Log (texCoords);
 
 		// Draw a square at the current location
-		for(int i = -1; i <= 0; i++) {
-			for(int j = -1; j <= 0; j++) {
-				tex.SetPixel (x+i, y+j, color);
-			}
+		Color[] colors = new Color[4];
+		for(int i = 0; i < 4; i++) {
+			colors[i] = color;
 		}
+		tex.SetPixels (x-1, y-1, 2, 2, colors);
+
 		tex.Apply ();
 	}
 
