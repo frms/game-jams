@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameCanvas : MonoBehaviour {
 	public int x = 0;
@@ -40,7 +41,7 @@ public class GameCanvas : MonoBehaviour {
 
 	private void clickPixel ()
 	{
-		if (!Input.GetMouseButton (0))
+		if (!Input.GetMouseButtonDown (0))
 			return;
 
 		RaycastHit hit;
@@ -53,11 +54,60 @@ public class GameCanvas : MonoBehaviour {
 			return;
 
 		Vector2 pixelUV = hit.textureCoord;
-		print ((int)(pixelUV.x * tex.width) + "--" + (int)(pixelUV.y * tex.height));
+		int x = (int)(pixelUV.x * tex.width);
+		int y = (int)(pixelUV.y * tex.height);
+		Debug.Log (x + "--" + y);
 
-		tex.SetPixel((int) (pixelUV.x * tex.width), (int) (pixelUV.y * tex.height), Color.red);
+		fill (x, y);
+	}
 
-		tex.Apply();
+	private void fill(int x, int y) {
+		Color[] colors = tex.GetPixels ();
+		bool[] visited = new bool[colors.Length];
+
+		Queue<int> nodes = new Queue<int> (colors.Length);
+
+		int start = x + y * tex.width;
+
+		if(!tryToEnqueue(colors, visited, nodes, start)) {
+			return;
+		}
+
+		while(nodes.Count > 0) {
+			int currentNode = nodes.Dequeue();
+
+			// If this node has already been visited then skip it
+			if(visited[currentNode]) {
+				continue;
+			}
+
+			visited[currentNode] = true;
+			setPixelByIndex(currentNode);
+
+			// Add the left child
+			tryToEnqueue(colors, visited, nodes, currentNode - 1);
+			// Add the right child
+			tryToEnqueue(colors, visited, nodes, currentNode + 1);
+			// Add the top child
+			tryToEnqueue(colors, visited, nodes, currentNode + tex.width);
+			// Add the bottom child
+			tryToEnqueue(colors, visited, nodes, currentNode - tex.width);
+		}
+	}
+
+	private void setPixelByIndex(int currentNode) {
+		int x = currentNode % tex.width;
+		int y = currentNode / tex.width;
+
+		tex.SetPixel (x, y, Color.green);
+	}
+
+	private bool tryToEnqueue(Color[] colors, bool[] visited, Queue<int> nodes, int node) {
+		if(node >= 0 && node < visited.Length && colors[node] == Color.white && !visited[node]) {
+			nodes.Enqueue(node);
+			return true;
+		}
+		return false;
 	}
 
 	public void drawColor(Vector2 worldPosition, Color color) {
