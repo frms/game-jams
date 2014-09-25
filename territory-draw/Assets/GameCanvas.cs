@@ -52,11 +52,12 @@ public class GameCanvas : MonoBehaviour {
 
 		for(int i = 0; i < colors.Length; i++) {
 			if(colors[i] != Color.red && !visited[i]) {
-				List<int> fillList = fill (colors, visited, i);
+				List<int> fillList = fill (colors, visited, i, Color.red);
 				if(fillList != null) {
 					foreach(int index in fillList) {
-						setPixelByIndex(index, Color.green);
+						setPixelByIndex(index, Color.red);
 					}
+					tex.Apply ();
 				}
 			}
 		}
@@ -67,13 +68,13 @@ public class GameCanvas : MonoBehaviour {
 	}
 	
 	// This fill takes around 62 milliseconds and a frame lasts only 16 millisecond 
-	private List<int> fill(Color[] colors, bool[] visited, int start) {
+	private List<int> fill(Color[] colors, bool[] visited, int start, Color fillColor) {
 		List<int> fillList = new List<int>();
 		bool returnFillList = true;
 		
 		Queue<int> nodes = new Queue<int> (colors.Length);
 
-		tryToEnqueue (colors, visited, nodes, start);
+		tryToEnqueue (colors, visited, nodes, start, fillColor);
 		
 		while(nodes.Count > 0) {
 			int currentNode = nodes.Dequeue();
@@ -87,13 +88,13 @@ public class GameCanvas : MonoBehaviour {
 			fillList.Add(currentNode);
 			
 			// Add the left child
-			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode - 1);
+			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode - 1, fillColor);
 			// Add the right child
-			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode + 1);
+			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode + 1, fillColor);
 			// Add the top child
-			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode + tex.width);
+			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode + tex.width, fillColor);
 			// Add the bottom child
-			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode - tex.width);
+			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode - tex.width, fillColor);
 		}
 
 		if(returnFillList) {
@@ -114,9 +115,9 @@ public class GameCanvas : MonoBehaviour {
 	 * 
 	 * Returns a bool if we can still fill the pixels that are reached
 	 */
-	private bool tryToEnqueue(Color[] colors, bool[] visited, Queue<int> nodes, int node) {
+	private bool tryToEnqueue(Color[] colors, bool[] visited, Queue<int> nodes, int node, Color fillColor) {
 		if(node >= 0 && node < visited.Length) {
-			if(colors[node] != Color.red && !visited[node]) {
+			if(colors[node] != fillColor && !visited[node]) {
 				nodes.Enqueue(node);
 			}
 			return true;
