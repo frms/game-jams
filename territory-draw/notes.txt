@@ -1,0 +1,5 @@
+Ways the prototype could be improved
+
+	Multiple enemies moving around drawing the same color
+	Local multiplayer support
+	The ability to interact with the other drawer's (so that you negatively or positively affect them). Have a way to stun them, change their draw color, or do something else all together.
