@@ -47,26 +47,31 @@ public class GameCanvas : MonoBehaviour {
 
 		DateTime startTime = DateTime.Now;
 
-		Color[] colors = tex.GetPixels ();
-		bool[] visited = new bool[colors.Length];
-
-		for(int i = 0; i < colors.Length; i++) {
-			if(colors[i] != Color.red && !visited[i]) {
-				List<int> fillList = fill (colors, visited, i, Color.red);
-				if(fillList != null) {
-					foreach(int index in fillList) {
-						setPixelByIndex(index, Color.red);
-					}
-					tex.Apply ();
-				}
-			}
-		}
+		fillGivenColor (Color.red);
+		fillGivenColor (Color.green);
 
 		TimeSpan diff = DateTime.Now - startTime;
 		Debug.Log(diff.Milliseconds);
 		Debug.Log(Time.deltaTime * 1000);
 	}
-	
+
+	private void fillGivenColor(Color fillColor) {
+		Color[] colors = tex.GetPixels ();
+		bool[] visited = new bool[colors.Length];
+
+		for(int i = 0; i < colors.Length; i++) {
+			if(colors[i] != fillColor && !visited[i]) {
+				List<int> fillList = fill (colors, visited, i, fillColor);
+				if(fillList != null) {
+					foreach(int index in fillList) {
+						setPixelByIndex(index, fillColor);
+					}
+					tex.Apply ();
+				}
+			}
+		}
+	}
+
 	// This fill takes around 62 milliseconds and a frame lasts only 16 millisecond 
 	private List<int> fill(Color[] colors, bool[] visited, int start, Color fillColor) {
 		List<int> fillList = new List<int>();
