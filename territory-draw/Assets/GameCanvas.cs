@@ -28,7 +28,7 @@ public class GameCanvas : MonoBehaviour {
 	
 	private void clickPixel ()
 	{
-		if (!Input.GetMouseButtonDown (0))
+		if (!Input.GetButtonDown ("Fire1"))
 			return;
 		
 //		RaycastHit hit;

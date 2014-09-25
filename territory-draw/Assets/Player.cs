@@ -4,11 +4,17 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
 	public float speed = 5;
+	public bool isDrawing = true;
+	public int colorIndex = 0;
+
+	private Color[] colors;
 
 	private GameCanvas canvas;
 
 	// Use this for initialization
 	void Start () {
+		colors = new [] { Color.red, Color.green };
+
 		canvas = GameObject.Find ("GameCanvas").GetComponent<GameCanvas> ();
 	}
 	
@@ -16,7 +22,16 @@ public class Player : MonoBehaviour {
 	void Update () {
 		updateMoveCharacter ();
 
-		canvas.drawColor (transform.position, Color.red);
+		if (Input.GetButtonDown ("Fire2")) {
+			colorIndex++;
+			colorIndex = colorIndex % colors.Length;
+		} else if (Input.GetButtonDown ("Fire3")) {
+			isDrawing = !isDrawing;
+		}
+
+		if(isDrawing) {
+			canvas.drawColor (transform.position, colors[colorIndex]);
+		}
 	}
 
 	private void updateMoveCharacter() {
