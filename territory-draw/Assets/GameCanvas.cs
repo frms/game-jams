@@ -23,65 +23,107 @@ public class GameCanvas : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		clickPixel();
+		fillInColors();
 	}
-	
-	private void clickPixel ()
+
+	Color[] fillColors = new [] { Color.red, Color.green };
+	int fillInColorsIndex = -1;
+	DateTime startTime;
+
+	private void fillInColors ()
 	{
-		if (!Input.GetButtonDown ("Fire1"))
+		// If user has not hit the fire button and no work is in progress then return
+		if (!Input.GetButtonDown ("Fire1") && fillGivenColorIndex == -1)
 			return;
-		
-//		RaycastHit hit;
-//		if (!Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hit))
-//			return;
-//		
-//		Renderer renderer = hit.collider.renderer;
-//		MeshCollider meshCollider = hit.collider as MeshCollider;
-//		if (renderer == null || renderer.sharedMaterial == null || renderer.sharedMaterial.mainTexture == null || meshCollider == null)
-//			return;
-//		
-//		Vector2 pixelUV = hit.textureCoord;
-//		int x = (int)(pixelUV.x * tex.width);
-//		int y = (int)(pixelUV.y * tex.height);
-//		Debug.Log (x + "--" + y);
 
-		DateTime startTime = DateTime.Now;
+		startTime = DateTime.Now;
 
-		fillGivenColor (Color.red);
-		fillGivenColor (Color.green);
+		// Start filling for the first color
+		if(fillInColorsIndex == -1) {
+			fillInColorsIndex = 0;
+		}
 
-		TimeSpan diff = DateTime.Now - startTime;
-		Debug.Log(diff.Milliseconds);
-		Debug.Log(Time.deltaTime * 1000);
+		for(; fillInColorsIndex < fillColors.Length; fillInColorsIndex++) {
+			if(!fillGivenColor (fillColors[fillInColorsIndex])) {
+//				TimeSpan diff1 = DateTime.Now - startTime;
+//				Debug.Log(diff1.Milliseconds);
+//				Debug.Log(Time.deltaTime * 1000);
+				return;
+			}
+		}
+
+		// Reset the index if we've done all our work
+		if(fillInColorsIndex >= fillColors.Length) {
+			fillInColorsIndex = -1;
+		}
+
+//		TimeSpan diff2 = DateTime.Now - startTime;
+//		Debug.Log(diff2.Milliseconds);
+//		Debug.Log(Time.deltaTime * 1000);
 	}
 
-	private void fillGivenColor(Color fillColor) {
-		Color[] colors = tex.GetPixels ();
-		bool[] visited = new bool[colors.Length];
+	int fillGivenColorIndex = -1;
+	Color[] colors;
+	bool[] visited;
 
-		for(int i = 0; i < colors.Length; i++) {
-			if(colors[i] != fillColor && !visited[i]) {
-				List<int> fillList = fill (colors, visited, i, fillColor);
-				if(fillList != null) {
-					foreach(int index in fillList) {
-						setPixelByIndex(index, fillColor);
+	List<int> fillList;
+	bool useFillList;
+	Queue<int> nodes;
+
+	private bool fillGivenColor(Color fillColor) {
+		if(fillGivenColorIndex == -1) {
+			fillGivenColorIndex = 0;
+			colors = tex.GetPixels ();
+			visited = new bool[colors.Length];
+		}
+		
+		for(; fillGivenColorIndex < colors.Length; fillGivenColorIndex++) {
+			// If work is still in progress for the given pixel or its a new pixel and its a valid one to fill
+			// then call fill on that pixel.
+			if( nodes != null || (colors[fillGivenColorIndex] != fillColor && !visited[fillGivenColorIndex]) ) {
+				bool isComplete = fill (colors, visited, fillGivenColorIndex, fillColor);
+				
+				if(isComplete) {
+					if(useFillList) {
+						foreach(int index in fillList) {
+							setPixelByIndex(index, fillColor);
+						}
+						tex.Apply ();
 					}
-					tex.Apply ();
+
+					// Clear the nodes list so the fill state is reset the next time it runs
+					nodes = null;
+				}
+				// The last fill didnt finish so we've run out of time for this frame
+				else {
+					return false;
 				}
 			}
 		}
+
+		// Reset the index if we've done all our work
+		if (fillGivenColorIndex >= colors.Length) {
+			fillGivenColorIndex = -1;
+		}
+
+		return true;
 	}
 
 	// This fill takes around 62 milliseconds and a frame lasts only 16 millisecond 
-	private List<int> fill(Color[] colors, bool[] visited, int start, Color fillColor) {
-		List<int> fillList = new List<int>();
-		bool returnFillList = true;
-		
-		Queue<int> nodes = new Queue<int> (colors.Length);
+	private bool fill(Color[] colors, bool[] visited, int start, Color fillColor) {
+		if(nodes == null) {
+			fillList = new List<int>();
+			useFillList = true;
+			nodes = new Queue<int> (colors.Length);
 
-		tryToEnqueue (colors, visited, nodes, start, fillColor);
+			tryToEnqueue (colors, visited, nodes, start, fillColor);
+		}
 		
 		while(nodes.Count > 0) {
+			if(shouldPauseWork()) {
+				return false;
+			}
+
 			int currentNode = nodes.Dequeue();
 			
 			// If this node has already been visited then skip it
@@ -93,20 +135,16 @@ public class GameCanvas : MonoBehaviour {
 			fillList.Add(currentNode);
 			
 			// Add the left child
-			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode - 1, fillColor);
+			useFillList &= tryToEnqueue(colors, visited, nodes, currentNode - 1, fillColor);
 			// Add the right child
-			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode + 1, fillColor);
+			useFillList &= tryToEnqueue(colors, visited, nodes, currentNode + 1, fillColor);
 			// Add the top child
-			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode + tex.width, fillColor);
+			useFillList &= tryToEnqueue(colors, visited, nodes, currentNode + tex.width, fillColor);
 			// Add the bottom child
-			returnFillList &= tryToEnqueue(colors, visited, nodes, currentNode - tex.width, fillColor);
+			useFillList &= tryToEnqueue(colors, visited, nodes, currentNode - tex.width, fillColor);
 		}
 
-		if(returnFillList) {
-			return fillList;
-		} else {
-			return null;
-		}
+		return true;
 	}
 	
 	private void setPixelByIndex(int currentNode, Color color) {
@@ -129,6 +167,11 @@ public class GameCanvas : MonoBehaviour {
 		} else {
 			return false;
 		}
+	}
+
+	private bool shouldPauseWork() {
+		TimeSpan diff = DateTime.Now - startTime;
+		return diff.Milliseconds > 3;
 	}
 	
 	public void drawColor(Vector2 worldPosition, Color color) {
