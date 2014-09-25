@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System;
 
 public class GameCanvas : MonoBehaviour {
-	public int x = 0;
-	public int y = 0;
+	public bool canvasFill = true;
 	
 	private Vector2 originWorldCoords;
 	private Texture2D tex;
@@ -23,6 +22,10 @@ public class GameCanvas : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetButtonDown("Fire1")) {
+			canvasFill = !canvasFill;
+		}
+
 		fillInColors();
 	}
 
@@ -32,8 +35,7 @@ public class GameCanvas : MonoBehaviour {
 
 	private void fillInColors ()
 	{
-		// If user has not hit the fire button and no work is in progress then return
-		if (!Input.GetButtonDown ("Fire1") && fillGivenColorIndex == -1)
+		if (!canvasFill)
 			return;
 
 		startTime = DateTime.Now;
