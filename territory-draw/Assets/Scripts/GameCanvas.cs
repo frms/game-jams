@@ -29,7 +29,7 @@ public class GameCanvas : MonoBehaviour {
 		fillInColors();
 	}
 
-	Color[] fillColors = new [] { Color.red, Color.green };
+	Color[] fillColors = new [] { Color.blue, Color.red };
 	int fillInColorsIndex = -1;
 	DateTime startTime;
 
