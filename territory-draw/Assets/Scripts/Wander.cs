@@ -73,15 +73,16 @@ public class Wander : MonoBehaviour {
 			/* If we have not already decided which direction we will move away from the 
 			 * wall then decide it now and set the wander orientation to that direction */
 			if(lastDecisionTime + sameDecisionDuration < Time.time) {
+				decision = (int)(Random.value * 2);
+				lastDecisionTime = Time.time;
+			} else {
 				wanderOrientation = Mathf.PI/2;
-				
-				int decision = (int)(Random.value * 2);
 				if(decision == 0) {
 					wanderOrientation *= -1;
 				}
-				
-				lastDecisionTime = Time.time;
 			}
+
+			//Debug.Log (wanderOrientation);
 		}
 		/* Else update the wander orienation randomly like normal */
 		else {
