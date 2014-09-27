@@ -5,6 +5,8 @@ using System;
 
 public class GameCanvas : MonoBehaviour {
 	public bool canvasFill = true;
+	public GameObject enemy;
+	public int numberOfEnemies = 2;
 	
 	private Vector2 originWorldCoords;
 	private Texture2D tex;
@@ -18,6 +20,18 @@ public class GameCanvas : MonoBehaviour {
 		float x = transform.position.x - (transform.localScale.x / 2);
 		float y = transform.position.y - (transform.localScale.y / 2);
 		originWorldCoords = new Vector3 (x, y);
+
+		createEnemies ();
+	}
+
+	private void createEnemies() {
+		for(int i = 0; i < numberOfEnemies; i++) {
+			float x = (UnityEngine.Random.value * transform.localScale.x) - transform.localScale.x / 2;
+			float y = (UnityEngine.Random.value * transform.localScale.y) - transform.localScale.y / 2;
+
+			Quaternion rotation = Quaternion.Euler(0, 0, UnityEngine.Random.value*360);
+			Instantiate (enemy, new Vector3 (x, y, -1), rotation);
+		}
 	}
 	
 	// Update is called once per frame
