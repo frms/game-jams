@@ -26,8 +26,8 @@ public class Wander : MonoBehaviour {
 	private int decision;
 
 	void Start() {
-		DebugDraw debugDraw = gameObject.GetComponent<DebugDraw> ();
-		debugRing = debugDraw.createRing (Vector3.zero, wanderRadius);
+//		DebugDraw debugDraw = gameObject.GetComponent<DebugDraw> ();
+//		debugRing = debugDraw.createRing (Vector3.zero, wanderRadius);
 
 		steeringUtils = gameObject.GetComponent<SteeringUtils> ();
 	}
@@ -45,12 +45,12 @@ public class Wander : MonoBehaviour {
 		/* Calculate the center of the wander circle */
 		Vector3 targetPosition = transform.position + (orientationToVector (characterOrientation) * wanderOffset);
 
-		debugRing.transform.position = targetPosition;
+//		debugRing.transform.position = targetPosition;
 		
 		/* Calculate the target position */
 		targetPosition = targetPosition + (orientationToVector(targetOrientation) * wanderRadius);
 
-		Debug.DrawLine (transform.position, targetPosition);
+//		Debug.DrawLine (transform.position, targetPosition);
 
 
 		Vector2 acceleration = steeringUtils.seek (targetPosition);
@@ -64,18 +64,20 @@ public class Wander : MonoBehaviour {
 	private void updateWanderOrientation(float characterOrientation) {
 		Vector3 dir = orientationToVector (characterOrientation);
 		
-		Vector3 end = transform.position + dir * rayDistance;
-		Debug.DrawLine (transform.position, end, Color.green);
+//		Vector3 end = transform.position + dir * rayDistance;
+//		Debug.DrawLine (transform.position, end, Color.green);
 		
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, rayDistance);
 		/* If we collide with a wall then move away from it */
 		if (hit.collider != null){
 			/* If we have not already decided which direction we will move away from the 
-			 * wall then decide it now and set the wander orientation to that direction */
+			 * wall then decide it now */
 			if(lastDecisionTime + sameDecisionDuration < Time.time) {
 				decision = (int)(Random.value * 2);
 				lastDecisionTime = Time.time;
-			} else {
+			}
+			/* Set the wander orientation to the decided direction */
+			else {
 				wanderOrientation = Mathf.PI/2;
 				if(decision == 0) {
 					wanderOrientation *= -1;
