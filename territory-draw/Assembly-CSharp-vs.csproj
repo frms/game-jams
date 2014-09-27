@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\GameCanvas.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\SteeringUtils.cs" />
+     <Compile Include="Assets\Scripts\WallAvoid.cs" />
      <Compile Include="Assets\Scripts\Wander.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
