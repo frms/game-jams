@@ -7,6 +7,7 @@ public class GameCanvas : MonoBehaviour {
 	public bool canvasFill = true;
 	public GameObject enemy;
 	public int numberOfEnemies = 2;
+	public float timer = 60;
 	
 	private Vector2 originWorldCoords;
 	private Texture2D tex;
@@ -36,6 +37,12 @@ public class GameCanvas : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		timer -= Time.deltaTime;
+
+		if(timer <= 0.1) {
+			endGame();
+		}
+
 		if(Input.GetButtonDown("Fire1")) {
 			canvasFill = !canvasFill;
 		}
@@ -208,5 +215,82 @@ public class GameCanvas : MonoBehaviour {
 		
 		tex.Apply ();
 	}
+
+	private int playerColorCount;
+	private int opponentColorCount;
+	private bool gameOver = false;
+
+	private void endGame() {
+		playerColorCount = 0;
+		opponentColorCount = 0;
+
+		Color[] colors = tex.GetPixels ();
+
+		for(int i = 0; i < colors.Length; i++) {
+			if(colors[i] == fillColors[0]) {
+				playerColorCount++;
+			} else if(colors[i] == fillColors[1]) {
+				opponentColorCount++;
+			}
+		}
+
+		gameOver = true;
+	}
+
+
+	float native_width = 1920;
+	float native_height = 1080;
 	
+	void OnGUI ()
+	{
+		Matrix4x4 saveMat = GUI.matrix; // save current matrix
+		
+		//set up scaling
+		float rx = Screen.width / native_width;
+		float ry = Screen.height / native_height;
+		GUI.matrix = Matrix4x4.TRS (new Vector3(0, 0, 0), Quaternion.identity, new Vector3 (rx, ry, 1)); 
+		
+		// Do normal gui code from here on as though the resolution is guarenteed to be the native resolution
+		if(!gameOver) {
+			drawTime ();
+		} else {
+			drawGameOver();
+		}
+		
+		// Finish doing gui code
+		
+		GUI.matrix = saveMat; // restore matrix
+	}
+
+	private void drawTime() {
+		GUIStyle style = new GUIStyle ();
+		style.fontSize = 60;
+		
+		string text = ((int) (timer)).ToString();
+		Vector2 size = style.CalcSize(new GUIContent(text));
+		float x = native_width / 2 - size.x / 2;
+		
+		GUI.Label(new Rect(x, 10, size.x, size.y), text, style);
+	}
+
+	private void drawGameOver() {
+		GUIStyle style = new GUIStyle ();
+		style.fontSize = 120;
+		
+		string text1 = "Game Over";
+		Vector2 size1 = style.CalcSize(new GUIContent(text1));
+
+		float x = native_width / 2 - size1.x / 2;
+		float y = native_height / 2 - size1.y;
+		
+		GUI.Label(new Rect(x, y, size1.x, size1.y), text1, style);
+
+		string text2 = playerColorCount+" "+opponentColorCount;
+		Vector2 size2 = style.CalcSize(new GUIContent(text2));
+		
+		x = native_width / 2 - size2.x / 2;
+		y = native_height / 2;
+		
+		GUI.Label(new Rect(x, y, size2.x, size2.y), text2, style);
+	}
 }
