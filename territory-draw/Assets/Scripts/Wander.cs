@@ -35,28 +35,9 @@ public class Wander : MonoBehaviour {
 	void FixedUpdate () {
 
 		float characterOrientation = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
-
-
+		
 		/* Update the wander orientation */
-		Vector3 dir = orientationToVector (characterOrientation);
-		
-		Vector3 end = transform.position + dir * rayDistance;
-		Debug.DrawLine (transform.position, end, Color.green);
-		
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, rayDistance);
-		/* If we collide with the wall then wander away from it */
-		if (hit.collider != null){
-
-			if(lastDecisionTime + sameDecisionDuration < Time.time) {
-				int decision = (int)(Random.value * 2) - 1;
-				wanderOrientation += decision * wanderRate * 2;
-				lastDecisionTime = Time.time;
-			}
-		} else {
-			wanderOrientation += randomBinomial() * wanderRate;
-		}
-
-		
+		updateWanderOrientation (characterOrientation);
 		
 		/* Calculate the combined target orientation */
 		float targetOrientation = wanderOrientation + characterOrientation;
@@ -78,6 +59,34 @@ public class Wander : MonoBehaviour {
 	
 		steeringUtils.lookWhereYoureGoing ();
 
+	}
+
+	private void updateWanderOrientation(float characterOrientation) {
+		Vector3 dir = orientationToVector (characterOrientation);
+		
+		Vector3 end = transform.position + dir * rayDistance;
+		Debug.DrawLine (transform.position, end, Color.green);
+		
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, rayDistance);
+		/* If we collide with a wall then move away from it */
+		if (hit.collider != null){
+			/* If we have not already decided which direction we will move away from the 
+			 * wall then decide it now and set the wander orientation to that direction */
+			if(lastDecisionTime + sameDecisionDuration < Time.time) {
+				wanderOrientation = Mathf.PI/2;
+				
+				int decision = (int)(Random.value * 2);
+				if(decision == 0) {
+					wanderOrientation *= -1;
+				}
+				
+				lastDecisionTime = Time.time;
+			}
+		}
+		/* Else update the wander orienation randomly like normal */
+		else {
+			wanderOrientation += randomBinomial() * wanderRate;
+		}
 	}
 
 	/* Returns a random number between -1 and 1. Values around zero are more likely. */
