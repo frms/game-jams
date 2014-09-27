@@ -46,7 +46,7 @@ public class SteeringUtils : MonoBehaviour {
 		// If we have a non-zero velocity then look towards where we are moving otherwise do nothing
 		if (rigidbody2D.velocity.sqrMagnitude > 0.001) {
 			float toRotation = (Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg);
-			float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.z, toRotation, Time.fixedDeltaTime*2);
+			float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.z, toRotation, Time.fixedDeltaTime*5);
 			
 			transform.rotation = Quaternion.Euler(0, 0, rotation);
 		}
