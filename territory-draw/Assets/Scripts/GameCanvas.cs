@@ -62,7 +62,7 @@ public class GameCanvas : MonoBehaviour {
 		fillInColors();
 	}
 
-	Color[] fillColors = new [] { Color.blue, Color.red };
+	Color[] fillColors = new [] { new Color ((148f / 255f), (204f / 255f), (143f / 255f)), new Color ((178f / 255f), (143f / 255f), (204f / 255f)) };
 	int fillInColorsIndex = -1;
 	DateTime startTime;
 

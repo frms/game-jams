@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		colors = new [] { Color.blue, Color.red };
+		colors = new [] { new Color ((148f / 255f), (204f / 255f), (143f / 255f)), Color.red };
 
 		canvas = GameObject.Find ("GameCanvas").GetComponent<GameCanvas> ();
 	}
