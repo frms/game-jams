@@ -45,15 +45,19 @@ public class GameCanvas : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(gameOver){
+			return;
+		}
+
 		timer -= Time.deltaTime;
 
 		if(timer <= 0.1) {
 			endGame();
 		}
 
-		if(Input.GetButtonDown("Fire1")) {
-			canvasFill = !canvasFill;
-		}
+//		if(Input.GetButtonDown("Fire1")) {
+//			canvasFill = !canvasFill;
+//		}
 
 		fillInColors();
 	}
@@ -206,6 +210,10 @@ public class GameCanvas : MonoBehaviour {
 	}
 	
 	public void drawColor(Vector2 worldPosition, Color color) {
+		if(gameOver) {
+			return;
+		}
+
 		//Debug.Log (worldPosition);
 		
 		Vector2 offsetCoords = worldPosition - originWorldCoords;

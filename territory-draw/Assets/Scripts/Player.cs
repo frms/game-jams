@@ -29,12 +29,12 @@ public class Player : MonoBehaviour {
 
 		updateMoveCharacter ();
 
-		if (Input.GetButtonDown ("Fire2")) {
-			colorIndex++;
-			colorIndex = colorIndex % colors.Length;
-		} else if (Input.GetButtonDown ("Fire3")) {
-			isDrawing = !isDrawing;
-		}
+//		if (Input.GetButtonDown ("Fire2")) {
+//			colorIndex++;
+//			colorIndex = colorIndex % colors.Length;
+//		} else if (Input.GetButtonDown ("Fire3")) {
+//			isDrawing = !isDrawing;
+//		}
 
 		if(isDrawing) {
 			canvas.drawColor (transform.position, colors[colorIndex]);
