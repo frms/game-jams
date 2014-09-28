@@ -15,6 +15,10 @@ public class GameCanvas : MonoBehaviour {
 	private GameObject[] enemies;
 
 	void Start(){
+		// Get the information from the start screen
+		timer = StartScreen.duration;
+		numberOfEnemies = StartScreen.numberOfOpponents;
+
 		// Clone the current texture so we don't modify the original one. I don't know why unity acts like this.
 		tex = Instantiate(renderer.material.mainTexture) as Texture2D;
 		renderer.material.mainTexture = tex;
@@ -273,6 +277,7 @@ public class GameCanvas : MonoBehaviour {
 		GUI.matrix = Matrix4x4.TRS (new Vector3(0, 0, 0), Quaternion.identity, new Vector3 (rx, ry, 1)); 
 		
 		// Do normal gui code from here on as though the resolution is guarenteed to be the native resolution
+
 		if(!gameOver) {
 			drawTime ();
 		} else {
@@ -291,7 +296,6 @@ public class GameCanvas : MonoBehaviour {
 		string text = ((int) (timer)).ToString();
 		Vector2 size = style.CalcSize(new GUIContent(text));
 		float x = native_width / 2 - size.x / 2;
-		
 		GUI.Label(new Rect(x, 10, size.x, size.y), text, style);
 	}
 
@@ -307,12 +311,26 @@ public class GameCanvas : MonoBehaviour {
 		
 		GUI.Label(new Rect(x, y, size1.x, size1.y), text1, style);
 
-		string text2 = playerColorCount+" "+opponentColorCount;
+		string text2 = "<color=#159f09ff>"+playerColorCount+"</color> <color=#7c0cccff>"+opponentColorCount+"</color>";
 		Vector2 size2 = style.CalcSize(new GUIContent(text2));
 		
 		x = native_width / 2 - size2.x / 2;
 		y = native_height / 2;
 		
 		GUI.Label(new Rect(x, y, size2.x, size2.y), text2, style);
+
+		GUIStyle buttonStyle = new GUIStyle ("button");
+		buttonStyle.fontSize = 80;
+		buttonStyle.padding = new RectOffset (10, 10, 5, 5);
+
+		string text3 = "restart";
+		Vector2 size3 = buttonStyle.CalcSize(new GUIContent(text3));
+		
+		x = native_width / 2 - size3.x / 2;
+		y = native_height / 2 + size2.y;
+
+		if (GUI.Button (new Rect (x, y, size3.x, size3.y), text3, buttonStyle)) {
+			Application.LoadLevel(0);
+		}
 	}
 }
