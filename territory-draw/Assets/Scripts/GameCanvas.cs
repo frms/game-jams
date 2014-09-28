@@ -11,7 +11,9 @@ public class GameCanvas : MonoBehaviour {
 	
 	private Vector2 originWorldCoords;
 	private Texture2D tex;
-	
+	private GameObject player;
+	private GameObject[] enemies;
+
 	void Start(){
 		// Clone the current texture so we don't modify the original one. I don't know why unity acts like this.
 		tex = Instantiate(renderer.material.mainTexture) as Texture2D;
@@ -22,16 +24,22 @@ public class GameCanvas : MonoBehaviour {
 		float y = transform.position.y - (transform.localScale.y / 2);
 		originWorldCoords = new Vector3 (x, y);
 
+		player = GameObject.Find ("Player");
+
 		createEnemies ();
 	}
 
 	private void createEnemies() {
+		// Create the parent game object to hold the enemies
+		enemies = new GameObject[numberOfEnemies];
+
 		for(int i = 0; i < numberOfEnemies; i++) {
 			float x = (UnityEngine.Random.value * transform.localScale.x) - transform.localScale.x / 2;
 			float y = (UnityEngine.Random.value * transform.localScale.y) - transform.localScale.y / 2;
 
 			Quaternion rotation = Quaternion.Euler(0, 0, UnityEngine.Random.value*360);
-			Instantiate (enemy, new Vector3 (x, y, -1), rotation);
+			GameObject clone = Instantiate (enemy, new Vector3 (x, y, -1), rotation) as GameObject;
+			enemies[i] = clone;
 		}
 	}
 	
@@ -232,6 +240,12 @@ public class GameCanvas : MonoBehaviour {
 			} else if(colors[i] == fillColors[1]) {
 				opponentColorCount++;
 			}
+		}
+
+		player.SendMessage ("timeIsUp");
+
+		for(var i = 0 ; i < enemies.Length; i++) {
+			enemies[i].SendMessage("timeIsUp");
 		}
 
 		gameOver = true;

@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
 
 	private GameCanvas canvas;
 
+	private bool gameOver = false;
+
 	// Use this for initialization
 	void Start () {
 		colors = new [] { Color.blue, Color.red };
@@ -20,6 +22,11 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(gameOver) {
+			rigidbody2D.velocity = Vector2.zero;
+			return;
+		}
+
 		updateMoveCharacter ();
 
 		if (Input.GetButtonDown ("Fire2")) {
@@ -95,5 +102,9 @@ public class Player : MonoBehaviour {
 		
 		Debug.Log ("SHOULD NOT BE REACHING THIS CODE");
 		return 315;
+	}
+
+	public void timeIsUp() {
+		gameOver = true;
 	}
 }

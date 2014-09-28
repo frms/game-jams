@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
-
+	
 	private GameCanvas canvas;
 	
 	// Use this for initialization

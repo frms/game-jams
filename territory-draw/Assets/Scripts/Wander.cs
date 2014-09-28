@@ -25,6 +25,8 @@ public class Wander : MonoBehaviour {
 	private float lastDecisionTime = Mathf.NegativeInfinity;
 	private int decision;
 
+	private bool gameOver = false;
+
 	void Start() {
 //		DebugDraw debugDraw = gameObject.GetComponent<DebugDraw> ();
 //		debugRing = debugDraw.createRing (Vector3.zero, wanderRadius);
@@ -33,6 +35,11 @@ public class Wander : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+		/* If the game is over then do nothing */
+		if(gameOver) {
+			rigidbody2D.velocity = Vector2.zero;
+			return;
+		}
 
 		float characterOrientation = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
 		
@@ -100,5 +107,9 @@ public class Wander : MonoBehaviour {
 	/* Returns the orientation as a unit vector */
 	Vector3 orientationToVector(float orientation) {
 		return new Vector3(Mathf.Cos(orientation), Mathf.Sin(orientation), 0);
+	}
+
+	public void timeIsUp() {
+		gameOver = true;
 	}
 }
