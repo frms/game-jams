@@ -172,8 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 813804960}
-  health: 9.99999984e+17
-  maxHealth: 9.99999987e+14
+  health: 100
+  maxHealth: 100
   outOfCombatTime: 3
   healthRegenRate: 15
   speed: 5
@@ -197,6 +197,7 @@ MonoBehaviour:
   stunObj2: {fileID: 109441013}
   stunObj3: {fileID: 433641422}
   stunObj4: {fileID: 1579676586}
+  stunEnemyDuration: 2
 --- !u!1 &14358329
 GameObject:
   m_ObjectHideFlags: 0

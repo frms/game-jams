@@ -27,6 +27,8 @@ public class Wander : MonoBehaviour {
 
 	private int levelBoundaryMask;
 
+	private Enemy enemy;
+
 	void Start() {
 		//		DebugDraw debugDraw = gameObject.GetComponent<DebugDraw> ();
 		//		debugRing = debugDraw.createRing (Vector3.zero, wanderRadius);
@@ -34,9 +36,16 @@ public class Wander : MonoBehaviour {
 		steeringUtils = gameObject.GetComponent<SteeringUtils> ();
 
 		levelBoundaryMask = (1 << LayerMask.NameToLayer("LevelBoundary"));
+
+		enemy = gameObject.GetComponent<Enemy> ();
 	}
 	
 	void FixedUpdate () {
+
+		if(enemy.stunTill > Time.time) {
+			rigidbody2D.velocity = Vector2.zero;
+			return;
+		}
 		
 		float characterOrientation = transform.rotation.eulerAngles.z * Mathf.Deg2Rad;
 		

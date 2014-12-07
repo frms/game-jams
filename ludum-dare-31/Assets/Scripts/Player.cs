@@ -81,6 +81,8 @@ public class Player : MonoBehaviour {
 
 		updateMeleeAttack ();
 
+		updateStun();
+
 		// Trigger secondary action
 		if (Input.GetButtonDown ("Fire2")) {
 
@@ -154,6 +156,27 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	public float stunEnemyDuration = 2;
+
+	private void updateStun() {
+		if(Time.time < nextStunTime) {
+			float dist = ((nextStunTime - Time.time) / stunTime) * 3;
+			dist = 3 - dist;
+
+			//Debug.Log (dist);
+
+			GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+			foreach(GameObject go in enemies) {
+				Vector3 enemyPos = go.transform.position;
+
+				if(Vector3.Distance(transform.position, enemyPos) <= dist) {
+					go.SendMessage("stun", stunEnemyDuration);
+				}
+			}
+		}
+	}
+
 	private void fireArrow(float distance) {
 		GameObject clone = Instantiate (projectile, spawnPoint.position, spawnPoint.rotation) as GameObject;
 		
@@ -165,12 +188,20 @@ public class Player : MonoBehaviour {
 		clone.rigidbody2D.velocity = transform.right * arrowSpeed;
 	}
 
+	private float stunTime = 0.6818182f;
+	private float nextStunTime = 0;
+
+
 	private void fireStun() {
-		Invoke("showStun1", 0);
-		Invoke("showStun2", 0.15f);
-		Invoke("showStun3", 0.3f);
-		Invoke("showStun4", 0.45f);
-		Invoke("hideStun", 0.6818182f);
+		if(nextStunTime <= Time.time) {
+			nextStunTime = Time.time + stunTime;
+
+			Invoke("showStun1", 0);
+			Invoke("showStun2", 0.15f);
+			Invoke("showStun3", 0.3f);
+			Invoke("showStun4", 0.45f);
+			Invoke("hideStun", stunTime);
+		}
 	}
 
 	public void showStun1() {

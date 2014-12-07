@@ -12,15 +12,24 @@ public class Enemy2AI : MonoBehaviour {
 
 	private Transform player;
 
+	private Enemy enemy;
+
 	// Use this for initialization
 	void Start () {
 		steeringUtils = gameObject.GetComponent<SteeringUtils> ();
+		enemy = gameObject.GetComponent<Enemy> ();
 
 		player = GameObject.Find("Player").transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(enemy.stunTill > Time.time) {
+			attacking = false;
+			rigidbody2D.velocity = Vector2.zero;
+			return;
+		}
+
 		if(player != null) {
 			Vector2 sepAccel = steeringUtils.separation("Enemy");
 			Vector2 arriveAccel = steeringUtils.arrive (player.position);

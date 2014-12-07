@@ -36,4 +36,12 @@ public class Enemy : MonoBehaviour {
 			Destroy(healthBar.gameObject);
 		}
 	}
+
+	public float stunTill = 0;
+
+	public void stun(float time) {
+		if(stunTill < Time.time) {
+			stunTill = Time.time + time;
+		}
+	}
 }
