@@ -185,5 +185,9 @@ public class Player : MonoBehaviour {
 		if(health <= 0) {
 			health = 0;
 		}
+
+		// Screen shake
+		Hashtable ht = new Hashtable(); ht.Add("x",0.115f); ht.Add("y",0.115f); ht.Add("time", 0.3f);
+		iTween.ShakePosition(Camera.main.gameObject, ht);
 	}
 }
