@@ -101,13 +101,6 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionStay2D(Collision2D coll) {
-		// If we're dashing and we collide with anything then stop dashing
-		if(dashing) {
-			stopDashing();
-		}
-	}
-
 	private void updateMoveCharacter() {
 		Vector3 stickDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
 		

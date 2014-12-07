@@ -186,7 +186,7 @@ MonoBehaviour:
   arrowSpeed: 15
   arrowDamage: 30
   dashObj: {fileID: 643868287}
-  dashDistance: 10
+  dashDistance: 7
   dashSpeed: 15
   dashMaxDmgTaken: 15
 --- !u!1 &14358329
@@ -389,7 +389,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2b2bc4093b9b1dd45bf6979b96726a1f, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b2bc4093b9b1dd45bf6979b96726a1f, type: 2}
@@ -1017,7 +1017,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2304bd493e3e3ce40b293ad4693957af, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2304bd493e3e3ce40b293ad4693957af, type: 2}
@@ -1103,7 +1103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1412279376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1241,7 +1241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1571229979
 MonoBehaviour:
   m_ObjectHideFlags: 0
