@@ -14,4 +14,17 @@ public class Element : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
+
+	private float endOfLife = -1;
+	private float lifeDuration = 3;
+
+	void Update() {
+		if(endOfLife == -1) {
+			endOfLife = Time.time + lifeDuration;
+		}
+
+		if(endOfLife < Time.time) {
+			Destroy(gameObject);
+		}
+	}
 }
