@@ -181,7 +181,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 240372148}
   maxArrowDistance: 5
   arrowSpeed: 15
-  arrowDamage: 10
+  arrowDamage: 30
   dashDistance: 10
   dashSpeed: 15
 --- !u!1 &14358329
