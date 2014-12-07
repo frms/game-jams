@@ -32,8 +32,10 @@ public class Player : MonoBehaviour {
 	public float arrowSpeed = 10;
 	public float arrowDamage = 10;
 
+	public GameObject dashObj;
 	public float dashDistance = 10;
 	public float dashSpeed = 15;
+	public float dashMaxDmgTaken = 25;
 	private bool dashing = false;
 	private Vector3 dashStartPoint;
 
@@ -158,16 +160,24 @@ public class Player : MonoBehaviour {
 		clone.rigidbody2D.velocity = transform.right * arrowSpeed;
 	}
 
+	private float dashShield;
+
 	private void startDashing() {
 		dashing = true;
 
+		dashShield = dashMaxDmgTaken;
+
 		dashStartPoint = transform.position;
 		rigidbody2D.velocity = transform.right * dashSpeed;
+
+		dashObj.SetActive(true);
 	}
 
 	private void stopDashing() {
 		dashing = false;
 		rigidbody2D.velocity = Vector2.zero;
+
+		dashObj.SetActive(false);
 	}
 	
 	public void gainElementA() {
@@ -189,6 +199,13 @@ public class Player : MonoBehaviour {
 	}
 
 	public void applyDamage(float damage) {
+		// If dashing take less damage
+		if(dashing) {
+			damage = Mathf.Min(damage, dashShield);
+
+			dashShield -= damage;
+		}
+
 		health -= damage;
 
 		if(health <= 0) {
