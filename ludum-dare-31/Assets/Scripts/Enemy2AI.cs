@@ -52,7 +52,7 @@ public class Enemy2AI : MonoBehaviour {
 		
 		// If we are still melee attacking then animate it
 		if (nextMelee - Time.time >= 0) {
-			float percent = Mathf.SmoothStep(0, 1, (1 - (nextMelee - Time.time) / meleeTime));
+			float percent = Mathfx.Hermite(0, 1, (1 - (nextMelee - Time.time) / meleeTime));
 			float angle = meleeArc * percent;
 			angle -= meleeArc/2f;
 
