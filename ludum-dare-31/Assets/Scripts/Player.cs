@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
 
 	public Ability secondaryAbility = Ability.None;
 
-	public enum Ability {None, Arrow, Dash, Bomb};
+	public enum Ability {None, Arrow, Dash, Stun};
 
 	public GameObject projectile;
 	public Transform spawnPoint;
@@ -38,6 +38,8 @@ public class Player : MonoBehaviour {
 	public float dashMaxDmgTaken = 25;
 	private bool dashing = false;
 	private Vector3 dashStartPoint;
+
+	public GameObject stunObj;
 
 	private float mouseAngle;
 
@@ -86,14 +88,18 @@ public class Player : MonoBehaviour {
 				case Ability.Dash:
 					startDashing();
 					break;
+				case Ability.Stun:
+					fireStun();
+					break;
 			}
 		}
 
 		if(dashing && Vector3.Distance(transform.position, dashStartPoint) >= dashDistance) {
 			stopDashing();
 		}
-		Debug.DrawRay(Vector3.zero, new Vector3(Mathf.Cos(22.5f*Mathf.Deg2Rad), Mathf.Sin(22.5f*Mathf.Deg2Rad), 0)*6);
-		Debug.DrawRay(Vector3.zero, new Vector3(Mathf.Cos(-22.5f*Mathf.Deg2Rad), Mathf.Sin(-22.5f*Mathf.Deg2Rad), 0)*6);
+
+		//Debug.DrawRay(Vector3.zero, new Vector3(Mathf.Cos(22.5f*Mathf.Deg2Rad), Mathf.Sin(22.5f*Mathf.Deg2Rad), 0)*6);
+		//Debug.DrawRay(Vector3.zero, new Vector3(Mathf.Cos(-22.5f*Mathf.Deg2Rad), Mathf.Sin(-22.5f*Mathf.Deg2Rad), 0)*6);
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -156,6 +162,17 @@ public class Player : MonoBehaviour {
 		clone.rigidbody2D.velocity = transform.right * arrowSpeed;
 	}
 
+	private void fireStun() {
+		stunObj.SetActive(true);
+		stunObj.transform.position = transform.position;
+		stunObj.transform.rotation = transform.rotation;
+	}
+
+	public void endStunAnimation() {
+
+	}
+
+
 	private float dashShield;
 
 	private void startDashing() {
@@ -191,7 +208,7 @@ public class Player : MonoBehaviour {
 	public void gainElementC() {
 		numOfElementC++;
 		
-		secondaryAbility = Ability.Bomb;
+		secondaryAbility = Ability.Stun;
 	}
 
 	public void applyDamage(float damage) {
