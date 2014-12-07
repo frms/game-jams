@@ -52,11 +52,12 @@ public class Enemy2AI : MonoBehaviour {
 		
 		// If we are still melee attacking then animate it
 		if (nextMelee - Time.time >= 0) {
-			float angle = meleeArc * (1 - (nextMelee - Time.time) / meleeTime);
+			float percent = Mathf.SmoothStep(0, 1, (1 - (nextMelee - Time.time) / meleeTime));
+			float angle = meleeArc * percent;
 			angle -= meleeArc/2f;
 
 			Vector2 position = new Vector2 (Mathf.Cos (angle * Mathf.Deg2Rad), Mathf.Sin (angle * Mathf.Deg2Rad));
-			meleeObj.transform.localPosition = position*0.6f;
+			meleeObj.transform.localPosition = position*0.5f;
 			meleeObj.transform.localRotation = Quaternion.Euler(0, 0, angle);
 			
 			meleeObj.SetActive(true);

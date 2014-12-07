@@ -125,7 +125,8 @@ public class Player : MonoBehaviour {
 
 		// If we are still melee attacking then animate it
 		if (nextMelee - Time.time >= 0) {
-			float angle = mouseAngle + meleeArc * (1 - (nextMelee - Time.time) / meleeTime);
+			float percent = Mathf.SmoothStep(0, 1, (1 - (nextMelee - Time.time) / meleeTime));
+			float angle = mouseAngle + meleeArc * percent;
 			angle -= meleeArc/2f;
 			
 			Vector3 position = new Vector3 (Mathf.Cos (angle * Mathf.Deg2Rad), Mathf.Sin (angle * Mathf.Deg2Rad), 0);
