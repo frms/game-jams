@@ -798,10 +798,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restartBtn: {fileID: 14358331}
-  enemy1: {fileID: 100000, guid: dd7998b22e676d34c9f42459d313eaf9, type: 2}
-  numOfEnemy1: 5
-  enemy2: {fileID: 100000, guid: 950deb1c11a0e824b808c7fa3cc8e36a, type: 2}
-  numOfEnemy2: 10
+  enemies:
+  - go: {fileID: 100000, guid: dd7998b22e676d34c9f42459d313eaf9, type: 2}
+    startNum: 5
+    maxNum: 5
+    spawnTimer: {x: 0, y: 0}
+  - go: {fileID: 100000, guid: 950deb1c11a0e824b808c7fa3cc8e36a, type: 2}
+    startNum: 10
+    maxNum: 20
+    spawnTimer: {x: 0, y: 0}
 --- !u!4 &894400631
 Transform:
   m_ObjectHideFlags: 0
