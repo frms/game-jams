@@ -34,6 +34,8 @@ public class Player : MonoBehaviour {
 	private bool dashing = false;
 	private Vector3 dashStartPoint;
 
+	private float mouseAngle;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -50,6 +52,14 @@ public class Player : MonoBehaviour {
 		}
 		
 		if(!dashing) {
+			Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+			dir.z = 0;
+			dir.Normalize();
+
+			if(dir != Vector3.zero) {
+				mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+			}
+
 			updateMoveCharacter();
 		}
 
@@ -88,25 +98,19 @@ public class Player : MonoBehaviour {
 	}
 
 	private void updateMoveCharacter() {
-		Vector2 stickDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+		Vector3 stickDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
 		
 		//stickDirection = stickDirection.normalized;
 		
 		if(stickDirection.sqrMagnitude > 0.031) {
-			
-			// Rotate the character
-			float moveAngle = Mathf.Atan2(stickDirection.y, stickDirection.x)*Mathf.Rad2Deg;
-			if(moveAngle < 0) {
-				moveAngle += 360;
-			}
-			
-			//Debug.Log (moveAngle);
+			stickDirection.Normalize();
 
-			transform.rotation = Quaternion.Euler(0, 0, moveAngle);
-			rigidbody2D.velocity = transform.right * speed;
+			rigidbody2D.velocity = stickDirection * speed;
 		} else {
 			rigidbody2D.velocity = Vector2.zero;
 		}
+
+		transform.rotation = Quaternion.Euler(0, 0, mouseAngle);
 	}
 
 	private void updateMeleeAttack() {
@@ -117,12 +121,14 @@ public class Player : MonoBehaviour {
 
 		// If we are still melee attacking then animate it
 		if (nextMelee - Time.time >= 0) {
-			float angle = meleeArc * (1 - (nextMelee - Time.time) / meleeTime);
+			float angle = mouseAngle + meleeArc * (1 - (nextMelee - Time.time) / meleeTime);
 			angle -= meleeArc/2f;
 			
-			Vector2 position = new Vector2 (Mathf.Cos (angle * Mathf.Deg2Rad), Mathf.Sin (angle * Mathf.Deg2Rad));
-			meleeObj.transform.localPosition = position*0.6f;
-			meleeObj.transform.localRotation = Quaternion.Euler(0, 0, angle);
+			Vector3 position = new Vector3 (Mathf.Cos (angle * Mathf.Deg2Rad), Mathf.Sin (angle * Mathf.Deg2Rad), 0);
+			meleeObj.transform.position = transform.position + position*0.6f;
+			meleeObj.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+			//Debug.Log (angle);
 			
 			meleeObj.SetActive(true);
 		}
