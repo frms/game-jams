@@ -55,6 +55,7 @@ public class Player : MonoBehaviour {
 			return;
 		}
 
+		// Health regen
 		if(health <= maxHealth && Time.time >= lastTimeInCombat+outOfCombatTime) {
 			heal (healthRegenRate * Time.deltaTime);
 		}
