@@ -39,7 +39,10 @@ public class Player : MonoBehaviour {
 	private bool dashing = false;
 	private Vector3 dashStartPoint;
 
-	public GameObject stunObj;
+	public GameObject stunObj1;
+	public GameObject stunObj2;
+	public GameObject stunObj3;
+	public GameObject stunObj4;
 
 	private float mouseAngle;
 
@@ -163,15 +166,37 @@ public class Player : MonoBehaviour {
 	}
 
 	private void fireStun() {
-		stunObj.SetActive(true);
-		stunObj.transform.position = transform.position;
-		stunObj.transform.rotation = transform.rotation;
+		Invoke("showStun1", 0);
+		Invoke("showStun2", 0.15f);
+		Invoke("showStun3", 0.3f);
+		Invoke("showStun4", 0.45f);
+		Invoke("hideStun", 0.6818182f);
 	}
 
-	public void endStunAnimation() {
-
+	public void showStun1() {
+		stunObj1.SetActive(true);
 	}
 
+
+	public void showStun2() {
+		stunObj2.SetActive(true);
+	}
+
+
+	public void showStun3() {
+		stunObj3.SetActive(true);
+	}
+
+	public void showStun4() {
+		stunObj4.SetActive(true);
+	}
+
+	public void hideStun() {
+		stunObj1.SetActive(false);
+		stunObj2.SetActive(false);
+		stunObj3.SetActive(false);
+		stunObj4.SetActive(false);
+	}
 
 	private float dashShield;
 
