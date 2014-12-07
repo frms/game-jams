@@ -92,6 +92,8 @@ public class Player : MonoBehaviour {
 		if(dashing && Vector3.Distance(transform.position, dashStartPoint) >= dashDistance) {
 			stopDashing();
 		}
+		Debug.DrawRay(Vector3.zero, new Vector3(Mathf.Cos(22.5f*Mathf.Deg2Rad), Mathf.Sin(22.5f*Mathf.Deg2Rad), 0)*6);
+		Debug.DrawRay(Vector3.zero, new Vector3(Mathf.Cos(-22.5f*Mathf.Deg2Rad), Mathf.Sin(-22.5f*Mathf.Deg2Rad), 0)*6);
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
