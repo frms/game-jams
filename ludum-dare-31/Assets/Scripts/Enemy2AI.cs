@@ -22,14 +22,16 @@ public class Enemy2AI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(player != null) {
-			Vector2 acceleration = steeringUtils.arrive (player.position);
+			Vector2 sepAccel = steeringUtils.separation("Enemy");
+			Vector2 arriveAccel = steeringUtils.arrive (player.position);
 
-			if(acceleration != Vector2.zero) {
-				steeringUtils.steer (acceleration);
-				attacking = false;
-			} else {
-				attacking = true;
+			if(sepAccel != Vector2.zero) {
+				steeringUtils.steer (sepAccel);
+			} else if(arriveAccel != Vector2.zero) {
+				steeringUtils.steer (arriveAccel);
 			}
+
+			attacking = (Vector3.Distance(transform.position, player.position) <= steeringUtils.targetRadius);
 		}
 		// Else the player is dead so stop attacking and stop moving
 		else {

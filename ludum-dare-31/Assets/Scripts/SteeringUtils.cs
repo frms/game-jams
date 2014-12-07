@@ -107,4 +107,38 @@ public class SteeringUtils : MonoBehaviour {
 
 		return acceleration;
 	}
+
+	/* Minimum distance at which separation happens */
+	public float threshold = 0.5f;
+	
+	/* The maximum acceleration for separation */
+	public float sepMaxAcceleration = 10;
+
+	public Vector2 separation(string tag) {
+		Vector3 acceleration = Vector3.zero;
+
+		GameObject[] targets = GameObject.FindGameObjectsWithTag(tag);
+		
+		for(int i = 0; i < targets.Length; i++) {
+			if(targets[i] == gameObject) {
+				continue;
+			}
+			
+			/* Get the direction and distance from the target */
+			Vector3 direction = transform.position - targets[i].transform.position;
+			float dist = direction.magnitude;
+			
+			if(dist < threshold) {
+				/* Calculate the separation strength (can be changed to use inverse square law rather than linear) */
+				float strength = maxAcceleration * (threshold - dist) / threshold;
+				
+				/* Added separation acceleration to the existing steering */
+				direction.Normalize();
+				direction *= strength;
+				acceleration += direction;
+			}
+		}
+
+		return acceleration;
+	}
 }

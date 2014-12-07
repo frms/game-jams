@@ -161,6 +161,8 @@ MonoBehaviour:
   targetRadius: .800000012
   slowRadius: 1.79999995
   timeToTarget: .100000001
+  threshold: .699999988
+  sepMaxAcceleration: 10
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
