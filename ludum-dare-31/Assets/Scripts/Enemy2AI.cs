@@ -15,7 +15,7 @@ public class Enemy2AI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector2 acceleration = steeringUtils.seek (player.position);
+		Vector2 acceleration = steeringUtils.arrive (player.position);
 		
 		steeringUtils.steer (acceleration);
 		

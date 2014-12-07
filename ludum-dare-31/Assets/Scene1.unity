@@ -216,6 +216,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxVelocity: 3
   maxAcceleration: 4
+  targetRadius: .800000012
+  slowRadius: 1.79999995
+  timeToTarget: .100000001
 --- !u!114 &29870634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,6 +686,14 @@ Prefab:
     - target: {fileID: 100000, guid: dd7998b22e676d34c9f42459d313eaf9, type: 2}
       propertyPath: m_Name
       value: Enemy2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: dd7998b22e676d34c9f42459d313eaf9, type: 2}
+      propertyPath: slowRadius
+      value: 1.79999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: dd7998b22e676d34c9f42459d313eaf9, type: 2}
+      propertyPath: targetRadius
+      value: .800000012
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400004, guid: dd7998b22e676d34c9f42459d313eaf9, type: 2}
