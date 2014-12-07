@@ -6,7 +6,10 @@ public class GameController : MonoBehaviour {
 	public Button restartBtn;
 
 	public GameObject enemy1;
-	public int numOfEnemy = 5;
+	public int numOfEnemy1 = 5;
+
+	public GameObject enemy2;
+	public int numOfEnemy2 = 5;
 
 	private GameObject player;
 
@@ -14,13 +17,18 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		player = GameObject.Find("Player");
 
-		for(int i = 0; i < numOfEnemy; i++) {
+		createGameObjs(enemy1, numOfEnemy1);
+		createGameObjs(enemy2, numOfEnemy2);
+	}
+
+	private void createGameObjs(GameObject go, int num) {
+		for(int i = 0; i < num; i++) {
 			float x = Random.value * 16 - 8;
 			float y = Random.value * 9 - 4.5f;
-
+			
 			Quaternion orientation = Quaternion.Euler(0, 0, Random.value * 360);
-
-			Instantiate (enemy1, new Vector3(x, y, 0), orientation);
+			
+			Instantiate (go, new Vector3(x, y, 0), orientation);
 		}
 	}
 	
