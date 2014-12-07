@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy1 : MonoBehaviour {
+public class Enemy : MonoBehaviour {
 
 	public GameObject healthBarPrefab;
 	public Vector3 healthBarSize = new Vector3 (1, 1, 1);
