@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
+	public Image healthBar;
+	public float health = 100;
+	public float maxHealth = 100;
+
 	public float speed = 5;
 
 	public GameObject meleeObj;
@@ -36,6 +41,8 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// Make the health bar scale to the current health
+		healthBar.transform.localScale = new Vector3(health/maxHealth, 1, 1);
 
 		if(!dashing) {
 			updateMoveCharacter();
