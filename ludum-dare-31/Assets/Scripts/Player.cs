@@ -168,6 +168,10 @@ public class Player : MonoBehaviour {
 			GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
 			foreach(GameObject go in enemies) {
+				if(go == null) {
+					continue;
+				}
+
 				Vector3 enemyPos = go.transform.position;
 
 				if(Vector3.Distance(transform.position, enemyPos) <= dist) {

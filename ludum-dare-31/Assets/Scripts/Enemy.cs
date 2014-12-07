@@ -32,6 +32,11 @@ public class Enemy : MonoBehaviour {
 
 		// Kill the enemy if it loses all its health
 		if(health <= 0) {
+			if(Random.value <= chanceToDrop) {
+				int index = Random.Range(0, elements.Length);
+				Instantiate(elements[index], transform.position, Quaternion.identity);
+			}
+
 			Destroy(gameObject);
 			Destroy(healthBar.gameObject);
 		}
@@ -44,4 +49,7 @@ public class Enemy : MonoBehaviour {
 			stunTill = Time.time + time;
 		}
 	}
+
+	public GameObject[] elements;
+	public float chanceToDrop = 0.20f;
 }

@@ -193,6 +193,12 @@ MonoBehaviour:
   healthBarOffset: {x: -.400000006, y: .550000012, z: 0}
   health: 100
   maxHealth: 100
+  stunTill: 0
+  elements:
+  - {fileID: 100000, guid: 2b2bc4093b9b1dd45bf6979b96726a1f, type: 2}
+  - {fileID: 100000, guid: f96515184ecfdc24fa37376d8356a657, type: 2}
+  - {fileID: 100000, guid: 2304bd493e3e3ce40b293ad4693957af, type: 2}
+  chanceToDrop: .600000024
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
