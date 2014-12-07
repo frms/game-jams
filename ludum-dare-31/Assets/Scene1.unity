@@ -169,6 +169,8 @@ MonoBehaviour:
   healthBar: {fileID: 813804960}
   health: 100
   maxHealth: 100
+  outOfCombatTime: 3
+  healthRegenRate: 15
   speed: 5
   meleeObj: {fileID: 251617485}
   meleeArc: 90

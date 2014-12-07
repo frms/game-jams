@@ -7,6 +7,9 @@ public class Player : MonoBehaviour {
 	public Image healthBar;
 	public float health = 100;
 	public float maxHealth = 100;
+	public float outOfCombatTime = 3;
+	public float healthRegenRate = 15;
+	private float lastTimeInCombat = 0;
 
 	public float speed = 5;
 
@@ -49,6 +52,11 @@ public class Player : MonoBehaviour {
 		// Kill the player if it loses all its health
 		if(health <= 0) {
 			Destroy(gameObject);
+			return;
+		}
+
+		if(health <= maxHealth && Time.time >= lastTimeInCombat+outOfCombatTime) {
+			heal (healthRegenRate * Time.deltaTime);
 		}
 		
 		if(!dashing) {
@@ -186,8 +194,18 @@ public class Player : MonoBehaviour {
 			health = 0;
 		}
 
+		lastTimeInCombat = Time.time;
+
 		// Screen shake
 		Hashtable ht = new Hashtable(); ht.Add("x",0.115f); ht.Add("y",0.115f); ht.Add("time", 0.3f);
 		iTween.ShakePosition(Camera.main.gameObject, ht);
+	}
+
+	public void heal(float amt) {
+		health += amt;
+		
+		if(health >= maxHealth) {
+			health = maxHealth;
+		}
 	}
 }
