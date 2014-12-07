@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour {
 	public float speed = 5;
 
-	public GameObject meleeImage;
+	public GameObject meleeObj;
 	public float meleeArc = 180;
 	public float meleeTime = 1;
 	private float nextMelee = 0.0F;
@@ -109,14 +109,14 @@ public class Player : MonoBehaviour {
 			angle -= meleeArc/2f;
 			
 			Vector2 position = new Vector2 (Mathf.Cos (angle * Mathf.Deg2Rad), Mathf.Sin (angle * Mathf.Deg2Rad));
-			meleeImage.transform.localPosition = position*0.6f;
-			meleeImage.transform.localRotation = Quaternion.Euler(0, 0, angle);
+			meleeObj.transform.localPosition = position*0.6f;
+			meleeObj.transform.localRotation = Quaternion.Euler(0, 0, angle);
 			
-			meleeImage.SetActive(true);
+			meleeObj.SetActive(true);
 		}
 		// Else hide the attack image
 		else {
-			meleeImage.SetActive(false);
+			meleeObj.SetActive(false);
 		}
 	}
 
