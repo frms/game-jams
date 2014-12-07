@@ -522,6 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db330fe54fa3adc43a2274af6f9a7595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitableTag: Enemy
   damage: 60
 --- !u!1 &377240450
 GameObject:
@@ -1053,7 +1054,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db330fe54fa3adc43a2274af6f9a7595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 60
+  hitableTag: Player
+  damage: 20
 --- !u!50 &1407944003
 Rigidbody2D:
   m_ObjectHideFlags: 0

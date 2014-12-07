@@ -21,15 +21,22 @@ public class Enemy2AI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector2 acceleration = steeringUtils.arrive (player.position);
+		if(player != null) {
+			Vector2 acceleration = steeringUtils.arrive (player.position);
 
-		if(acceleration != Vector2.zero) {
-			steeringUtils.steer (acceleration);
-			attacking = false;
-		} else {
-			attacking = true;
+			if(acceleration != Vector2.zero) {
+				steeringUtils.steer (acceleration);
+				attacking = false;
+			} else {
+				attacking = true;
+			}
 		}
-
+		// Else the player is dead so stop attacking and stop moving
+		else {
+			attacking = false;
+			rigidbody2D.velocity = Vector2.zero;
+		}
+		
 		updateMeleeAttack();
 		
 		steeringUtils.lookWhereYoureGoing ();
@@ -45,10 +52,6 @@ public class Enemy2AI : MonoBehaviour {
 		if (nextMelee - Time.time >= 0) {
 			float angle = meleeArc * (1 - (nextMelee - Time.time) / meleeTime);
 			angle -= meleeArc/2f;
-
-			if(float.IsNaN(angle)) {
-				Debug.Log ("YOOOOOOOOOOOO");
-			}
 
 			Vector2 position = new Vector2 (Mathf.Cos (angle * Mathf.Deg2Rad), Mathf.Sin (angle * Mathf.Deg2Rad));
 			meleeObj.transform.localPosition = position*0.6f;

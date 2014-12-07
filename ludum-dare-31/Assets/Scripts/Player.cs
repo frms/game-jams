@@ -44,6 +44,11 @@ public class Player : MonoBehaviour {
 		// Make the health bar scale to the current health
 		healthBar.transform.localScale = new Vector3(health/maxHealth, 1, 1);
 
+		// Kill the player if it loses all its health
+		if(health <= 0) {
+			Destroy(gameObject);
+		}
+		
 		if(!dashing) {
 			updateMoveCharacter();
 		}
@@ -168,4 +173,11 @@ public class Player : MonoBehaviour {
 		secondaryAbility = Ability.Bomb;
 	}
 
+	public void applyDamage(float damage) {
+		health -= damage;
+
+		if(health <= 0) {
+			health = 0;
+		}
+	}
 }
