@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 144405143}
   - 68: {fileID: 144405142}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LevelBoundary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,9 +647,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b2fb526f9b3184e83cba3e26010ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderOffset: 4
+  wanderOffset: 1.5
   wanderRadius: 4
   wanderRate: .400000006
+  rayDistance: 2
+  sameDecisionDuration: 3
 --- !u!1 &1133960845
 GameObject:
   m_ObjectHideFlags: 0
