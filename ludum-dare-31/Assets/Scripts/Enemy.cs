@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour {
 	public float health = 100;
 	public float maxHealth = 100;
 
+	public AudioClip enemyHitAudio;
+
 	private Transform healthBar;
 
 	// Use this for initialization
@@ -29,6 +31,8 @@ public class Enemy : MonoBehaviour {
 
 	public void applyDamage(float damage) {
 		health -= damage;
+
+		AudioSource.PlayClipAtPoint(enemyHitAudio, transform.position, 1f);
 
 		// Kill the enemy if it loses all its health
 		if(health <= 0) {

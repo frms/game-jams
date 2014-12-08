@@ -75,6 +75,7 @@ MonoBehaviour:
   healthBarOffset: {x: -.400000006, y: .550000012, z: 0}
   health: 100
   maxHealth: 100
+  enemyHitAudio: {fileID: 8300000, guid: 7059870b33ffef5468a59b389d9f6142, type: 3}
   stunTill: 0
   elements:
   - {fileID: 100000, guid: 2b2bc4093b9b1dd45bf6979b96726a1f, type: 2}
