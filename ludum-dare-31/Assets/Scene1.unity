@@ -197,6 +197,7 @@ MonoBehaviour:
   stunObj2: {fileID: 109441013}
   stunObj3: {fileID: 433641422}
   stunObj4: {fileID: 1579676586}
+  playerHitAudio: {fileID: 8300000, guid: 7bb311f823387464f9dff293fbe44d89, type: 3}
   stunEnemyDuration: 2
 --- !u!1 &14358329
 GameObject:

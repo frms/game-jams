@@ -44,6 +44,8 @@ public class Player : MonoBehaviour {
 	public GameObject stunObj3;
 	public GameObject stunObj4;
 
+	public AudioClip playerHitAudio;
+
 	private float mouseAngle;
 
 	// Use this for initialization
@@ -290,6 +292,8 @@ public class Player : MonoBehaviour {
 		// Screen shake
 		Hashtable ht = new Hashtable(); ht.Add("x",0.115f); ht.Add("y",0.115f); ht.Add("time", 0.3f);
 		iTween.ShakePosition(Camera.main.gameObject, ht);
+
+		AudioSource.PlayClipAtPoint(playerHitAudio, transform.position, 0.35f);
 	}
 
 	public void heal(float amt) {
