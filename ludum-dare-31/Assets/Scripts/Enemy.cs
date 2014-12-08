@@ -16,8 +16,11 @@ public class Enemy : MonoBehaviour {
 
 	private Transform healthBar;
 
+	private GameController gc;
+
 	// Use this for initialization
 	void Start () {
+		gc = GameObject.Find("GameController").GetComponent<GameController>();
 		GameObject clone = Instantiate(healthBarPrefab, (transform.position + healthBarOffset), Quaternion.identity) as GameObject;
 		healthBar = clone.transform;
 		healthBar.localScale = healthBarSize;
@@ -47,6 +50,8 @@ public class Enemy : MonoBehaviour {
 			AudioSource.PlayClipAtPoint(deathAudio, transform.position, 1f);
 
 			Instantiate(scoreText, new Vector3(transform.position.x, transform.position.y, -0.2f), Quaternion.identity);
+
+			gc.score += 10;
 
 			Destroy(gameObject);
 			Destroy(healthBar.gameObject);

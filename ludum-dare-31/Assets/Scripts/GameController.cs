@@ -6,7 +6,11 @@ using System.Collections.Generic;
 public class GameController : MonoBehaviour {
 	public Button restartBtn;
 
+	public Text scoreTxt;
+
 	public Enemies[] enemies;
+
+	public float score = 0;
 
 	private GameObject player;
 
@@ -37,6 +41,8 @@ public class GameController : MonoBehaviour {
 	void Update () {
 		if(player == null) {
 			restartBtn.gameObject.SetActive(true);
+			scoreTxt.gameObject.SetActive(true);
+			scoreTxt.text = score.ToString();
 		} else {
 			foreach(Enemies e in enemies) {
 				if(Time.time >= e.nextSpawnTime) {
