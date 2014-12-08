@@ -45,6 +45,16 @@ public class GameController : MonoBehaviour {
 			scoreTxt.text = score.ToString();
 		} else {
 			foreach(Enemies e in enemies) {
+				if(e.mob.Count < e.startNum && e.tooLong == Mathf.Infinity) {
+					e.tooLong = Time.time + 3;
+				}
+
+				if(e.tooLong < Time.time) {
+					e.tooLong = Mathf.Infinity;
+					e.add(createGameObj(e.go));
+					Debug.Log ("too few");
+				}
+
 				if(Time.time >= e.nextSpawnTime) {
 					e.add(createGameObj(e.go));
 					e.calcSpawn();
@@ -67,6 +77,7 @@ public class Enemies
 	public Vector2 spawnTimer;
 	public float lastSpawnTime;
 	public float nextSpawnTime;
+	public float tooLong = Mathf.Infinity;
 
 	public List<GameObject> mob;
 

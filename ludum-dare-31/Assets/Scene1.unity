@@ -1267,6 +1267,7 @@ MonoBehaviour:
     spawnTimer: {x: 3, y: 5}
     lastSpawnTime: 0
     nextSpawnTime: 0
+    tooLong: 0
     mob: []
   - go: {fileID: 100000, guid: 950deb1c11a0e824b808c7fa3cc8e36a, type: 2}
     startNum: 10
@@ -1274,6 +1275,7 @@ MonoBehaviour:
     spawnTimer: {x: 1.5, y: 3}
     lastSpawnTime: 0
     nextSpawnTime: 0
+    tooLong: 0
     mob: []
   score: 0
 --- !u!4 &894400631
