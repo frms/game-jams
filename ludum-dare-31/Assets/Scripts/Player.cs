@@ -293,7 +293,7 @@ public class Player : MonoBehaviour {
 		Hashtable ht = new Hashtable(); ht.Add("x",0.115f); ht.Add("y",0.115f); ht.Add("time", 0.3f);
 		iTween.ShakePosition(Camera.main.gameObject, ht);
 
-		AudioSource.PlayClipAtPoint(playerHitAudio, transform.position, 0.35f);
+		AudioSource.PlayClipAtPoint(playerHitAudio, transform.position, 1f);
 	}
 
 	public void heal(float amt) {
