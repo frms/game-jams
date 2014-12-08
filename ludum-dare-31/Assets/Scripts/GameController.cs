@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour {
 				if(e.tooLong < Time.time) {
 					e.tooLong = Mathf.Infinity;
 					e.add(createGameObj(e.go));
-					Debug.Log ("too few");
+					//Debug.Log ("too few");
 				}
 
 				if(Time.time >= e.nextSpawnTime) {

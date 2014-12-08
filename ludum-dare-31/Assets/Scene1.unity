@@ -200,6 +200,7 @@ MonoBehaviour:
   playerHitAudio: {fileID: 8300000, guid: 7bb311f823387464f9dff293fbe44d89, type: 3}
   elementAudio: {fileID: 8300000, guid: 22a5e62e63de69c4fb8a758434ed5e0d, type: 3}
   stunAudio: {fileID: 8300000, guid: 4547a855afd52664ea7233cff09e6874, type: 3}
+  shieldAudio: {fileID: 8300000, guid: faf1c8881090a624c824cfdf94776a8e, type: 3}
   stunEnemyDuration: 2
 --- !u!1 &14358329
 GameObject:

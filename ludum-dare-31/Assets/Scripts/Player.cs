@@ -47,6 +47,7 @@ public class Player : MonoBehaviour {
 	public AudioClip playerHitAudio;
 	public AudioClip elementAudio;
 	public AudioClip stunAudio;
+	public AudioClip shieldAudio;
 
 	private float mouseAngle;
 
@@ -54,6 +55,8 @@ public class Player : MonoBehaviour {
 	void Start () {
 		
 	}
+
+	bool foo = false;
 	
 	// Update is called once per frame
 	void Update () {
@@ -68,7 +71,14 @@ public class Player : MonoBehaviour {
 
 		// Health regen
 		if(health <= maxHealth && Time.time >= lastTimeInCombat+outOfCombatTime) {
+			if(!foo && Time.time >= lastTimeInCombat+outOfCombatTime + 0.2f) {
+				AudioSource.PlayClipAtPoint(shieldAudio, transform.position, 1f);
+				foo = true;
+			}
 			heal (healthRegenRate * Time.deltaTime);
+
+		} else {
+			foo = false;
 		}
 		
 		if(!dashing) {
