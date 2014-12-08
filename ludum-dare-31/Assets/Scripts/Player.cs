@@ -45,6 +45,8 @@ public class Player : MonoBehaviour {
 	public GameObject stunObj4;
 
 	public AudioClip playerHitAudio;
+	public AudioClip elementAudio;
+	public AudioClip stunAudio;
 
 	private float mouseAngle;
 
@@ -207,6 +209,8 @@ public class Player : MonoBehaviour {
 			Invoke("showStun3", 0.3f);
 			Invoke("showStun4", 0.45f);
 			Invoke("hideStun", stunTime);
+
+			AudioSource.PlayClipAtPoint(stunAudio, transform.position, 1f);
 		}
 	}
 
@@ -259,18 +263,24 @@ public class Player : MonoBehaviour {
 		numOfElementA++;
 		
 		secondaryAbility = Ability.Arrow;
+
+		AudioSource.PlayClipAtPoint(elementAudio, transform.position, 1f);
 	}
 	
 	public void gainElementB() {
 		numOfElementB++;
 		
 		secondaryAbility = Ability.Dash;
+
+		AudioSource.PlayClipAtPoint(elementAudio, transform.position, 1f);
 	}
 	
 	public void gainElementC() {
 		numOfElementC++;
 		
 		secondaryAbility = Ability.Stun;
+
+		AudioSource.PlayClipAtPoint(elementAudio, transform.position, 1f);
 	}
 
 	public void applyDamage(float damage) {
