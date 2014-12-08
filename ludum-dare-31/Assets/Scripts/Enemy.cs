@@ -10,6 +10,9 @@ public class Enemy : MonoBehaviour {
 	public float maxHealth = 100;
 
 	public AudioClip enemyHitAudio;
+	public AudioClip deathAudio;
+
+	public GameObject scoreText;
 
 	private Transform healthBar;
 
@@ -40,6 +43,10 @@ public class Enemy : MonoBehaviour {
 				int index = Random.Range(0, elements.Length);
 				Instantiate(elements[index], transform.position, Quaternion.identity);
 			}
+
+			AudioSource.PlayClipAtPoint(deathAudio, transform.position, 1f);
+
+			Instantiate(scoreText, new Vector3(transform.position.x, transform.position.y, -0.2f), Quaternion.identity);
 
 			Destroy(gameObject);
 			Destroy(healthBar.gameObject);
