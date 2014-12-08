@@ -75,8 +75,8 @@ MonoBehaviour:
   healthBarOffset: {x: -.400000006, y: .550000012, z: 0}
   health: 100
   maxHealth: 100
-  enemyHitAudio: {fileID: 8300000, guid: 7059870b33ffef5468a59b389d9f6142, type: 3}
-  deathAudio: {fileID: 8300000, guid: 87359a9337e617c4ca488e80f3a48b50, type: 3}
+  enemyHitAudio: {fileID: 8300000, guid: 425f965a85ae9a049b32e42d479478c8, type: 3}
+  deathAudio: {fileID: 8300000, guid: 66a4885b40d807c469f57a0bda0507a4, type: 3}
   scoreText: {fileID: 100000, guid: 6752d1cf1907d854096b09133530a8a7, type: 2}
   stunTill: 0
   elements:
