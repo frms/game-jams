@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CreatorController : MonoBehaviour {
 	private int stepIndex = 0;
-	public StepInspector[] allSteps;
+	public string[] allSteps;
 
 	private Step[] steps;
 

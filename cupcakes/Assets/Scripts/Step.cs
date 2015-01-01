@@ -4,10 +4,9 @@ using UnityEngine.UI;
 
 public class Step : MonoBehaviour {
 	public string title;
-	public GameObject[] prefabs;
-	private GameObject prefabShown;
-
-	private int prefabIndex = 0;
+	public Sprite[] images;
+	private int index;
+	private SpriteRenderer spriteRenderer;
 
 	private Text titleText;
 	private Text labelText;
@@ -18,20 +17,24 @@ public class Step : MonoBehaviour {
 		labelText = GameObject.Find ("label").GetComponent<Text> ();
 	}
 
-	public void setUp(StepInspector si) {
-		title = si.title;
-		prefabs = si.prefabs;
+	public void setUp(string path) {
+		title = path;
+		images = Resources.LoadAll<Sprite>(path);
+
+		index = 0;
+		GameObject imgGameObj = new GameObject (title);
+		spriteRenderer = imgGameObj.AddComponent<SpriteRenderer> ();
 	}
 	
 	public void next() {
-		prefabIndex++;
-		prefabIndex %= prefabs.Length;
+		index++;
+		index %= images.Length;
 		showCurrent();
 	}
 	
 	public void prev() {
-		prefabIndex--;
-		prefabIndex = (prefabIndex < 0) ? prefabs.Length - 1 : prefabIndex;
+		index--;
+		index = (index < 0) ? images.Length - 1 : index;
 		showCurrent ();
 	}
 	
@@ -39,10 +42,9 @@ public class Step : MonoBehaviour {
 	 * Shows the current prefab and returns the current prefab's name.
 	 */
 	public void showCurrent() {
-		Destroy (prefabShown);
-		prefabShown = Instantiate (prefabs [prefabIndex]) as GameObject;
+		spriteRenderer.sprite = images [index];
 
 		titleText.text = title;
-		labelText.text = prefabs [prefabIndex].name;
+		labelText.text = images [index].name;
 	}
 }

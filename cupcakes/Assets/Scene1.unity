@@ -102,18 +102,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allSteps:
-  - title: Wrapper
-    prefabs:
-    - {fileID: 108678, guid: 6f4f8a668b772dc45b3950c632050338, type: 2}
-    - {fileID: 152234, guid: 126ece56d1328824e9088529e991f8d4, type: 2}
-  - title: Cake
-    prefabs:
-    - {fileID: 136512, guid: f02a4a4d9355249459d6dce37075ccb7, type: 2}
-    - {fileID: 126622, guid: 51c8013b17adf4a409146c0fb7a88beb, type: 2}
-  - title: Frosting
-    prefabs:
-    - {fileID: 154936, guid: fb78f576544a52c4cb10a95be16b1226, type: 2}
-    - {fileID: 167016, guid: 7ef34681866c9ee45913867fe28e9e5e, type: 2}
+  - Wrappers
+  - Cakes
+  - Frostings
 --- !u!4 &158073822
 Transform:
   m_ObjectHideFlags: 0
@@ -592,7 +583,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
