@@ -2,7 +2,6 @@
 
 [System.Serializable]
 public class StepInspector {
-	public string title;
-	public GameObject[] prefabs;
-	public Sprite[] images;
+	public string path;
+	public int sortingOrder;
 }

@@ -17,13 +17,14 @@ public class Step : MonoBehaviour {
 		labelText = GameObject.Find ("label").GetComponent<Text> ();
 	}
 
-	public void setUp(string path) {
-		title = path;
-		images = Resources.LoadAll<Sprite>(path);
+	public void setUp(StepInspector si) {
+		title = si.path;
+		images = Resources.LoadAll<Sprite>(si.path);
 
 		index = 0;
 		GameObject imgGameObj = new GameObject (title);
 		spriteRenderer = imgGameObj.AddComponent<SpriteRenderer> ();
+		spriteRenderer.sortingOrder = si.sortingOrder;
 	}
 	
 	public void next() {
