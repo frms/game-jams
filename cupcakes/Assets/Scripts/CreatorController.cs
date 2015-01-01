@@ -3,39 +3,36 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class CreatorController : MonoBehaviour {
-	public Text label;
+	private int stepIndex = 0;
+	public StepInspector[] allSteps;
 
-	public GameObject[] wrappers;
-
-	private int wrapperIndex = 0;
-
-	private GameObject wrapperShown;
+	private Step[] steps;
 
 	// Use this for initialization
 	void Start () {
-		showCurrentWrapper ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		steps = new Step[allSteps.Length];
+
+		for (int i = 0; i < allSteps.Length; i++) {
+			Step s = gameObject.AddComponent<Step>();
+			s.setUp(allSteps[i]);
+			steps[i] = s;
+		}
+
+		steps [stepIndex].showCurrent ();
 	}
 
 	public void next() {
-		wrapperIndex++;
-		wrapperIndex %= wrappers.Length;
-		showCurrentWrapper ();
+		steps [stepIndex].next ();
 	}
 
 	public void prev() {
-		wrapperIndex--;
-		wrapperIndex = (wrapperIndex < 0) ? wrappers.Length - 1 : wrapperIndex;
-		showCurrentWrapper ();
+		steps [stepIndex].prev ();
 	}
 
-	private void showCurrentWrapper() {
-		Destroy (wrapperShown);
-		wrapperShown = Instantiate (wrappers [wrapperIndex]) as GameObject;
-		label.text = wrappers [wrapperIndex].name;
+	public void continueBtn() {
+		stepIndex++;
+		stepIndex %= steps.Length;
+
+		steps [stepIndex].showCurrent ();
 	}
 }
