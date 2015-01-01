@@ -21,14 +21,30 @@ public class CreatorController : MonoBehaviour {
 		steps [stepIndex].showCurrent ();
 	}
 
-	public void next() {
-		steps [stepIndex].next ();
+	private float minSwipeDistX = 20f;
+	
+	private Vector2 startPos;
+	
+	void Update()
+	{	
+		if(Input.GetMouseButtonDown(0)) {
+			startPos = Input.mousePosition;
+		} else if(Input.GetMouseButtonUp(0)) {
+			float swipeDistHorizontal = (new Vector3(Input.mousePosition.x,0, 0) - new Vector3(startPos.x, 0, 0)).magnitude;
+			
+			if (swipeDistHorizontal > minSwipeDistX) 
+			{
+				float swipeValue = Mathf.Sign(Input.mousePosition.x - startPos.x);
+				
+				if (swipeValue > 0) //right swipe
+					steps [stepIndex].prev ();
+				else if (swipeValue < 0) //left swipe
+					steps [stepIndex].next ();
+				
+			}
+		}
 	}
-
-	public void prev() {
-		steps [stepIndex].prev ();
-	}
-
+	
 	public void continueBtn() {
 		stepIndex++;
 		stepIndex %= steps.Length;
