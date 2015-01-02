@@ -103,11 +103,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSteps:
   - path: Wrappers
-    sortingOrder: -1
+    sortingOrders: fdffffffffffffff
   - path: Cakes
-    sortingOrder: -2
+    sortingOrders: feffffff
   - path: Frostings
-    sortingOrder: 0
+    sortingOrders: 00000000
 --- !u!4 &158073822
 Transform:
   m_ObjectHideFlags: 0
