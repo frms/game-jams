@@ -126,12 +126,14 @@ public class TileMap : MonoBehaviour {
 	private void buildMapData() {
 		map = new MapData (mapWidth, mapHeight);
 
-		Vector2 perlinOffset = new Vector2 (Random.value * 100000, Random.value * 100000);
+		Vector2 offset = new Vector2 (Random.value * 100000, Random.value * 100000);
+		float mapAspect = (float)mapWidth / mapHeight;
+		Vector2 scale = new Vector2 (perlinScale * mapAspect, perlinScale); 
 
 		for(int j = 0; j < mapHeight; j++) {
 			for(int i = 0; i < mapWidth; i++) {
-				float x = perlinOffset.x + (float)i/mapWidth * perlinScale;
-				float y = perlinOffset.y + (float)j/mapHeight * perlinScale;
+				float x = offset.x + (float)i/mapWidth * scale.x;
+				float y = offset.y + (float)j/mapHeight * scale.y;
 
 				float result = Mathf.PerlinNoise(x, y);
 
