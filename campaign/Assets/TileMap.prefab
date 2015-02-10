@@ -84,14 +84,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileResolution: 64
-  mapWidth: 30
-  mapHeight: 30
+  mapWidth: 100
+  mapHeight: 50
   tileSize: 1
   halfMapDepth: .125
-  overlappingRooms: 0
+  perlinScale: 4
+  landCutoff: .349999994
+  cityDebug: 0
+  cityPerlinScale: 3
+  cityLandCutoff: .100000001
   numberOfRooms: 20
-  roomWidthRange: 0400000008000000
-  roomHeightRange: 0400000008000000
+  roomWidthRange: 0c00000010000000
+  roomHeightRange: 0c00000010000000
 --- !u!114 &11452902
 MonoBehaviour:
   m_ObjectHideFlags: 1

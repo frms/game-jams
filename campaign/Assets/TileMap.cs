@@ -10,7 +10,13 @@ public class TileMap : MonoBehaviour {
 	public float tileSize = 1.0f;
 	public float halfMapDepth = 0.125f;
 
-	public bool overlappingRooms = false;
+	public float perlinScale = 4f;
+	public float landCutoff = 0.35f;
+
+	public bool cityDebug = false;
+	public float cityPerlinScale = 3f;
+	public float cityLandCutoff = 0.1f;
+
 	public int numberOfRooms = 20;
 	[HideInInspector]
 	public int[] roomWidthRange = new [] {4, 8};
@@ -18,7 +24,7 @@ public class TileMap : MonoBehaviour {
 	public int[] roomHeightRange = new [] {4, 8};
 
 	private MapData map;
-	private List<Room> rooms;
+	private List<Room> cities;
 
 	// Use this for initialization
 	void Start () {
@@ -120,61 +126,69 @@ public class TileMap : MonoBehaviour {
 		MeshCollider meshCollider = GetComponent<MeshCollider> ();
 		meshCollider.sharedMesh = mesh;
 	}
-	public float perlinScale = 1f;
-	public float landCutoff = 0.5f;
 
 	private void buildMapData() {
 		map = new MapData (mapWidth, mapHeight);
 
-		int roomWidth = Random.Range(roomWidthRange[0], roomWidthRange[1]);
-		int roomHeight = Random.Range(roomHeightRange[0], roomHeightRange[1]);
-		/* Add 1 because Random.Range() for ints excludes the max value */
-		int roomX = Random.Range(0, map.width - roomWidth + 1);
-		int roomY = Random.Range(0, map.height - roomHeight + 1);
-		
-		Room r = new Room (roomX, roomY, roomWidth, roomHeight);
-		
-		PerlinHelper ph = new PerlinHelper (r.width, r.height, perlinScale);
+		cities = new List<Room>();
 
+		createLandSea ();
+
+		for (int i = 0; i < numberOfRooms; i++) {
+			int roomWidth = Random.Range (roomWidthRange [0], roomWidthRange [1]);
+			int roomHeight = Random.Range (roomHeightRange [0], roomHeightRange [1]);
+			/* Add 1 because Random.Range() for ints excludes the max value */
+			int roomX = Random.Range (0, map.width - roomWidth + 1);
+			int roomY = Random.Range (0, map.height - roomHeight + 1);
+			
+			Room r = new Room (roomX, roomY, roomWidth, roomHeight);
+
+			if(!cityCollides(r)) {
+				cities.Add (r);
+				createCity (r);
+			}
+		}
+	}
+
+	private void createLandSea() {
+		PerlinHelper ph = new PerlinHelper (mapWidth, mapHeight, perlinScale);
+		
+		for(int y = 0; y < mapHeight; y++) {
+			for(int x = 0; x < mapWidth; x++) {
+				if(ph[x, y] >= landCutoff) {
+					map[x,y] = 1;
+				} else {
+					map[x,y] = 0;
+				}
+			}
+		}
+	}
+
+	private void createCity(Room r) {
+		PerlinHelper ph = new PerlinHelper (r.width, r.height, cityPerlinScale);
+		
 		for (int x = 0; x < r.width; x++) {
 			for (int y = 0; y < r.height; y++) {
 				int tile;
 				Vector2 centerDist = new Vector2(Mathf.Abs(x - r.width/2), Mathf.Abs(y - r.height/2));
-
+				
 				if(centerDist.magnitude <= 2) {
 					tile = 3;
 				} else {
 					float result = ph[x, y] - (centerDist.magnitude/r.radius);
-
-					if(result >= landCutoff) {
+					
+					if(result >= cityLandCutoff) {
 						tile = 1;
 					} else {
 						tile = 2;
 					}
 				}
 
-				map[r.x + x, r.y + y] = tile;
+				if(tile != 2 || cityDebug) { 
+					map[r.x + x, r.y + y] = tile;
+				}
 			}
 		}
-
-//		Vector2 offset = new Vector2 (Random.value * 100000, Random.value * 100000);
-//		float mapAspect = (float)mapWidth / mapHeight;
-//		Vector2 scale = new Vector2 (perlinScale * mapAspect, perlinScale); 
-//
-//		for(int j = 0; j < mapHeight; j++) {
-//			for(int i = 0; i < mapWidth; i++) {
-//				float x = offset.x + (float)i/mapWidth * scale.x;
-//				float y = offset.y + (float)j/mapHeight * scale.y;
-//
-//				float result = Mathf.PerlinNoise(x, y);
-//
-//				if(result >= landCutoff) {
-//					map[i,j] = 0;
-//				} else {
-//					map[i,j] = 1;
-//				}
-//			}
-//		}
 	}
 
 //	private void buildMapData() {
@@ -206,15 +220,15 @@ public class TileMap : MonoBehaviour {
 //		}
 //	}
 //	
-//	public bool roomCollides(Room r) {
-//		foreach (Room r2 in rooms) {
-//			if(r.innerRoomCollidesWith(r2)) {
-//				return true;
-//			}
-//		}
-//		
-//		return false;
-//	}
+	public bool cityCollides(Room r) {
+		foreach (Room r2 in cities) {
+			if(r.innerRoomCollidesWith(r2)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 //	
 //	private void createRoom(Room r) {
 //		for(int x = 0; x < r.width; x++) {
