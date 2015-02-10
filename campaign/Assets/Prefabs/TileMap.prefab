@@ -93,7 +93,7 @@ MonoBehaviour:
   cityDebug: 0
   cityPerlinScale: 3
   cityLandCutoff: .100000001
-  numberOfRooms: 20
+  numberOfCities: 20
   roomWidthRange: 0c00000010000000
   roomHeightRange: 0c00000010000000
 --- !u!114 &11452902
