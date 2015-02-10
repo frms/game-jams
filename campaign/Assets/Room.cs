@@ -37,6 +37,17 @@ public class Room {
 		}
 	}
 
+	public float radius {
+		get
+		{
+			if(width > height) {
+				return (float)width/2;
+			} else {
+				return (float)height/2;
+			}
+		}
+	}
+
 	public Room(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;

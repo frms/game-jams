@@ -126,24 +126,55 @@ public class TileMap : MonoBehaviour {
 	private void buildMapData() {
 		map = new MapData (mapWidth, mapHeight);
 
-		Vector2 offset = new Vector2 (Random.value * 100000, Random.value * 100000);
-		float mapAspect = (float)mapWidth / mapHeight;
-		Vector2 scale = new Vector2 (perlinScale * mapAspect, perlinScale); 
+		int roomWidth = Random.Range(roomWidthRange[0], roomWidthRange[1]);
+		int roomHeight = Random.Range(roomHeightRange[0], roomHeightRange[1]);
+		/* Add 1 because Random.Range() for ints excludes the max value */
+		int roomX = Random.Range(0, map.width - roomWidth + 1);
+		int roomY = Random.Range(0, map.height - roomHeight + 1);
+		
+		Room r = new Room (roomX, roomY, roomWidth, roomHeight);
+		
+		PerlinHelper ph = new PerlinHelper (r.width, r.height, perlinScale);
 
-		for(int j = 0; j < mapHeight; j++) {
-			for(int i = 0; i < mapWidth; i++) {
-				float x = offset.x + (float)i/mapWidth * scale.x;
-				float y = offset.y + (float)j/mapHeight * scale.y;
+		for (int x = 0; x < r.width; x++) {
+			for (int y = 0; y < r.height; y++) {
+				int tile;
+				Vector2 centerDist = new Vector2(Mathf.Abs(x - r.width/2), Mathf.Abs(y - r.height/2));
 
-				float result = Mathf.PerlinNoise(x, y);
-
-				if(result >= landCutoff) {
-					map[i,j] = 0;
+				if(centerDist.magnitude <= 2) {
+					tile = 3;
 				} else {
-					map[i,j] = 1;
+					float result = ph[x, y] - (centerDist.magnitude/r.radius);
+
+					if(result >= landCutoff) {
+						tile = 1;
+					} else {
+						tile = 2;
+					}
 				}
+
+				map[r.x + x, r.y + y] = tile;
 			}
 		}
+
+//		Vector2 offset = new Vector2 (Random.value * 100000, Random.value * 100000);
+//		float mapAspect = (float)mapWidth / mapHeight;
+//		Vector2 scale = new Vector2 (perlinScale * mapAspect, perlinScale); 
+//
+//		for(int j = 0; j < mapHeight; j++) {
+//			for(int i = 0; i < mapWidth; i++) {
+//				float x = offset.x + (float)i/mapWidth * scale.x;
+//				float y = offset.y + (float)j/mapHeight * scale.y;
+//
+//				float result = Mathf.PerlinNoise(x, y);
+//
+//				if(result >= landCutoff) {
+//					map[i,j] = 0;
+//				} else {
+//					map[i,j] = 1;
+//				}
+//			}
+//		}
 	}
 
 //	private void buildMapData() {
