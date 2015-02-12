@@ -12,31 +12,32 @@ public class CameraMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float mPosX = Input.mousePosition.x; 
-		float mPosY = Input.mousePosition.y;
-		
-		// Do camera movement by mouse position
-		if (mPosX < scrollArea && mPosX >= 0) {
-			transform.Translate(Vector3.right * -scrollSpeed * Time.deltaTime);
-		}
-		if (mPosX >= Screen.width-scrollArea && mPosX <= Screen.width) {
-			transform.Translate(Vector3.right * scrollSpeed * Time.deltaTime);
-		}
-		if (mPosY < scrollArea && mPosY >= 0) {
-			transform.Translate(Vector3.up * -scrollSpeed * Time.deltaTime);
-		}
-		if (mPosY >= Screen.height-scrollArea && mPosY <= Screen.height) {
-			transform.Translate(Vector3.up * scrollSpeed * Time.deltaTime);
-		}
-		
 		// Do camera movement by keyboard 
-		Vector3 keyDir = new Vector3 ();
-		keyDir.x = (Input.GetAxisRaw ("Horizontal") != 0) ? Mathf.Sign (Input.GetAxisRaw ("Horizontal")) : 0;
-		keyDir.y = (Input.GetAxisRaw ("Vertical") != 0) ? Mathf.Sign (Input.GetAxisRaw ("Vertical")) : 0;
-		keyDir.Normalize ();
+		Vector3 dir = new Vector3 ();
+		dir.x = (Input.GetAxisRaw ("Horizontal") != 0) ? Mathf.Sign (Input.GetAxisRaw ("Horizontal")) : 0;
+		dir.y = (Input.GetAxisRaw ("Vertical") != 0) ? Mathf.Sign (Input.GetAxisRaw ("Vertical")) : 0;
 
-		keyDir *= scrollSpeed * Time.deltaTime;
+		if (dir == Vector3.zero) {
+			float mPosX = Input.mousePosition.x; 
+			float mPosY = Input.mousePosition.y;
+		
+			// Do camera movement by mouse position
+			if (mPosX < scrollArea && mPosX >= 0) {
+				dir.x = -1;
+			}
+			if (mPosX >= Screen.width - scrollArea && mPosX <= Screen.width) {
+				dir.x = 1;
+			}
+			if (mPosY < scrollArea && mPosY >= 0) {
+				dir.y = -1;
+			}
+			if (mPosY >= Screen.height - scrollArea && mPosY <= Screen.height) {
+				dir.y = 1;
+			}
+		}
 
-		transform.Translate(keyDir);
+		dir.Normalize ();
+		dir *= scrollSpeed * Time.deltaTime;
+		transform.Translate (dir);
 	}
 }
