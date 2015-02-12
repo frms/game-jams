@@ -23,16 +23,16 @@ public class CameraMovement : MonoBehaviour {
 			float mPosY = Input.mousePosition.y;
 		
 			// Do camera movement by mouse position
-			if (mPosX < scrollArea && mPosX >= 0) {
+			if (mPosX < scrollArea && mPosX >= -scrollArea) {
 				dir.x = -1;
 			}
-			if (mPosX >= Screen.width - scrollArea && mPosX <= Screen.width) {
+			if (mPosX >= Screen.width - scrollArea && mPosX <= Screen.width+scrollArea) {
 				dir.x = 1;
 			}
-			if (mPosY < scrollArea && mPosY >= 0) {
+			if (mPosY < scrollArea && mPosY >= -scrollArea) {
 				dir.y = -1;
 			}
-			if (mPosY >= Screen.height - scrollArea && mPosY <= Screen.height) {
+			if (mPosY >= Screen.height - scrollArea && mPosY <= Screen.height+scrollArea) {
 				dir.y = 1;
 			}
 		}
@@ -49,16 +49,16 @@ public class CameraMovement : MonoBehaviour {
 
 		Vector3 newPos = transform.position;
 
-		if (rect.x < 0) {
-			newPos.x = rect.width / 2;
-		} else if (rect.xMax > tm.mapWidth * tm.tileSize) {
-			newPos.x = tm.mapWidth * tm.tileSize - rect.width / 2;
+		if (rect.x < tm.tileSize) {
+			newPos.x = rect.width / 2 + tm.tileSize;
+		} else if (rect.xMax > (tm.mapWidth-1) * tm.tileSize) {
+			newPos.x = (tm.mapWidth-1) * tm.tileSize - rect.width / 2;
 		}
 		
-		if (rect.y < 0) {
-			newPos.z = rect.height / 2;
-		} else if (rect.yMax > tm.mapHeight * tm.tileSize) {
-			newPos.z = tm.mapHeight * tm.tileSize - rect.height / 2;
+		if (rect.y < tm.tileSize) {
+			newPos.z = rect.height / 2 + tm.tileSize;
+		} else if (rect.yMax > (tm.mapHeight-1) * tm.tileSize) {
+			newPos.z = (tm.mapHeight-1) * tm.tileSize - rect.height / 2;
 		}
 
 		transform.position = newPos;
@@ -78,7 +78,6 @@ public class CameraMovement : MonoBehaviour {
 		bounds.width = 2 * halfWidth;
 		bounds.height = 2 * halfHeight;
 
-		//print ("y: " + bounds.y + " ymax: " + bounds.yMax + " halfHeight: " + halfHeight);
 		return bounds;
 	}
 }
