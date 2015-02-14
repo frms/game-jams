@@ -56,16 +56,16 @@ public class CameraMovement : MonoBehaviour {
 		}
 		
 		if (rect.y < tm.tileSize) {
-			newPos.z = rect.height / 2 + tm.tileSize;
+			newPos.y = rect.height / 2 + tm.tileSize;
 		} else if (rect.yMax > (tm.mapHeight-1) * tm.tileSize) {
-			newPos.z = (tm.mapHeight-1) * tm.tileSize - rect.height / 2;
+			newPos.y = (tm.mapHeight-1) * tm.tileSize - rect.height / 2;
 		}
 
 		transform.position = newPos;
 	}
 
 	private Rect getCameraRect() {
-		float distToGrid = transform.position.y;
+		float distToGrid = -1*transform.position.z;
 		
 		float angle = (camera.fieldOfView / 2) * Mathf.Deg2Rad;
 		
@@ -74,7 +74,7 @@ public class CameraMovement : MonoBehaviour {
 		
 		Rect bounds = new Rect();
 		bounds.x = transform.position.x - halfWidth;
-		bounds.y = transform.position.z - halfHeight;
+		bounds.y = transform.position.y - halfHeight;
 		bounds.width = 2 * halfWidth;
 		bounds.height = 2 * halfHeight;
 

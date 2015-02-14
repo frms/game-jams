@@ -41,8 +41,8 @@ public class TileMap : MonoBehaviour {
 		int numTris = numTiles * 2;
 
 		int numVertsX = 2 * (mapWidth - 1) + 2;
-		int numVertsZ = 2 * (mapHeight - 1) + 2;
-		int numVerts = numVertsX * numVertsZ;
+		int numVertsY = 2 * (mapHeight - 1) + 2;
+		int numVerts = numVertsX * numVertsY;
 
 		float textureStep = (float)tileResolution / renderer.sharedMaterial.mainTexture.width;
 
@@ -51,34 +51,34 @@ public class TileMap : MonoBehaviour {
 		Vector3[] vertices = new Vector3[numVerts];
 		Vector2[] uv = new Vector2[numVerts];
 
-		for (int z = 0; z < numVertsZ; z++) {
+		for (int y = 0; y < numVertsY; y++) {
 			for(int x = 0; x < numVertsX; x++) {
-				int i = z * numVertsX + x;
+				int i = y * numVertsX + x;
 
-				Vector3 vert = new Vector3((x / 2) * tileSize, 0, (z / 2) * tileSize);
+				Vector3 vert = new Vector3((x / 2) * tileSize, (y / 2) * tileSize, 0);
 				
 				// Set vertex depth
-				if(z == 0 || z % 2 == 1) {
+				if(y == 0 || y % 2 == 1) {
 					if(x == numVertsX-1 || x % 2 == 0) {
-						vert.y = Random.Range(-halfMapDepth, halfMapDepth);
+						vert.z = Random.Range(-halfMapDepth, halfMapDepth);
 						
 						if(x != 0 && x != numVertsX-1 ) {
-							vertices[i-1].y = vert.y;
+							vertices[i-1].z = vert.z;
 						}
 					}
 				} else {
-					vert.y = vertices[i-numVertsX].y;
+					vert.z = vertices[i-numVertsX].z;
 				}
 
 				Vector2 texCoord;
 
-				if(x % 2 == 0 && z % 2 == 0) {
-					int type = map[x/2, z/2];
+				if(x % 2 == 0 && y % 2 == 0) {
+					int type = map[x/2, y/2];
 					texCoord = new Vector2(type * textureStep, 0);
 				} else {
 					int tileX = (x/2)*2;
-					int tileZ = (z/2)*2;
-					int tileIndex = tileZ * numVertsX + tileX;
+					int tileY = (y/2)*2;
+					int tileIndex = tileY * numVertsX + tileX;
 					texCoord = uv[tileIndex];
 				}
 
@@ -87,8 +87,8 @@ public class TileMap : MonoBehaviour {
 					texCoord.x += textureStep;
 				}
 
-				if(z % 2 == 1) {
-					vert.z += tileSize;
+				if(y % 2 == 1) {
+					vert.y += tileSize;
 					texCoord.y = 1;
 				}
 
@@ -99,10 +99,10 @@ public class TileMap : MonoBehaviour {
 
 		int[] triangles = new int[numTris * 3];
 
-		for (int z = 0; z < mapHeight; z++) {
+		for (int y = 0; y < mapHeight; y++) {
 			for (int x = 0; x < mapWidth; x++) {
-				int i = (z * mapWidth + x) * 2 * 3;
-				int j = z*2 * numVertsX + x*2;
+				int i = (y * mapWidth + x) * 2 * 3;
+				int j = y*2 * numVertsX + x*2;
 
 				triangles [i] = j;
 				triangles [i + 1] = j + numVertsX;
