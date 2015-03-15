@@ -1,0 +1,7 @@
+Maybe the game lets you upload an image and it will use that as your avatar. And as you play the game it will change your avatar's pixels.
+	(maybe try out the game with some of my friend's OCs)
+
+To Do:
+Allow the finger to move a tiny amount on touch release to still count as a touch
+Make sure I put a limit in the map so you can't click on tiles outside the map's bound's
+Make the color player interuptable so it doesn't cause any frame skips
