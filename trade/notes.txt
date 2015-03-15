@@ -1,0 +1,18 @@
+consider splitting player into two players one out of battle one in battle
+
+consider making the in battle player into a monobehavior
+
+working on getting basic AI that the logic lives in the player class
+
+consider making party members a list of Ability scripts rather than gameobjects
+
+
+Battle Scene Placement bounds
+
+x: -5 to 5
+z: -3 to 3
+
+x of -1.25 and 1.25 is prob as close as I want them together
+so I could do a 4x5 grid of
+	1.25 x increments starting at 1.25 to 5
+	1.5 z increments starting at -3 to 3
