@@ -1,0 +1,21 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class Card : MonoBehaviour {
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+}
+
+public enum CardType
+{
+	Melee    = 1,
+	Slash    = 2
+}

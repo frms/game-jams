@@ -6,10 +6,13 @@ using System.Collections.Generic;
 public class TileMap : MonoBehaviour {
 	public Transform floor;
 	public Transform wall;
+	public Transform cardPickUp;
 
 	public int mapWidth = 3;
 	public int mapHeight = 2;
 	public float tileSize = 1.0f;
+
+	public float percentCardsOnGround = 0.2f;
 
 	public bool overlappingRooms = false;
 	public int numberOfRooms = 20;
@@ -33,7 +36,7 @@ public class TileMap : MonoBehaviour {
 
 	public void buildMap() {
 		buildMapData ();
-		buildMapGameObjs ();
+		buildMapTerrain ();
 		placeGameBits ();
 	}
 
@@ -144,7 +147,7 @@ public class TileMap : MonoBehaviour {
 		}
 	}
 
-	private void buildMapGameObjs() {
+	private void buildMapTerrain() {
 		// Destory all current wall game objects
 		while(transform.childCount > 0) {
 			Transform child = transform.GetChild(0);
@@ -186,5 +189,12 @@ public class TileMap : MonoBehaviour {
 		int i = Random.Range (0, floorTiles.Count);
 		int[] mapPos = floorTiles [i];
 		player.position = getPosition (mapPos[0], mapPos[1]);
+
+		for(int x = 0; x < floorTiles.Count; x++) {
+			if(Random.value < percentCardsOnGround) {
+				mapPos = floorTiles [x];
+				createGameObj(mapPos[0], mapPos[1], cardPickUp);
+			}
+		}
 	}
 }
