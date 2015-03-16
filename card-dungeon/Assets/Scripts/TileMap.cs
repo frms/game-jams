@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[ExecuteInEditMode]
 public class TileMap : MonoBehaviour {
 	public Transform floor;
 	public Transform wall;
@@ -30,7 +29,7 @@ public class TileMap : MonoBehaviour {
 	private Transform player;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		cardWeightSum = 0;
 
 		cards = new List<Card> ();

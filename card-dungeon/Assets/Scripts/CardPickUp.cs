@@ -15,8 +15,7 @@ public class CardPickUp : MonoBehaviour {
 		//Debug.Log (other.tag);
 		
 		if (other.name == "Player") {
-			//other.gameObject.SendMessage("gainElement"+elementType);
-			print ("Picked up card");
+			other.gameObject.GetComponent<Player>().addCard(card); 
 			Destroy(gameObject);
 		}
 	}

@@ -6,11 +6,27 @@ public class Player : MonoBehaviour {
 
 	public float speed = 5f;
 
+	public Dictionary<Card, int> deck;
+	private int deckSize = 0;
+
 	private Rigidbody2D rb;
 
 	// Use this for initialization
 	void Start () {
+		initializeDeck ();
+
 		rb = GetComponent<Rigidbody2D> ();
+	}
+
+	private void initializeDeck() {
+		deck = new Dictionary<Card, int> ();
+
+		List<Card> cards = GameObject.Find ("Map").GetComponent<TileMap> ().cards;
+		for (int i = 0; i < cards.Count; i++) {
+			deck.Add(cards[i], 0);
+		}
+
+		deckSize = 0;
 	}
 
 	// Update is called once per frame
@@ -35,5 +51,10 @@ public class Player : MonoBehaviour {
 		} else {
 			rb.velocity = Vector2.zero;
 		}
+	}
+
+	public void addCard(Card c) {
+		deck [c] = deck [c] + 1;
+		print (deck [c]);
 	}
 }
