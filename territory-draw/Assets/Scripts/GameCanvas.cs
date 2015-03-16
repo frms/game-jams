@@ -20,8 +20,8 @@ public class GameCanvas : MonoBehaviour {
 		numberOfEnemies = StartScreen.numberOfOpponents;
 
 		// Clone the current texture so we don't modify the original one. I don't know why unity acts like this.
-		tex = Instantiate(renderer.material.mainTexture) as Texture2D;
-		renderer.material.mainTexture = tex;
+		tex = Instantiate(GetComponent<Renderer>().material.mainTexture) as Texture2D;
+		GetComponent<Renderer>().material.mainTexture = tex;
 		
 		// Calculate the world coordinates of the texture's 0,0 position
 		float x = transform.position.x - (transform.localScale.x / 2);

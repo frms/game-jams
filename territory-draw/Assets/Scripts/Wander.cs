@@ -37,7 +37,7 @@ public class Wander : MonoBehaviour {
 	void FixedUpdate () {
 		/* If the game is over then do nothing */
 		if(gameOver) {
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			return;
 		}
 

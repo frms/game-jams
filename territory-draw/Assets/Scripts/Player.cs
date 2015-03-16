@@ -23,7 +23,7 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(gameOver) {
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			return;
 		}
 
@@ -65,11 +65,11 @@ public class Player : MonoBehaviour {
 			//}
 			// Else we are facing the right orientation so move the character
 			//else {
-				rigidbody2D.velocity = transform.right * speed;
+				GetComponent<Rigidbody2D>().velocity = transform.right * speed;
 			//}
 			
 		} else {
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		}
 	}
 	
