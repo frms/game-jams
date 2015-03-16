@@ -20,16 +20,21 @@ public class TileMap : MonoBehaviour {
 
 	private MapData map;
 	private List<Room> rooms;
+	private List<int[]> floorTiles;
+
+	private Transform player;
 
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("Player").transform;
+
 		buildMap ();
 	}
 
 	public void buildMap() {
 		buildMapData ();
-
 		buildMapGameObjs ();
+		placeGameBits ();
 	}
 
 	private void buildMapData() {
@@ -145,11 +150,16 @@ public class TileMap : MonoBehaviour {
 			Transform child = transform.GetChild(0);
 			DestroyImmediate(child.gameObject);
 		}
+
+		floorTiles = new List<int[]> ();
 		
 		for (int y = 0; y < map.height; y++) {
 			for(int x = 0; x < map.width; x++) {
 				if(map[x, y] == 1) {
 					createGameObj(x, y, floor);
+
+					int[] loc = new [] { x, y };
+					floorTiles.Add(loc);
 				} else if(map[x, y] == 2) {
 					createGameObj(x, y, wall);
 				}
@@ -158,11 +168,23 @@ public class TileMap : MonoBehaviour {
 	}
 
 	private void createGameObj(int x, int y, Transform t) {
-		Vector3 pos = new Vector3();
-		pos.x = (tileSize/2) + tileSize*x; 
-		pos.y = (tileSize/2) + tileSize*y;
+		Vector3 pos = getPosition (x, y);
 		
 		Transform child = Instantiate(t, pos, Quaternion.identity) as Transform;
 		child.parent = transform;
+	}
+
+	private Vector3 getPosition(int x, int y) {
+		Vector3 pos = new Vector3();
+		pos.x = (tileSize/2) + tileSize*x; 
+		pos.y = (tileSize/2) + tileSize*y;
+
+		return pos;
+	}
+
+	private void placeGameBits() {
+		int i = Random.Range (0, floorTiles.Count);
+		int[] mapPos = floorTiles [i];
+		player.position = getPosition (mapPos[0], mapPos[1]);
 	}
 }
