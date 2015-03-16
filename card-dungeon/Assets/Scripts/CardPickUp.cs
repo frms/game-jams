@@ -3,9 +3,12 @@ using System.Collections;
 
 public class CardPickUp : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+	public Card card;
 	
+	public void setUp(Card c) {
+		card = c;
+		SpriteRenderer sr = GetComponent<SpriteRenderer> ();
+		sr.color = card.color;
 	}
 	
 	void OnTriggerEnter2D(Collider2D other) {

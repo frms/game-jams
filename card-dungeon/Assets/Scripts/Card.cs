@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Card : MonoBehaviour {
+public class Card {
+
+	public Color color;
+	public float dropWeight;
 
 	// Use this for initialization
 	void Start () {
@@ -12,10 +15,4 @@ public class Card : MonoBehaviour {
 	void Update () {
 	
 	}
-}
-
-public enum CardType
-{
-	Melee    = 1,
-	Slash    = 2
 }

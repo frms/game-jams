@@ -13,6 +13,8 @@ public class TileMap : MonoBehaviour {
 	public float tileSize = 1.0f;
 
 	public float percentCardsOnGround = 0.2f;
+	public List<Card> cards;
+	private float cardWeightSum = 0;
 
 	public bool overlappingRooms = false;
 	public int numberOfRooms = 20;
@@ -29,9 +31,25 @@ public class TileMap : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		cardWeightSum = 0;
+
+		cards = new List<Card> ();
+		cards.Add (createCard (Color.black));
+		cards.Add (createCard (Color.blue));
+		cards.Add (createCard (Color.cyan));
+		cards.Add (createCard (Color.gray));
+
 		player = GameObject.Find ("Player").transform;
 
 		buildMap ();
+	}
+
+	private Card createCard(Color color) {
+		Card c = new Card ();
+		c.color = color;
+		c.dropWeight = 1;
+		cardWeightSum += c.dropWeight;
+		return c;
 	}
 
 	public void buildMap() {
@@ -170,11 +188,13 @@ public class TileMap : MonoBehaviour {
 		}
 	}
 
-	private void createGameObj(int x, int y, Transform t) {
+	private Transform createGameObj(int x, int y, Transform t) {
 		Vector3 pos = getPosition (x, y);
 		
 		Transform child = Instantiate(t, pos, Quaternion.identity) as Transform;
 		child.parent = transform;
+
+		return child;
 	}
 
 	private Vector3 getPosition(int x, int y) {
@@ -193,8 +213,26 @@ public class TileMap : MonoBehaviour {
 		for(int x = 0; x < floorTiles.Count; x++) {
 			if(Random.value < percentCardsOnGround) {
 				mapPos = floorTiles [x];
-				createGameObj(mapPos[0], mapPos[1], cardPickUp);
+				Transform child = createGameObj(mapPos[0], mapPos[1], cardPickUp);
+
+				CardPickUp cpu = child.GetComponent<CardPickUp>();
+				cpu.setUp(randomCard());
 			}
 		}
+	}
+
+	private Card randomCard() {
+		float r = Random.Range (0, cardWeightSum);
+		float sum = 0;
+
+		for (int i = 0; i < cards.Count; i++) {
+			sum += cards[i].dropWeight;
+
+			if(r < sum) {
+				return cards[i];
+			}
+		}
+
+		return null;	//This should not be reached
 	}
 }
