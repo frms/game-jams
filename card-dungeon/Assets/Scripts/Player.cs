@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
 
 	private Deck deck;
 
-	private Hand handUI;
+	private Hand hand;
 
 	private Rigidbody2D rb;
 
@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
 		deck = GameObject.Find ("DeckUI").GetComponent<Deck> ();
 		deck.initializeDeck ();
 
-		handUI = GameObject.Find ("HandUI").GetComponent<Hand> ();
+		hand = GameObject.Find ("HandUI").GetComponent<Hand> ();
 
 		rb = GetComponent<Rigidbody2D> ();
 	}
@@ -58,10 +58,10 @@ public class Player : MonoBehaviour {
 	}
 
 	public void addCard(Card c) {
-		if (handUI.isFull()) {
+		if (hand.isFull()) {
 			deck.addCard (c);
 		} else {
-			handUI.addCard(c);
+			hand.addCard(c);
 		}
 	}
 }
