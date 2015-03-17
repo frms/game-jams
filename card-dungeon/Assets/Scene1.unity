@@ -2922,7 +2922,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3.5
-  handSize: 4
 --- !u!212 &182224942
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12925,6 +12924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 649661399}
+  handSize: 4
 --- !u!1 &888651287
 GameObject:
   m_ObjectHideFlags: 0

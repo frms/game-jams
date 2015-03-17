@@ -10,8 +10,6 @@ public class Player : MonoBehaviour {
 	private Deck deck;
 
 	private Hand handUI;
-	private List<Card> hand;
-	public int handSize = 4;
 
 	private Rigidbody2D rb;
 
@@ -21,8 +19,6 @@ public class Player : MonoBehaviour {
 		deck.initializeDeck ();
 
 		handUI = GameObject.Find ("HandUI").GetComponent<Hand> ();
-		handUI.initialize (handSize);
-		hand = new List<Card> ();
 
 		rb = GetComponent<Rigidbody2D> ();
 	}
@@ -62,10 +58,9 @@ public class Player : MonoBehaviour {
 	}
 
 	public void addCard(Card c) {
-		if (hand.Count == handSize) {
+		if (handUI.isFull()) {
 			deck.addCard (c);
 		} else {
-			hand.Add(c);
 			handUI.addCard(c);
 		}
 	}

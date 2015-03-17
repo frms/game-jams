@@ -28,13 +28,12 @@ public class Deck : MonoBehaviour {
 
 	private RectTransform rt;
 
-	private Dictionary<Card, CardCount> deck;
+	private Dictionary<Card, CardCount> deck = new Dictionary<Card, CardCount> ();
 	private int deckSize = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		rt = GetComponent<RectTransform> ();
-		deck = new Dictionary<Card, CardCount> ();
 	}
 
 	public void initializeDeck() {
