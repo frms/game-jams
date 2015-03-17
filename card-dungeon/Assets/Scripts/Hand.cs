@@ -11,13 +11,13 @@ public class Hand : MonoBehaviour {
 	public int handSize = 4;
 	private List<Image> imgs;
 
-	private List<Card> hand;
+	private Card[] hand;
 
 	// Use this for initialization
 	void Awake () {
 		rt = GetComponent<RectTransform> ();
 		initializeCards ();
-		hand = new List<Card> ();
+		hand = new Card[handSize];
 	}
 
 	private void initializeCards() {
@@ -32,38 +32,35 @@ public class Hand : MonoBehaviour {
 	}
 
 	public bool isFull() {
-		return hand.Count >= handSize; 
+		return firstOpenPosition() == -1; 
+	}
+
+	public int firstOpenPosition() {
+		for (int i = 0; i < hand.Length; i++) {
+			if(hand[i] == null) {
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 
 	public void addCard(Card c) {
-		Image img = imgs [hand.Count];
+		int i = firstOpenPosition ();
+		hand [i] = c;
+
+		Image img = imgs [i];
 		img.color = c.color;
 		img.enabled = true;
-
-		hand.Add (c);
 	}
 
 	public Card removeCard(int handIndex) {
-		Card card = null;
+		Card card = hand[handIndex];
 
-		if (handIndex >= 0 && handIndex < hand.Count) {
-			card = hand[handIndex];
-			hand.RemoveAt (handIndex);
-
-			updateUI ();
-		}
+		hand [handIndex] = null;
+		imgs [handIndex].enabled = false;
 
 		return card;
 	}
-
-	private void updateUI() {
-		for(int i = 0; i < handSize; i++) {
-			if(i < hand.Count) {
-				imgs[i].color = hand[i].color;
-				imgs[i].enabled = true;
-			} else {
-				imgs[i].enabled = false;
-			}
-		}
-	}
+	
 }
