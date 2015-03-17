@@ -7,11 +7,9 @@ public class Player : MonoBehaviour {
 
 	public float speed = 5f;
 
-	private DeckUI deckUI;
-	private Dictionary<Card, int> deck;
-	private int deckSize = 0;
+	private Deck deck;
 
-	private HandUI handUI;
+	private Hand handUI;
 	private List<Card> hand;
 	public int handSize = 4;
 
@@ -19,31 +17,29 @@ public class Player : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		deckUI = GameObject.Find ("DeckUI").GetComponent<DeckUI> ();
+		deck = GameObject.Find ("DeckUI").GetComponent<Deck> ();
+		deck.initializeDeck ();
 
-		initializeDeck ();
-
-		handUI = GameObject.Find ("HandUI").GetComponent<HandUI> ();
+		handUI = GameObject.Find ("HandUI").GetComponent<Hand> ();
+		handUI.initialize (handSize);
 		hand = new List<Card> ();
 
 		rb = GetComponent<Rigidbody2D> ();
 	}
 
-	private void initializeDeck() {
-		deck = new Dictionary<Card, int> ();
-
-		List<Card> cards = GameObject.Find ("Map").GetComponent<TileMap> ().cards;
-		for (int i = 0; i < cards.Count; i++) {
-			deck.Add(cards[i], 0);
-			deckUI.addCard(cards[i], 0);
-		}
-
-		deckSize = 0;
-	}
-
 	// Update is called once per frame
 	void Update () {
 		updateMoveCharacter ();
+
+		if (Input.GetButtonDown ("Fire1")) {
+			print ("should be A");
+		} else if (Input.GetButtonDown ("Fire2")) {
+			print ("should be B");
+		} else if (Input.GetButtonDown ("Fire3")) {
+			print ("should be X");
+		} else if (Input.GetButtonDown ("Jump")) {
+			print ("should be Y");
+		}
 	}
 
 	private void updateMoveCharacter() {
@@ -67,17 +63,10 @@ public class Player : MonoBehaviour {
 
 	public void addCard(Card c) {
 		if (hand.Count == handSize) {
-			addToDeck (c);
+			deck.addCard (c);
 		} else {
 			hand.Add(c);
 			handUI.addCard(c);
 		}
 	}
-
-	private void addToDeck(Card c) {
-		deck [c] = deck [c] + 1;
-		deckSize++;
-
-		deckUI.setCount (c, deck [c]);
-	}	
 }
