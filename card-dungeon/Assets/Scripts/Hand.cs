@@ -42,4 +42,28 @@ public class Hand : MonoBehaviour {
 
 		hand.Add (c);
 	}
+
+	public Card removeCard(int handIndex) {
+		Card card = null;
+
+		if (handIndex >= 0 && handIndex < hand.Count) {
+			card = hand[handIndex];
+			hand.RemoveAt (handIndex);
+
+			updateUI ();
+		}
+
+		return card;
+	}
+
+	private void updateUI() {
+		for(int i = 0; i < handSize; i++) {
+			if(i < hand.Count) {
+				imgs[i].color = hand[i].color;
+				imgs[i].enabled = true;
+			} else {
+				imgs[i].enabled = false;
+			}
+		}
+	}
 }

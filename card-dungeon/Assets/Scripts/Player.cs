@@ -27,14 +27,21 @@ public class Player : MonoBehaviour {
 	void Update () {
 		updateMoveCharacter ();
 
+		// A Button
 		if (Input.GetButtonDown ("Fire1")) {
-			print ("should be A");
-		} else if (Input.GetButtonDown ("Fire2")) {
-			print ("should be B");
-		} else if (Input.GetButtonDown ("Fire3")) {
-			print ("should be X");
-		} else if (Input.GetButtonDown ("Jump")) {
-			print ("should be Y");
+			useCardAndDraw(0);
+		}
+		// B Button
+		else if (Input.GetButtonDown ("Fire2")) {
+			useCardAndDraw(1);
+		}
+		// X Button
+		else if (Input.GetButtonDown ("Fire3")) {
+			useCardAndDraw(2);
+		}
+		// Y Button
+		else if (Input.GetButtonDown ("Jump")) {
+			useCardAndDraw(3);
 		}
 	}
 
@@ -54,6 +61,15 @@ public class Player : MonoBehaviour {
 			
 		} else {
 			rb.velocity = Vector2.zero;
+		}
+	}
+
+	private void useCardAndDraw(int handIndex) {
+		Card c = hand.removeCard (handIndex);
+
+		if (c != null) {
+			deck.addCard(c);
+			hand.addCard(deck.drawCard());
 		}
 	}
 

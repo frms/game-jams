@@ -64,7 +64,30 @@ public class Deck : MonoBehaviour {
 	}
 
 	public void addCard(Card c) {
-		deck [c].count = deck [c].count + 1;
+		deck [c].count++;
 		deckSize++;
+	}
+
+	public Card drawCard() {
+		Card ret = null;
+
+		if (deckSize > 0) {
+			int r = Random.Range (0, deckSize);
+			int sum = 0;
+
+			foreach(Card c in deck.Keys) {
+				sum += deck[c].count;
+
+				if(r < sum) {
+					ret = c;
+					break;
+				}
+			}
+
+			deck [ret].count--;
+			deckSize--;
+		}
+
+		return ret;
 	}
 }
