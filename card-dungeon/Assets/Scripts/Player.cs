@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -9,10 +10,14 @@ public class Player : MonoBehaviour {
 	public Dictionary<Card, int> deck;
 	private int deckSize = 0;
 
+	private DeckUI deckUI;
+
 	private Rigidbody2D rb;
 
 	// Use this for initialization
 	void Start () {
+		deckUI = GameObject.Find ("DeckUI").GetComponent<DeckUI> ();
+
 		initializeDeck ();
 
 		rb = GetComponent<Rigidbody2D> ();
@@ -24,6 +29,7 @@ public class Player : MonoBehaviour {
 		List<Card> cards = GameObject.Find ("Map").GetComponent<TileMap> ().cards;
 		for (int i = 0; i < cards.Count; i++) {
 			deck.Add(cards[i], 0);
+			deckUI.addCard(cards[i], 0);
 		}
 
 		deckSize = 0;
@@ -55,6 +61,8 @@ public class Player : MonoBehaviour {
 
 	public void addCard(Card c) {
 		deck [c] = deck [c] + 1;
-		print (deck [c]);
+		deckSize++;
+
+		deckUI.setCount(c, deck[c]);
 	}
 }
