@@ -7,10 +7,13 @@ public class Player : MonoBehaviour {
 
 	public float speed = 5f;
 
-	public Dictionary<Card, int> deck;
+	private DeckUI deckUI;
+	private Dictionary<Card, int> deck;
 	private int deckSize = 0;
 
-	private DeckUI deckUI;
+	private HandUI handUI;
+	private List<Card> hand;
+	public int handSize = 4;
 
 	private Rigidbody2D rb;
 
@@ -19,6 +22,9 @@ public class Player : MonoBehaviour {
 		deckUI = GameObject.Find ("DeckUI").GetComponent<DeckUI> ();
 
 		initializeDeck ();
+
+		handUI = GameObject.Find ("HandUI").GetComponent<HandUI> ();
+		hand = new List<Card> ();
 
 		rb = GetComponent<Rigidbody2D> ();
 	}
@@ -60,9 +66,18 @@ public class Player : MonoBehaviour {
 	}
 
 	public void addCard(Card c) {
+		if (hand.Count == handSize) {
+			addToDeck (c);
+		} else {
+			hand.Add(c);
+			handUI.addCard(c);
+		}
+	}
+
+	private void addToDeck(Card c) {
 		deck [c] = deck [c] + 1;
 		deckSize++;
 
-		deckUI.setCount(c, deck[c]);
-	}
+		deckUI.setCount (c, deck [c]);
+	}	
 }
