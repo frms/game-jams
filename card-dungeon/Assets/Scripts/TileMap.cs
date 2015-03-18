@@ -173,33 +173,33 @@ public class TileMap : MonoBehaviour {
 
 		floorTiles = new List<int[]> ();
 		
-		for (int y = 0; y < map.height; y++) {
+		for (int z = 0; z < map.height; z++) {
 			for(int x = 0; x < map.width; x++) {
-				if(map[x, y] == 1) {
-					createGameObj(x, y, floor);
+				if(map[x, z] == 1) {
+					createGameObj(x, z, floor);
 
-					int[] loc = new [] { x, y };
+					int[] loc = new [] { x, z };
 					floorTiles.Add(loc);
-				} else if(map[x, y] == 2) {
-					createGameObj(x, y, wall);
+				} else if(map[x, z] == 2) {
+					createGameObj(x, z, wall);
 				}
 			}
 		}
 	}
 
-	private Transform createGameObj(int x, int y, Transform t) {
-		Vector3 pos = getPosition (x, y);
+	private Transform createGameObj(int x, int z, Transform t) {
+		Vector3 pos = getPosition (x, z);
 		
-		Transform child = Instantiate(t, pos, Quaternion.identity) as Transform;
+		Transform child = Instantiate(t, pos, t.rotation) as Transform;
 		child.parent = transform;
 
 		return child;
 	}
 
-	private Vector3 getPosition(int x, int y) {
+	private Vector3 getPosition(int x, int z) {
 		Vector3 pos = new Vector3();
 		pos.x = (tileSize/2) + tileSize*x; 
-		pos.y = (tileSize/2) + tileSize*y;
+		pos.z = (tileSize/2) + tileSize*z;
 
 		return pos;
 	}

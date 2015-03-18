@@ -11,7 +11,7 @@ public class CardPickUp : MonoBehaviour {
 		sr.color = card.color;
 	}
 	
-	void OnTriggerEnter2D(Collider2D other) {
+	void OnTriggerEnter(Collider other) {
 		//Debug.Log (other.tag);
 		
 		if (other.name == "Player") {

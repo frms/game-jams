@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
 
 	private Hand hand;
 
-	private Rigidbody2D rb;
+	private Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour {
 
 		hand = GameObject.Find ("HandUI").GetComponent<Hand> ();
 
-		rb = GetComponent<Rigidbody2D> ();
+		rb = GetComponent<Rigidbody> ();
 	}
 
 	// Update is called once per frame
@@ -51,12 +51,12 @@ public class Player : MonoBehaviour {
 		if(stickDirection.sqrMagnitude > 0.031) {
 			
 			// Rotate the character
-			float moveAngle = Mathf.Atan2(stickDirection.y, stickDirection.x)*Mathf.Rad2Deg;
+			float moveAngle = Mathf.Atan2(-stickDirection.y, stickDirection.x)*Mathf.Rad2Deg;
 			if(moveAngle < 0) {
 				moveAngle += 360;
 			}
 
-			transform.rotation = Quaternion.Euler(0, 0, moveAngle);
+			transform.rotation = Quaternion.Euler(90, moveAngle, 0);
 			rb.velocity = transform.right * speed;
 			
 		} else {
