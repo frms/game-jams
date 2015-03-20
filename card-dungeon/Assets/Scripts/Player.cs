@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
 
 	private Rigidbody2D rb;
 
+	public MapData map;
+
 	// Use this for initialization
 	void Start () {
 		deck = GameObject.Find ("DeckUI").GetComponent<Deck> ();
@@ -21,6 +23,8 @@ public class Player : MonoBehaviour {
 		hand = GameObject.Find ("HandUI").GetComponent<Hand> ();
 
 		rb = GetComponent<Rigidbody2D> ();
+
+		map = GameObject.Find ("Map").GetComponent<TileMap> ().map;
 	}
 
 	// Update is called once per frame
@@ -30,11 +34,12 @@ public class Player : MonoBehaviour {
 		// A Button
 		if (Input.GetButtonDown ("Fire1")) {
 			//useCardAndDraw(0);
-			test();
+			setStart();
 		}
 		// B Button
 		else if (Input.GetButtonDown ("Fire2")) {
-			useCardAndDraw(1);
+			//useCardAndDraw(1);
+			findPath();
 		}
 		// X Button
 		else if (Input.GetButtonDown ("Fire3")) {
@@ -65,37 +70,56 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void test() {
-		MapData map = new MapData (3, 3);
+	private int[] start;
+
+	private void setStart() {
+		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		start = new int[2];
+		start [0] = Mathf.FloorToInt (pos.x);
+		start [1] = Mathf.FloorToInt (pos.y);
+		print (start);
+	}
+
+	private void findPath() {
+		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		int[] end = new int[2];
+		end [0] = Mathf.FloorToInt (pos.x);
+		end [1] = Mathf.FloorToInt (pos.y);
+		print (end);
+
+		AStar a = new AStar();
 		
-		for (int j = 0; j < map.height; j++) {
-			for (int i = 0; i < map.width; i++) {
-				map[i,j] = 1;
+		List<int[]> l = a.findPathAStar (map, start, end);
+		draw(l);
+	}
+
+	private static void draw(List<int[]> l) {
+		if (l == null) {
+			Debug.Log("No path found");
+		} else {
+			for (int i = 0; i < l.Count-1; i++) {
+				Vector3 p1 = new Vector3(l[i][0] + 0.5f, l[i][1] + 0.5f, 0);
+				Vector3 p2 = new Vector3(l[i+1][0] + 0.5f, l[i+1][1] + 0.5f, 0);
+
+				Debug.DrawLine(p1, p2, Color.cyan, Mathf.Infinity, false);
 			}
 		}
-		
-		map [2, 0] = 0;
-		map [0, 2] = 0;
-		
-		List<int[]> l;
-		AStar a = new AStar();
-
-		l = a.findPathAStar (map, new [] { 0, 0 }, new [] { 2, 2 });
-		print(l);
-
-		l = a.findPathAStar (map, new [] { 0, 0 }, new [] { 2, 0 });
-		print(l);
+		Debug.Log ("-----------------------------------------------");
 	}
-	
+
 	private static void print(List<int[]> l) {
 		if (l == null) {
 			Debug.Log("No path found");
 		} else {
 			for (int i = 0; i < l.Count; i++) {
-				Debug.Log ("[" + l [i] [0] + ", " + l [i] [1] + "]");
+				print (l[i]);
 			}
 		}
 		Debug.Log ("-----------------------------------------------");
+	}
+
+	private static void print(int[] arr) {
+		Debug.Log ("[" + arr[0] + ", " + arr[1] + "]");
 	}
 
 	private void useCardAndDraw(int handIndex) {

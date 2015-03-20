@@ -22,7 +22,7 @@ public class TileMap : MonoBehaviour {
 	[HideInInspector]
 	public int[] roomHeightRange = new [] {4, 8};
 
-	private MapData map;
+	public MapData map;
 	private List<Room> rooms;
 	private List<int[]> floorTiles;
 
