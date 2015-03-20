@@ -29,7 +29,8 @@ public class Player : MonoBehaviour {
 
 		// A Button
 		if (Input.GetButtonDown ("Fire1")) {
-			useCardAndDraw(0);
+			//useCardAndDraw(0);
+			test();
 		}
 		// B Button
 		else if (Input.GetButtonDown ("Fire2")) {
@@ -62,6 +63,39 @@ public class Player : MonoBehaviour {
 		} else {
 			rb.velocity = Vector2.zero;
 		}
+	}
+
+	public void test() {
+		MapData map = new MapData (3, 3);
+		
+		for (int j = 0; j < map.height; j++) {
+			for (int i = 0; i < map.width; i++) {
+				map[i,j] = 1;
+			}
+		}
+		
+		map [2, 0] = 0;
+		map [0, 2] = 0;
+		
+		List<int[]> l;
+		AStar a = new AStar();
+
+		l = a.findPathAStar (map, new [] { 0, 0 }, new [] { 2, 2 });
+		print(l);
+
+		l = a.findPathAStar (map, new [] { 0, 0 }, new [] { 2, 0 });
+		print(l);
+	}
+	
+	private static void print(List<int[]> l) {
+		if (l == null) {
+			Debug.Log("No path found");
+		} else {
+			for (int i = 0; i < l.Count; i++) {
+				Debug.Log ("[" + l [i] [0] + ", " + l [i] [1] + "]");
+			}
+		}
+		Debug.Log ("-----------------------------------------------");
 	}
 
 	private void useCardAndDraw(int handIndex) {
