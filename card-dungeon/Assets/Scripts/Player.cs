@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -81,6 +82,9 @@ public class Player : MonoBehaviour {
 	}
 
 	private void findPath() {
+		System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+		sw.Start();
+
 		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		int[] end = new int[2];
 		end [0] = Mathf.FloorToInt (pos.x);
@@ -91,6 +95,9 @@ public class Player : MonoBehaviour {
 		
 		List<int[]> l = a.findPathAStar (map, start, end);
 		draw(l);
+
+		sw.Stop();
+		UnityEngine.Debug.Log (sw.ElapsedMilliseconds);
 	}
 
 	private static void draw(List<int[]> l) {
