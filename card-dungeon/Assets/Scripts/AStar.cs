@@ -4,37 +4,15 @@ using System.Collections.Generic;
 
 public class AStar {
 
-	class DistHeuristic {
+	class ManhattanDistHeuristic {
 		private int[] goal;
-		private float[,] distMap;
 
-		public DistHeuristic(MapData graph, int[] goal) {
+		public ManhattanDistHeuristic(int[] goal) {
 			this.goal = goal;
-
-			distMap = new float[graph.width, graph.height];
-
-			// Set the distance for all nodes to -1 to represent not yet calculated
-			for(int j = 0; j < graph.height; j++) {
-				for(int i = 0; i < graph.width; i++) {
-					if(i == goal[0] && j == goal[1]) {
-						distMap[i,j] = 0;
-					} else {
-						distMap[i,j] = -1;
-					}
-				}
-			}
 		}
 
 		public float estimate(int[] node) {
-			if(distMap[node[0], node[1]] == -1) {
-				distMap[node[0], node[1]] = distance(node, goal);
-		    }
-
-			return distMap [node [0], node [1]];
-		}
-
-		private static float distance(int[] a, int[] b) {
-			return Mathf.Sqrt( (a [0] - b [0]) * (a [0] - b [0]) + (a [1] - b [1]) * (a [1] - b [1]) );
+			return Mathf.Abs(node [0] - goal [0]) + Mathf.Abs(node [1] - goal [1]);
 		}
 	}
 
@@ -62,7 +40,9 @@ public class AStar {
 
 
 	public List<int[]> findPathAStar(MapData graph, int[] start, int[] end) {
-		DistHeuristic heuristic = new DistHeuristic (graph, end);
+		/* Using manhattan distance since I assume this graph is a 4 direction grid.
+		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
+		ManhattanDistHeuristic heuristic = new ManhattanDistHeuristic (end);
 		
 		/* Create the record for the start node */
 		Record startRecord = new Record ();
