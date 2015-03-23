@@ -102,13 +102,15 @@ public class LinePath  {
 	/* Gives the distance of a point to a line segment.
 	 * p is the point, v and w are the two points of the line segment */
 	private static float distToSegment(Vector3 p, Vector3 v, Vector3 w) { 
-		float l2 = Vector3.Distance(v, w)*Vector3.Distance(v, w);
+		Vector3 vw = w - v;
+		
+		float l2 = Vector3.Dot(vw, vw);
 		
 		if (l2 == 0) {
 			return Vector3.Distance(p, v);
 		}
 		
-		float t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
+		float t = Vector3.Dot(p - v, vw) / l2;
 		
 		if (t < 0) {
 			return Vector3.Distance(p, v);
@@ -125,13 +127,15 @@ public class LinePath  {
 	
 	/* Finds the param for the closest point on the segment vw given the point p */
 	private static float getParamForSegment(Vector3 p, Vector3 v, Vector3 w) {
-		float l2 = Vector3.Distance(v, w)*Vector3.Distance(v, w);
+		Vector3 vw = w - v;
+
+		float l2 = Vector3.Dot(vw, vw);
 		
 		if (l2 == 0) {
 			return 0;
 		}
 		
-		float t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
+		float t = Vector3.Dot(p - v, vw) / l2;
 		
 		if(t < 0) {
 			t = 0;
