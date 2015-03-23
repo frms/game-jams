@@ -39,7 +39,7 @@ public class AStar {
 	}
 
 
-	public List<int[]> findPathAStar(MapData graph, int[] start, int[] end) {
+	public LinePath findPathAStar(MapData graph, int[] start, int[] end) {
 		/* Using manhattan distance since I assume this graph is a 4 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
 		ManhattanDistHeuristic heuristic = new ManhattanDistHeuristic (end);
@@ -150,19 +150,19 @@ public class AStar {
 			/* We must have run out of nodes before finding the goal */
 			return null;
 		} else {
-			List<int[]> path = new List<int[]>();
-			path.Add(currentNode);
+			List<Vector3> path = new List<Vector3>();
+			path.Add(graph.getPosition(currentNode[0], currentNode[1]));
 
 			/* Work back along the path, accumulating connections */
 			while(!equals(current.node, start)) {
-				path.Add(current.lastNode);
+				path.Add(graph.getPosition(current.lastNode[0], current.lastNode[1]));
 				current = nodeArray[current.lastNode[0], current.lastNode[1]];
 			}
 			
 			/* Reverse the path so the connections are from start to finish */
 			path.Reverse();
 			
-			return path;
+			return new LinePath(path.ToArray());
 		}
 	}
 

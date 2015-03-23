@@ -48,14 +48,12 @@ public class EnemyA : MonoBehaviour {
 		
 		AStar a = new AStar();
 		
-		List<int[]> l = a.findPathAStar (map, start, end);
+		LinePath lp = a.findPathAStar (map, start, end);
 		sw.Stop();
 
 		print (end);
 
-		LinePath lp = null;
-		if (l != null) {
-			lp = new LinePath (l);
+		if (lp != null) {
 			lp.draw ();
 		}
 		//print (l);

@@ -59,7 +59,7 @@ public class TileMap : MonoBehaviour {
 	}
 
 	private void buildMapData() {
-		map = new MapData (mapWidth, mapHeight);
+		map = new MapData (mapWidth, mapHeight, tileSize);
 
 		rooms = new List<Room>();
 		
@@ -189,7 +189,7 @@ public class TileMap : MonoBehaviour {
 	}
 
 	private Transform createGameObj(int x, int y, Transform t) {
-		Vector3 pos = getPosition (x, y);
+		Vector3 pos = map.getPosition (x, y);
 		
 		Transform child = Instantiate(t, pos, Quaternion.identity) as Transform;
 		child.parent = transform;
@@ -197,18 +197,10 @@ public class TileMap : MonoBehaviour {
 		return child;
 	}
 
-	private Vector3 getPosition(int x, int y) {
-		Vector3 pos = new Vector3();
-		pos.x = (tileSize/2) + tileSize*x; 
-		pos.y = (tileSize/2) + tileSize*y;
-
-		return pos;
-	}
-
 	private void placeGameBits() {
 		int i = Random.Range (0, floorTiles.Count);
 		int[] mapPos = floorTiles [i];
-		player.position = getPosition (mapPos[0], mapPos[1]);
+		player.position = map.getPosition (mapPos[0], mapPos[1]);
 
 		for(int x = 0; x < floorTiles.Count; x++) {
 			if(Random.value < percentCardsOnGround) {

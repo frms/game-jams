@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class MapData {
 	public int width;
 	public int height;
+	public float tileSize;
+
 	private int[,] map;
 
 	// Indexer declaration.
@@ -21,9 +23,10 @@ public class MapData {
 		}
 	}
 
-	public MapData(int width, int height) {
+	public MapData(int width, int height, float tileSize) {
 		this.width = width;
 		this.height = height;
+		this.tileSize = tileSize;
 		map = new int[width,height];
 	}
 
@@ -66,5 +69,13 @@ public class MapData {
 //		}
 
 		return ret;
+	}
+
+	public Vector3 getPosition(int x, int y) {
+		Vector3 pos = new Vector3();
+		pos.x = (tileSize/2) + tileSize*x; 
+		pos.y = (tileSize/2) + tileSize*y;
+		
+		return pos;
 	}
 }
