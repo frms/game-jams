@@ -86,9 +86,7 @@ public class LinePath  {
 		}
 		
 		/* Convert it to the first node of the line segment that the param is in */
-		if (i < 0) {
-			i = 0;
-		} else if (i > distances.Length - 2) {
+		if (i > distances.Length - 2) {
 			i = distances.Length - 2;
 		} else {
 			i -= 1;
