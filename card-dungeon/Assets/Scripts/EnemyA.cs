@@ -31,6 +31,8 @@ public class EnemyA : MonoBehaviour {
 			Vector2 accel = followPath.getSteering(currentPath);
 			steeringUtils.steer(accel);
 		}
+
+		steeringUtils.lookWhereYoureGoing ();
 	}
 
 	private LinePath findPath() {
