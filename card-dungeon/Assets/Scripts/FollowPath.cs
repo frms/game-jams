@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (SteeringUtils))]
+[RequireComponent (typeof (Rigidbody2D))]
 public class FollowPath : MonoBehaviour {
 	public float stopRadius = 0.05f;
 	
@@ -17,11 +19,6 @@ public class FollowPath : MonoBehaviour {
 	void Start () {
 		steeringUtils = GetComponent<SteeringUtils> ();
 		rb = GetComponent<Rigidbody2D> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	public Vector2 getSteering (LinePath path) {
