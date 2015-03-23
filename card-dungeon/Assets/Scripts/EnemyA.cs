@@ -4,35 +4,40 @@ using System.Collections.Generic;
 
 public class EnemyA : MonoBehaviour {
 	private MapData map;
+	private SteeringUtils steeringUtils;
+	private FollowPath followPath;
 	
 	// Use this for initialization
 	void Start () {
 		map = GameObject.Find ("Map").GetComponent<TileMap> ().map;
+		steeringUtils = GetComponent<SteeringUtils> ();
+		followPath = GetComponent<FollowPath> ();
 	}
+
+	private LinePath currentPath;
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		// A Button
 		if (Input.GetButtonDown ("Fire1")) {
-			setStart();
+			currentPath = null;
 		}
 		// B Button
 		else if (Input.GetButtonDown ("Fire2")) {
-			findPath();
+			currentPath = findPath();
+		}
+
+		if (currentPath != null) {
+			Vector2 accel = followPath.getSteering(currentPath);
+			steeringUtils.steer(accel);
 		}
 	}
 
-	private int[] start;
-	
-	private void setStart() {
-		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		start = new int[2];
-		start [0] = Mathf.FloorToInt (pos.x);
-		start [1] = Mathf.FloorToInt (pos.y);
-		print (start);
-	}
-	
-	private void findPath() {
+	private LinePath findPath() {
+		int[] start = new int[2];
+		start [0] = Mathf.FloorToInt (transform.position.x);
+		start [1] = Mathf.FloorToInt (transform.position.y);
+
 		System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 		sw.Start();
 		
@@ -48,24 +53,16 @@ public class EnemyA : MonoBehaviour {
 
 		print (end);
 
-		draw(l);
+		LinePath lp = null;
+		if (l != null) {
+			lp = new LinePath (l);
+			lp.draw ();
+		}
 		//print (l);
 
 		Debug.Log (sw.Elapsed.TotalMilliseconds);
-	}
-	
-	private static void draw(List<int[]> l) {
-		if (l == null) {
-			Debug.Log("No path found");
-		} else {
-			for (int i = 0; i < l.Count-1; i++) {
-				Vector3 p1 = new Vector3(l[i][0] + 0.5f, l[i][1] + 0.5f, 0);
-				Vector3 p2 = new Vector3(l[i+1][0] + 0.5f, l[i+1][1] + 0.5f, 0);
-				
-				Debug.DrawLine(p1, p2, Color.cyan, Mathf.Infinity, false);
-			}
-		}
-		Debug.Log ("-----------------------------------------------");
+
+		return lp;
 	}
 	
 	private static void print(List<int[]> l) {

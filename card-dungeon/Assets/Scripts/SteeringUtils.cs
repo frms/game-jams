@@ -17,13 +17,20 @@ public class SteeringUtils : MonoBehaviour {
 	
 	/* The time in which we want to achieve the targetSpeed */
 	public float timeToTarget = 0.1f;
+
+	private Rigidbody2D rb;
+
+	// Use this for initialization
+	void Start () {
+		rb = GetComponent<Rigidbody2D> ();
+	}
 	
 	/* Updates the velocity of the current game object by the given linear acceleration */
 	public void steer(Vector2 linearAcceleration) {
-		GetComponent<Rigidbody2D>().velocity += linearAcceleration * Time.fixedDeltaTime;
+		rb.velocity += linearAcceleration * Time.fixedDeltaTime;
 		
-		if (GetComponent<Rigidbody2D>().velocity.magnitude > maxVelocity) {
-			GetComponent<Rigidbody2D>().velocity = GetComponent<Rigidbody2D>().velocity.normalized * maxVelocity;
+		if (rb.velocity.magnitude > maxVelocity) {
+			rb.velocity = rb.velocity.normalized * maxVelocity;
 		}
 	}
 	
@@ -50,10 +57,10 @@ public class SteeringUtils : MonoBehaviour {
 	
 	/* Makes the current game object look where he is going */
 	public void lookWhereYoureGoing() {
-		Vector2 direction = GetComponent<Rigidbody2D>().velocity.normalized;
+		Vector2 direction = rb.velocity.normalized;
 		
 		// If we have a non-zero velocity then look towards where we are moving otherwise do nothing
-		if (GetComponent<Rigidbody2D>().velocity.sqrMagnitude > 0.001) {
+		if (rb.velocity.sqrMagnitude > 0.001) {
 			float toRotation = (Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg);
 			float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.z, toRotation, Time.fixedDeltaTime*5);
 			
@@ -74,7 +81,7 @@ public class SteeringUtils : MonoBehaviour {
 		
 		/* If we are within the stopping radius then stop */
 		if(dist < targetRadius) {
-			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+			rb.velocity = Vector2.zero;
 			return Vector2.zero;
 		}
 		
@@ -91,7 +98,7 @@ public class SteeringUtils : MonoBehaviour {
 		targetVelocity *= targetSpeed;
 		
 		/* Calculate the linear acceleration we want */
-		Vector3 acceleration = targetVelocity - new Vector3(GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y, 0);
+		Vector3 acceleration = targetVelocity - new Vector3(rb.velocity.x, rb.velocity.y, 0);
 		/*
 		 Rather than accelerate the character to the correct speed in 1 second, 
 		 accelerate so we reach the desired speed in timeToTarget seconds 
