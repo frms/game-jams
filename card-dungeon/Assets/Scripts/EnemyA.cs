@@ -6,77 +6,64 @@ public class EnemyA : MonoBehaviour {
 	private MapData map;
 	private SteeringUtils steeringUtils;
 	private FollowPath followPath;
+	private Rigidbody2D rb;
+	private Transform player;
 	
 	// Use this for initialization
 	void Start () {
 		map = GameObject.Find ("Map").GetComponent<TileMap> ().map;
 		steeringUtils = GetComponent<SteeringUtils> ();
 		followPath = GetComponent<FollowPath> ();
+		rb = GetComponent<Rigidbody2D> ();
+		player = GameObject.Find ("Player").transform;
 	}
 
-	private LinePath currentPath;
+	private bool followPlayer = false;
+	private LinePath currentPath = null;
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		// A Button
 		if (Input.GetButtonDown ("Fire1")) {
+			followPlayer = false;
 			currentPath = null;
 		}
 		// B Button
 		else if (Input.GetButtonDown ("Fire2")) {
-			currentPath = findPath();
+			followPlayer = true;
+		}
+
+		if (followPlayer) {
+			findPathToPlayer();
 		}
 
 		if (currentPath != null) {
-			Vector2 accel = followPath.getSteering(currentPath);
-			steeringUtils.steer(accel);
+			Vector2 accel = followPath.getSteering (currentPath);
+			steeringUtils.steer (accel);
+		} else {
+			rb.velocity = Vector2.zero;
 		}
 
 		steeringUtils.lookWhereYoureGoing ();
 	}
 
-	private LinePath findPath() {
-		int[] start = new int[2];
-		start [0] = Mathf.FloorToInt (transform.position.x);
-		start [1] = Mathf.FloorToInt (transform.position.y);
+	private int[] lastPlayerPos;
 
-		System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-		sw.Start();
-		
-		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+	private void findPathToPlayer() {
 		int[] end = new int[2];
-		end [0] = Mathf.FloorToInt (pos.x);
-		end [1] = Mathf.FloorToInt (pos.y);
-		
-		AStar a = new AStar();
-		
-		LinePath lp = a.findPathAStar (map, start, end);
-		sw.Stop();
+		end [0] = Mathf.FloorToInt (player.position.x);
+		end [1] = Mathf.FloorToInt (player.position.y);
 
-		print (end);
+		if (currentPath == null || lastPlayerPos == null || lastPlayerPos [0] != end [0] || lastPlayerPos [1] != end [1]) { 
 
-		if (lp != null) {
-			lp.draw ();
+			int[] start = new int[2];
+			start [0] = Mathf.FloorToInt (transform.position.x);
+			start [1] = Mathf.FloorToInt (transform.position.y);
+
+			currentPath = AStar.findPath (map, start, end);
+
+			lastPlayerPos = end;
 		}
-		//print (l);
+	}
 
-		Debug.Log (sw.Elapsed.TotalMilliseconds);
-
-		return lp;
-	}
-	
-	private static void print(List<int[]> l) {
-		if (l == null) {
-			Debug.Log("No path found");
-		} else {
-			for (int i = 0; i < l.Count; i++) {
-				print (l[i]);
-			}
-		}
-		Debug.Log ("-----------------------------------------------");
-	}
-	
-	private static void print(int[] arr) {
-		Debug.Log ("[" + arr[0] + ", " + arr[1] + "]");
-	}
 }

@@ -39,7 +39,7 @@ public class AStar {
 	}
 
 
-	public LinePath findPathAStar(MapData graph, int[] start, int[] end) {
+	public static LinePath findPath(MapData graph, int[] start, int[] end) {
 		/* Using manhattan distance since I assume this graph is a 4 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
 		ManhattanDistHeuristic heuristic = new ManhattanDistHeuristic (end);
