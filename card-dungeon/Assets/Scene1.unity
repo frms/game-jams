@@ -851,6 +851,7 @@ MonoBehaviour:
   floor: {fileID: 487026, guid: 010a6a4a0123e934faa54c773db75fb3, type: 2}
   wall: {fileID: 497654, guid: 754d3c95b44814e4cb6cb5ed43a6a549, type: 2}
   cardPickUp: {fileID: 495130, guid: 2d4bb28f7c429914c9bc610dd433ae47, type: 2}
+  enemyA: {fileID: 442840, guid: e607e928451608345989fcdc5a422883, type: 2}
   mapWidth: 30
   mapHeight: 30
   tileSize: 1

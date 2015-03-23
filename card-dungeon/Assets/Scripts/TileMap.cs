@@ -6,6 +6,7 @@ public class TileMap : MonoBehaviour {
 	public Transform floor;
 	public Transform wall;
 	public Transform cardPickUp;
+	public Transform enemyA;
 
 	public int mapWidth = 3;
 	public int mapHeight = 2;
@@ -218,6 +219,10 @@ public class TileMap : MonoBehaviour {
 				cpu.setUp(randomCard());
 			}
 		}
+
+		i = Random.Range (0, floorTiles.Count);
+		mapPos = floorTiles [i];
+		createGameObj(mapPos[0], mapPos[1], enemyA);
 	}
 
 	private Card randomCard() {
