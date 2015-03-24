@@ -39,19 +39,19 @@ public class MapData {
 
 		bool left, right, down, up;
 
-		if (left = canGoLeft(x, y)) {
+		if (left = (x > 0 && map [x - 1, y] == 1)) {
 			ret.Add(new Connection( x - 1, y, Connection.DEFAULT_COST ));
 		}
 		
-		if (right = canGoRight(x, y)) {
+		if (right = (x + 1 < width && map [x + 1, y] == 1)) {
 			ret.Add(new Connection( x + 1, y, Connection.DEFAULT_COST ));
 		}
 		
-		if (down = canGoDown(x, y)) {
+		if (down = (y > 0 && map [x, y - 1] == 1)) {
 			ret.Add(new Connection( x, y - 1, Connection.DEFAULT_COST ));
 		}
 		
-		if (up = canGoUp(x, y)) {
+		if (up = (y + 1 < height && map [x, y + 1] == 1)) {
 			ret.Add(new Connection( x, y + 1, Connection.DEFAULT_COST ));
 		}
 		
@@ -72,22 +72,6 @@ public class MapData {
 		}
 
 		return ret;
-	}
-
-	private bool canGoLeft(int x, int y) {
-		return x > 0 && map [x - 1, y] == 1;
-	}
-
-	private bool canGoRight(int x, int y) {
-		return x + 1 < width && map [x + 1, y] == 1;
-	}
-
-	private bool canGoDown(int x, int y) {
-		return y > 0 && map [x, y - 1] == 1;
-	}
-
-	private bool canGoUp(int x, int y) {
-		return y + 1 < height && map [x, y + 1] == 1;
 	}
 
 	public Vector3 getPosition(int x, int y) {

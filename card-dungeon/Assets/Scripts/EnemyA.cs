@@ -68,7 +68,7 @@ public class EnemyA : MonoBehaviour {
 
 			Debug.Log (sw.Elapsed.TotalMilliseconds);
 
-			currentPath.draw();
+			//currentPath.draw();
 
 			lastPlayerPos = end;
 		}
