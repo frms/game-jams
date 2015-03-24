@@ -59,7 +59,16 @@ public class EnemyA : MonoBehaviour {
 			start [0] = Mathf.FloorToInt (transform.position.x);
 			start [1] = Mathf.FloorToInt (transform.position.y);
 
+			System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+			sw.Start();
+
 			currentPath = AStar.findPath (map, start, end);
+
+			sw.Stop();
+
+			Debug.Log (sw.Elapsed.TotalMilliseconds);
+
+			currentPath.draw();
 
 			lastPlayerPos = end;
 		}

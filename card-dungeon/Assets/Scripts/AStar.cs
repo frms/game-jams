@@ -16,6 +16,23 @@ public class AStar {
 		}
 	}
 
+	class DiagonalDistHeuristic {
+		private int[] goal;
+		private static float D = 1;
+		private static float D2 = Mathf.Sqrt (2) * D;
+
+
+		public DiagonalDistHeuristic(int[] goal) {
+			this.goal = goal;
+		}
+		
+		public float estimate(int[] node) {
+			int dx = Mathf.Abs (node [0] - goal [0]);
+			int dy = Mathf.Abs (node [1] - goal [1]);
+			return D * (dx + dy) + (D2 - 2 * D) * Mathf.Min (dx, dy);
+		}
+	}
+
 	enum Category { open, closed };
 
 	class Record {
@@ -34,15 +51,22 @@ public class AStar {
 		}
 
 		public int Compare(int[] a, int[] b) {
-			return (int)(nodeArray[a[0], a[1]].estimatedTotalCost - nodeArray[b[0], b[1]].estimatedTotalCost);
+			float f = nodeArray[a[0], a[1]].estimatedTotalCost - nodeArray[b[0], b[1]].estimatedTotalCost;
+			if (f > 0) {
+				return 1;
+			} else if (f == 0) {
+				return 0;
+			} else {
+				return -1;
+			}
 		}
 	}
 
 
 	public static LinePath findPath(MapData graph, int[] start, int[] end) {
-		/* Using manhattan distance since I assume this graph is a 4 direction grid.
+		/* Using diagonal distance since I assume this graph is a 8 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
-		ManhattanDistHeuristic heuristic = new ManhattanDistHeuristic (end);
+		DiagonalDistHeuristic heuristic = new DiagonalDistHeuristic (end);
 		
 		/* Create the record for the start node */
 		Record startRecord = new Record ();
@@ -78,11 +102,11 @@ public class AStar {
 				break;
 			}
 			
-			List<int[]> connections = graph.getConnectedNodes(currentNode);
+			List<Connection> connections = graph.getConnectedNodes(currentNode);
 
 			for(var i = 0; i < connections.Count; i++) {
-				int[] endNode = connections[i];
-				float endNodeCost = current.costSoFar + 1;
+				int[] endNode = connections[i].toNode;
+				float endNodeCost = current.costSoFar + connections[i].cost;
 				float endNodeHeuristic;
 				
 				/* Try and get the node record from the array */
