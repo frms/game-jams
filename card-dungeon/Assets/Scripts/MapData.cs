@@ -27,6 +27,7 @@ public class MapData {
 		this.width = width;
 		this.height = height;
 		this.tileSize = tileSize;
+
 		map = new int[width,height];
 	}
 

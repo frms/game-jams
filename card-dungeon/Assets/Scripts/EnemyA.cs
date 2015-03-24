@@ -10,6 +10,7 @@ public class EnemyA : MonoBehaviour {
 	private FollowPath followPath;
 	private Rigidbody2D rb;
 	private Transform player;
+	private EnemyLaser laser;
 	
 	// Use this for initialization
 	void Start () {
@@ -18,6 +19,7 @@ public class EnemyA : MonoBehaviour {
 		followPath = GetComponent<FollowPath> ();
 		rb = GetComponent<Rigidbody2D> ();
 		player = GameObject.Find ("Player").transform;
+		laser = GetComponentInChildren<EnemyLaser> ();
 	}
 	
 	private LinePath currentPath = null;
@@ -25,30 +27,23 @@ public class EnemyA : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		float dist = Vector3.Distance (transform.position, player.position);
-		RaycastHit2D hit = Physics2D.Raycast (transform.position, player.position-transform.position);
-
-//		Debug.Log(hit);
-//		if(hit != null) {
-//			Debug.Log(hit.collider);
-//		}
-//		Debug.Log ("-------------------------------");
+		Vector3 direction = player.position - transform.position;
+		RaycastHit2D hit = Physics2D.Raycast (transform.position, direction);
 
 		if (dist > atkDist || hit.collider == null || hit.collider.tag != "Player") {
 			findPathToPlayer ();
-		} else {
-			currentPath = null;
-			// atk
-		}
 
-
-		if (currentPath != null) {
 			Vector2 accel = followPath.getSteering (currentPath);
 			steeringUtils.steer (accel);
+			steeringUtils.lookWhereYoureGoing ();
+
+			laser.stop();
 		} else {
 			rb.velocity = Vector2.zero;
+			steeringUtils.lookAtDirection(direction);
+			
+			laser.fire(hit.point);
 		}
-
-		steeringUtils.lookWhereYoureGoing ();
 	}
 
 	private int[] lastPlayerPos;

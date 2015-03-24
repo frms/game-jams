@@ -18,6 +18,8 @@ public class SteeringUtils : MonoBehaviour {
 	/* The time in which we want to achieve the targetSpeed */
 	public float timeToTarget = 0.1f;
 
+	public float turnSpeed = 5f;
+
 	private Rigidbody2D rb;
 
 	// Use this for initialization
@@ -57,12 +59,16 @@ public class SteeringUtils : MonoBehaviour {
 	
 	/* Makes the current game object look where he is going */
 	public void lookWhereYoureGoing() {
-		Vector2 direction = rb.velocity.normalized;
+		lookAtDirection (rb.velocity);
+	}
+
+	public void lookAtDirection(Vector2 direction) {
+		direction.Normalize();
 		
-		// If we have a non-zero velocity then look towards where we are moving otherwise do nothing
-		if (rb.velocity.sqrMagnitude > 0.001) {
+		// If we have a non-zero direction then look towards that direciton otherwise do nothing
+		if (direction.sqrMagnitude > 0.001) {
 			float toRotation = (Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg);
-			float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.z, toRotation, Time.fixedDeltaTime*5);
+			float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.z, toRotation, Time.fixedDeltaTime*turnSpeed);
 			
 			transform.rotation = Quaternion.Euler(0, 0, rotation);
 		}
