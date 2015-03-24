@@ -42,7 +42,7 @@ public class EnemyA : MonoBehaviour {
 			rb.velocity = Vector2.zero;
 			steeringUtils.lookAtDirection(direction);
 			
-			laser.fire(hit.point);
+			laser.fire(hit);
 		}
 	}
 

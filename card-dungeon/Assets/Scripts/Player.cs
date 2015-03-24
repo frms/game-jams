@@ -4,13 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IHealth {
+	public float health = 100f;
+	public float maxHealth = 100f;
 
 	public float speed = 5f;
 
 	private Deck deck;
 
 	private Hand hand;
+
+	private Slider healthUI;
 
 	private Rigidbody2D rb;
 
@@ -20,6 +24,8 @@ public class Player : MonoBehaviour {
 		deck.initializeDeck ();
 
 		hand = GameObject.Find ("HandUI").GetComponent<Hand> ();
+
+		healthUI = GameObject.Find ("PlayerHealth").GetComponent<Slider> ();
 
 		rb = GetComponent<Rigidbody2D> ();
 	}
@@ -80,5 +86,10 @@ public class Player : MonoBehaviour {
 		} else {
 			hand.addCard(c);
 		}
+	}
+
+	public void takeDamage(float dmg) {
+		health -= dmg;
+		healthUI.value = health / maxHealth;
 	}
 }
