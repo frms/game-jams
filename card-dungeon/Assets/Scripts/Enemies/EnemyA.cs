@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EnemyA : MonoBehaviour {
+public class EnemyA : MonoBehaviour, IHealth {
+	public float health = 200f;
+	public float maxHealth = 200f;
+
 	public float atkDist = 2;
 
 	private MapData map;
@@ -63,6 +66,11 @@ public class EnemyA : MonoBehaviour {
 
 			lastPlayerPos = end;
 		}
+	}
+
+
+	public void takeDamage(float dmg) {
+		health -= dmg;
 	}
 
 }
