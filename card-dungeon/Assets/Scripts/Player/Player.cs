@@ -18,6 +18,8 @@ public class Player : MonoBehaviour, IHealth {
 
 	private Rigidbody2D rb;
 
+	private MeleeAtk meleeAtk;
+
 	// Use this for initialization
 	void Start () {
 		deck = GameObject.Find ("DeckUI").GetComponent<Deck> ();
@@ -28,6 +30,8 @@ public class Player : MonoBehaviour, IHealth {
 		healthUI = GameObject.Find ("PlayerHealth").GetComponent<Slider> ();
 
 		rb = GetComponent<Rigidbody2D> ();
+
+		meleeAtk = GetComponentInChildren<MeleeAtk> ();
 	}
 
 	// Update is called once per frame
@@ -37,6 +41,7 @@ public class Player : MonoBehaviour, IHealth {
 		// A Button
 		if (Input.GetButtonDown ("Fire1")) {
 			useCardAndDraw(0);
+			meleeAtk.attack();
 		}
 		// B Button
 		else if (Input.GetButtonDown ("Fire2")) {
