@@ -29,7 +29,7 @@ public class SteeringUtils : MonoBehaviour {
 	
 	/* Updates the velocity of the current game object by the given linear acceleration */
 	public void steer(Vector2 linearAcceleration) {
-		rb.velocity += linearAcceleration * Time.fixedDeltaTime;
+		rb.velocity += linearAcceleration * Time.deltaTime;
 		
 		if (rb.velocity.magnitude > maxVelocity) {
 			rb.velocity = rb.velocity.normalized * maxVelocity;
@@ -68,7 +68,7 @@ public class SteeringUtils : MonoBehaviour {
 		// If we have a non-zero direction then look towards that direciton otherwise do nothing
 		if (direction.sqrMagnitude > 0.001) {
 			float toRotation = (Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg);
-			float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.z, toRotation, Time.fixedDeltaTime*turnSpeed);
+			float rotation = Mathf.LerpAngle(transform.rotation.eulerAngles.z, toRotation, Time.deltaTime*turnSpeed);
 			
 			transform.rotation = Quaternion.Euler(0, 0, rotation);
 		}

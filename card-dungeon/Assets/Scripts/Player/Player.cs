@@ -34,14 +34,16 @@ public class Player : MonoBehaviour, IHealth {
 		meleeAtk = GetComponentInChildren<MeleeAtk> ();
 	}
 
-	// Update is called once per frame
-	void FixedUpdate () {
-		updateMoveCharacter ();
+	private int count = 0;
 
+	// Update is called once per frame
+	void Update() {
 		// A Button
 		if (Input.GetButtonDown ("Fire1")) {
 			useCardAndDraw(0);
 			meleeAtk.attack();
+			count++;
+			Debug.Log("Player " + count);
 		}
 		// B Button
 		else if (Input.GetButtonDown ("Fire2")) {
@@ -55,6 +57,9 @@ public class Player : MonoBehaviour, IHealth {
 		else if (Input.GetButtonDown ("Jump")) {
 			useCardAndDraw(3);
 		}
+	}
+	void FixedUpdate () {
+		updateMoveCharacter ();
 	}
 
 	private void updateMoveCharacter() {

@@ -14,6 +14,7 @@ public class EnemyA : MonoBehaviour, IHealth {
 	private Rigidbody2D rb;
 	private Transform player;
 	private EnemyLaser laser;
+	private SpriteRenderer sr;
 	
 	// Use this for initialization
 	void Start () {
@@ -23,12 +24,13 @@ public class EnemyA : MonoBehaviour, IHealth {
 		rb = GetComponent<Rigidbody2D> ();
 		player = GameObject.Find ("Player").transform;
 		laser = GetComponentInChildren<EnemyLaser> ();
+		sr = GetComponent<SpriteRenderer> ();
 	}
 	
 	private LinePath currentPath = null;
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		float dist = Vector3.Distance (transform.position, player.position);
 		Vector3 direction = player.position - transform.position;
 		RaycastHit2D hit = Physics2D.Raycast (transform.position, direction);
@@ -67,10 +69,17 @@ public class EnemyA : MonoBehaviour, IHealth {
 			lastPlayerPos = end;
 		}
 	}
-
-
+	
 	public void takeDamage(float dmg) {
 		health -= dmg;
+		sr.color = new Color (1, 1, 1, 0.5f);
+
+		CancelInvoke ();
+		Invoke ("resetColor", 0.25f);
+	}
+
+	private void resetColor() {
+		sr.color = Color.white;
 	}
 
 }
