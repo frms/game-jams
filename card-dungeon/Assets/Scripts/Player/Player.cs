@@ -18,7 +18,7 @@ public class Player : MonoBehaviour, IHealth {
 
 	private Rigidbody2D rb;
 
-	private MeleeAtk meleeAtk;
+	private Melee meleeAtk;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour, IHealth {
 
 		rb = GetComponent<Rigidbody2D> ();
 
-		meleeAtk = GetComponentInChildren<MeleeAtk> ();
+		meleeAtk = GetComponentInChildren<Melee> ();
 	}
 
 	private int count = 0;

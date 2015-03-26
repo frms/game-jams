@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MeleeAtk : MonoBehaviour {
+public class Melee : MonoBehaviour {
 	public float dmg = 50f;
 
-	private Collider2D meleeCircle;
+	private Collider2D collider;
 
 	// Use this for initialization
 	void Start () {
-		meleeCircle = GetComponent<Collider2D> ();
-		meleeCircle.enabled = false;
+		collider = GetComponent<Collider2D> ();
+		collider.enabled = false;
 	}
 
 	bool hasOneFramePassed = false;
 
 	void FixedUpdate() {
-		if (meleeCircle.enabled) {
+		if (collider.enabled) {
 			// Only disable the melee circle if there has already been 1 physics frame with it enabled.
 			if (hasOneFramePassed) {
-				meleeCircle.enabled = false;
+				collider.enabled = false;
 			}
 			// Else this is the that first frame of it enabled
 			else {
@@ -38,6 +38,6 @@ public class MeleeAtk : MonoBehaviour {
 	}
 
 	public void attack() {
-		meleeCircle.enabled = true;
+		collider.enabled = true;
 	}
 }

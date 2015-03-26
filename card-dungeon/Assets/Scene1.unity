@@ -1207,10 +1207,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2018599782}
-  - 58: {fileID: 2018599783}
   - 114: {fileID: 2018599784}
+  - 60: {fileID: 2018599783}
   m_Layer: 8
-  m_Name: MeleeCircle
+  m_Name: Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1228,8 +1228,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 182224943}
   m_RootOrder: 0
---- !u!58 &2018599783
-CircleCollider2D:
+--- !u!60 &2018599783
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1239,8 +1239,12 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
+  m_Points:
+    m_Paths:
+    - - {x: .999438047, y: .556299746}
+      - {x: .996339381, y: -.524104297}
+      - {x: -.0018325448, y: -.174682736}
+      - {x: .000444769859, y: .174624279}
 --- !u!114 &2018599784
 MonoBehaviour:
   m_ObjectHideFlags: 0
