@@ -28,9 +28,8 @@ public class EnemyA : MonoBehaviour, IHealth {
 	}
 	
 	private LinePath currentPath = null;
-	
-	// Update is called once per frame
-	void Update () {
+
+	void FixedUpdate () {
 		float dist = Vector3.Distance (transform.position, player.position);
 		Vector3 direction = player.position - transform.position;
 		RaycastHit2D hit = Physics2D.Raycast (transform.position, direction);
