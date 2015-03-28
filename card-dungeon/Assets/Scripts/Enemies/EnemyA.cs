@@ -35,18 +35,24 @@ public class EnemyA : MonoBehaviour, IHealth {
 		RaycastHit2D hit = Physics2D.Raycast (transform.position, direction);
 
 		if (dist > atkDist || hit.collider == null || hit.collider.tag != "Player") {
+			laser.stop();
+
 			findPathToPlayer ();
 
-			Vector2 accel = followPath.getSteering (currentPath);
-			steeringUtils.steer (accel);
-			steeringUtils.lookWhereYoureGoing ();
-
-			laser.stop();
+			if(currentPath != null) {
+				Vector2 accel = followPath.getSteering (currentPath);
+				steeringUtils.steer (accel);
+				steeringUtils.lookWhereYoureGoing ();
+			}
+			// If we have not path to the player then stand still
+			else {
+				rb.velocity = Vector2.zero;
+			}
 		} else {
+			laser.fire(hit);
+
 			rb.velocity = Vector2.zero;
 			steeringUtils.lookAtDirection(direction);
-			
-			laser.fire(hit);
 		}
 	}
 
