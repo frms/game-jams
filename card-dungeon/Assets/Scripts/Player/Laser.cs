@@ -2,15 +2,15 @@
 using System.Collections;
 
 public class Laser : MonoBehaviour {
-	public float distance = 20f;
+	public float distance = 10f;
 
 	private LineRenderer gunLine;
-	private Transform user;
+	private int damageableLayer;
 	
 	// Use this for initialization
 	void Start () {
 		gunLine = GetComponent<LineRenderer> ();
-		user = transform.parent;
+		damageableLayer = 1 << LayerMask.NameToLayer ("Damageable");
 	}
 	
 	public void use() {
@@ -19,5 +19,8 @@ public class Laser : MonoBehaviour {
 		gunLine.enabled = true;
 		gunLine.SetPosition (0, transform.position);
 		gunLine.SetPosition (1, endPoint);
+
+		RaycastHit2D[] hits = Physics2D.RaycastAll (transform.position, transform.right, distance, damageableLayer);
+		Debug.Log (hits.Length);
 	}
 }

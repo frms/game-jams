@@ -63,7 +63,9 @@ public class Player : MonoBehaviour, IHealth {
 
 	private void updateMoveCharacter() {
 		Vector2 stickDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-		
+
+		rb.velocity = Vector2.zero;
+
 		if(stickDirection.sqrMagnitude > 0.031) {
 			
 			// Rotate the character
@@ -73,10 +75,10 @@ public class Player : MonoBehaviour, IHealth {
 			}
 
 			transform.rotation = Quaternion.Euler(0, 0, moveAngle);
-			rb.velocity = transform.right * speed;
-			
-		} else {
-			rb.velocity = Vector2.zero;
+
+			if(Input.GetAxis ("Left Trigger") == 0 && Input.GetAxis ("Right Trigger") == 0) {
+				rb.velocity = transform.right * speed;
+			}	
 		}
 	}
 
