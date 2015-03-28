@@ -4,29 +4,16 @@ using System.Collections;
 public class Melee : MonoBehaviour {
 	public float dmg = 50f;
 
-	private Collider2D collider;
+	private Collider2D collider2d;
+	private MeshRenderer meshRender;
 
 	// Use this for initialization
 	void Start () {
-		collider = GetComponent<Collider2D> ();
-		collider.enabled = false;
-	}
+		collider2d = GetComponent<Collider2D> ();
+		collider2d.enabled = false;
 
-	bool hasOneFramePassed = false;
-
-	void FixedUpdate() {
-		if (collider.enabled) {
-			// Only disable the melee circle if there has already been 1 physics frame with it enabled.
-			if (hasOneFramePassed) {
-				collider.enabled = false;
-			}
-			// Else this is the that first frame of it enabled
-			else {
-				hasOneFramePassed = true;
-			}
-		} else {
-			hasOneFramePassed = false;
-		}
+		meshRender = GetComponent<MeshRenderer> ();
+		meshRender.enabled = false;
 	}
 
 	private int count = 0;
@@ -38,6 +25,17 @@ public class Melee : MonoBehaviour {
 	}
 
 	public void attack() {
-		collider.enabled = true;
+		// If we are not already attacking then attack
+		if (!collider2d.enabled) {
+			collider2d.enabled = true;
+			meshRender.enabled = true;
+
+			Invoke ("stopAttack", 0.25f);
+		}
+	}
+
+	public void stopAttack() {
+		collider2d.enabled = false;
+		meshRender.enabled = false;
 	}
 }
