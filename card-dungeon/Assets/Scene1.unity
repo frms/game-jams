@@ -1119,6 +1119,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 972989719}
   - 120: {fileID: 972989720}
+  - 114: {fileID: 972989721}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -1175,6 +1176,18 @@ LineRenderer:
       serializedVersion: 2
       rgba: 4292980991
   m_UseWorldSpace: 1
+--- !u!114 &972989721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 972989718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fce0a547f9a296a4abf8424591a472cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 20
 --- !u!1 &1040639432
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,16 +15,13 @@ public class Melee : MonoBehaviour {
 		meshRender = GetComponent<MeshRenderer> ();
 		meshRender.enabled = false;
 	}
-
-	private int count = 0;
+	
 	void OnTriggerEnter2D(Collider2D other) {
 		IHealth health = other.GetComponent<IHealth> ();
 		health.takeDamage (dmg);
-		count++;
-		Debug.Log("Enemy " + count);
 	}
 
-	public void attack() {
+	public void use() {
 		// If we are not already attacking then attack
 		if (!collider2d.enabled) {
 			collider2d.enabled = true;

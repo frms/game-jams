@@ -18,7 +18,8 @@ public class Player : MonoBehaviour, IHealth {
 
 	private Rigidbody2D rb;
 
-	private Melee meleeAtk;
+	private Melee melee;
+	private Laser laser;
 
 	// Use this for initialization
 	void Start () {
@@ -31,23 +32,21 @@ public class Player : MonoBehaviour, IHealth {
 
 		rb = GetComponent<Rigidbody2D> ();
 
-		meleeAtk = GetComponentInChildren<Melee> ();
+		melee = GetComponentInChildren<Melee> ();
+		laser = GetComponentInChildren<Laser> ();
 	}
-
-	private int count = 0;
 
 	// Update is called once per frame
 	void Update() {
 		// A Button
 		if (Input.GetButtonDown ("Fire1")) {
 			useCardAndDraw(0);
-			meleeAtk.attack();
-			count++;
-			Debug.Log("Player " + count);
+			melee.use();
 		}
 		// B Button
 		else if (Input.GetButtonDown ("Fire2")) {
 			useCardAndDraw(1);
+			laser.use();
 		}
 		// X Button
 		else if (Input.GetButtonDown ("Fire3")) {
