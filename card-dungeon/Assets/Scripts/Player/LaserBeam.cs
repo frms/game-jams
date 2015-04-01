@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class LaserBeam : MonoBehaviour {
+	public float dmg = 100f;
 	public float visibleTime = 0.6f;
 	public float fadeTime = 0.4f;
 
@@ -31,10 +32,9 @@ public class LaserBeam : MonoBehaviour {
 			Destroy(transform.parent.gameObject);
 		}
 	}
-	private static int count = 0;
 
 	void OnTriggerEnter2D(Collider2D other) {
-		count++;
-		Debug.Log ("Beam Count: " + count);
+		IHealth health = other.GetComponent<IHealth> ();
+		health.takeDamage (dmg);
 	}
 }

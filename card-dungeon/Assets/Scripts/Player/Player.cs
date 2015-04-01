@@ -36,8 +36,6 @@ public class Player : MonoBehaviour, IHealth {
 		laser = GetComponentInChildren<Laser> ();
 	}
 
-	private int count = 0;
-
 	// Update is called once per frame
 	void Update() {
 		// A Button
@@ -49,8 +47,6 @@ public class Player : MonoBehaviour, IHealth {
 		else if (Input.GetButtonDown ("Fire2")) {
 			useCardAndDraw(1);
 			laser.use();
-			count++;
-			Debug.Log ("Player Count: " + count);
 		}
 		// X Button
 		else if (Input.GetButtonDown ("Fire3")) {
