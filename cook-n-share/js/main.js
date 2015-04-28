@@ -1,11 +1,10 @@
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-
 var camera, controls, scene, renderer;
 var plane, cube;
 var mouse, raycaster, isShiftDown = false;
 
 var rollOverMesh, rollOverMaterial;
-var cubeGeo, cubeMaterial;
+var cubeGeo;
 
 var currentTool;
 
@@ -52,7 +51,6 @@ function init() {
 	// cubes
 
 	cubeGeo = new THREE.BoxGeometry( 50, 50, 50 );
-	cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xFFAEC9, shading: THREE.FlatShading, overdraw: 1 } );
 
 	// grid
 
@@ -135,6 +133,11 @@ function onDocumentMouseMove( event ) {
 
 	raycaster.setFromCamera( mouse, camera );
 
+	showHideRollOver();
+
+}
+
+function showHideRollOver() {
 	var intersects = raycaster.intersectObjects( objects );
 
 	if ( currentTool === 'pencil' && intersects.length > 0 ) {
@@ -148,7 +151,6 @@ function onDocumentMouseMove( event ) {
 	} else {
 		rollOverMesh.visible = false;
 	}
-
 }
 
 function onDocumentMouseDown( event ) {
@@ -180,8 +182,11 @@ function onDocumentMouseDown( event ) {
 		// create cube
 
 		} else {
+			var color = $("#mycolor").colorpicker("val");
+			color = color.replace('#', '');
+			color = parseInt(color, 16);
 
-			var voxel = new THREE.Mesh( cubeGeo, cubeMaterial );
+			var voxel = new THREE.Mesh( cubeGeo, new THREE.MeshLambertMaterial( { color: color, shading: THREE.FlatShading } ) );
 			voxel.position.copy( intersect.point ).add( intersect.face.normal );
 			voxel.position.divideScalar( 50 ).floor().multiplyScalar( 50 ).addScalar( 25 );
 			scene.add( voxel );
@@ -195,12 +200,17 @@ function onDocumentMouseDown( event ) {
 }
 
 function onDocumentKeyDown( event ) {
-	//console.log(event.keyCode);
+	console.log(event.keyCode);
 
 	switch( event.keyCode ) {
 
 		case 16:
 			isShiftDown = true;
+			break;
+
+		case 18:
+			event.preventDefault();
+			return false;
 			break;
 
 		case 86:
@@ -238,6 +248,10 @@ function selectTool(str) {
 		}
 	} else {
 		controls.enabled = false;
+	}
+
+	if(currentTool === 'pencil') {
+		showHideRollOver();
 	}
 }
 
