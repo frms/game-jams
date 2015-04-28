@@ -18,13 +18,8 @@ var _idx=0,
 	_ie=isIE?'-ie':'',
 	isMoz=isIE?false:/mozilla/.test(ua.toLowerCase()) && !/webkit/.test(ua.toLowerCase()),
 	history=[],
-	baseThemeColors=['ffffff','000000','eeece1','1f497d','4f81bd','c0504d','9bbb59','8064a2','4bacc6','f79646'],
-	subThemeColors=['f2f2f2','7f7f7f','ddd9c3','c6d9f0','dbe5f1','f2dcdb','ebf1dd','e5e0ec','dbeef3','fdeada',
-		'd8d8d8','595959','c4bd97','8db3e2','b8cce4','e5b9b7','d7e3bc','ccc1d9','b7dde8','fbd5b5',
-		'bfbfbf','3f3f3f','938953','548dd4','95b3d7','d99694','c3d69b','b2a2c7','92cddc','fac08f',
-		'a5a5a5','262626','494429','17365d','366092','953734','76923c','5f497a','31859b','e36c09',
-		'7f7f7f','0c0c0c','1d1b10','0f243e','244061','632423','4f6128','3f3151','205867','974806'],
-	standardColors=['c00000','ff0000','ffc000','ffff00','92d050','00b050','00b0f0','0070c0','002060','7030a0'],
+	baseThemeColors=['000000','7F7F7F','880015','ED1C24','FF7F27','FFF200','22B14C','00A2E8','3F48CC','A349A4'],
+	standardColors=['ffffff','C3C3C3','B97A57','FFAEC9','FFC90E','EFE4B0','B5E61D','99D9EA','7092BE','C8BFE7'],
 	webColors=[
 		['003366','336699','3366cc','003399','000099','0000cc','000066'],
 		['006666','006699','0099cc','0066cc','0033cc','0000ff','3333ff','333399'],
@@ -78,7 +73,7 @@ $.widget( "evol.colorpicker", {
 		transparentColor: false,
 		history: true,
 		defaultPalette: 'theme', // possible values: 'theme', 'web'
-		strings: 'Theme Colors,Standard Colors,Web Colors,Theme Colors,Back to Palette,History,No history yet.'
+		strings: 'Standard Colors,Standard Colors,Web Colors,Standard Colors,Back to Palette,History,No history yet.'
 	},
 
 	_create: function() {
@@ -127,7 +122,7 @@ $.widget( "evol.colorpicker", {
 					});
 				}
 				if(showOn==='both' || showOn==='button'){
-					e.next().on('click', function(evt){
+					e.next().on('click mousedown', function(evt){
 						evt.stopPropagation();
 						that.showPalette();
 					});
@@ -199,29 +194,14 @@ $.widget( "evol.colorpicker", {
 		}
 		h+='</tr>';
 		if(!isIE){
-			h+='<tr><th colspan="10"></th></tr>';
+			h+='<tr><th colspan="10" style="padding: 2px;"></th></tr>';
 		}
 		h+='<tr class="top">';
-		// theme colors
-		for(i=0;i<10;i++){ 
-			h+=oTD+subThemeColors[i]+cTD;
-		}
-		for(var r=1;r<4;r++){
-			h+='</tr><tr class="in">';
-			for(i=0;i<10;i++){ 
-				h+=oTD+subThemeColors[r*10+i]+cTD;
-			}
-		}
-		h+='</tr><tr class="bottom">';
-		for(i=40;i<50;i++){ 
-			h+=oTD+subThemeColors[i]+cTD;
-		}
-		h+='</tr>'+oTRTH;
 		// transparent color
 		if(opts.transparentColor){
 			h+='<div class="evo-transparent evo-tr-box"></div>';
 		}
-		h+=labels[1]+'</th></tr><tr>';
+		h+='</tr><tr>';
 		// standard colors
 		for(i=0;i<10;i++){ 
 			h+=oTD+standardColors[i]+cTD;
@@ -314,7 +294,7 @@ $.widget( "evol.colorpicker", {
 			if(this._palette===null){
 				this._palette=this.element.next()
 					.after(this._paletteHTML()).next()
-					.on('click',function(evt){
+					.on('click mousedown',function(evt){
 						evt.stopPropagation();
 					});
 				this._bindColors();

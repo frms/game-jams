@@ -16,10 +16,26 @@ gameLoop();
 
 function init() {
 
+	// UI
+
+	$('#tools label').click(function() {
+		selectTool($(this).attr('for'));
+	});
+
+	$('#mycolor').colorpicker({
+		color: '#92d050'
+	});
+
+	$('#tools').on('click mousedown', function(evt){
+		evt.stopPropagation();
+	});
+
+
 	camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
 	camera.position.set( 0, 800, 1300 );
 	camera.lookAt( new THREE.Vector3() );
 
+	//controls = {update:function(){}};
 	controls = new THREE.OrbitControls( camera );
 	controls.damping = 0.2;
 
@@ -30,6 +46,7 @@ function init() {
 	rollOverGeo = new THREE.BoxGeometry( 50, 50, 50 );
 	rollOverMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, opacity: 0.5, transparent: true } );
 	rollOverMesh = new THREE.Mesh( rollOverGeo, rollOverMaterial );
+	rollOverMesh.visible = false;
 	scene.add( rollOverMesh );
 
 	// cubes
@@ -98,20 +115,7 @@ function init() {
 
 	window.addEventListener( 'resize', onWindowResize, false );
 
-
-	// UI
-
-	$('#tools label').click(function() {
-		selectTool($(this).attr('for'));
-	});
-
 	selectTool('pencil');
-	rollOverMesh.visible = false;
-
-	$("#mycolor").colorpicker({
-		color: '#ffccff',
-		defaultPalette: 'web'
-	});
 }
 
 function onWindowResize() {
@@ -125,7 +129,7 @@ function onWindowResize() {
 
 function onDocumentMouseMove( event ) {
 
-	event.preventDefault();
+	//event.preventDefault();
 
 	mouse.set( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
 
@@ -149,7 +153,7 @@ function onDocumentMouseMove( event ) {
 
 function onDocumentMouseDown( event ) {
 
-	event.preventDefault();
+	//event.preventDefault();
 
 	mouse.set( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1 );
 
@@ -191,7 +195,7 @@ function onDocumentMouseDown( event ) {
 }
 
 function onDocumentKeyDown( event ) {
-	console.log(event.keyCode);
+	//console.log(event.keyCode);
 
 	switch( event.keyCode ) {
 
