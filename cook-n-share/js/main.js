@@ -89,12 +89,13 @@ function init() {
 
 	// Lights
 
-	var ambientLight = new THREE.AmbientLight( 0x606060 );
+	var ambientLight = new THREE.AmbientLight( 0x505050 );
 	scene.add( ambientLight );
 
-	var directionalLight = new THREE.DirectionalLight( 0xffffff );
-	directionalLight.position.set( 1, 0.75, 0.5 ).normalize();
-	scene.add( directionalLight );
+	var light = new THREE.HemisphereLight( 0xeeeeff, 0x777788, 0.75 );
+	light.position.set( 0.5, 1, 0.75 );
+	scene.add( light );
+
 
 	renderer = new THREE.WebGLRenderer( { antialias: true } );
 	renderer.setClearColor( 0xf0f0f0 );
