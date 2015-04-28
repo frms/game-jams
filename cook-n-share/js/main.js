@@ -6,7 +6,7 @@ var mouse, raycaster, isShiftDown = false;
 var rollOverMesh, rollOverMaterial;
 var cubeGeo;
 
-var currentTool;
+var currentTool, lastTool;
 
 var objects = [];
 
@@ -210,6 +210,12 @@ function onDocumentKeyDown( event ) {
 			break;
 
 		case 18:
+			if(!lastTool) {
+				var newLastTool = currentTool;
+				selectTool('pointer');
+				lastTool = newLastTool;
+			}
+
 			event.preventDefault();
 			return false;
 			break;
@@ -230,8 +236,15 @@ function onDocumentKeyUp( event ) {
 
 	switch ( event.keyCode ) {
 
-		case 16: isShiftDown = false; break;
+		case 16:
+			isShiftDown = false;
+			break;
 
+		case 18:
+			if(lastTool) {
+				selectTool(lastTool);
+			}
+			break;
 	}
 
 }
@@ -240,6 +253,7 @@ function selectTool(str) {
 	$('#'+str).next().addClass('selected').siblings().removeClass('selected');
 
 	currentTool = str;
+	lastTool = null;
 
 	if(currentTool === 'pointer') {
 		controls.enabled = true;
