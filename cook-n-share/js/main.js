@@ -107,6 +107,11 @@ function init() {
 
 	selectTool('pencil');
 	rollOverMesh.visible = false;
+
+	$("#mycolor").colorpicker({
+		color: '#ffccff',
+		defaultPalette: 'web'
+	});
 }
 
 function onWindowResize() {

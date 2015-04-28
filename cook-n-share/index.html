@@ -4,6 +4,10 @@
 		<title>Cook N Share</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<link href="style/jquery-ui.css" rel="stylesheet" type="text/css">
+		<link href="style/evol.colorpicker.css" rel="stylesheet" type="text/css">
+
 		<style>
 			body {
 				font-family: Monospace;
@@ -59,11 +63,17 @@
 			</div>
 			<div id="tools">
 				<input type="radio" class="input_hidden" name="tool" id="pointer" value="pointer" /><label for="pointer"><img src="images/pointer.png" title="Rotate, Pan, and Zoom (V)" /></label> <br>
-				<input type="radio" class="input_hidden" name="tool" id="pencil" value="pencil" /><label for="pencil"><img src="images/pencil.png" title="Draw blocks (B)" /></label>
+				<input type="radio" class="input_hidden" name="tool" id="pencil" value="pencil" /><label for="pencil"><img src="images/pencil.png" title="Draw blocks (B)" /></label> <br>
+				<div style="width:28px;">
+					<input style="width:0px; display:none;" id="mycolor" class="colorPicker evo-cp0" />
+				</div>
 			</div>
 		</div>
 
 		<script src="js/libs/jquery-2.1.3.min.js"></script>
+		<script src="js/libs/jquery-ui.min.js"></script>
+		<script src="js/libs/evol.colorpicker.js"></script>
+
 		<script src="js/libs/three/three.js"></script>
 		<script src="js/libs/three/Detector.js"></script>
 		<script src="js/libs/three/OrbitControls.js"></script>
