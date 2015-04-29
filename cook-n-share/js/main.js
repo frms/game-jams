@@ -10,8 +10,10 @@ var currentTool, lastTool;
 
 var objects = [];
 
-init();
-gameLoop();
+$(document).ready(function() {
+	init();
+	gameLoop();
+});
 
 function init() {
 
@@ -267,6 +269,35 @@ function selectTool(str) {
 
 	if(currentTool === 'pencil') {
 		showHideRollOver();
+	}
+
+	showInstruction(currentTool);
+}
+
+var shownInstructions = {};
+var timeoutId = null;
+
+function showInstruction(str) {
+	if(!shownInstructions[str]) {
+
+		if(currentTool === 'pencil') {
+			$('#instructions').html('Pencil Instructions<br><strong>click</strong>: add voxel, <strong>shift + click</strong>: remove voxel');
+		} else if(currentTool === 'pointer') {
+			$('#instructions').html('Pointer Instructions<br><strong>left click</strong>: rotate, <strong>scroll wheel</strong>: zoom, <strong>right click</strong>: pan');
+		}
+
+		$('#instructions').stop().hide().fadeIn();
+
+		shownInstructions[str] = true;
+
+		if(timeoutId !== null) {
+			clearTimeout(timeoutId);
+		}
+
+		timeoutId = setTimeout(function() {
+			$('#instructions').fadeOut();
+			timeoutId = null;
+		}, 6000);
 	}
 }
 
