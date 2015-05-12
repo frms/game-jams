@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	public int numCities;
 
 	public Transform playerCity;
+	public Transform playerTroop;
 
 	private List<Vector3> cities;
 	private Vector3 nullPos = new Vector3 (-1000, -1000, -1000);
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < numCities; i++) {
 			addCity(city);
 		}
+
+		InvokeRepeating("SendGroups", 0, 5);
 	}
 
 	private void addCity(Transform c) {
@@ -50,6 +53,15 @@ public class GameManager : MonoBehaviour {
 		}
 
 		return pos;
+	}
+
+	void SendGroups() {
+		if (groupOneTarget != null) {
+			Transform t = Instantiate (playerTroop, cities[0], Quaternion.identity) as Transform;
+			Troop troop = t.GetComponent<Troop>();
+			troop.target = groupOneTarget.position;
+			troop.startTime = Time.time;
+		}
 	}
 	
 	// Update is called once per frame
