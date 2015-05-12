@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
 	private List<Vector3> cities;
 	private Vector3 nullPos = new Vector3 (-1000, -1000, -1000);
 
+	public Transform groupOneTarget;
+
 	// Use this for initialization
 	void Start () {
 		cities = new List<Vector3> ();
