@@ -14,8 +14,7 @@ public class TileMap : MonoBehaviour {
 	public int[] roomWidthRange = new [] {4, 8};
 	
 	public int[] roomHeightRange = new [] {4, 8};
-
-	private MapData map;
+	
 	private List<Room> rooms;
 
 	// Use this for initialization
@@ -42,8 +41,6 @@ public class TileMap : MonoBehaviour {
 	}
 
 	private void buildMapData() {
-		map = new MapData (mapWidth, mapHeight);
-
 		rooms = new List<Room>();
 		
 		for (int i = 0; i < numberOfRooms; i++) {
@@ -51,13 +48,13 @@ public class TileMap : MonoBehaviour {
 			int roomHeight = Random.Range(roomHeightRange[0], roomHeightRange[1]);
 
 			/* Add 1 because Random.Range() for ints excludes the max value */
-			int roomX = Random.Range(0, map.width - roomWidth + 1);
-			int roomY = Random.Range(0, map.height - roomHeight + 1);
+			int roomX = Random.Range(0, mapWidth - roomWidth + 1);
+			int roomY = Random.Range(0, mapHeight - roomHeight + 1);
 			
 			Room r = new Room (roomX, roomY, roomWidth, roomHeight);
 			
 			if(overlappingRooms || !roomCollides(r)) {
-				createRoom (r);
+				rooms.Add (r);
 			}
 		}
 
@@ -72,18 +69,5 @@ public class TileMap : MonoBehaviour {
 		
 		return false;
 	}
-	
-	private void createRoom(Room r) {
-		for(int x = 0; x < r.width; x++) {
-			for(int y = 0; y < r.height; y++) {
-				if(x == 0 || x == r.width-1 || y == 0 || y == r.height-1) {
-					map[x + r.x, y + r.y] = 2;
-				} else {
-					map[x + r.x, y + r.y] = 1;
-				}
-			}
-		}
-		
-		rooms.Add (r);
-	}
+
 }
