@@ -17,9 +17,11 @@ public class Ball : MonoBehaviour {
 	}
 	
 	void Update () {
+		//print (rb.velocity);
+
 		if (Input.GetButtonDown("Fire1") && ballInPlay == false)
 		{
-			transform.parent = null;
+			//transform.parent = null;
 			ballInPlay = true;
 			rb.isKinematic = false;
 			rb.velocity = new Vector2(0, -initialVelocity);

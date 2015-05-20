@@ -18,7 +18,6 @@ public class Paddle : MonoBehaviour {
 		float xPos = transform.position.x + (Input.GetAxisRaw("Horizontal") * paddleSpeed * Time.deltaTime);
 		Vector3 playerPos = new Vector3 (Mathf.Clamp (xPos, -8f, 8f), transform.position.y, transform.position.z);
 		transform.position = playerPos;
-		
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
