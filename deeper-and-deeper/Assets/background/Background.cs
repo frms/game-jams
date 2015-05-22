@@ -7,6 +7,7 @@ public class Background : MonoBehaviour {
 
 	public int mapHeight = 40;
 	private int mapWidth;
+	private float tileSize;
 
 	public bool overlappingRooms = false;
 	public int numberOfRooms = 20;
@@ -15,30 +16,47 @@ public class Background : MonoBehaviour {
 	
 	public int[] roomHeightRange = new [] {4, 8};
 
+
+	private Queue<List<Room>> sections = new Queue<List<Room>>();
+
 	// Use this for initialization
 	void Start () {
 		float height = Camera.main.orthographicSize * 2;
 		float width = height * Camera.main.aspect;
 
-		float tileSize = height / mapHeight;
+		tileSize = height / mapHeight;
 
 		mapWidth = Mathf.CeilToInt (width * 1.1f / tileSize);
 
-		List<Room> rooms = buildMapData ();
+//		for (int i = 0; i < 3; i++) {
+//			buildSection (mapHeight * i);
+//		}
 
+		buildSection (0);
+		buildSection (mapHeight);
+	}
+
+	private int lastSectionBuilt;
+
+	public void buildSection(int startY) {
+		List<Room> rooms = buildMapData (startY);
+		
 		for(int i = 0; i < rooms.Count; i++) {
 			Room r = rooms[i];
-
+			
 			float x = ( r.centerX - ((float)(mapWidth))/2) * tileSize;
 			float y = ( r.centerY - ((float)(mapHeight))/2) * tileSize;
 			Vector3 pos = new Vector3(x, y, 0);
-
+			
 			Transform clone = Instantiate(backgroundRect, pos, Quaternion.identity) as Transform;
 			clone.localScale = new Vector3(r.width * tileSize, r.height * tileSize, 1);
 		}
+
+		lastSectionBuilt = startY;
+		sections.Enqueue (rooms);
 	}
 
-	private List<Room> buildMapData() {
+	private List<Room> buildMapData(int startY) {
 		List<Room> rooms = new List<Room>();
 		
 		for (int i = 0; i < numberOfRooms; i++) {
@@ -47,7 +65,7 @@ public class Background : MonoBehaviour {
 
 			/* Add 1 because Random.Range() for ints excludes the max value */
 			int roomX = Random.Range(0, mapWidth - roomWidth + 1);
-			int roomY = Random.Range(0, mapHeight - roomHeight + 1);
+			int roomY = Random.Range(startY, startY + mapHeight + 1);
 			
 			Room r = new Room (roomX, roomY, roomWidth, roomHeight);
 			
