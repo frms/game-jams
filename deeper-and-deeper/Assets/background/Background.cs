@@ -30,6 +30,18 @@ public class Background : MonoBehaviour {
 
 		buildSection (0);
 		buildSection (mapHeight);
+		buildSection (2*mapHeight);
+	}
+
+	void Update () {
+		float y = (lastSectionBuilt - mapHeight*0.8f)* tileSize;
+
+		if (y < transform.position.y) {
+			Destroy(sections[0].gameObject);
+			sections.RemoveAt(0);
+
+			buildSection(lastSectionBuilt + mapHeight);
+		}
 	}
 
 	private int lastSectionBuilt;
