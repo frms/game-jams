@@ -17,7 +17,7 @@ public class Background : MonoBehaviour {
 	public int[] roomHeightRange = new [] {4, 8};
 
 
-	private Queue<List<Room>> sections = new Queue<List<Room>>();
+	private List<Transform> sections = new List<Transform>();
 
 	// Use this for initialization
 	void Start () {
@@ -28,10 +28,6 @@ public class Background : MonoBehaviour {
 
 		mapWidth = Mathf.CeilToInt (width * 1.1f / tileSize);
 
-//		for (int i = 0; i < 3; i++) {
-//			buildSection (mapHeight * i);
-//		}
-
 		buildSection (0);
 		buildSection (mapHeight);
 	}
@@ -40,6 +36,8 @@ public class Background : MonoBehaviour {
 
 	public void buildSection(int startY) {
 		List<Room> rooms = buildMapData (startY);
+
+		Transform parent = (new GameObject("bgSection")).transform;
 		
 		for(int i = 0; i < rooms.Count; i++) {
 			Room r = rooms[i];
@@ -50,10 +48,12 @@ public class Background : MonoBehaviour {
 			
 			Transform clone = Instantiate(backgroundRect, pos, Quaternion.identity) as Transform;
 			clone.localScale = new Vector3(r.width * tileSize, r.height * tileSize, 1);
+			clone.parent = parent;
 		}
 
 		lastSectionBuilt = startY;
-		sections.Enqueue (rooms);
+
+		sections.Add (parent);
 	}
 
 	private List<Room> buildMapData(int startY) {
