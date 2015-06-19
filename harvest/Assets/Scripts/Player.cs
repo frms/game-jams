@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	public float speed = 5f;
+	public float spawnDist = 1.1f;
 
 	public Transform arrow;
-	public Transform spawnPoint;
 
 	private Rigidbody rb;
 	private int groundLayer;
@@ -24,28 +24,30 @@ public class Player : MonoBehaviour {
 
 		RaycastHit hit;
 		if (Physics.Raycast (r, out hit, Mathf.Infinity, groundLayer)) {
-			//Debug.Log(hit.point);
-
-			Vector3 dir = hit.point - transform.position;
-
-			float angle = limitAngle(Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg);
-
-			dir = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad));
-
-			angle = 360 - angle;
-
-			//Debug.Log (angle);
-
 			// A Button
 			if (Input.GetButtonDown ("Fire1")) {
-				Transform clone = Instantiate(arrow, transform.position + (dir * 1.1f), Quaternion.Euler(0, angle, 0)) as Transform;
-				
-				Rigidbody cloneRb = clone.GetComponent<Rigidbody>();
-				cloneRb.velocity = clone.right * speed;
+				createArrow(hit);
 			}
 		}
 	}
 
+	public void createArrow(RaycastHit hit) {
+		Vector3 dir = hit.point - transform.position;
+		
+		float angle = limitAndInvertAngle (dir.x, dir.z);
+		
+		float angleCCW = (360 - angle) * Mathf.Deg2Rad;
+		
+		dir = new Vector3 (Mathf.Cos (angleCCW), 0, Mathf.Sin (angleCCW));
+		
+		Vector3 spawnPoint = transform.position + (dir * spawnDist);
+		
+		Transform clone = Instantiate (arrow, spawnPoint, Quaternion.Euler (0, angle, 0)) as Transform;
+		
+		Rigidbody cloneRb = clone.GetComponent<Rigidbody> ();
+		cloneRb.velocity = clone.right * speed;
+	}
+		
 	void FixedUpdate () {
 		updateMoveCharacter ();	
 	}
@@ -55,13 +57,7 @@ public class Player : MonoBehaviour {
 		
 		if(stickDirection.sqrMagnitude > 0.031) {
 			// Rotate the character
-			float moveAngle = Mathf.Atan2(stickDirection.y, stickDirection.x)*Mathf.Rad2Deg;
-
-			moveAngle = limitAngle(moveAngle);
-
-			/* The above direction value was based on a counterclockwise unit circle.
-			But we want to rotate clockwise in this case. */
-			moveAngle = 360 - moveAngle;
+			float moveAngle = limitAndInvertAngle(stickDirection.x, stickDirection.y);
 			
 			transform.rotation = Quaternion.Euler(0, moveAngle, 0);
 
@@ -69,6 +65,22 @@ public class Player : MonoBehaviour {
 		} else {
 			rb.velocity = Vector3.zero;
 		}
+	}
+
+	private float limitAndInvertAngle(float x, float y) {
+		float angle = Mathf.Atan2 (y, x) * Mathf.Rad2Deg;
+
+		return limitAndInvertAngle (angle);
+	}
+
+	private float limitAndInvertAngle(float angle) {
+		float dir = limitAngle (angle);
+
+		/* Invert the angle so that if the input angle was Clockwise then the output will be 
+		 * Counterclockwise and vice versa */
+		dir = 360 - dir;
+
+		return dir;
 	}
 
 	private float limitAngle(float angle) {
