@@ -7,4 +7,11 @@ public class Arrow : MonoBehaviour {
 	void Start () {
 		Destroy (gameObject, 6);
 	}
+
+	void OnTriggerEnter(Collider other) {
+		if (other.tag == "Capsule") {
+			Destroy (other.gameObject);
+			Destroy (gameObject);
+		}
+	}
 }
