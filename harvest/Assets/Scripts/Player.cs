@@ -3,8 +3,13 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	public float speed = 5f;
+
+	public float arrowSpeed = 10f;
+	public float fireRate = 0.5F;
 	public float spawnDist = 1.1f;
 
+	private float nextFire = 0.0F;
+	
 	public Transform arrow;
 
 	private Rigidbody rb;
@@ -20,13 +25,14 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
+		// A Button
+		if (Input.GetButton ("Fire1") && Time.time > nextFire) {
+			Ray r = Camera.main.ScreenPointToRay (Input.mousePosition);
 
-		RaycastHit hit;
-		if (Physics.Raycast (r, out hit, Mathf.Infinity, groundLayer)) {
-			// A Button
-			if (Input.GetButtonDown ("Fire1")) {
-				createArrow(hit);
+			RaycastHit hit;
+			if (Physics.Raycast (r, out hit, Mathf.Infinity, groundLayer)) {
+				nextFire = Time.time + fireRate;
+				createArrow (hit);
 			}
 		}
 	}
@@ -45,7 +51,7 @@ public class Player : MonoBehaviour {
 		Transform clone = Instantiate (arrow, spawnPoint, Quaternion.Euler (0, angle, 0)) as Transform;
 		
 		Rigidbody cloneRb = clone.GetComponent<Rigidbody> ();
-		cloneRb.velocity = clone.right * speed;
+		cloneRb.velocity = clone.right * arrowSpeed;
 	}
 		
 	void FixedUpdate () {
