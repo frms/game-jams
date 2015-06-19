@@ -19,8 +19,6 @@ public class Player : MonoBehaviour {
 	void Update () {
 		// A Button
 		if (Input.GetButtonDown ("Fire1")) {
-			Debug.Log ("hoadf");
-
 			Transform clone = Instantiate(arrow, spawnPoint.position, transform.rotation) as Transform;
 
 			Rigidbody cloneRb = clone.GetComponent<Rigidbody>();
