@@ -4,6 +4,9 @@ using System.Collections;
 public class Player : MonoBehaviour {
 	public float speed = 5f;
 
+	public Transform arrow;
+	public Transform spawnPoint;
+
 	private Rigidbody rb;
 
 
@@ -14,7 +17,15 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		// A Button
+		if (Input.GetButtonDown ("Fire1")) {
+			Debug.Log ("hoadf");
+
+			Transform clone = Instantiate(arrow, spawnPoint.position, transform.rotation) as Transform;
+
+			Rigidbody cloneRb = clone.GetComponent<Rigidbody>();
+			cloneRb.velocity = clone.right * speed;
+		}
 	}
 
 	void FixedUpdate () {
