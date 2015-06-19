@@ -27,15 +27,18 @@ public class Player : MonoBehaviour {
 			//Debug.Log(hit.point);
 
 			Vector3 dir = hit.point - transform.position;
-			dir.Normalize();
 
-			float angle = limitAngle(Mathf.Atan2(dir.z, dir.x)*Mathf.Rad2Deg);
+			float angle = limitAngle(Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg);
 
-			Debug.Log (angle);
+			dir = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad));
+
+			angle = 360 - angle;
+
+			//Debug.Log (angle);
 
 			// A Button
 			if (Input.GetButtonDown ("Fire1")) {
-				Transform clone = Instantiate(arrow, spawnPoint.position, transform.rotation) as Transform;
+				Transform clone = Instantiate(arrow, transform.position + (dir * 1.1f), Quaternion.Euler(0, angle, 0)) as Transform;
 				
 				Rigidbody cloneRb = clone.GetComponent<Rigidbody>();
 				cloneRb.velocity = clone.right * speed;
