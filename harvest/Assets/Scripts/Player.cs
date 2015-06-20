@@ -39,6 +39,11 @@ public class Player : MonoBehaviour {
 			nextFire = Time.time + fireRate;
 			createArrow ();
 		}
+
+		// B Button
+		if (Input.GetButtonDown ("Fire2")) {
+			Debug.Log ("YO");
+		}
 	}
 
 	void rotateCharacter (RaycastHit hit)
