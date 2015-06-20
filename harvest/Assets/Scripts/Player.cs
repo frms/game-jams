@@ -6,11 +6,11 @@ public class Player : MonoBehaviour {
 
 	public float arrowSpeed = 10f;
 	public float fireRate = 0.5F;
-	public float spawnDist = 1.1f;
 
 	private float nextFire = 0.0F;
 	
 	public Transform arrow;
+	public Transform spawnPoint;
 
 	private Rigidbody rb;
 	private int groundLayer;
@@ -25,33 +25,34 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Ray r = Camera.main.ScreenPointToRay (Input.mousePosition);
+		
+		RaycastHit hit;
+		if (!Physics.Raycast (r, out hit, Mathf.Infinity, groundLayer)) {
+			return;
+		}
+
+		rotateCharacter (hit);
+
 		// A Button
 		if (Input.GetButton ("Fire1") && Time.time > nextFire) {
-			Ray r = Camera.main.ScreenPointToRay (Input.mousePosition);
-
-			RaycastHit hit;
-			if (Physics.Raycast (r, out hit, Mathf.Infinity, groundLayer)) {
-				nextFire = Time.time + fireRate;
-				createArrow (hit);
-			}
+			nextFire = Time.time + fireRate;
+			createArrow ();
 		}
 	}
 
-	public void createArrow(RaycastHit hit) {
+	void rotateCharacter (RaycastHit hit)
+	{
 		Vector3 dir = hit.point - transform.position;
-		
 		float angle = limitAndInvertAngle (dir.x, dir.z);
-		
-		float angleCCW = (360 - angle) * Mathf.Deg2Rad;
-		
-		dir = new Vector3 (Mathf.Cos (angleCCW), 0, Mathf.Sin (angleCCW));
-		
-		Vector3 spawnPoint = transform.position + (dir * spawnDist);
-		
-		Transform clone = Instantiate (arrow, spawnPoint, Quaternion.Euler (0, angle, 0)) as Transform;
+		transform.rotation = Quaternion.Euler (0, angle, 0);
+	}
+
+	public void createArrow() {
+		Transform clone = Instantiate (arrow, spawnPoint.position, spawnPoint.rotation) as Transform;
 		
 		Rigidbody cloneRb = clone.GetComponent<Rigidbody> ();
-		cloneRb.velocity = clone.right * arrowSpeed;
+		cloneRb.velocity = spawnPoint.right * arrowSpeed;
 	}
 		
 	void FixedUpdate () {
@@ -62,25 +63,21 @@ public class Player : MonoBehaviour {
 		Vector2 stickDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 		
 		if(stickDirection.sqrMagnitude > 0.031) {
-			// Rotate the character
-			float moveAngle = limitAndInvertAngle(stickDirection.x, stickDirection.y);
-			
-			transform.rotation = Quaternion.Euler(0, moveAngle, 0);
+			float moveAngle = limitAngle(stickDirection.x, stickDirection.y);
 
-			rb.velocity = transform.right * speed;
+			Vector3 vel = new Vector3();
+			vel.x = Mathf.Cos(moveAngle*Mathf.Deg2Rad);
+			vel.y = 0;
+			vel.z = Mathf.Sin(moveAngle*Mathf.Deg2Rad);
+
+			rb.velocity = vel * speed;
 		} else {
 			rb.velocity = Vector3.zero;
 		}
 	}
 
 	private float limitAndInvertAngle(float x, float y) {
-		float angle = Mathf.Atan2 (y, x) * Mathf.Rad2Deg;
-
-		return limitAndInvertAngle (angle);
-	}
-
-	private float limitAndInvertAngle(float angle) {
-		float dir = limitAngle (angle);
+		float dir = limitAngle (x, y);
 
 		/* Invert the angle so that if the input angle was Clockwise then the output will be 
 		 * Counterclockwise and vice versa */
@@ -89,7 +86,9 @@ public class Player : MonoBehaviour {
 		return dir;
 	}
 
-	private float limitAngle(float angle) {
+	private float limitAngle(float x, float y) {
+		float angle = Mathf.Atan2 (y, x) * Mathf.Rad2Deg;
+
 		if(angle < 0) {
 			angle += 360;
 		}
