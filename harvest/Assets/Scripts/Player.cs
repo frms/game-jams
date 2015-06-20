@@ -49,7 +49,8 @@ public class Player : MonoBehaviour {
 	void rotateCharacter (RaycastHit hit)
 	{
 		Vector3 dir = hit.point - transform.position;
-		float angle = limitAndInvertAngle (dir.x, dir.z);
+		float angle = Mathf.Atan2 (dir.z, dir.x) * Mathf.Rad2Deg;
+		angle = 360 - angle;
 		transform.rotation = Quaternion.Euler (0, angle, 0);
 	}
 

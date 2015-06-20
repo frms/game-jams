@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour {
 		for(int i = 0; i < numCapsules; i++) {
 			Vector3 pos = new Vector3();
 			pos.x = Random.Range(bottomLeft.x, topRight.x);
-			pos.y = 0.4f;
+			pos.y = capsule.position.y;
 			pos.z = Random.Range(bottomLeft.z, topRight.z);
 
 			Instantiate(capsule, pos, Quaternion.identity);
