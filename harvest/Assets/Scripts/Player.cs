@@ -15,12 +15,18 @@ public class Player : MonoBehaviour {
 	private Rigidbody rb;
 	private int groundLayer;
 
+	private int currentPowerUp = 0;
+
+	private RectTransform outline;
+
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 
 		groundLayer = 1 << LayerMask.NameToLayer ("Ground");
+
+		outline = GameObject.Find ("Outline").GetComponent<RectTransform> ();
 	}
 	
 	// Update is called once per frame
@@ -42,7 +48,14 @@ public class Player : MonoBehaviour {
 
 		// B Button
 		if (Input.GetButtonDown ("Fire2")) {
-			Debug.Log ("YO");
+			currentPowerUp++;
+			currentPowerUp %= 2;
+
+			Vector2 pos = new Vector2();
+			pos.x = 11 + currentPowerUp*65;
+			pos.y = -11;
+
+			outline.anchoredPosition = pos;
 		}
 	}
 
