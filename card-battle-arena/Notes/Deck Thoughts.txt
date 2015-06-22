@@ -1,0 +1,134 @@
+Deck 1:
+7 spells
+8 units
+
+Cost 2
+Deal 1 Damage to all enemies
+
+Cost 1
+Randomly split 3 damage among all enemies
+
+Cost 5
+Atk 4
+Def 4
+Spell Dmg +1, Draw a card
+
+Cost 3
+Counter next opponent spell (not unit)
+
+Cost 4
+Deal 6 Dmg
+
+Cost 6
+Atk 5
+Def 5
+Periodically freeze the enemy unit until it kills its first unit
+
+Cost 3
+Atk 4
+Def 3
+Next spell you play (cost 3 or less) is free (this happens only once)
+
+Cost 2
+Atk 2
+Def 2
+Spell Dmg +1
+
+Cost 2
+Atk 1
+Def 3
+Periodically buff this unit's atk by +2
+
+Cost 1
+Atk 1
+Def 3
+Periodically buff this unit's atk by +1
+
+Cost 3
+Copy the next unit your opponent plays
+
+Cost 4
+Transform an enemy unit into a 1/1
+
+Cost 2
+Atk 3
+Def 2
+While alive your spells cost 1 less to use
+
+Cost 3
+Destroy the next unit to attack your base
+
+Cost 4
+Atk 3
+Def 6
+Periodically freeze the enemy unit
+
+
+
+
+Deck 2:
+5 spells
+10 units
+
+Cost 1
+Atk 2
+Def 1
+Has +2 damage until it kills its first unit
+
+Cost 5
+Your units have +3 dmg until their next unit kill
+
+Cost 2
+Atk 2
+Def 2
+Give two random friendly units a perminant +1 atk (not itself)
+
+Cost 3
+Atk 6
+Def 1
+
+Cost 2
+Atk 3
+Def 2
+Can't be targeted by spells
+
+Cost 5 (give you 2 units)
+Atk 2
+Def 3
+Has Barrier
+
+Cost 2
+Atk 0
+Def 3
+Give two random friendly units a perminent +2 atk (not itself)
+
+Cost 3
+Deal 2 damage to 2 random enemies
+
+Cost 5
+Deal 5 damage
+
+Cost 2
+Deal 3 damage
+
+Cost 3
+Atk 3
+Def 2
+Give a specific friendly unit +1/+1 (not itself)
+
+Cost 1
+Atk 0
+Def 4
+Has Barrier
+
+Cost 3
+Atk 2
+Def 3
+
+Cost 3
+Atk 4
+Def 3
+
+Cost 1
+Atk 2
+Def 1
