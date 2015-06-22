@@ -132,3 +132,71 @@ Def 3
 Cost 1
 Atk 2
 Def 1
+
+
+
+
+Deck 1 Version 2:
+7 spells
+8 units
+
+Cost 2
+Deal 1 Damage to all enemies
+
+Cost 1
+Randomly split 3 damage among all enemies
+
+Cost 5
+Atk 4
+Def 4
+Tele to the target doing 45 dmg, Draw a card
+
+Cost 3
+Counter next opponent spell (not unit)
+
+Cost 4
+Deal 6 Dmg
+
+Cost 6
+Atk 5
+Def 5
+Deal 60 dmg to enemies within cone aoe
+
+Cost 3
+Atk 4
+Def 3
+Next spell you play (costing 3 or less) is free (this happens only once)
+
+Cost 2
+Atk 2
+Def 2
+Tele to the target doing 45 dmg
+
+Cost 2
+Atk 1
+Def 3
+Evade all atks for 3 sec
+
+Cost 1
+Atk 1
+Def 3
+Evade all atks for 2 sec
+
+Cost 3
+Copy the next unit your opponent plays
+
+Cost 4
+Transform an enemy unit into a 1/1
+
+Cost 2
+Atk 3
+Def 2
+Gain 15% dmg bonus for everyone friendly near you for 6 sec
+
+Cost 3
+Destroy the next unit to attack your base
+
+Cost 4
+Atk 3
+Def 6
+Stun for 1 sec and do 60 Dmg to all enemies in a line of your choosing
