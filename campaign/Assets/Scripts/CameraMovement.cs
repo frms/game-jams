@@ -67,10 +67,10 @@ public class CameraMovement : MonoBehaviour {
 	private Rect getCameraRect() {
 		float distToGrid = -1*transform.position.z;
 		
-		float angle = (camera.fieldOfView / 2) * Mathf.Deg2Rad;
+		float angle = (GetComponent<Camera>().fieldOfView / 2) * Mathf.Deg2Rad;
 		
 		float halfHeight = Mathf.Tan (angle) * distToGrid;
-		float halfWidth = camera.aspect * halfHeight;
+		float halfWidth = GetComponent<Camera>().aspect * halfHeight;
 		
 		Rect bounds = new Rect();
 		bounds.x = transform.position.x - halfWidth;
