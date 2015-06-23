@@ -9,6 +9,8 @@ public class TileMap : MonoBehaviour {
 	public int mapHeight = 2;
 	public float tileSize = 1.0f;
 	public float halfMapDepth = 0.125f;
+
+	public bool mirrorMap = false;
 	
 	public bool overlappingRooms = false;
 	public int numberOfRooms = 20;
@@ -29,6 +31,7 @@ public class TileMap : MonoBehaviour {
 		buildMapData ();
 		buildMesh ();
 	}
+
 	public void buildMesh() {
 		int numTiles = mapWidth * mapHeight;
 		int numTris = numTiles * 2;
@@ -148,6 +151,14 @@ public class TileMap : MonoBehaviour {
 				j %= rooms.Count;
 				
 				createHallway (rooms [i], rooms [j]);
+			}
+		}
+
+		if (mirrorMap) {
+			for (int x = 0; x < map.width/2; x++) {
+				for (int y = 0; y < map.height; y++) {
+					map [map.width - 1 - x, y] = map [x, y];
+				}
 			}
 		}
 	}
