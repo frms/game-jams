@@ -20,11 +20,22 @@ public class TileMap : MonoBehaviour {
 	public int[] roomHeightRange = new [] {4, 8};
 	
 	private MapData map;
+	private MapData originalMap;
 	private List<Room> rooms;
 	
 	// Use this for initialization
 	void Start () {
 		buildMap ();
+	}
+
+	void Update() {
+		if (Input.GetMouseButtonDown (0)) {
+			MapData temp = map;
+			map = originalMap;
+			originalMap = temp;
+
+			buildMesh();
+		}
 	}
 	
 	public void buildMap() {
@@ -135,7 +146,13 @@ public class TileMap : MonoBehaviour {
 			int roomWidth = Random.Range(roomWidthRange[0], roomWidthRange[1]);
 			int roomHeight = Random.Range(roomHeightRange[0], roomHeightRange[1]);
 			/* Add 1 because Random.Range() for ints excludes the max value */
-			int roomX = Random.Range(0, map.width - roomWidth + 1);
+			int roomX;
+			if(mirrorMap) {
+				roomX = Random.Range(0, map.width/2 - roomWidth/2);
+			} else {
+				roomX = Random.Range(0, map.width - roomWidth + 1);
+			}
+
 			int roomY = Random.Range(0, map.height - roomHeight + 1);
 			
 			Room r = new Room (roomX, roomY, roomWidth, roomHeight);
@@ -144,17 +161,28 @@ public class TileMap : MonoBehaviour {
 				createRoom (r);
 			}
 		}
-		
+
+		Debug.Log ("--------------------------------------------------------");
+
 		for (int i = 0; i < rooms.Count; i++) {
 			if(!rooms[i].isConnected) {
 				int j = i + Random.Range(1, rooms.Count);
 				j %= rooms.Count;
 				
 				createHallway (rooms [i], rooms [j]);
+
+				Debug.Log ("Connecting Room " + i + " " + rooms[i] +" to Room " + j + " " + rooms[j]);
 			}
 		}
 
 		if (mirrorMap) {
+			originalMap = new MapData (mapWidth, mapHeight);
+			for (int x = 0; x < map.width; x++) {
+				for (int y = 0; y < map.height; y++) {
+					originalMap [x, y] = map [x, y];
+				}
+			}
+
 			for (int x = 0; x < map.width/2; x++) {
 				for (int y = 0; y < map.height; y++) {
 					map [map.width - 1 - x, y] = map [x, y];
@@ -208,36 +236,36 @@ public class TileMap : MonoBehaviour {
 	private void setHallwayTile(int x, int y) {
 		map[x, y] = 1;
 		
-		if (x > 0 && map [x - 1, y] == 0) {
-			map [x - 1, y] = 2;
-		}
-		
-		if (x + 1 < map.width && map [x + 1, y] == 0) {
-			map [x + 1, y] = 2;
-		}
-		
-		if (y > 0 && map [x, y - 1] == 0) {
-			map [x, y - 1] = 2;
-		}
-		
-		if (y + 1 < map.height && map [x, y + 1] == 0) {
-			map [x, y + 1] = 2;
-		}
-		
-		if (x > 0 && y > 0 && map [x - 1, y - 1] == 0) {
-			map [x - 1, y - 1] = 2;
-		}
-		
-		if (x + 1 < map.width && y > 0 && map [x + 1, y - 1] == 0) {
-			map [x + 1, y - 1] = 2;
-		}
-		
-		if (x > 0 && y + 1 < map.height && map [x - 1, y + 1] == 0) {
-			map [x - 1, y + 1] = 2;
-		}
-		
-		if (x + 1 < map.width && y + 1 < map.height && map [x + 1, y + 1] == 0) {
-			map [x + 1, y + 1] = 2;
-		}
+//		if (x > 0 && map [x - 1, y] == 0) {
+//			map [x - 1, y] = 2;
+//		}
+//		
+//		if (x + 1 < map.width && map [x + 1, y] == 0) {
+//			map [x + 1, y] = 2;
+//		}
+//		
+//		if (y > 0 && map [x, y - 1] == 0) {
+//			map [x, y - 1] = 2;
+//		}
+//		
+//		if (y + 1 < map.height && map [x, y + 1] == 0) {
+//			map [x, y + 1] = 2;
+//		}
+//		
+//		if (x > 0 && y > 0 && map [x - 1, y - 1] == 0) {
+//			map [x - 1, y - 1] = 2;
+//		}
+//		
+//		if (x + 1 < map.width && y > 0 && map [x + 1, y - 1] == 0) {
+//			map [x + 1, y - 1] = 2;
+//		}
+//		
+//		if (x > 0 && y + 1 < map.height && map [x - 1, y + 1] == 0) {
+//			map [x - 1, y + 1] = 2;
+//		}
+//		
+//		if (x + 1 < map.width && y + 1 < map.height && map [x + 1, y + 1] == 0) {
+//			map [x + 1, y + 1] = 2;
+//		}
 	}
 }

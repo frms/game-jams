@@ -53,4 +53,9 @@ public class Room {
 		return true;
 	}
 
+	public override string ToString()
+	{
+		return "( x: " + this.x + ", y: " + this.y + ", width: " + this.width + ", height: " + this.height + " )";
+	}
+
 }
