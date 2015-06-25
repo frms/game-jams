@@ -7,8 +7,8 @@ public class MainCamera : MonoBehaviour {
 	void Start () {
 		TileMap tm = GameObject.Find ("TileMap").GetComponent<TileMap> ();
 
-		float w = tm.mapWidth * tm.tileSize;
-		float h = tm.mapHeight * tm.tileSize;
+		float w = tm.mapBuilder.mapWidth * tm.tileSize;
+		float h = tm.mapBuilder.mapHeight * tm.tileSize;
 
 		Camera camera = GetComponent<Camera> ();
 

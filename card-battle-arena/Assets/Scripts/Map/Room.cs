@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Room {
 	public int x;
 	public int y;
 	public int width;
 	public int height;
-	public bool isConnected;
+
+	public List<Room> connectedTo;
 
 	public int maxX {
 		get 
@@ -42,7 +44,8 @@ public class Room {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.isConnected = false;
+
+		connectedTo = new List<Room> ();
 	}
 
 	public bool innerRoomCollidesWith(Room r) {
@@ -53,9 +56,14 @@ public class Room {
 		return true;
 	}
 
+	public void addConnection(Room r) {
+		if (connectedTo.IndexOf (r) == -1) {
+			connectedTo.Add(r);
+		}
+	}
+
 	public override string ToString()
 	{
 		return "( x: " + this.x + ", y: " + this.y + ", width: " + this.width + ", height: " + this.height + " )";
 	}
-
 }

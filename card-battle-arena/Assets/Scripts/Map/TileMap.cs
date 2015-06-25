@@ -5,50 +5,24 @@ using System.Collections.Generic;
 [ExecuteInEditMode]
 public class TileMap : MonoBehaviour {
 	public int tileResolution = 64;
-	public int mapWidth = 3;
-	public int mapHeight = 2;
 	public float tileSize = 1.0f;
 	public float halfMapDepth = 0.125f;
 
-	public bool mirrorMap = false;
-	
-	public bool overlappingRooms = false;
-	public int numberOfRooms = 20;
-	[HideInInspector]
-	public int[] roomWidthRange = new [] {4, 8};
-	[HideInInspector]
-	public int[] roomHeightRange = new [] {4, 8};
-	
-	private MapData map;
-	private MapData originalMap;
-	private List<Room> rooms;
-	
+	public MapBuilder mapBuilder;
+
 	// Use this for initialization
 	void Start () {
 		buildMap ();
 	}
-
-	void Update() {
-		if (Input.GetMouseButtonDown (0)) {
-			MapData temp = map;
-			map = originalMap;
-			originalMap = temp;
-
-			buildMesh();
-		}
-	}
 	
 	public void buildMap() {
-		buildMapData ();
-		buildMesh ();
-	}
+		MapData map = mapBuilder.build ();
 
-	public void buildMesh() {
-		int numTiles = mapWidth * mapHeight;
+		int numTiles = map.width * map.height;
 		int numTris = numTiles * 2;
 		
-		int numVertsX = 2 * (mapWidth - 1) + 2;
-		int numVertsY = 2 * (mapHeight - 1) + 2;
+		int numVertsX = 2 * (map.width - 1) + 2;
+		int numVertsY = 2 * (map.height - 1) + 2;
 		int numVerts = numVertsX * numVertsY;
 		
 		float textureStep = (float)tileResolution / GetComponent<Renderer>().sharedMaterial.mainTexture.width;
@@ -109,9 +83,9 @@ public class TileMap : MonoBehaviour {
 		
 		int[] triangles = new int[numTris * 3];
 		
-		for (int y = 0; y < mapHeight; y++) {
-			for (int x = 0; x < mapWidth; x++) {
-				int i = (y * mapWidth + x) * 2 * 3;
+		for (int y = 0; y < map.height; y++) {
+			for (int x = 0; x < map.width; x++) {
+				int i = (y * map.width + x) * 2 * 3;
 				int j = y*2 * numVertsX + x*2;
 				
 				triangles [i] = j;
@@ -136,136 +110,5 @@ public class TileMap : MonoBehaviour {
 		MeshCollider meshCollider = GetComponent<MeshCollider> ();
 		meshCollider.sharedMesh = mesh;
 	}
-	
-	private void buildMapData() {
-		map = new MapData (mapWidth, mapHeight);
-		
-		rooms = new List<Room>();
-		
-		for (int i = 0; i < numberOfRooms; i++) {
-			int roomWidth = Random.Range(roomWidthRange[0], roomWidthRange[1]);
-			int roomHeight = Random.Range(roomHeightRange[0], roomHeightRange[1]);
-			/* Add 1 because Random.Range() for ints excludes the max value */
-			int roomX;
-			if(mirrorMap) {
-				roomX = Random.Range(0, map.width/2 - roomWidth/2);
-			} else {
-				roomX = Random.Range(0, map.width - roomWidth + 1);
-			}
 
-			int roomY = Random.Range(0, map.height - roomHeight + 1);
-			
-			Room r = new Room (roomX, roomY, roomWidth, roomHeight);
-			
-			if(overlappingRooms || !roomCollides(r)) {
-				createRoom (r);
-			}
-		}
-
-		Debug.Log ("--------------------------------------------------------");
-
-		for (int i = 0; i < rooms.Count; i++) {
-			if(!rooms[i].isConnected) {
-				int j = i + Random.Range(1, rooms.Count);
-				j %= rooms.Count;
-				
-				createHallway (rooms [i], rooms [j]);
-
-				Debug.Log ("Connecting Room " + i + " " + rooms[i] +" to Room " + j + " " + rooms[j]);
-			}
-		}
-
-		if (mirrorMap) {
-			originalMap = new MapData (mapWidth, mapHeight);
-			for (int x = 0; x < map.width; x++) {
-				for (int y = 0; y < map.height; y++) {
-					originalMap [x, y] = map [x, y];
-				}
-			}
-
-			for (int x = 0; x < map.width/2; x++) {
-				for (int y = 0; y < map.height; y++) {
-					map [map.width - 1 - x, y] = map [x, y];
-				}
-			}
-		}
-	}
-	
-	public bool roomCollides(Room r) {
-		foreach (Room r2 in rooms) {
-			if(r.innerRoomCollidesWith(r2)) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	private void createRoom(Room r) {
-		for(int x = 0; x < r.width; x++) {
-			for(int y = 0; y < r.height; y++) {
-				if(x == 0 || x == r.width-1 || y == 0 || y == r.height-1) {
-					map[x + r.x, y + r.y] = 2;
-				} else {
-					map[x + r.x, y + r.y] = 1;
-				}
-			}
-		}
-		
-		rooms.Add (r);
-	}
-	
-	private void createHallway(Room r1, Room r2) {
-		int x = r1.centerX;
-		int y = r1.centerY;
-		
-		int dx = (x < r2.centerX) ? 1 : -1;
-		int dy = (y < r2.centerY) ? 1 : -1;
-		
-		while (x != r2.centerX) {
-			setHallwayTile(x, y);
-			x += dx;
-		}
-		
-		while (y != r2.centerY) {
-			setHallwayTile(x, y);
-			y += dy;
-		}
-	}
-	
-	private void setHallwayTile(int x, int y) {
-		map[x, y] = 1;
-		
-//		if (x > 0 && map [x - 1, y] == 0) {
-//			map [x - 1, y] = 2;
-//		}
-//		
-//		if (x + 1 < map.width && map [x + 1, y] == 0) {
-//			map [x + 1, y] = 2;
-//		}
-//		
-//		if (y > 0 && map [x, y - 1] == 0) {
-//			map [x, y - 1] = 2;
-//		}
-//		
-//		if (y + 1 < map.height && map [x, y + 1] == 0) {
-//			map [x, y + 1] = 2;
-//		}
-//		
-//		if (x > 0 && y > 0 && map [x - 1, y - 1] == 0) {
-//			map [x - 1, y - 1] = 2;
-//		}
-//		
-//		if (x + 1 < map.width && y > 0 && map [x + 1, y - 1] == 0) {
-//			map [x + 1, y - 1] = 2;
-//		}
-//		
-//		if (x > 0 && y + 1 < map.height && map [x - 1, y + 1] == 0) {
-//			map [x - 1, y + 1] = 2;
-//		}
-//		
-//		if (x + 1 < map.width && y + 1 < map.height && map [x + 1, y + 1] == 0) {
-//			map [x + 1, y + 1] = 2;
-//		}
-	}
 }
