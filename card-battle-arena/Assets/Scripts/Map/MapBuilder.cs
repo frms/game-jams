@@ -92,7 +92,8 @@ public class MapBuilder {
 
 		int roomX;
 		if(mirrorMap) {
-			roomX = Random.Range(0, (map.width/4) - (roomWidth/2));
+			//roomX = Random.Range(0, (map.width/4) - (roomWidth/2));
+			roomX = 0;
 		} else {
 			roomX = Random.Range(0, map.width - roomWidth + 1);
 		}
