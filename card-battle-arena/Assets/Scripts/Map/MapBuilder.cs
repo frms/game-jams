@@ -9,6 +9,7 @@ public class MapBuilder {
 	public int numberOfRooms;
 	public bool overlappingRooms;
 	public bool mirrorMap;
+	public int[] baseRoomSize;
 	public int[] roomWidthRange;
 	public int[] roomHeightRange;
 	public int[] innerHallwayWidthRange;
@@ -22,6 +23,7 @@ public class MapBuilder {
 		this.numberOfRooms = 20;
 		this.overlappingRooms = false;
 		this.mirrorMap = false;
+		this.baseRoomSize = new [] {9, 9};
 		this.roomWidthRange = new [] {4, 8};
 		this.roomHeightRange = new [] {4, 8};
 		this.roomHeightRange = new [] {1, 1};
@@ -31,6 +33,8 @@ public class MapBuilder {
 		map = new MapData (mapWidth, mapHeight);
 		
 		rooms = new List<Room>();
+
+		createBaseRoom ();
 		
 		// Randomly create the rooms
 		for (int i = 0; i < numberOfRooms; i++) {
@@ -81,8 +85,26 @@ public class MapBuilder {
 
 		return map;
 	}
+
+	private void createBaseRoom() {
+		int roomWidth = baseRoomSize [0];
+		int roomHeight = baseRoomSize [1];
+
+		int roomX;
+		if(mirrorMap) {
+			roomX = Random.Range(0, (map.width/4) - (roomWidth/2));
+		} else {
+			roomX = Random.Range(0, map.width - roomWidth + 1);
+		}
+		
+		int roomY = Random.Range(0, map.height - roomHeight + 1);
+		
+		Room r = new Room (roomX, roomY, roomWidth, roomHeight);
+
+		createRoom (r);
+	}
 	
-	public bool roomCollides(Room r) {
+	private bool roomCollides(Room r) {
 		foreach (Room r2 in rooms) {
 			if(r.innerRoomCollidesWith(r2)) {
 				return true;
