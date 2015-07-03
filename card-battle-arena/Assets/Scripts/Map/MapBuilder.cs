@@ -15,7 +15,7 @@ public class MapBuilder {
 	public int[] innerHallwayWidthRange;
 
 	private MapData map;
-	private List<Room> rooms;
+	public List<Room> rooms;
 
 	public MapBuilder() {
 		this.mapWidth = 30;
@@ -281,4 +281,5 @@ public class MapBuilder {
 			}
 		}
 	}
+
 }
