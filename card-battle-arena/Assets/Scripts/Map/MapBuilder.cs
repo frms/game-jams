@@ -14,6 +14,9 @@ public class MapBuilder {
 	public int[] roomHeightRange;
 	public int[] innerHallwayWidthRange;
 
+	[System.NonSerialized]
+	public float tileSize;
+
 	private MapData map;
 	public List<Room> rooms;
 
@@ -27,10 +30,11 @@ public class MapBuilder {
 		this.roomWidthRange = new [] {4, 8};
 		this.roomHeightRange = new [] {4, 8};
 		this.roomHeightRange = new [] {1, 1};
+		this.tileSize = 1f;
 	}
 
 	public MapData build() {
-		map = new MapData (mapWidth, mapHeight);
+		map = new MapData (mapWidth, mapHeight, tileSize);
 		
 		rooms = new List<Room>();
 
@@ -282,4 +286,9 @@ public class MapBuilder {
 		}
 	}
 
+
+	public Vector2 getHeroeStartPos() {
+		Room r = rooms [0];
+		return map.getPosition (r.centerX, r.centerY);
+	}
 }

@@ -16,6 +16,8 @@ public class TileMap : MonoBehaviour {
 	}
 	
 	public void buildMap() {
+		mapBuilder.tileSize = tileSize;
+
 		MapData map = mapBuilder.build ();
 
 		int numTiles = map.width * map.height;

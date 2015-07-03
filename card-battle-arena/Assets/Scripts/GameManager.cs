@@ -6,10 +6,9 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		TileMap tm = GameObject.Find ("TileMap").GetComponent<TileMap> ();
+		MapBuilder mb = GameObject.Find ("TileMap").GetComponent<TileMap> ().mapBuilder;
 
-		Vector2 pos = tm.getHeroeStartPos ();
-		Instantiate (player, pos, Quaternion.identity);
+		Instantiate (player, mb.getHeroeStartPos (), Quaternion.identity);
 	}
 	
 	// Update is called once per frame
