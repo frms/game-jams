@@ -112,9 +112,4 @@ public class TileMap : MonoBehaviour {
 		MeshCollider meshCollider = GetComponent<MeshCollider> ();
 		meshCollider.sharedMesh = mesh;
 	}
-
-	public Vector2 getHeroeStartPos() {
-		Room r = mapBuilder.rooms [0];
-		return new Vector2 ((r.centerX + 0.5f) * tileSize, (r.centerY + 0.5f) * tileSize);
-	}
 }
