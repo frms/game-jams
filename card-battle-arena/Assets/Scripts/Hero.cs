@@ -13,6 +13,16 @@ public class Hero : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		// Right Click
+		if (Input.GetMouseButtonDown (1)) {
+			int[] start = map.worldToMapPoint(transform.position);
+			Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			int[] end = map.worldToMapPoint(worldPoint);
+
+			Debug.Log ("HERE!");
+			
+			LinePath currentPath = AStar.findPath (map, start, end);
+			currentPath.draw();
+		}
 	}
 }
