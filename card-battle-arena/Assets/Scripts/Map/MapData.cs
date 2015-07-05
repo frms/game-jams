@@ -153,12 +153,20 @@ public class MapData {
 		return ret;
 	}
 
-	public Vector3 getPosition(int x, int y) {
+	public Vector3 mapToWorldPoint(int x, int y) {
 		Vector3 pos = new Vector3();
 		pos.x = (tileSize/2) + tileSize*x; 
 		pos.y = (tileSize/2) + tileSize*y;
-		
+
 		return pos;
+	}
+
+	public int[] worldToMapPoint(Vector2 pos) {
+		int[] coords = new int[2];
+		coords [0] = (int) (pos.x / tileSize);
+		coords [1] = (int) (pos.y / tileSize);
+
+		return coords;
 	}
 }
 

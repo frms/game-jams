@@ -17,7 +17,7 @@ public class MapBuilder {
 	[System.NonSerialized]
 	public float tileSize;
 
-	private MapData map;
+	public MapData map;
 	public List<Room> rooms;
 
 	public MapBuilder() {
@@ -289,6 +289,6 @@ public class MapBuilder {
 
 	public Vector2 getHeroeStartPos() {
 		Room r = rooms [0];
-		return map.getPosition (r.centerX, r.centerY);
+		return map.mapToWorldPoint (r.centerX, r.centerY);
 	}
 }

@@ -175,11 +175,11 @@ public class AStar {
 			return null;
 		} else {
 			List<Vector3> path = new List<Vector3>();
-			path.Add(graph.getPosition(currentNode[0], currentNode[1]));
+			path.Add(graph.mapToWorldPoint(currentNode[0], currentNode[1]));
 
 			/* Work back along the path, accumulating connections */
 			while(!equals(current.node, start)) {
-				path.Add(graph.getPosition(current.lastNode[0], current.lastNode[1]));
+				path.Add(graph.mapToWorldPoint(current.lastNode[0], current.lastNode[1]));
 				current = nodeArray[current.lastNode[0], current.lastNode[1]];
 			}
 			
