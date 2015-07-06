@@ -8,6 +8,7 @@ public class TileMap : MonoBehaviour {
 	public float tileSize = 1.0f;
 	public float halfMapDepth = 0.125f;
 
+	[System.NonSerialized]
 	public MapBuilder mapBuilder;
 
 	// Use this for initialization
@@ -16,6 +17,7 @@ public class TileMap : MonoBehaviour {
 	}
 	
 	public void buildMap() {
+		mapBuilder = GetComponent<MapBuilder> ();
 		mapBuilder.tileSize = tileSize;
 
 		MapData map = mapBuilder.build ();

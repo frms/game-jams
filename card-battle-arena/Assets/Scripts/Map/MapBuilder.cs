@@ -3,36 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class MapBuilder {
-	public int mapWidth;
-	public int mapHeight;
-	public int numberOfRooms;
-	public bool overlappingRooms;
-	public bool mirrorMap;
+public class MapBuilder : MonoBehaviour{
+	public int mapWidth = 30;
+	public int mapHeight = 30;
+	public int numberOfRooms = 20;
+	public bool overlappingRooms = false;
+	public bool mirrorMap = false;
 	public GameObject baseBuilding;
-	public int[] baseRoomSize;
-	public int[] roomWidthRange;
-	public int[] roomHeightRange;
-	public int[] innerHallwayWidthRange;
+	public int[] baseRoomSize = new [] {9, 9};
+	public int[] roomWidthRange = new [] {4, 8};
+	public int[] roomHeightRange = new [] {4, 8};
+	public int[] innerHallwayWidthRange = new [] {1, 1};
 
 	[System.NonSerialized]
-	public float tileSize;
+	public float tileSize = 1f;
 
 	public MapData map;
 	public List<Room> rooms;
-
-	public MapBuilder() {
-		this.mapWidth = 30;
-		this.mapHeight = 30;
-		this.numberOfRooms = 20;
-		this.overlappingRooms = false;
-		this.mirrorMap = false;
-		this.baseRoomSize = new [] {9, 9};
-		this.roomWidthRange = new [] {4, 8};
-		this.roomHeightRange = new [] {4, 8};
-		this.roomHeightRange = new [] {1, 1};
-		this.tileSize = 1f;
-	}
 
 	public MapData build() {
 		map = new MapData (mapWidth, mapHeight, tileSize);
