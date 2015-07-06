@@ -21,6 +21,8 @@ public class MapBuilder : MonoBehaviour{
 	public MapData map;
 	public List<Room> rooms;
 
+	private GameObject mapObjs;
+
 	public MapData build() {
 		map = new MapData (mapWidth, mapHeight, tileSize);
 		
@@ -77,6 +79,8 @@ public class MapBuilder : MonoBehaviour{
 
 		Debug.Log (map.ToString ());
 
+		placeGameObjs ();
+
 		return map;
 	}
 
@@ -97,8 +101,6 @@ public class MapBuilder : MonoBehaviour{
 		Room r = new Room (roomX, roomY, roomWidth, roomHeight);
 
 		createRoom (r);
-
-		map.placeBuilding (baseBuilding.GetComponent<Base>(), r.centerX, r.centerY);
 	}
 	
 	private bool roomCollides(Room r) {
@@ -282,5 +284,25 @@ public class MapBuilder : MonoBehaviour{
 	public Vector2 getHeroeStartPos() {
 		Room r = rooms [0];
 		return map.mapToWorldPoint (r.centerX, r.centerY);
+	}
+
+	private void placeGameObjs() {
+		if (mapObjs != null) {
+			Destroy(mapObjs);
+		}
+		mapObjs = new GameObject ("MapObjects");
+
+		placeBase ();
+	}
+
+	private void placeBase() {
+		Room r = rooms [0];
+
+		map.placeBuilding (baseBuilding.GetComponent<Base>(), r.centerX, r.centerY);
+
+		Vector3 pos = map.mapToWorldPoint (r.centerX, r.centerY);
+		Transform t = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
+		Debug.Log (t);
+		t.parent = mapObjs;
 	}
 }
