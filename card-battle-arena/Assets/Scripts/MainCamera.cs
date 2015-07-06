@@ -27,9 +27,5 @@ public class MainCamera : MonoBehaviour {
 
 		transform.position = camPos;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
