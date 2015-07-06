@@ -74,8 +74,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3248582d64e6c3644918ca05a68ed042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 3
-  maxAcceleration: 4
+  maxVelocity: 6
+  maxAcceleration: 8
   targetRadius: .00499999989
   slowRadius: 1
   timeToTarget: .100000001
@@ -129,6 +129,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxVelocity
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxAcceleration
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
