@@ -10,7 +10,7 @@ public class Hero : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		map = GameObject.Find ("TileMap").GetComponent<TileMap> ().mapBuilder.map;
+		map = GameObject.Find ("TileMap").GetComponent<MapBuilder> ().map;
 
 		steeringUtils = GetComponent<SteeringUtils> ();
 		followPath = GetComponent<FollowPath> ();

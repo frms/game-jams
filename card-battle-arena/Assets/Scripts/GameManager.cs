@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		MapBuilder mb = GameObject.Find ("TileMap").GetComponent<TileMap> ().mapBuilder;
+		MapBuilder mb = GameObject.Find ("TileMap").GetComponent<MapBuilder> ();
 
 		Instantiate (player, mb.getHeroeStartPos (), Quaternion.identity);
 	}
