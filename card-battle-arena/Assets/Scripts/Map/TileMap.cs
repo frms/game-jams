@@ -59,7 +59,7 @@ public class TileMap : MonoBehaviour {
 				Vector2 texCoord;
 				
 				if(x % 2 == 0 && y % 2 == 0) {
-					int type = map[x/2, y/2];
+					int type = map.tiles[x/2, y/2];
 					texCoord = new Vector2(texelHalfWidth + type * textureStep, 0);
 				} else {
 					int tileX = (x/2)*2;

@@ -9,6 +9,7 @@ public class MapBuilder {
 	public int numberOfRooms;
 	public bool overlappingRooms;
 	public bool mirrorMap;
+	public GameObject baseBuilding;
 	public int[] baseRoomSize;
 	public int[] roomWidthRange;
 	public int[] roomHeightRange;
@@ -78,14 +79,16 @@ public class MapBuilder {
 		if (mirrorMap) {
 			for (int x = 0; x < map.width/2; x++) {
 				for (int y = 0; y < map.height; y++) {
-					map [map.width - 1 - x, y] = map [x, y];
+					map.tiles [map.width - 1 - x, y] = map.tiles [x, y];
 				}
 			}
 
-			if(!map.isConnectedMap(1)) {
+			if(!map.isConnectedTiles(1)) {
 				connectMirroredMap ();
 			}
 		}
+
+		Debug.Log (map.ToString ());
 
 		return map;
 	}
@@ -107,6 +110,8 @@ public class MapBuilder {
 		Room r = new Room (roomX, roomY, roomWidth, roomHeight);
 
 		createRoom (r);
+
+		map.placeBuilding (baseBuilding.GetComponent<Base>(), r.centerX, r.centerY);
 	}
 	
 	private bool roomCollides(Room r) {
@@ -123,9 +128,9 @@ public class MapBuilder {
 		for(int x = 0; x < r.width; x++) {
 			for(int y = 0; y < r.height; y++) {
 				if(x == 0 || x == r.width-1 || y == 0 || y == r.height-1) {
-					map[x + r.x, y + r.y] = 2;
+					map.tiles[x + r.x, y + r.y] = 2;
 				} else {
-					map[x + r.x, y + r.y] = 1;
+					map.tiles[x + r.x, y + r.y] = 1;
 				}
 			}
 		}
@@ -163,38 +168,38 @@ public class MapBuilder {
 	
 	private void setHallwayTile(int x, int y) {
 		if (x > 0 && x < map.width && y > 0 && y < map.height) {
-			map [x, y] = 1;
+			map.tiles [x, y] = 1;
 
-			if (x > 0 && map [x - 1, y] == 0) {
-				map [x - 1, y] = 2;
+			if (x > 0 && map.tiles [x - 1, y] == 0) {
+				map.tiles [x - 1, y] = 2;
 			}
 			
-			if (x + 1 < map.width && map [x + 1, y] == 0) {
-				map [x + 1, y] = 2;
+			if (x + 1 < map.width && map.tiles [x + 1, y] == 0) {
+				map.tiles [x + 1, y] = 2;
 			}
 			
-			if (y > 0 && map [x, y - 1] == 0) {
-				map [x, y - 1] = 2;
+			if (y > 0 && map.tiles [x, y - 1] == 0) {
+				map.tiles [x, y - 1] = 2;
 			}
 			
-			if (y + 1 < map.height && map [x, y + 1] == 0) {
-				map [x, y + 1] = 2;
+			if (y + 1 < map.height && map.tiles [x, y + 1] == 0) {
+				map.tiles [x, y + 1] = 2;
 			}
 			
-			if (x > 0 && y > 0 && map [x - 1, y - 1] == 0) {
-				map [x - 1, y - 1] = 2;
+			if (x > 0 && y > 0 && map.tiles [x - 1, y - 1] == 0) {
+				map.tiles [x - 1, y - 1] = 2;
 			}
 			
-			if (x + 1 < map.width && y > 0 && map [x + 1, y - 1] == 0) {
-				map [x + 1, y - 1] = 2;
+			if (x + 1 < map.width && y > 0 && map.tiles [x + 1, y - 1] == 0) {
+				map.tiles [x + 1, y - 1] = 2;
 			}
 			
-			if (x > 0 && y + 1 < map.height && map [x - 1, y + 1] == 0) {
-				map [x - 1, y + 1] = 2;
+			if (x > 0 && y + 1 < map.height && map.tiles [x - 1, y + 1] == 0) {
+				map.tiles [x - 1, y + 1] = 2;
 			}
 			
-			if (x + 1 < map.width && y + 1 < map.height && map [x + 1, y + 1] == 0) {
-				map [x + 1, y + 1] = 2;
+			if (x + 1 < map.width && y + 1 < map.height && map.tiles [x + 1, y + 1] == 0) {
+				map.tiles [x + 1, y + 1] = 2;
 			}
 		}
 	}
@@ -263,8 +268,8 @@ public class MapBuilder {
 	}
 
 	private void setBorderWall(int x, int y) {
-		if (map [x, y] == 1) {
-			map[x, y] = 2;
+		if (map.tiles [x, y] == 1) {
+			map.tiles[x, y] = 2;
 		}
 	}
 
