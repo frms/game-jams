@@ -10,6 +10,9 @@ GameObject:
   - 4: {fileID: 482096}
   - 212: {fileID: 21288422}
   - 114: {fileID: 11498878}
+  - 50: {fileID: 5097974}
+  - 114: {fileID: 11443948}
+  - 114: {fileID: 11426442}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -29,6 +32,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5097974
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191554}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &11426442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1f15b60f1e6f541ad7a171c627f5af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopRadius: .0500000007
+  pathOffset: .600000024
+  pathDirection: 1
+  pathLoop: 0
+--- !u!114 &11443948
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3248582d64e6c3644918ca05a68ed042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxVelocity: 3
+  maxAcceleration: 4
+  targetRadius: .00499999989
+  slowRadius: 1
+  timeToTarget: .100000001
+  turnSpeed: 20
+  threshold: .5
+  sepMaxAcceleration: 10
 --- !u!114 &11498878
 MonoBehaviour:
   m_ObjectHideFlags: 1
