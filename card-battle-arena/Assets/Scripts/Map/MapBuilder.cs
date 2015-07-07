@@ -9,7 +9,10 @@ public class MapBuilder : MonoBehaviour{
 	public int numberOfRooms = 20;
 	public bool overlappingRooms = false;
 	public bool mirrorMap = false;
-	public GameObject baseBuilding;
+
+	public Transform player;
+	public Transform baseBuilding;
+
 	public int[] baseRoomSize = new [] {9, 9};
 	public int[] roomWidthRange = new [] {4, 8};
 	public int[] roomHeightRange = new [] {4, 8};
@@ -278,13 +281,8 @@ public class MapBuilder : MonoBehaviour{
 		}
 	}
 
-
-	public Vector2 getHeroeStartPos() {
-		Room r = rooms [0];
-		return map.mapToWorldPoint (r.centerX, r.centerY);
-	}
-
 	private GameObject mapObjs;
+
 	private void placeGameObjs() {
 		mapObjs = GameObject.Find ("MapObjects");
 		Debug.Log (mapObjs);
@@ -293,16 +291,20 @@ public class MapBuilder : MonoBehaviour{
 		}
 		mapObjs = new GameObject ("MapObjects");
 
-		placeBase ();
+		placeBaseAndPlayer ();
 	}
 
-	private void placeBase() {
+	private void placeBaseAndPlayer() {
 		Room r = rooms [0];
 
 		map.placeBuilding (baseBuilding.GetComponent<Base>(), r.centerX, r.centerY);
 
 		Vector3 pos = map.mapToWorldPoint (r.centerX, r.centerY);
-		GameObject go = Instantiate (baseBuilding, pos, Quaternion.identity) as GameObject;
-		go.transform.parent = mapObjs.transform;
+
+		Transform baseTransform = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
+		baseTransform.parent = mapObjs.transform;
+
+		Transform playerTransform = Instantiate (player, pos, Quaternion.identity) as Transform;
+		playerTransform.parent = mapObjs.transform;
 	}
 }
