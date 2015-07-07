@@ -8,7 +8,6 @@ public class MapBuilder : MonoBehaviour{
 	public int mapHeight = 30;
 	public int numberOfRooms = 20;
 	public bool overlappingRooms = false;
-	public bool mirrorMap = false;
 
 	public Transform player;
 	public Transform baseBuilding;
@@ -37,13 +36,7 @@ public class MapBuilder : MonoBehaviour{
 			int roomWidth = Random.Range(roomWidthRange[0], roomWidthRange[1] + 1);
 			int roomHeight = Random.Range(roomHeightRange[0], roomHeightRange[1] + 1);
 
-			int roomX;
-			if(mirrorMap) {
-				roomX = Random.Range(0, (map.width/2) - (roomWidth/2));
-			} else {
-				roomX = Random.Range(0, map.width - roomWidth + 1);
-			}
-			
+			int roomX = Random.Range(0, (map.width/2) - (roomWidth/2));
 			int roomY = Random.Range(0, map.height - roomHeight + 1);
 			
 			Room r = new Room (roomX, roomY, roomWidth, roomHeight);
@@ -65,18 +58,8 @@ public class MapBuilder : MonoBehaviour{
 		connectAllRooms ();
 
 		verifyBorderWalls ();
-		
-		if (mirrorMap) {
-			for (int x = 0; x < map.width/2; x++) {
-				for (int y = 0; y < map.height; y++) {
-					map.tiles [map.width - 1 - x, y] = map.tiles [x, y];
-				}
-			}
 
-			if(!map.isConnectedTiles(1)) {
-				connectMirroredMap ();
-			}
-		}
+		mirrorMap ();
 
 		placeGameObjs ();
 
@@ -89,13 +72,8 @@ public class MapBuilder : MonoBehaviour{
 		int roomWidth = baseRoomSize [0];
 		int roomHeight = baseRoomSize [1];
 
-		int roomX;
-		if(mirrorMap) {
-			//roomX = Random.Range(0, (map.width/4) - (roomWidth/2));
-			roomX = 0;
-		} else {
-			roomX = Random.Range(0, map.width - roomWidth + 1);
-		}
+		int roomX = 0;
+		//int roomX = Random.Range(0, (map.width/4) - (roomWidth/2));
 		
 		int roomY = Random.Range(0, map.height - roomHeight + 1);
 		
@@ -263,6 +241,17 @@ public class MapBuilder : MonoBehaviour{
 		}
 	}
 
+	private void mirrorMap () {
+		for (int x = 0; x < map.width / 2; x++) {
+			for (int y = 0; y < map.height; y++) {
+				map.tiles [map.width - 1 - x, y] = map.tiles [x, y];
+			}
+		}
+		if (!map.isConnectedTiles (1)) {
+			connectMirroredMap ();
+		}
+	}
+
 	private void connectMirroredMap ()
 	{
 		int currentMaxX = -1;
@@ -296,16 +285,25 @@ public class MapBuilder : MonoBehaviour{
 	private void placeBaseAndPlayer() {
 		Room r = rooms [0];
 
-		map.placeBuilding (baseBuilding.GetComponent<Base>(), r.centerX - 1, r.centerY);
+		//Place player objects
+		Vector3 pos = placeBase (r.centerX - 1, r.centerY);
 
-		Vector3 pos = map.mapToWorldPoint (r.centerX - 1, r.centerY);
-
-		Transform baseTransform = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
-		baseTransform.parent = mapObjs.transform;
-
-		pos.x += 3;
+		pos.x += 3*tileSize;
 
 		Transform playerTransform = Instantiate (player, pos, Quaternion.identity) as Transform;
 		playerTransform.parent = mapObjs.transform;
+
+		//Place enemy objects
+		placeBase (map.width - 1 - (r.centerX - 1), r.centerY);
+	}
+
+	private Vector3 placeBase (int x, int y) {
+		map.placeBuilding (baseBuilding.GetComponent<Base> (), x, y);
+
+		Vector3 pos = map.mapToWorldPoint (x, y);
+		Transform baseTransform = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
+		baseTransform.parent = mapObjs.transform;
+
+		return pos;
 	}
 }
