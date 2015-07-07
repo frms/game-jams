@@ -64,6 +64,8 @@ public class AStar {
 
 
 	public static LinePath findPath(MapData graph, int[] start, int[] end) {
+		Base target = graph.objs [end [0], end [1]];
+
 		/* Using diagonal distance since I assume this graph is a 8 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
 		DiagonalDistHeuristic heuristic = new DiagonalDistHeuristic (end);
@@ -97,12 +99,19 @@ public class AStar {
 			
 			//console.log(currentNode);
 			
-			/* If its the goal node then terminate */
+			/* If its the goal node or part of the target object then terminate */
 			if(equals(currentNode, end)) {
 				break;
 			}
+
+			/* If its part of the target object then terminate (and change the end node to be equal to the current node) */
+			if(target != null && graph.objs [currentNode [0], currentNode [1]] == target) {
+				end[0] = currentNode[0];
+				end[1] = currentNode[1];
+				break;
+			}
 			
-			List<Connection> connections = graph.getConnectedNodes(currentNode);
+			List<Connection> connections = graph.getConnectedNodes(currentNode, target);
 
 			for(var i = 0; i < connections.Count; i++) {
 				int[] endNode = connections[i].toNode;
