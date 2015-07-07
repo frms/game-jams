@@ -78,9 +78,9 @@ public class MapBuilder : MonoBehaviour{
 			}
 		}
 
-		Debug.Log (map.ToString ());
-
 		placeGameObjs ();
+
+		Debug.Log (map.ToString ());
 
 		return map;
 	}
@@ -285,7 +285,6 @@ public class MapBuilder : MonoBehaviour{
 
 	private void placeGameObjs() {
 		mapObjs = GameObject.Find ("MapObjects");
-		Debug.Log (mapObjs);
 		if (mapObjs != null) {
 			DestroyImmediate(mapObjs);
 		}

@@ -15,8 +15,6 @@ public class Hero : MonoBehaviour {
 		steeringUtils = GetComponent<SteeringUtils> ();
 		followPath = GetComponent<FollowPath> ();
 		rb = GetComponent<Rigidbody2D> ();
-
-		Debug.Log (map.worldToMapPoint(transform.position)[0] + " " + map.worldToMapPoint(transform.position)[1]);
 	}
 
 	private LinePath currentPath;
