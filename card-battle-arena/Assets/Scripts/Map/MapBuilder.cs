@@ -21,8 +21,6 @@ public class MapBuilder : MonoBehaviour{
 	public MapData map;
 	public List<Room> rooms;
 
-	private GameObject mapObjs;
-
 	public MapData build() {
 		map = new MapData (mapWidth, mapHeight, tileSize);
 		
@@ -286,9 +284,12 @@ public class MapBuilder : MonoBehaviour{
 		return map.mapToWorldPoint (r.centerX, r.centerY);
 	}
 
+	private GameObject mapObjs;
 	private void placeGameObjs() {
+		mapObjs = GameObject.Find ("MapObjects");
+		Debug.Log (mapObjs);
 		if (mapObjs != null) {
-			Destroy(mapObjs);
+			DestroyImmediate(mapObjs);
 		}
 		mapObjs = new GameObject ("MapObjects");
 
@@ -301,8 +302,7 @@ public class MapBuilder : MonoBehaviour{
 		map.placeBuilding (baseBuilding.GetComponent<Base>(), r.centerX, r.centerY);
 
 		Vector3 pos = map.mapToWorldPoint (r.centerX, r.centerY);
-		Transform t = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
-		Debug.Log (t);
-		t.parent = mapObjs;
+		GameObject go = Instantiate (baseBuilding, pos, Quaternion.identity) as GameObject;
+		go.transform.parent = mapObjs.transform;
 	}
 }
