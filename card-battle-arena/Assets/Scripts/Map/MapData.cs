@@ -106,39 +106,43 @@ public class MapData {
 		
 		bool left, right, down, up;
 		
-		if (left = (x > 0 && tiles [x - 1, y] == 1)) {
+		if (left = (x > 0 && isWalkable (x - 1, y) )) {
 			ret.Add(new Connection( x - 1, y, Connection.DEFAULT_COST ));
 		}
 		
-		if (right = (x + 1 < width && tiles [x + 1, y] == 1)) {
+		if (right = (x + 1 < width && isWalkable (x + 1, y) )) {
 			ret.Add(new Connection( x + 1, y, Connection.DEFAULT_COST ));
 		}
 		
-		if (down = (y > 0 && tiles [x, y - 1] == 1)) {
+		if (down = (y > 0 && isWalkable (x, y - 1) )) {
 			ret.Add(new Connection( x, y - 1, Connection.DEFAULT_COST ));
 		}
 		
-		if (up = (y + 1 < height && tiles [x, y + 1] == 1)) {
+		if (up = (y + 1 < height && isWalkable (x, y + 1) )) {
 			ret.Add(new Connection( x, y + 1, Connection.DEFAULT_COST ));
 		}
 		
-		if (left && down && tiles [x - 1, y - 1] == 1) {
+		if (left && down && isWalkable (x - 1, y - 1) ) {
 			ret.Add(new Connection( x - 1, y - 1, Connection.DIAGONAL_COST ));
 		}
 		
-		if (right && down && tiles [x + 1, y - 1] == 1) {
+		if (right && down && isWalkable (x + 1, y - 1) ) {
 			ret.Add(new Connection( x + 1, y - 1, Connection.DIAGONAL_COST ));
 		}
 		
-		if (left && up && tiles [x - 1, y + 1] == 1) {
+		if (left && up && isWalkable (x - 1, y + 1) ) {
 			ret.Add(new Connection( x - 1, y + 1, Connection.DIAGONAL_COST ));
 		}
 		
-		if (right && up && tiles [x + 1, y + 1] == 1) {
+		if (right && up && isWalkable (x + 1, y + 1) ) {
 			ret.Add(new Connection( x + 1, y + 1, Connection.DIAGONAL_COST ));
 		}
 		
 		return ret;
+	}
+
+	private bool isWalkable(int x, int y) {
+		return tiles [x, y] == 1 && objs [x, y] == null;
 	}
 
 	public Vector3 mapToWorldPoint(int x, int y) {

@@ -296,7 +296,7 @@ public class MapBuilder : MonoBehaviour{
 	private void placeBaseAndPlayer() {
 		Room r = rooms [0];
 
-		map.placeBuilding (baseBuilding.GetComponent<Base>(), r.centerX, r.centerY);
+		map.placeBuilding (baseBuilding.GetComponent<Base>(), r.centerX - 1, r.centerY);
 
 		Vector3 pos = map.mapToWorldPoint (r.centerX - 1, r.centerY);
 
