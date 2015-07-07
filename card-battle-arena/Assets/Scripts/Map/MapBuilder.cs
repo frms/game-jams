@@ -63,8 +63,6 @@ public class MapBuilder : MonoBehaviour{
 
 		placeGameObjs ();
 
-		Debug.Log (map.ToString ());
-
 		return map;
 	}
 
@@ -298,11 +296,11 @@ public class MapBuilder : MonoBehaviour{
 	}
 
 	private Vector3 placeBase (int x, int y) {
-		map.placeBuilding (baseBuilding.GetComponent<Base> (), x, y);
-
 		Vector3 pos = map.mapToWorldPoint (x, y);
-		Transform baseTransform = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
-		baseTransform.parent = mapObjs.transform;
+		Transform t = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
+		t.parent = mapObjs.transform;
+
+		map.placeBuilding (t.GetComponent<Base> (), x, y);
 
 		return pos;
 	}
