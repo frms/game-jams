@@ -1,1 +1,7 @@
 Consider making the map builder guarentee at least X possible paths to the bases
+
+Green health bars for your units
+Red for enemies
+Blue or Yellow for the currently controlled unit
+
+Make sure hero abilities have appropriate visual indication on how to be used. AOE outlines, cursor changes, etc
