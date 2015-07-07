@@ -298,10 +298,12 @@ public class MapBuilder : MonoBehaviour{
 
 		map.placeBuilding (baseBuilding.GetComponent<Base>(), r.centerX, r.centerY);
 
-		Vector3 pos = map.mapToWorldPoint (r.centerX, r.centerY);
+		Vector3 pos = map.mapToWorldPoint (r.centerX - 1, r.centerY);
 
 		Transform baseTransform = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
 		baseTransform.parent = mapObjs.transform;
+
+		pos.x += 3;
 
 		Transform playerTransform = Instantiate (player, pos, Quaternion.identity) as Transform;
 		playerTransform.parent = mapObjs.transform;
