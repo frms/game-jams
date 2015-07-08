@@ -298,7 +298,7 @@ public class MapBuilder : MonoBehaviour{
 		Room r = rooms [0];
 
 		//Place player objects
-		Vector3 pos = placeBase (r.centerX - 1, r.centerY);
+		Vector3 pos = placeBase (r.centerX - 1, r.centerY, Base.TEAM_1);
 
 		pos.x += 3*tileSize;
 
@@ -306,13 +306,15 @@ public class MapBuilder : MonoBehaviour{
 		playerTransform.parent = mapObjs.transform;
 
 		//Place enemy objects
-		placeBase (map.width - 1 - (r.centerX - 1), r.centerY);
+		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, Base.TEAM_2);
 	}
 
-	private Vector3 placeBase (int x, int y) {
+	private Vector3 placeBase (int x, int y, Color teamColor) {
 		Vector3 pos = map.mapToWorldPoint (x, y);
 		Transform t = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
 		t.parent = mapObjs.transform;
+
+		t.GetComponent<Base> ().team = teamColor;
 
 		map.placeBuilding (t.GetComponent<Base> (), x, y);
 
