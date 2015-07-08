@@ -19,6 +19,13 @@ public class HealthBar : MonoBehaviour {
 		GameObject clone = Instantiate(barPrefab, (transform.position + barOffset), barOrientation) as GameObject;
 		bar = clone.transform;
 		bar.localScale = barSize;
+
+		Base b = GetComponent<Base> ();
+		SpriteRenderer sr = GetComponent<SpriteRenderer> ();
+		sr.color = b.team;
+
+		sr = bar.GetComponent<SpriteRenderer> ();
+		sr.color = b.team;
 	}
 	
 	// Update is called once per frame
