@@ -136,9 +136,9 @@ public class Player : MonoBehaviour {
 		if(stickDirection.sqrMagnitude > 0.031) {
 			stickDirection.Normalize();
 
-			rigidbody2D.velocity = stickDirection * speed;
+			GetComponent<Rigidbody2D>().velocity = stickDirection * speed;
 		} else {
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		}
 
 		transform.rotation = Quaternion.Euler(0, 0, mouseAngle);
@@ -203,7 +203,7 @@ public class Player : MonoBehaviour {
 		props.damage = arrowDamage;
 		clone.SendMessage ("setUp", props);
 
-		clone.rigidbody2D.velocity = transform.right * arrowSpeed;
+		clone.GetComponent<Rigidbody2D>().velocity = transform.right * arrowSpeed;
 	}
 
 	private float stunTime = 0.6818182f;
@@ -257,14 +257,14 @@ public class Player : MonoBehaviour {
 		dashShield = dashMaxDmgTaken;
 
 		dashStartPoint = transform.position;
-		rigidbody2D.velocity = transform.right * dashSpeed;
+		GetComponent<Rigidbody2D>().velocity = transform.right * dashSpeed;
 
 		dashObj.SetActive(true);
 	}
 
 	private void stopDashing() {
 		dashing = false;
-		rigidbody2D.velocity = Vector2.zero;
+		GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
 		dashObj.SetActive(false);
 	}

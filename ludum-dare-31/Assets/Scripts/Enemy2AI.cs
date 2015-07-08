@@ -26,7 +26,7 @@ public class Enemy2AI : MonoBehaviour {
 	void Update () {
 		if(enemy.stunTill > Time.time) {
 			attacking = false;
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			return;
 		}
 
@@ -45,7 +45,7 @@ public class Enemy2AI : MonoBehaviour {
 		// Else the player is dead so stop attacking and stop moving
 		else {
 			attacking = false;
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		}
 		
 		updateMeleeAttack();

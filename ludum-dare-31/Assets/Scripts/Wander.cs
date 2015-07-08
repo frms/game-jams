@@ -43,7 +43,7 @@ public class Wander : MonoBehaviour {
 	void FixedUpdate () {
 
 		if(enemy.stunTill > Time.time) {
-			rigidbody2D.velocity = Vector2.zero;
+			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 			return;
 		}
 		
