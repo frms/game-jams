@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable]
 public class MapBuilder : MonoBehaviour{
@@ -245,25 +246,38 @@ public class MapBuilder : MonoBehaviour{
 				map.tiles [map.width - 1 - x, y] = map.tiles [x, y];
 			}
 		}
-		if (!map.isConnectedTiles (1)) {
-			connectMirroredMap ();
-		}
+
+		connectMirroredMap ();
 	}
 
 	private void connectMirroredMap ()
 	{
-		int currentMaxX = -1;
-		Room currentRoom = null;
-		for (int i = 0; i < rooms.Count; i++) {
-			if (rooms [i].maxX > currentMaxX) {
-				currentMaxX = rooms [i].maxX;
-				currentRoom = rooms [i];
+		List<Room> sortedRooms = rooms.OrderByDescending(r=>r.maxX).ToList();
+
+		for (int i = 0; i < sortedRooms.Count; i++) {
+			int middleColumn = map.width / 2;
+			int walkableCount = 0;
+
+			for (int j = 0; j < map.height; j++) {
+				if(map.tiles[middleColumn, j] == 1) {
+					walkableCount++;
+				}
+			}
+
+			if(walkableCount < innerHallwayWidthRange[1] * 2) {
+				connectMirroredRooms (sortedRooms[i]);
+			} else {
+				break;
 			}
 		}
-		int connectionWidth = map.width - 2 * currentRoom.x;
+	}
+
+	void connectMirroredRooms (Room r)
+	{
+		int connectionWidth = map.width - 2 * r.x;
 		for (int x = 1; x < connectionWidth - 1; x++) {
-			for (int y = 1; y < currentRoom.height - 1; y++) {
-				setHallwayTile (x + currentRoom.x, y + currentRoom.y);
+			for (int y = 1; y < r.height - 1; y++) {
+				setHallwayTile (x + r.x, y + r.y);
 			}
 		}
 	}
