@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 403396}
   - 212: {fileID: 21219460}
   - 114: {fileID: 11455722}
+  - 114: {fileID: 11413010}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -29,6 +30,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11413010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3442dd92ee2cf2144be6cea5ae255f91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barPrefab: {fileID: 123048, guid: eeab4d13275eb8c4e93713ba1516365e, type: 2}
+  barSize: {x: 2, y: .150000006, z: 1}
+  barOffset: {x: -1, y: 1.64999998, z: 0}
+  barRotation: {x: 0, y: 0, z: 0}
+  barProgress: 100
+  barMax: 100
 --- !u!114 &11455722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -40,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfc418a50dacd645a603abdf964dfb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &21219460
 SpriteRenderer:
   m_ObjectHideFlags: 1
