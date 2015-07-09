@@ -301,12 +301,13 @@ public class MapBuilder : MonoBehaviour{
 		Vector3 pos = placeBase (r.centerX - 1, r.centerY, Base.TEAM_1);
 
 		pos.x += 3*tileSize;
-
-		Transform playerTransform = Instantiate (player, pos, Quaternion.identity) as Transform;
-		playerTransform.parent = mapObjs.transform;
+		placeHero (pos, true);
 
 		//Place enemy objects
 		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, Base.TEAM_2);
+
+		pos.x = (map.width)*tileSize - pos.x;
+		placeHero (pos, false);
 	}
 
 	private Vector3 placeBase (int x, int y, Color teamColor) {
@@ -319,5 +320,12 @@ public class MapBuilder : MonoBehaviour{
 		map.placeBuilding (t.GetComponent<Base> (), x, y);
 
 		return pos;
+	}
+
+	void placeHero (Vector3 pos, bool playerControlled)
+	{
+		Transform playerTransform = Instantiate (player, pos, Quaternion.identity) as Transform;
+		playerTransform.parent = mapObjs.transform;
+		playerTransform.GetComponent<Hero> ().playerControlled = playerControlled;
 	}
 }
