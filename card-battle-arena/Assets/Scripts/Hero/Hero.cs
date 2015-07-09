@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class Hero : MonoBehaviour {
+	public float atkRate = 0.5F;
+	public float atkDmg = 5f;
+
 	private MapData map;
 
 	private SteeringUtils steeringUtils;
@@ -18,7 +21,9 @@ public class Hero : MonoBehaviour {
 	}
 
 	private LinePath currentPath;
-	private Base atkTarget;
+	private Base target;
+	private HealthBar enemyHealth;
+	private float nextFire = 0.0F;
 
 	// Update is called once per frame
 	void Update () {
@@ -28,30 +33,34 @@ public class Hero : MonoBehaviour {
 			Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			int[] end = map.worldToMapPoint(worldPoint);
 
-			Base target = map.objs [end [0], end [1]];
+			target = map.objs [end [0], end [1]];
 			
 			currentPath = AStar.findPath (map, start, end, target);
 
 			if(target != null && target.team != Base.TEAM_1) {
-				atkTarget = target;
+				enemyHealth = target.GetComponent<HealthBar>();
 			} else {
-				atkTarget = null;
+				enemyHealth = null;
 			}
 		}
 
 		if(currentPath != null) {
-			if(atkTarget != null && isAtEndOfPath ()) {
-				steeringUtils.lookAtDirection(atkTarget.transform.position - transform.position);
+			if(target != null && isAtEndOfPath ()) {
+				//Look at the target and stop moving
+				steeringUtils.lookAtDirection(target.transform.position - transform.position);
 				rb.velocity = Vector2.zero;
+
+				if(enemyHealth != null && Time.time > nextFire) {
+					nextFire = Time.time + atkRate;
+					enemyHealth.applyDamage(atkDmg);
+				}
 			} else {
 				moveHero ();
 			}
 		}
-		// If we have not path to the player then stand still and clear
-		// any atk target we might have.
+		// If we have no path to the player then stand still
 		else {
 			rb.velocity = Vector2.zero;
-			atkTarget = null;
 		}
 	}
 
