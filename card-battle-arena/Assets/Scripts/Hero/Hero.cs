@@ -8,6 +8,9 @@ public class Hero : TeamMember {
 	[System.NonSerialized]
 	public bool playerControlled;
 
+	[System.NonSerialized]
+	public LinePath patrolPath;
+
 	private MapData map;
 
 	private SteeringUtils steeringUtils;
@@ -32,7 +35,10 @@ public class Hero : TeamMember {
 	// Update is called once per frame
 	void Update () {
 		if (playerControlled) {
-			playerControlledUpdate();
+			playerControlledUpdate ();
+		} else if (patrolPath != null) {
+			currentPath = patrolPath;
+			followPathAndAtk (true);
 		}
 	}
 
@@ -62,25 +68,7 @@ public class Hero : TeamMember {
 			findPathToHero();
 		}
 
-		// Follow path and atk target if its an enemy
-		if(currentPath != null) {
-			if(target != null && isAtEndOfPath ()) {
-				//Look at the target and stop moving
-				steeringUtils.lookAtDirection(target.transform.position - transform.position);
-				rb.velocity = Vector2.zero;
-				
-				if(enemyHealth != null && Time.time > nextFire) {
-					nextFire = Time.time + atkRate;
-					enemyHealth.applyDamage(atkDmg);
-				}
-			} else {
-				moveHero ();
-			}
-		}
-		// If we have no path to the player then stand still
-		else {
-			rb.velocity = Vector2.zero;
-		}
+		followPathAndAtk (false);
 	}
 
 	private Hero castRay() {
@@ -112,14 +100,37 @@ public class Hero : TeamMember {
 		}
 	}
 
+	void followPathAndAtk (bool pathLoop)
+	{
+		// Follow path and atk target if its an enemy
+		if (currentPath != null) {
+			if (target != null && isAtEndOfPath ()) {
+				//Look at the target and stop moving
+				steeringUtils.lookAtDirection (target.transform.position - transform.position);
+				rb.velocity = Vector2.zero;
+				if (enemyHealth != null && Time.time > nextFire) {
+					nextFire = Time.time + atkRate;
+					enemyHealth.applyDamage (atkDmg);
+				}
+			}
+			else {
+				moveHero (pathLoop);
+			}
+		}
+		// If we have no path to the player then stand still
+		else {
+			rb.velocity = Vector2.zero;
+		}
+	}
+
 	bool isAtEndOfPath ()
 	{
 		return Vector3.Distance (currentPath.endNode, transform.position) < followPath.stopRadius;
 	}
 
-	void moveHero ()
+	void moveHero (bool pathLoop)
 	{
-		Vector2 accel = followPath.getSteering (currentPath);
+		Vector2 accel = followPath.getSteering (currentPath, pathLoop);
 		steeringUtils.steer (accel);
 		steeringUtils.lookWhereYoureGoing ();
 		currentPath.draw ();

@@ -308,7 +308,18 @@ public class MapBuilder : MonoBehaviour{
 		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, TeamMember.TEAM_2);
 
 		pos.x = (map.width)*tileSize - pos.x;
-		placeHero (pos, TeamMember.TEAM_2, false);
+		Hero enemyHero = placeHero (pos, TeamMember.TEAM_2, false);
+
+		Vector3[] patrolNodes = new Vector3[4];
+		patrolNodes [0] = new Vector3 (pos.x, pos.y + 3 * tileSize, pos.z);
+		patrolNodes [1] = new Vector3 (pos.x + 6 * tileSize, pos.y + 3 * tileSize, pos.z);
+		patrolNodes [2] = new Vector3 (pos.x + 6 * tileSize, pos.y - 3 * tileSize, pos.z);
+		patrolNodes [3] = new Vector3 (pos.x, pos.y - 3 * tileSize, pos.z);
+
+		LinePath patrolPath = new LinePath (patrolNodes);
+		patrolPath.draw ();
+
+		enemyHero.patrolPath = patrolPath;
 	}
 
 	private Vector3 placeBase (int x, int y, Color teamColor) {
@@ -323,7 +334,7 @@ public class MapBuilder : MonoBehaviour{
 		return pos;
 	}
 
-	void placeHero (Vector3 pos, Color teamColor, bool playerControlled)
+	Hero placeHero (Vector3 pos, Color teamColor, bool playerControlled)
 	{
 		Transform playerTransform = Instantiate (player, pos, Quaternion.identity) as Transform;
 		playerTransform.parent = mapObjs.transform;
@@ -331,5 +342,7 @@ public class MapBuilder : MonoBehaviour{
 		Hero h = playerTransform.GetComponent<Hero> ();
 		h.team = teamColor;
 		h.playerControlled = playerControlled;
+
+		return h;
 	}
 }

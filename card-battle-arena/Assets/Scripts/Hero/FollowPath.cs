@@ -10,8 +10,6 @@ public class FollowPath : MonoBehaviour {
 
 	public float pathDirection = 1f;
 
-	public bool pathLoop = false;
-
 	private SteeringUtils steeringUtils;
 	private Rigidbody2D rb;
 
@@ -22,6 +20,10 @@ public class FollowPath : MonoBehaviour {
 	}
 
 	public Vector2 getSteering (LinePath path) {
+		return getSteering (path, false);
+	}
+
+	public Vector2 getSteering (LinePath path, bool pathLoop) {
 		Vector2 targetPosition;
 
 		// If the path has only one node then just go to that position;
