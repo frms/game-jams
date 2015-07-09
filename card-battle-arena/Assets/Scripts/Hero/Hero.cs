@@ -23,6 +23,7 @@ public class Hero : TeamMember {
 		rb = GetComponent<Rigidbody2D> ();
 	}
 
+	private int[] lastEndPos;
 	private LinePath currentPath;
 	private TeamMember target;
 	private HealthBar enemyHealth;
@@ -43,11 +44,11 @@ public class Hero : TeamMember {
 			if(target == null) {
 				int[] start = map.worldToMapPoint(transform.position);
 				Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				int[] end = map.worldToMapPoint(worldPoint);
+				lastEndPos = map.worldToMapPoint(worldPoint);
 				
-				target = map.objs [end [0], end [1]];
+				target = map.objs [lastEndPos [0], lastEndPos [1]];
 
-				currentPath = AStar.findPath (map, start, end, (Base) target);
+				currentPath = AStar.findPath (map, start, lastEndPos, (Base) target);
 			}
 			
 			if(target != null && target.team != TeamMember.TEAM_1) {
@@ -93,18 +94,21 @@ public class Hero : TeamMember {
 		return null;
 	}
 
-	private int[] lastHeroPos;
-	
 	private void findPathToHero() {
 		int[] end = map.worldToMapPoint(target.transform.position);
 		
-		if (currentPath == null || lastHeroPos == null || lastHeroPos [0] != end [0] || lastHeroPos [1] != end [1]) { 
+		if (currentPath == null || lastEndPos == null || lastEndPos [0] != end [0] || lastEndPos [1] != end [1]) { 
 			
 			int[] start = map.worldToMapPoint(transform.position);
 			
 			currentPath = AStar.findPath (map, start, end, null);
-			
-			lastHeroPos = end;
+
+			//Remove the last path node so we go right up to but no on top of the target hero
+			if(currentPath != null && currentPath.Length > 1) {
+				currentPath.removeNode(currentPath.Length - 1);
+			}
+
+			lastEndPos = end;
 		}
 	}
 

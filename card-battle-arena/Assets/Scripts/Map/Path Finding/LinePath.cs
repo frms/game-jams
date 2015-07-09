@@ -151,4 +151,20 @@ public class LinePath  {
 		
 		return t * Mathf.Sqrt(l2);
 	}
+
+	public void removeNode(int i ) {
+		Vector3[] newNodes = new Vector3[nodes.Length - 1];
+
+		int newNodesIndex = 0;
+		for (int j = 0; j < newNodes.Length; j++) {
+			if(j != i) {
+				newNodes[newNodesIndex] = nodes[j];
+				newNodesIndex++;
+			}
+		}
+
+		this.nodes = newNodes;
+		
+		calcDistances();
+	}
 }
