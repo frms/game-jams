@@ -33,6 +33,21 @@ public class AStar {
 		}
 	}
 
+	class EuclideanDistHeuristic {
+		private int[] goal;
+		
+		public EuclideanDistHeuristic(int[] goal) {
+			this.goal = goal;
+		}
+		
+		public float estimate(int[] node) {
+			int dx = Mathf.Abs (node [0] - goal [0]);
+			int dy = Mathf.Abs (node [1] - goal [1]);
+			return Mathf.Sqrt (dx * dx + dy * dy);
+		}
+	}
+
+
 	enum Category { open, closed };
 
 	class Record {
@@ -66,7 +81,7 @@ public class AStar {
 	public static LinePath findPath(MapData graph, int[] start, int[] end, Base target) {
 		/* Using diagonal distance since I assume this graph is a 8 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
-		DiagonalDistHeuristic heuristic = new DiagonalDistHeuristic (end);
+		EuclideanDistHeuristic heuristic = new EuclideanDistHeuristic (end);
 		
 		/* Create the record for the start node */
 		Record startRecord = new Record ();
