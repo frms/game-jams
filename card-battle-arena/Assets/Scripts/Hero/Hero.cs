@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hero : MonoBehaviour {
+public class Hero : MonoBehaviour, HasTeam {
 	public float atkRate = 0.5F;
 	public float atkDmg = 5f;
 
 	[System.NonSerialized]
 	public bool playerControlled;
+
+	public Color team { get; set; }
 
 	private MapData map;
 
@@ -46,7 +48,7 @@ public class Hero : MonoBehaviour {
 			
 			currentPath = AStar.findPath (map, start, end, target);
 			
-			if(target != null && target.team != Base.TEAM_1) {
+			if(target != null && target.team != Teams.ONE) {
 				enemyHealth = target.GetComponent<HealthBar>();
 			} else {
 				enemyHealth = null;
@@ -72,6 +74,15 @@ public class Hero : MonoBehaviour {
 			rb.velocity = Vector2.zero;
 		}
 	}
+
+	private void CastRay() {
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		
+		RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction, Mathf.Infinity);
+		if (hit) {
+			hit.transform.GetComponent<Hero>();
+		}
+	}  
 
 	bool isAtEndOfPath ()
 	{

@@ -291,23 +291,23 @@ public class MapBuilder : MonoBehaviour{
 		}
 		mapObjs = new GameObject ("MapObjects");
 
-		placeBaseAndPlayer ();
+		placeBaseAndHero ();
 	}
 
-	private void placeBaseAndPlayer() {
+	private void placeBaseAndHero() {
 		Room r = rooms [0];
 
 		//Place player objects
-		Vector3 pos = placeBase (r.centerX - 1, r.centerY, Base.TEAM_1);
+		Vector3 pos = placeBase (r.centerX - 1, r.centerY, Teams.ONE);
 
 		pos.x += 3*tileSize;
-		placeHero (pos, true);
+		placeHero (pos, Teams.ONE, true);
 
 		//Place enemy objects
-		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, Base.TEAM_2);
+		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, Teams.TWO);
 
 		pos.x = (map.width)*tileSize - pos.x;
-		placeHero (pos, false);
+		placeHero (pos, Teams.TWO, false);
 	}
 
 	private Vector3 placeBase (int x, int y, Color teamColor) {
@@ -322,10 +322,13 @@ public class MapBuilder : MonoBehaviour{
 		return pos;
 	}
 
-	void placeHero (Vector3 pos, bool playerControlled)
+	void placeHero (Vector3 pos, Color teamColor, bool playerControlled)
 	{
 		Transform playerTransform = Instantiate (player, pos, Quaternion.identity) as Transform;
 		playerTransform.parent = mapObjs.transform;
-		playerTransform.GetComponent<Hero> ().playerControlled = playerControlled;
+
+		Hero h = playerTransform.GetComponent<Hero> ();
+		h.team = teamColor;
+		h.playerControlled = playerControlled;
 	}
 }
