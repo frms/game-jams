@@ -302,6 +302,7 @@ public class MapBuilder : MonoBehaviour{
 
 		pos.x += 3*tileSize;
 		placeHero (pos, TeamMember.TEAM_1, true);
+		placeHero (pos + Vector3.down*tileSize, TeamMember.TEAM_1, false);
 
 		//Place enemy objects
 		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, TeamMember.TEAM_2);
