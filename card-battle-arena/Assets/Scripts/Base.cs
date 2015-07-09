@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Base : MonoBehaviour, HasTeam {
-	public Color team { get; set; }
+public class Base : TeamMember {
 
 	public bool[,] mapCollider = new bool[,] {
 		{ true, true, true },

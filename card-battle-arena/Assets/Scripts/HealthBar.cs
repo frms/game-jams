@@ -21,7 +21,7 @@ public class HealthBar : MonoBehaviour {
 		bar.localScale = barSize;
 
 		SpriteRenderer sr = bar.GetComponent<SpriteRenderer> ();
-		sr.color = GetComponent<HasTeam>().team;
+		sr.color = GetComponent<TeamMember>().team;
 	}
 	
 	// Update is called once per frame

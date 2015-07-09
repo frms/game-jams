@@ -298,16 +298,16 @@ public class MapBuilder : MonoBehaviour{
 		Room r = rooms [0];
 
 		//Place player objects
-		Vector3 pos = placeBase (r.centerX - 1, r.centerY, Teams.ONE);
+		Vector3 pos = placeBase (r.centerX - 1, r.centerY, TeamMember.TEAM_1);
 
 		pos.x += 3*tileSize;
-		placeHero (pos, Teams.ONE, true);
+		placeHero (pos, TeamMember.TEAM_1, true);
 
 		//Place enemy objects
-		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, Teams.TWO);
+		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, TeamMember.TEAM_2);
 
 		pos.x = (map.width)*tileSize - pos.x;
-		placeHero (pos, Teams.TWO, false);
+		placeHero (pos, TeamMember.TEAM_2, false);
 	}
 
 	private Vector3 placeBase (int x, int y, Color teamColor) {
