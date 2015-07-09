@@ -11,7 +11,7 @@ public class SteeringUtils : MonoBehaviour {
 	public float maxAcceleration = 4;
 
 	/* The radius from the target that means we are close enough and have arrived */
-	public float targetRadius = 0.005f;
+	public float targetRadius = 0.05f;
 	
 	/* The radius from the target where we start to slow down  */
 	public float slowRadius = 1f;

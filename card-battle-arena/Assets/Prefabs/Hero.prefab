@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxVelocity: 6
   maxAcceleration: 15
-  targetRadius: .00499999989
+  targetRadius: .0500000007
   slowRadius: 1
   timeToTarget: .100000001
   turnSpeed: 20
@@ -141,6 +141,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SortingOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: targetRadius
+      value: .0500000007
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

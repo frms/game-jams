@@ -63,9 +63,7 @@ public class AStar {
 	}
 
 
-	public static LinePath findPath(MapData graph, int[] start, int[] end) {
-		Base target = graph.objs [end [0], end [1]];
-
+	public static LinePath findPath(MapData graph, int[] start, int[] end, Base target) {
 		/* Using diagonal distance since I assume this graph is a 8 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
 		DiagonalDistHeuristic heuristic = new DiagonalDistHeuristic (end);

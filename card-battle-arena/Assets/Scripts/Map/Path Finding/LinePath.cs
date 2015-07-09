@@ -28,6 +28,12 @@ public class LinePath  {
 		}
 	}
 
+	public Vector3 endNode {
+		get {
+			return nodes[nodes.Length-1];
+		}
+	}
+
 	/* This function creates a path of line segments */
 	public LinePath(Vector3[] nodes) {
 		this.nodes = nodes;
