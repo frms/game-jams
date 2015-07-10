@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Hero : TeamMember {
@@ -57,7 +57,7 @@ public class Hero : TeamMember {
 				currentPath = AStar.findPath (map, start, lastEndPos, (Base) target);
 			}
 			
-			if(target != null && target.team != TeamMember.TEAM_1) {
+			if(target != null && target.teamId != TeamMember.TEAM_1) {
 				enemyHealth = target.GetComponent<HealthBar>();
 			} else {
 				enemyHealth = null;

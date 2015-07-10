@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class HealthBar : MonoBehaviour {
@@ -21,7 +21,7 @@ public class HealthBar : MonoBehaviour {
 		bar.localScale = barSize;
 
 		SpriteRenderer sr = bar.GetComponent<SpriteRenderer> ();
-		sr.color = GetComponent<TeamMember>().team;
+		sr.color = GetComponent<TeamMember>().teamId;
 	}
 	
 	// Update is called once per frame
@@ -40,6 +40,12 @@ public class HealthBar : MonoBehaviour {
 		if(barProgress <= 0) {
 			Destroy(gameObject);
 			Destroy(bar.gameObject);
+		}
+	}
+
+	void OnDestroy() {
+		if (bar != null) {
+			Destroy (bar.gameObject);
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-[System.Serializable]
+[ExecuteInEditMode]
 public class MapBuilder : MonoBehaviour{
 	public int mapWidth = 30;
 	public int mapHeight = 30;
@@ -23,6 +23,13 @@ public class MapBuilder : MonoBehaviour{
 
 	public MapData map;
 	public List<Room> rooms;
+
+	private GameManager gm;
+
+	// Use this for initialization
+	void Start () {
+		gm = GameObject.Find ("GameManager").GetComponent<GameManager> ();
+	}
 
 	public MapData build() {
 		map = new MapData (mapWidth, mapHeight, tileSize);
@@ -301,14 +308,15 @@ public class MapBuilder : MonoBehaviour{
 		Vector3 pos = placeBase (r.centerX - 1, r.centerY, TeamMember.TEAM_1);
 
 		pos.x += 3*tileSize;
-		placeHero (pos, TeamMember.TEAM_1, true);
-		placeHero (pos + Vector3.down*tileSize, TeamMember.TEAM_1, false);
+		Hero startHero = placeHero (pos, TeamMember.TEAM_1);
+		gm.selectHero (startHero);
+		placeHero (pos + Vector3.down*tileSize, TeamMember.TEAM_1);
 
 		//Place enemy objects
 		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, TeamMember.TEAM_2);
 
 		pos.x = (map.width)*tileSize - pos.x;
-		Hero enemyHero = placeHero (pos, TeamMember.TEAM_2, false);
+		Hero enemyHero = placeHero (pos, TeamMember.TEAM_2);
 
 		Vector3[] patrolNodes = new Vector3[4];
 		patrolNodes [0] = new Vector3 (pos.x, pos.y + 3 * tileSize, pos.z);
@@ -327,21 +335,22 @@ public class MapBuilder : MonoBehaviour{
 		Transform t = Instantiate (baseBuilding, pos, Quaternion.identity) as Transform;
 		t.parent = mapObjs.transform;
 
-		t.GetComponent<Base> ().team = teamColor;
+		t.GetComponent<Base> ().teamId = teamColor;
 
 		map.placeBuilding (t.GetComponent<Base> (), x, y);
 
 		return pos;
 	}
 
-	Hero placeHero (Vector3 pos, Color teamColor, bool playerControlled)
+	Hero placeHero (Vector3 pos, Color teamColor)
 	{
 		Transform playerTransform = Instantiate (player, pos, Quaternion.identity) as Transform;
 		playerTransform.parent = mapObjs.transform;
 
 		Hero h = playerTransform.GetComponent<Hero> ();
-		h.team = teamColor;
-		h.playerControlled = playerControlled;
+		h.teamId = teamColor;
+
+		gm.addHero (h);
 
 		return h;
 	}

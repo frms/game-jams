@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Base : TeamMember {
@@ -11,6 +11,6 @@ public class Base : TeamMember {
 
 	// Use this for initialization
 	void Start () {
-		GetComponent<SpriteRenderer> ().color = team;
+		GetComponent<SpriteRenderer> ().color = teamId;
 	}
 }

@@ -9,7 +9,7 @@ public class TileMap : MonoBehaviour {
 	public float halfMapDepth = 0.125f;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 		buildMap ();
 	}
 	
