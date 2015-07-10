@@ -39,6 +39,8 @@ public class Hero : TeamMember {
 		} else if (patrolPath != null) {
 			currentPath = patrolPath;
 			followPathAndAtk (true);
+		} else {
+			followPathAndAtk (false);
 		}
 	}
 
@@ -62,10 +64,6 @@ public class Hero : TeamMember {
 			} else {
 				enemyHealth = null;
 			}
-		}
-
-		if (target != null && target is Hero) {
-			findPathToHero();
 		}
 
 		followPathAndAtk (false);
@@ -102,6 +100,10 @@ public class Hero : TeamMember {
 
 	void followPathAndAtk (bool pathLoop)
 	{
+		if (target != null && target is Hero) {
+			findPathToHero();
+		}
+
 		// Follow path and atk target if its an enemy
 		if (currentPath != null) {
 			if (target != null && isAtEndOfPath ()) {

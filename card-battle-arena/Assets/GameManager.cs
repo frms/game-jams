@@ -6,14 +6,27 @@ public class GameManager : MonoBehaviour {
 
 	public Dictionary<Color, List<Hero>> teams = new Dictionary<Color, List<Hero>>();
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
 	void Update () {
-	
+		// Left Click
+		if (Input.GetMouseButtonDown (0)) {
+			Hero target = castRay ();
+
+			if(target != null && target.teamId == TeamMember.TEAM_1) {
+				selectHero(target);
+			}
+		}
+	}
+
+	private Hero castRay() {
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		
+		RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction, Mathf.Infinity);
+		if (hit) {
+			return hit.transform.GetComponent<Hero>();
+		}
+		
+		return null;
 	}
 
 	public void addHero(Hero h) {
