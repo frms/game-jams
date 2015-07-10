@@ -10,7 +10,7 @@ public class MapBuilder : MonoBehaviour{
 	public int numberOfRooms = 20;
 	public bool overlappingRooms = false;
 
-	public Transform player;
+	public Transform hero;
 	public Transform baseBuilding;
 
 	public int[] baseRoomSize = new [] {9, 9};
@@ -344,10 +344,10 @@ public class MapBuilder : MonoBehaviour{
 
 	Hero placeHero (Vector3 pos, Color teamColor)
 	{
-		Transform playerTransform = Instantiate (player, pos, Quaternion.identity) as Transform;
-		playerTransform.parent = mapObjs.transform;
+		Transform t = Instantiate (hero, pos, Quaternion.identity) as Transform;
+		t.parent = mapObjs.transform;
 
-		Hero h = playerTransform.GetComponent<Hero> ();
+		Hero h = t.GetComponent<Hero> ();
 		h.teamId = teamColor;
 
 		gm.addHero (h);
