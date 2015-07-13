@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamId: {r: 0, g: 0, b: 0, a: 0}
+  highlightSize: {x: 1.29999995, y: 1.29999995, z: 1}
   atkRate: .5
   atkDmg: 5
 --- !u!212 &21264658
@@ -163,6 +164,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: highlightSize.x
+      value: 1.29999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: highlightSize.y
+      value: 1.29999995
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -18,7 +18,9 @@ public class Hero : TeamMember {
 	private Rigidbody2D rb;
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+		base.Start();
+
 		map = GameObject.Find ("TileMap").GetComponent<MapBuilder> ().map;
 
 		steeringUtils = GetComponent<SteeringUtils> ();
