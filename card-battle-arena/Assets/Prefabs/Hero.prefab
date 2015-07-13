@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11451252}
   - 114: {fileID: 11470026}
   - 58: {fileID: 5817780}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,6 +172,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: highlightSize.y
       value: 1.29999995
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

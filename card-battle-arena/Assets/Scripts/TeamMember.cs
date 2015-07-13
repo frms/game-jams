@@ -12,6 +12,8 @@ public class TeamMember : MonoBehaviour  {
 
 	public Vector3 highlightSize = new Vector3 (1.1f, 1.1f, 1f);
 
+	internal bool mouseIsOver = false;
+
 	public virtual void Start () {
 		highlight = new GameObject ("Highlight");
 
@@ -24,5 +26,18 @@ public class TeamMember : MonoBehaviour  {
 		sr.color = new Color (0.161f, 0.502f, 0.725f);
 
 		highlight.SetActive (false);
+	}
+
+	// Update is called once per frame
+	public virtual void Update () {
+		highlight.SetActive(mouseIsOver);
+	}
+	
+	void OnMouseEnter() {
+		mouseIsOver = true;
+	}
+	
+	void OnMouseExit() {
+		mouseIsOver = false;
 	}
 }

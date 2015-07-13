@@ -35,7 +35,7 @@ public class Hero : TeamMember {
 	private float nextFire = 0.0F;
 
 	// Update is called once per frame
-	void Update () {
+	public override void Update () {
 		if (playerControlled) {
 			playerControlledUpdate ();
 		} else if (patrolPath != null) {
@@ -44,6 +44,9 @@ public class Hero : TeamMember {
 		} else {
 			followPathAndAtk (false);
 		}
+
+		// Control highlight
+		highlight.SetActive (playerControlled || mouseIsOver);
 	}
 
 	private void playerControlledUpdate() {

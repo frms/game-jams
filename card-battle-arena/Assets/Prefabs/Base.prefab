@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21219460}
   - 114: {fileID: 11455722}
   - 114: {fileID: 11413010}
+  - 58: {fileID: 5850052}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -30,6 +31,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!58 &5850052
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160480}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: .449999988
 --- !u!114 &11413010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -59,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamId: {r: 0, g: 0, b: 0, a: 0}
-  highlight: {fileID: 0}
+  highlightSize: {x: 1.10000002, y: 1.10000002, z: 1}
 --- !u!212 &21219460
 SpriteRenderer:
   m_ObjectHideFlags: 1
