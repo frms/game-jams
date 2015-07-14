@@ -5,10 +5,15 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour {
 
 	public Transform selectionBox;
+	private SelectionBox sb;
 
 	public Dictionary<Color, List<Hero>> teams = new Dictionary<Color, List<Hero>>();
 
 	private Vector3 mouseDownPos;
+
+	void Start() {
+		sb = selectionBox.GetComponent<SelectionBox> ();
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -24,15 +29,12 @@ public class GameManager : MonoBehaviour {
 		} else if (Input.GetMouseButton (0) && Vector3.Magnitude (mouseDownPos - Input.mousePosition) > 2) {
 			selectionBox.gameObject.SetActive (true);
 
-			Vector3 pos = Camera.main.ScreenToWorldPoint (mouseDownPos);
-			pos.z = 0;
-			selectionBox.position = pos;
+			selectionBox.position = screenToWorldPoint(mouseDownPos);
 
-			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			mousePos.z = 0;
-			selectionBox.localScale = mousePos - selectionBox.position;
+			selectionBox.localScale = screenToWorldPoint (Input.mousePosition) - selectionBox.position;
 		} else {
-			selectionBox.gameObject.SetActive(false);
+			selectHeroes(sb.collidingHeroes);
+			sb.turnOff();
 		}
 	}
 
@@ -60,13 +62,34 @@ public class GameManager : MonoBehaviour {
 		team.Add (h);
 	}
 
-	public void selectHero(Hero h) {
-		List<Hero> team = teams [h.teamId];
+	public void selectHeroes(HashSet<Hero> heroes) {
+		if (heroes.Count > 0) {
+			clearSelectedHeroes ();
 
+			foreach (Hero h in heroes) {
+				h.playerControlled = true;
+			}
+		}
+	}
+
+	public void selectHero(Hero h) {
+		clearSelectedHeroes ();
+
+		h.playerControlled = true;
+	}
+
+	public void clearSelectedHeroes() {
+		List<Hero> team = teams [TeamMember.TEAM_1];
+		
 		for(int i = 0; i < team.Count; i++) {
 			team[i].playerControlled = false;
 		}
+	}
 
-		h.playerControlled = true;
+	private Vector3 screenToWorldPoint (Vector3 point)
+	{
+		Vector3 worldPoint = Camera.main.ScreenToWorldPoint (point);
+		worldPoint.z = 0;
+		return worldPoint;
 	}
 }

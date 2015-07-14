@@ -9,6 +9,9 @@ public class Hero : TeamMember {
 	public bool playerControlled;
 
 	[System.NonSerialized]
+	public bool inSelectionBox;
+
+	[System.NonSerialized]
 	public LinePath patrolPath;
 
 	private MapData map;
@@ -46,7 +49,7 @@ public class Hero : TeamMember {
 		}
 
 		// Control highlight
-		highlight.SetActive (playerControlled || mouseIsOver);
+		highlight.SetActive (playerControlled || mouseIsOver || inSelectionBox);
 	}
 
 	private void playerControlledUpdate() {
