@@ -1,0 +1,10 @@
+Move to the exact point that was clicked on
+	if the exact point is too close to a wall or other collider than stop when you get as close as possible
+If a building is clicked on then move as close to the part of the building that was clicked on (rather than the center of the building everytime)
+If a friendly unit is clicked then get as close to the unit as possible (and continue to do so even when it moves)
+If an enemy unit is clicked then move to the unit until you are within attack range
+Dont have units overlap
+
+Build move to exact location (but dont go too far if it means going over a wall or player)
+Build Stop when close enough to do action (attack) instead of stop X tiles away
+Build Units into path finding map
