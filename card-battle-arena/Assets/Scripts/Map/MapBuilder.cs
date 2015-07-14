@@ -71,6 +71,8 @@ public class MapBuilder : MonoBehaviour{
 
 		placeGameObjs ();
 
+		createMapColliders ();
+
 		return map;
 	}
 
@@ -353,5 +355,95 @@ public class MapBuilder : MonoBehaviour{
 		gm.addHero (h);
 
 		return h;
+	}
+
+	private GameObject mapColliders;
+	
+	private void createMapColliders() {
+		mapColliders = GameObject.Find ("MapColliders");
+		if (mapColliders != null) {
+			DestroyImmediate(mapColliders);
+		}
+		mapColliders = new GameObject ("MapColliders");
+		
+		bool[,] visited = new bool[map.width, map.height];
+
+		for(int y = 0; y < map.height; y++) {
+			int[] startPos = null;
+
+			for(int x = 0; x < map.width; x++) {
+				if(visited[x, y] || (map.tiles [x, y] != 2 && map.objs[x, y] == null)) {
+					if(startPos != null && (x-startPos[0]) > 1) {
+						createCollider(startPos, new int[] {x-1, y});
+						visited[x-1, y] = true;
+					}
+
+					startPos = null;
+				} else {
+					if(startPos == null) {
+						startPos = new int[] {x, y};
+					} else {
+						visited[x-1, y] = true;
+					}
+				}
+			}
+
+			if(startPos != null && (map.width-startPos[0]) > 1) {
+				createCollider(startPos, new int[] {map.width-1, y});
+				visited[map.width-1, y] = true;
+			}
+		}
+
+		for(int x = 0; x < map.width; x++) {
+			int[] startPos = null;
+
+			for(int y = 0; y < map.height; y++) {
+				if(visited[x, y] || (map.tiles [x, y] != 2 && map.objs[x, y] == null)) {
+					if(startPos != null && (y-startPos[1]) > 1) {
+						createCollider(startPos, new int[] {x, y-1});
+						visited[x, y-1] = true;
+					}
+					
+					startPos = null;
+				} else {
+					if(startPos == null) {
+						startPos = new int[] {x, y};
+					} else {
+						visited[x, y-1] = true;
+					}
+				}
+			}
+			
+			if(startPos != null && (map.height-startPos[1]) > 1) {
+				createCollider(startPos, new int[] {x, map.height-1});
+				visited[x, map.height-1] = true;
+			}
+		}
+
+		for (int x = 0; x < map.width; x++) {
+			for (int y = 0; y < map.height; y++) {
+				if(!visited[x, y] && (map.tiles [x, y] == 2 || map.objs[x, y] != null)) {
+					createCollider(new int[] {x, y}, new int[] {x, y});
+				}
+			}
+		}
+	}
+
+	void createCollider (int[] startPos, int[] endPos)
+	{
+		GameObject go = new GameObject("MapCol");
+		BoxCollider2D col = go.AddComponent<BoxCollider2D>();
+
+		Vector2 size = new Vector2 ();
+		size.x = (endPos [0] - startPos [0] + 1) * tileSize;
+		size.y = (endPos [1] - startPos [1] + 1) * tileSize;
+		col.size = size;
+
+		Vector3 position = new Vector3 ();
+		position.x = startPos [0] * tileSize + size.x / 2f;
+		position.y = startPos [1] * tileSize + size.y / 2f;
+		go.transform.position = position;
+
+		go.transform.parent = mapColliders.transform;
 	}
 }
