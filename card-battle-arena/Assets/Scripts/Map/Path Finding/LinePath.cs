@@ -57,7 +57,7 @@ public class LinePath  {
 	/* Draws the path in the scene view */
 	public void draw() {
 		for (int i = 0; i < nodes.Length-1; i++) {
-			Debug.DrawLine(nodes[i], nodes[i+1], Color.cyan, Mathf.Infinity, false);
+			Debug.DrawLine(nodes[i], nodes[i+1], Color.cyan, 0.0f, false);
 		}
 	}
 	
