@@ -208,10 +208,22 @@ public class AStar {
 				current = nodeArray[current.lastNode[0], current.lastNode[1]];
 			}
 
+			Vector3 lastDir = new Vector3();
+
 			/* Work back along the path, accumulating connections */
 			while(!equals(current.node, start)) {
-				path.Add(graph.mapToWorldPoint(current.lastNode[0], current.lastNode[1]));
+				Vector3 nextNode = graph.mapToWorldPoint(current.lastNode[0], current.lastNode[1]);
+
+				Vector3 currentDir = nextNode - path[path.Count-1];
+
+				if(path.Count >= 2 && currentDir == lastDir) {
+					path.RemoveAt(path.Count-1);
+				}
+
+				path.Add(nextNode);
 				current = nodeArray[current.lastNode[0], current.lastNode[1]];
+
+				lastDir = currentDir;
 			}
 			
 			/* Reverse the path so the connections are from start to finish */
