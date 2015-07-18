@@ -61,13 +61,13 @@ public class Hero : TeamMember {
 			target = castRay();
 
 			if(target == null) {
-				int[] start = map.worldToMapPoint(transform.position);
 				Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				worldPoint.z = 0;
 				lastEndPos = map.worldToMapPoint(worldPoint);
 				
 				target = map.objs [lastEndPos [0], lastEndPos [1]];
 
-				currentPath = AStar.findPath (map, start, lastEndPos, (Base) target);
+				currentPath = AStar.findPath (map, transform.position, worldPoint, target);
 			}
 			
 			if(target != null && target.teamId != TeamMember.TEAM_1) {
@@ -95,10 +95,7 @@ public class Hero : TeamMember {
 		int[] end = map.worldToMapPoint(target.transform.position);
 		
 		if (currentPath == null || lastEndPos == null || lastEndPos [0] != end [0] || lastEndPos [1] != end [1]) { 
-			
-			int[] start = map.worldToMapPoint(transform.position);
-			
-			currentPath = AStar.findPath (map, start, end, null);
+			currentPath = AStar.findPath (map, transform.position, target.transform.position, target);
 
 			lastEndPos = end;
 		}

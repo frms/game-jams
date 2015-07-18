@@ -78,7 +78,17 @@ public class AStar {
 	}
 
 
-	public static LinePath findPath(MapData graph, int[] start, int[] end, Base target) {
+	public static LinePath findPath(MapData graph, Vector3 startPos, Vector3 endPos, TeamMember target) {
+		int[] start = graph.worldToMapPoint(startPos);
+		int[] end = graph.worldToMapPoint(endPos);
+
+		/* If the target is a base then set and use the base target */
+		Base baseTarget = null;
+
+		if (target != null && target is Base) {
+			baseTarget = (Base) target;
+		}
+
 		/* Using diagonal distance since I assume this graph is a 8 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
 		EuclideanDistHeuristic heuristic = new EuclideanDistHeuristic (end);
@@ -118,13 +128,13 @@ public class AStar {
 			}
 
 			/* If its part of the target object then terminate (and change the end node to be equal to the current node) */
-			if(target != null && graph.objs [currentNode [0], currentNode [1]] == target) {
+			if(baseTarget != null && graph.objs [currentNode [0], currentNode [1]] == baseTarget) {
 				end[0] = currentNode[0];
 				end[1] = currentNode[1];
 				break;
 			}
 			
-			List<Connection> connections = graph.getConnectedNodes(currentNode, target);
+			List<Connection> connections = graph.getConnectedNodes(currentNode, baseTarget);
 
 			for(var i = 0; i < connections.Count; i++) {
 				int[] endNode = connections[i].toNode;
@@ -220,13 +230,39 @@ public class AStar {
 			
 			/* Reverse the path so the connections are from start to finish */
 			path.Reverse();
-			
+
+			/* Make the start and end nodes equal the given start an end nodes */
+			path[0] = startPos;
+			path[path.Count - 1] = endPos;
+
+			smoothPath (target, path);
+
 			return new LinePath(path.ToArray());
 		}
 	}
 
 	private static bool equals(int[] a, int[] b) {
 		return (a == null && b == null) || (a != null && b != null && a[0] == b[0] && a[1] == b[1]);
+	}
+
+	private static void smoothPath (TeamMember target, List<Vector3> path)
+	{
+		bool saveSetting = Physics2D.raycastsStartInColliders;
+		Physics2D.raycastsStartInColliders = false;
+		int originIndex = 0;
+		for (int i = 2; i < path.Count; i++) {
+			Vector3 dir = path [i] - path [originIndex];
+			float dist = dir.magnitude;
+			RaycastHit2D hit = Physics2D.Raycast (path [originIndex], dir, dist);
+			if (hit.transform == null || (target != null && hit.transform == target.transform)) {
+				path.RemoveAt (i - 1);
+				i--;
+			}
+			else {
+				originIndex = i - 1;
+			}
+		}
+		Physics2D.raycastsStartInColliders = saveSetting;
 	}
 
 }
