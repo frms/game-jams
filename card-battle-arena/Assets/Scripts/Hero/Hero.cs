@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Hero : TeamMember {
 	public float atkRate = 0.5F;
@@ -19,6 +20,8 @@ public class Hero : TeamMember {
 	private SteeringUtils steeringUtils;
 	private FollowPath followPath;
 	private Rigidbody2D rb;
+
+	private HashSet<Transform> touching = new HashSet<Transform>();
 
 	// Use this for initialization
 	public override void Start () {
@@ -97,11 +100,6 @@ public class Hero : TeamMember {
 			
 			currentPath = AStar.findPath (map, start, end, null);
 
-			//Remove the last path node so we go right up to but no on top of the target hero
-			if(currentPath != null && currentPath.Length > 1) {
-				currentPath.removeNode(currentPath.Length - 1);
-			}
-
 			lastEndPos = end;
 		}
 	}
@@ -135,7 +133,7 @@ public class Hero : TeamMember {
 
 	bool isAtEndOfPath ()
 	{
-		return Vector3.Distance (currentPath.endNode, transform.position) < followPath.stopRadius;
+		return touching.Contains(target.transform);
 	}
 
 	void moveHero (bool pathLoop)
@@ -144,5 +142,13 @@ public class Hero : TeamMember {
 		steeringUtils.steer (accel);
 		steeringUtils.lookWhereYoureGoing ();
 		currentPath.draw ();
+	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		touching.Add (other.transform);
+	}
+	
+	void OnTriggerExit2D(Collider2D other) {
+		touching.Remove (other.transform);
 	}
 }
