@@ -198,15 +198,7 @@ public class AStar {
 		} else {
 			List<Vector3> path = new List<Vector3>();
 
-			/* If we have no target then start at the current node */
-			if(target == null) {
-				path.Add(graph.mapToWorldPoint(currentNode[0], currentNode[1]));
-			}
-			/* Else start at the node before the current node since we don't want to step on our target */
-			else {
-				path.Add(graph.mapToWorldPoint(current.lastNode[0], current.lastNode[1]));
-				current = nodeArray[current.lastNode[0], current.lastNode[1]];
-			}
+			path.Add(graph.mapToWorldPoint(currentNode[0], currentNode[1]));
 
 			Vector3 lastDir = new Vector3();
 

@@ -372,7 +372,7 @@ public class MapBuilder : MonoBehaviour{
 			int[] startPos = null;
 
 			for(int x = 0; x < map.width; x++) {
-				if(visited[x, y] || (map.tiles [x, y] != 2 && map.objs[x, y] == null)) {
+				if(visited[x, y] || map.tiles [x, y] != 2) {
 					if(startPos != null && (x-startPos[0]) > 1) {
 						createCollider(startPos, new int[] {x-1, y});
 						visited[x-1, y] = true;
@@ -398,7 +398,7 @@ public class MapBuilder : MonoBehaviour{
 			int[] startPos = null;
 
 			for(int y = 0; y < map.height; y++) {
-				if(visited[x, y] || (map.tiles [x, y] != 2 && map.objs[x, y] == null)) {
+				if(visited[x, y] || map.tiles [x, y] != 2) {
 					if(startPos != null && (y-startPos[1]) > 1) {
 						createCollider(startPos, new int[] {x, y-1});
 						visited[x, y-1] = true;
@@ -422,7 +422,7 @@ public class MapBuilder : MonoBehaviour{
 
 		for (int x = 0; x < map.width; x++) {
 			for (int y = 0; y < map.height; y++) {
-				if(!visited[x, y] && (map.tiles [x, y] == 2 || map.objs[x, y] != null)) {
+				if(!visited[x, y] && map.tiles [x, y] == 2) {
 					createCollider(new int[] {x, y}, new int[] {x, y});
 				}
 			}
