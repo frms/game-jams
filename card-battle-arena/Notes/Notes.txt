@@ -1,4 +1,8 @@
 The objects layer on the MapData be not be necessary anymore. I can choose to treat buildings and units the same!
+	If I do keep the objects layer I must make sure that the collider is the same size as the underlying tile representation (or you get a few bugs like heros walking over unwalkable tiles because smooth pathing rays are not hitting a big enough collider or players clicking on a building and instead of going to the building the hero goes a location inside the building because the tile representation is smaller than the collider)
+
+
+Path smoothing is not ignoring the selection box in its raycasts. This is technically a problem but its basically not noticable so no need to fix until something becomes worse.
 
 Consider making the map builder guarentee at least X possible paths to the bases
 

@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21219460}
   - 114: {fileID: 11455722}
   - 114: {fileID: 11413010}
-  - 58: {fileID: 5850052}
+  - 61: {fileID: 6177418}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -31,8 +31,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!58 &5850052
-CircleCollider2D:
+--- !u!61 &6177418
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -43,7 +43,7 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: .449999988
+  m_Size: {x: .899999976, y: .899999976}
 --- !u!114 &11413010
 MonoBehaviour:
   m_ObjectHideFlags: 1
