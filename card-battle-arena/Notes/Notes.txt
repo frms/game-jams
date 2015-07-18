@@ -1,3 +1,5 @@
+The objects layer on the MapData be not be necessary anymore. I can choose to treat buildings and units the same!
+
 Consider making the map builder guarentee at least X possible paths to the bases
 
 Green health bars for your units
