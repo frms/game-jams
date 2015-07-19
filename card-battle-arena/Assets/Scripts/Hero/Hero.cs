@@ -22,6 +22,7 @@ public class Hero : TeamMember {
 	private Rigidbody2D rb;
 
 	private HashSet<Transform> touching = new HashSet<Transform>();
+	private int selectionBoxLayer;
 
 	// Use this for initialization
 	public override void Start () {
@@ -32,6 +33,8 @@ public class Hero : TeamMember {
 		steeringUtils = GetComponent<SteeringUtils> ();
 		followPath = GetComponent<FollowPath> ();
 		rb = GetComponent<Rigidbody2D> ();
+
+		selectionBoxLayer = LayerMask.NameToLayer ("SelectionBox");
 	}
 
 	private int[] lastEndPos;
@@ -147,14 +150,18 @@ public class Hero : TeamMember {
 		
 		steeringUtils.steer (followAccel + sepAccel);
 		steeringUtils.lookWhereYoureGoing ();
-		currentPath.draw ();
+		//currentPath.draw ();
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		touching.Add (other.transform);
+		if (other.gameObject.layer != selectionBoxLayer) {
+			touching.Add (other.transform);
+		}
 	}
 	
 	void OnTriggerExit2D(Collider2D other) {
-		touching.Remove (other.transform);
+		if (other.gameObject.layer != selectionBoxLayer) {
+			touching.Remove (other.transform);
+		}
 	}
 }

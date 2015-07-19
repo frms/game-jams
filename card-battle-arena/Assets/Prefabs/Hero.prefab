@@ -80,8 +80,7 @@ MonoBehaviour:
   slowRadius: 1
   timeToTarget: .100000001
   turnSpeed: 20
-  threshold: .5
-  sepMaxAcceleration: 10
+  sepMaxAcceleration: 25
 --- !u!114 &11459508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -176,6 +175,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: sepMaxAcceleration
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

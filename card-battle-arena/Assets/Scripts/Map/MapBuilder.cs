@@ -320,11 +320,11 @@ public class MapBuilder : MonoBehaviour{
 		pos.x = (map.width)*tileSize - pos.x;
 		Hero enemyHero = placeHero (pos, TeamMember.TEAM_2);
 
-		Vector3[] patrolNodes = new Vector3[4];
+		Vector3[] patrolNodes = new Vector3[2];
 		patrolNodes [0] = new Vector3 (pos.x, pos.y + 3 * tileSize, pos.z);
 		patrolNodes [1] = new Vector3 (pos.x + 6 * tileSize, pos.y + 3 * tileSize, pos.z);
-		patrolNodes [2] = new Vector3 (pos.x + 6 * tileSize, pos.y - 3 * tileSize, pos.z);
-		patrolNodes [3] = new Vector3 (pos.x, pos.y - 3 * tileSize, pos.z);
+//		patrolNodes [2] = new Vector3 (pos.x + 6 * tileSize, pos.y - 3 * tileSize, pos.z);
+//		patrolNodes [3] = new Vector3 (pos.x, pos.y - 3 * tileSize, pos.z);
 
 		LinePath patrolPath = new LinePath (patrolNodes);
 		patrolPath.draw ();
