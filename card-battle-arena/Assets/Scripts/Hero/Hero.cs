@@ -138,9 +138,12 @@ public class Hero : TeamMember {
 		Vector2 followAccel = followPath.getSteering (currentPath, pathLoop);
 		Vector2 sepAccel = steeringUtils.separation (touching);
 		
-//		if (teamId == TEAM_1) {
-//			Debug.Log (followAccel + " " + sepAccel + " " + (followAccel + sepAccel));
-//		}
+		if (teamId == TEAM_1) {
+			Vector3 foo = sepAccel;
+			foo.Normalize();
+			foo *= 3;
+			Debug.DrawLine(transform.position, transform.position + foo, Color.cyan);
+		}
 		
 		steeringUtils.steer (followAccel + sepAccel);
 		steeringUtils.lookWhereYoureGoing ();

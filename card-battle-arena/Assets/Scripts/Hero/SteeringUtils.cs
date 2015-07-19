@@ -129,6 +129,8 @@ public class SteeringUtils : MonoBehaviour {
 	public float sepMaxAcceleration = 10;
 
 	public Vector2 separation(HashSet<Transform> targets) {
+		targets.RemoveWhere(t => t == null);
+
 		Vector3 acceleration = Vector3.zero;
 
 		foreach(Transform t in targets) {
