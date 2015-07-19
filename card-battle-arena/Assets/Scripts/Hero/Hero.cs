@@ -135,8 +135,14 @@ public class Hero : TeamMember {
 
 	void moveHero (bool pathLoop)
 	{
-		Vector2 accel = followPath.getSteering (currentPath, pathLoop);
-		steeringUtils.steer (accel);
+		Vector2 followAccel = followPath.getSteering (currentPath, pathLoop);
+		Vector2 sepAccel = steeringUtils.separation (touching);
+		
+//		if (teamId == TEAM_1) {
+//			Debug.Log (followAccel + " " + sepAccel + " " + (followAccel + sepAccel));
+//		}
+		
+		steeringUtils.steer (followAccel + sepAccel);
 		steeringUtils.lookWhereYoureGoing ();
 		currentPath.draw ();
 	}
