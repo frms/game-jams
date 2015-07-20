@@ -24,22 +24,26 @@ public class SteeringUtils : MonoBehaviour {
 
 	public float turnSpeed = 20f;
 
-	private Rigidbody2D rb;
+	[System.NonSerialized]
+	public Vector2 velocity;
 
 	// Use this for initialization
 	void Start () {
-		rb = GetComponent<Rigidbody2D> ();
+
 	}
 	
 	/* Updates the velocity of the current game object by the given linear acceleration */
 	public void steer(Vector2 linearAcceleration) {
-		rb.velocity += linearAcceleration * Time.deltaTime;
+		velocity += linearAcceleration * Time.deltaTime;
 		
-		if (rb.velocity.magnitude > maxVelocity) {
-			rb.velocity = rb.velocity.normalized * maxVelocity;
+		if (velocity.magnitude > maxVelocity) {
+			velocity = velocity.normalized * maxVelocity;
 		}
+		
+		Vector3 delta = velocity * Time.deltaTime;
+		transform.position += delta;
 	}
-	
+
 	/* Calls the normal Vector2 linear acceleration */
 	public void steer(Vector3 linearAcceleration) {
 		this.steer (new Vector2 (linearAcceleration.x, linearAcceleration.y));
@@ -63,7 +67,7 @@ public class SteeringUtils : MonoBehaviour {
 	
 	/* Makes the current game object look where he is going */
 	public void lookWhereYoureGoing() {
-		lookAtDirection (rb.velocity);
+		lookAtDirection (velocity);
 	}
 
 	public void lookAtDirection(Vector2 direction) {
@@ -91,7 +95,7 @@ public class SteeringUtils : MonoBehaviour {
 		
 		/* If we are within the stopping radius then stop */
 		if(dist < targetRadius) {
-			rb.velocity = Vector2.zero;
+			velocity = Vector2.zero;
 			return Vector2.zero;
 		}
 		
@@ -108,7 +112,7 @@ public class SteeringUtils : MonoBehaviour {
 		targetVelocity *= targetSpeed;
 		
 		/* Calculate the linear acceleration we want */
-		Vector3 acceleration = targetVelocity - new Vector3(rb.velocity.x, rb.velocity.y, 0);
+		Vector3 acceleration = targetVelocity - new Vector3(velocity.x, velocity.y, 0);
 		/*
 		 Rather than accelerate the character to the correct speed in 1 second, 
 		 accelerate so we reach the desired speed in timeToTarget seconds 
@@ -128,20 +132,19 @@ public class SteeringUtils : MonoBehaviour {
 	/* The maximum acceleration for separation */
 	public float sepMaxAcceleration = 10;
 
-	public Vector2 separation(HashSet<Transform> targets) {
-		targets.RemoveWhere(t => t == null);
+	public Vector2 separation(Dictionary<Transform, Collision2D> targets) {
+		Vector2 acceleration = Vector2.zero;
 
-		Vector3 acceleration = Vector3.zero;
-
-		foreach(Transform t in targets) {
-			/* Get the direction and distance from the target */
-			Vector3 direction = transform.position - t.position;
-			
-			/* Added separation acceleration to the existing steering */
-			direction.Normalize();
-			direction *= sepMaxAcceleration;
-			acceleration += direction;
+		foreach(var coll in targets.Values) {
+			if(coll.transform != null) {
+				for(int i = 0; i < coll.contacts.Length; i++) {
+					acceleration += coll.contacts[i].normal;
+				}
+			}
 		}
+
+		acceleration.Normalize ();
+		acceleration *= sepMaxAcceleration;
 
 		return acceleration;
 	}

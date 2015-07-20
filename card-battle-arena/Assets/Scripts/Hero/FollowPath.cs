@@ -2,7 +2,6 @@
 using System.Collections;
 
 [RequireComponent (typeof (SteeringUtils))]
-[RequireComponent (typeof (Rigidbody2D))]
 public class FollowPath : MonoBehaviour {
 	public float stopRadius = 0.05f;
 	
@@ -11,12 +10,10 @@ public class FollowPath : MonoBehaviour {
 	public float pathDirection = 1f;
 
 	private SteeringUtils steeringUtils;
-	private Rigidbody2D rb;
 
 	// Use this for initialization
 	void Start () {
 		steeringUtils = GetComponent<SteeringUtils> ();
-		rb = GetComponent<Rigidbody2D> ();
 	}
 
 	public Vector2 getSteering (LinePath path) {
@@ -41,7 +38,7 @@ public class FollowPath : MonoBehaviour {
 				if(pathLoop) {
 					pathDirection *= -1;
 				} else {
-					rb.velocity = Vector2.zero;
+					steeringUtils.velocity = Vector2.zero;
 					return Vector2.zero;
 				}
 			}

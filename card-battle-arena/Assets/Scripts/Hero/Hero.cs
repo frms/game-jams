@@ -19,9 +19,8 @@ public class Hero : TeamMember {
 
 	private SteeringUtils steeringUtils;
 	private FollowPath followPath;
-	private Rigidbody2D rb;
 
-	private HashSet<Transform> touching = new HashSet<Transform>();
+	private Dictionary<Transform, Collision2D> touching = new Dictionary<Transform, Collision2D>();
 	private int selectionBoxLayer;
 
 	// Use this for initialization
@@ -32,7 +31,6 @@ public class Hero : TeamMember {
 
 		steeringUtils = GetComponent<SteeringUtils> ();
 		followPath = GetComponent<FollowPath> ();
-		rb = GetComponent<Rigidbody2D> ();
 
 		selectionBoxLayer = LayerMask.NameToLayer ("SelectionBox");
 	}
@@ -56,6 +54,8 @@ public class Hero : TeamMember {
 
 		// Control highlight
 		highlight.SetActive (playerControlled || mouseIsOver || inSelectionBox);
+
+		touching.Clear ();
 	}
 
 	private void playerControlledUpdate() {
@@ -115,7 +115,8 @@ public class Hero : TeamMember {
 			if (target != null && isAtEndOfPath ()) {
 				//Look at the target and stop moving
 				steeringUtils.lookAtDirection (target.transform.position - transform.position);
-				rb.velocity = Vector2.zero;
+				steeringUtils.velocity = Vector2.zero;
+
 				if (enemyHealth != null && Time.time > nextFire) {
 					nextFire = Time.time + atkRate;
 					enemyHealth.applyDamage (atkDmg);
@@ -127,13 +128,13 @@ public class Hero : TeamMember {
 		}
 		// If we have no path to the player then stand still
 		else {
-			rb.velocity = Vector2.zero;
+			steeringUtils.velocity = Vector2.zero;
 		}
 	}
 
 	bool isAtEndOfPath ()
 	{
-		return touching.Contains(target.transform);
+		return touching.ContainsKey(target.transform);
 	}
 
 	void moveHero (bool pathLoop)
@@ -150,18 +151,12 @@ public class Hero : TeamMember {
 		
 		steeringUtils.steer (followAccel + sepAccel);
 		steeringUtils.lookWhereYoureGoing ();
-		//currentPath.draw ();
+		currentPath.draw ();
 	}
 
-	void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.layer != selectionBoxLayer) {
-			touching.Add (other.transform);
-		}
-	}
-	
-	void OnTriggerExit2D(Collider2D other) {
-		if (other.gameObject.layer != selectionBoxLayer) {
-			touching.Remove (other.transform);
+	void OnCollisionStay2D(Collision2D coll) {
+		if (coll.gameObject.layer != selectionBoxLayer) {
+			touching[coll.transform] = coll;
 		}
 	}
 }
