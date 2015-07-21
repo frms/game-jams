@@ -24,24 +24,20 @@ public class SteeringUtils : MonoBehaviour {
 
 	public float turnSpeed = 20f;
 
-	[System.NonSerialized]
-	public Vector2 velocity;
+	private Rigidbody2D rb;
 
 	// Use this for initialization
 	void Start () {
-
+		rb = GetComponent<Rigidbody2D> ();
 	}
 	
 	/* Updates the velocity of the current game object by the given linear acceleration */
 	public void steer(Vector2 linearAcceleration) {
-		velocity += linearAcceleration * Time.deltaTime;
+		rb.velocity += linearAcceleration * Time.deltaTime;
 		
-		if (velocity.magnitude > maxVelocity) {
-			velocity = velocity.normalized * maxVelocity;
+		if (rb.velocity.magnitude > maxVelocity) {
+			rb.velocity = rb.velocity.normalized * maxVelocity;
 		}
-		
-		Vector3 delta = velocity * Time.deltaTime;
-		transform.position += delta;
 	}
 
 	/* Calls the normal Vector2 linear acceleration */
@@ -67,7 +63,7 @@ public class SteeringUtils : MonoBehaviour {
 	
 	/* Makes the current game object look where he is going */
 	public void lookWhereYoureGoing() {
-		lookAtDirection (velocity);
+		lookAtDirection (rb.velocity);
 	}
 
 	public void lookAtDirection(Vector2 direction) {
@@ -95,7 +91,7 @@ public class SteeringUtils : MonoBehaviour {
 		
 		/* If we are within the stopping radius then stop */
 		if(dist < targetRadius) {
-			velocity = Vector2.zero;
+			rb.velocity = Vector2.zero;
 			return Vector2.zero;
 		}
 		
@@ -112,7 +108,7 @@ public class SteeringUtils : MonoBehaviour {
 		targetVelocity *= targetSpeed;
 		
 		/* Calculate the linear acceleration we want */
-		Vector3 acceleration = targetVelocity - new Vector3(velocity.x, velocity.y, 0);
+		Vector3 acceleration = targetVelocity - new Vector3(rb.velocity.x, rb.velocity.y, 0);
 		/*
 		 Rather than accelerate the character to the correct speed in 1 second, 
 		 accelerate so we reach the desired speed in timeToTarget seconds 

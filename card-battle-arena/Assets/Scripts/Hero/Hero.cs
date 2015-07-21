@@ -19,6 +19,7 @@ public class Hero : TeamMember {
 
 	private SteeringUtils steeringUtils;
 	private FollowPath followPath;
+	private Rigidbody2D rb;
 
 	private Dictionary<Transform, Collision2D> touching = new Dictionary<Transform, Collision2D>();
 	private int selectionBoxLayer;
@@ -33,6 +34,7 @@ public class Hero : TeamMember {
 
 		steeringUtils = GetComponent<SteeringUtils> ();
 		followPath = GetComponent<FollowPath> ();
+		rb = GetComponent<Rigidbody2D> ();
 
 		selectionBoxLayer = LayerMask.NameToLayer ("SelectionBox");
 
@@ -92,6 +94,8 @@ public class Hero : TeamMember {
 	}
 
 	void FixedUpdate () {
+		rb.mass = 1000000f;
+
 		if (target != null && target is Hero) {
 			findPathToHero();
 		}
@@ -101,7 +105,7 @@ public class Hero : TeamMember {
 			if (target != null && nearSensor.targets.Contains(target.transform)) {
 				//Look at the target and stop moving
 				steeringUtils.lookAtDirection (target.transform.position - transform.position);
-				steeringUtils.velocity = Vector2.zero;
+				rb.velocity = Vector2.zero;
 
 				if (enemyHealth != null && Time.time > nextFire) {
 					nextFire = Time.time + atkRate;
@@ -115,7 +119,7 @@ public class Hero : TeamMember {
 		}
 		// If we have no path to the player then stand still
 		else {
-			steeringUtils.velocity = Vector2.zero;
+			rb.velocity = Vector2.zero;
 		}
 
 		touching.Clear ();
@@ -141,8 +145,11 @@ public class Hero : TeamMember {
 
 	void moveHero ()
 	{
+		rb.mass = 1f;
+
 		Vector2 followAccel = followPath.getSteering (currentPath, isLoopingPath());
-		Vector2 sepAccel = steeringUtils.separation (touching);
+		Vector2 sepAccel = Vector2.zero;
+		//Vector2 sepAccel = steeringUtils.separation (touching);
 		
 		//if (teamId == TEAM_1) {
 			Vector3 foo = sepAccel;
