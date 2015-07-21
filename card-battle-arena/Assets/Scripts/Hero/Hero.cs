@@ -23,6 +23,8 @@ public class Hero : TeamMember {
 	private Dictionary<Transform, Collision2D> touching = new Dictionary<Transform, Collision2D>();
 	private int selectionBoxLayer;
 
+	private NearSensor nearSensor;
+
 	// Use this for initialization
 	public override void Start () {
 		base.Start();
@@ -33,6 +35,8 @@ public class Hero : TeamMember {
 		followPath = GetComponent<FollowPath> ();
 
 		selectionBoxLayer = LayerMask.NameToLayer ("SelectionBox");
+
+		nearSensor = GetComponentInChildren<NearSensor> ();
 	}
 
 	private int[] lastEndPos;
@@ -47,15 +51,10 @@ public class Hero : TeamMember {
 			playerControlledUpdate ();
 		} else if (patrolPath != null) {
 			currentPath = patrolPath;
-			followPathAndAtk (true);
-		} else {
-			followPathAndAtk (false);
 		}
 
 		// Control highlight
 		highlight.SetActive (playerControlled || mouseIsOver || inSelectionBox);
-
-		touching.Clear ();
 	}
 
 	private void playerControlledUpdate() {
@@ -79,8 +78,6 @@ public class Hero : TeamMember {
 				enemyHealth = null;
 			}
 		}
-
-		followPathAndAtk (false);
 	}
 
 	private Hero castRay() {
@@ -94,25 +91,14 @@ public class Hero : TeamMember {
 		return null;
 	}
 
-	private void findPathToHero() {
-		int[] end = map.worldToMapPoint(target.transform.position);
-		
-		if (currentPath == null || lastEndPos == null || lastEndPos [0] != end [0] || lastEndPos [1] != end [1]) { 
-			currentPath = AStar.findPath (map, transform.position, target.transform.position, target);
-
-			lastEndPos = end;
-		}
-	}
-
-	void followPathAndAtk (bool pathLoop)
-	{
+	void FixedUpdate () {
 		if (target != null && target is Hero) {
 			findPathToHero();
 		}
 
 		// Follow path and atk target if its an enemy
 		if (currentPath != null) {
-			if (target != null && isAtEndOfPath ()) {
+			if (target != null && nearSensor.targets.Contains(target.transform)) {
 				//Look at the target and stop moving
 				steeringUtils.lookAtDirection (target.transform.position - transform.position);
 				steeringUtils.velocity = Vector2.zero;
@@ -121,37 +107,53 @@ public class Hero : TeamMember {
 					nextFire = Time.time + atkRate;
 					enemyHealth.applyDamage (atkDmg);
 				}
-			}
-			else {
-				moveHero (pathLoop);
+			} else if(!isLoopingPath() && isAtEndOfPath ()) {
+				currentPath = null;
+			} else {
+				moveHero ();
 			}
 		}
 		// If we have no path to the player then stand still
 		else {
 			steeringUtils.velocity = Vector2.zero;
 		}
+
+		touching.Clear ();
 	}
 
-	bool isAtEndOfPath ()
-	{
-		return touching.ContainsKey(target.transform);
+	private void findPathToHero() {
+		int[] end = map.worldToMapPoint(target.transform.position);
+		
+		if (currentPath == null || lastEndPos == null || lastEndPos [0] != end [0] || lastEndPos [1] != end [1]) { 
+			currentPath = AStar.findPath (map, transform.position, target.transform.position, target);
+			
+			lastEndPos = end;
+		}
 	}
 
-	void moveHero (bool pathLoop)
+	bool isLoopingPath() {
+		return (currentPath == patrolPath);
+	}
+
+	bool isAtEndOfPath () {
+		return Vector3.Distance (currentPath.endNode, transform.position) < followPath.stopRadius;
+	}
+
+	void moveHero ()
 	{
-		Vector2 followAccel = followPath.getSteering (currentPath, pathLoop);
+		Vector2 followAccel = followPath.getSteering (currentPath, isLoopingPath());
 		Vector2 sepAccel = steeringUtils.separation (touching);
 		
-		if (teamId == TEAM_1) {
+		//if (teamId == TEAM_1) {
 			Vector3 foo = sepAccel;
 			foo.Normalize();
 			foo *= 3;
 			Debug.DrawLine(transform.position, transform.position + foo, Color.cyan);
-		}
+		//}
 		
 		steeringUtils.steer (followAccel + sepAccel);
 		steeringUtils.lookWhereYoureGoing ();
-		currentPath.draw ();
+		//currentPath.draw ();
 	}
 
 	void OnCollisionStay2D(Collision2D coll) {
