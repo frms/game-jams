@@ -313,6 +313,7 @@ public class MapBuilder : MonoBehaviour{
 		Hero startHero = placeHero (pos, TeamMember.TEAM_1);
 		gm.selectHero (startHero);
 		placeHero (pos + Vector3.down*tileSize, TeamMember.TEAM_1);
+		placeHero (pos + (0.5f*Vector3.down*tileSize) + (0.5f*Vector3.right*tileSize), TeamMember.TEAM_1);
 
 		//Place enemy objects
 		placeBase (map.width - 1 - (r.centerX - 1), r.centerY, TeamMember.TEAM_2);

@@ -148,8 +148,8 @@ public class Hero : TeamMember {
 		rb.mass = 1f;
 
 		Vector2 followAccel = followPath.getSteering (currentPath, isLoopingPath());
-		Vector2 sepAccel = Vector2.zero;
-		//Vector2 sepAccel = steeringUtils.separation (touching);
+		//Vector2 sepAccel = Vector2.zero;
+		Vector2 sepAccel = steeringUtils.separation (touching);
 		
 		//if (teamId == TEAM_1) {
 			Vector3 foo = sepAccel;
@@ -160,7 +160,7 @@ public class Hero : TeamMember {
 		
 		steeringUtils.steer (followAccel + sepAccel);
 		steeringUtils.lookWhereYoureGoing ();
-		//currentPath.draw ();
+		currentPath.draw ();
 	}
 
 	void OnCollisionStay2D(Collision2D coll) {
