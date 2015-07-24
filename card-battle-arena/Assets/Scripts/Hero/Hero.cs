@@ -21,7 +21,7 @@ public class Hero : TeamMember {
 	private FollowPath followPath;
 	private Rigidbody2D rb;
 
-	private Dictionary<Transform, Collision2D> touching = new Dictionary<Transform, Collision2D>();
+	private HashSet<Transform>  touching = new HashSet<Transform> ();
 
 	private NearSensor nearSensor;
 
@@ -102,7 +102,7 @@ public class Hero : TeamMember {
 
 		// Follow path and atk target if its an enemy
 		if (currentPath != null) {
-			if (target != null && touching.ContainsKey(target.transform)) {
+			if (target != null && touching.Contains(target.transform)) {
 				//Look at the target and stop moving
 				steeringUtils.lookAtDirection (target.transform.position - transform.position);
 				rb.velocity = Vector2.zero;
@@ -121,8 +121,6 @@ public class Hero : TeamMember {
 		else {
 			rb.velocity = Vector2.zero;
 		}
-
-		touching.Clear ();
 	}
 
 	private void findPathToHero() {
@@ -151,8 +149,8 @@ public class Hero : TeamMember {
 		nearSensor.targets.RemoveWhere(t => t == null);
 
 		Vector2 followAccel = followPath.getSteering (currentPath, isLoopingPath());
-		//Vector2 sepAccel = Vector2.zero;
-		Vector2 sepAccel = steeringUtils.separation (nearSensor.targets);
+		Vector2 sepAccel = Vector2.zero;
+		//Vector2 sepAccel = steeringUtils.separation (nearSensor.targets);
 		
 		//if (teamId == TEAM_1) {
 			Vector3 foo = sepAccel;
@@ -166,9 +164,15 @@ public class Hero : TeamMember {
 		currentPath.draw ();
 	}
 
-	void OnCollisionStay2D(Collision2D coll) {
+	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.layer != GameManager.selectionBoxLayer) {
-			touching[coll.transform] = coll;
+			touching.Add(coll.transform);
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D coll) {
+		if (coll.gameObject.layer != GameManager.selectionBoxLayer) {
+			touching.Remove(coll.transform);
 		}
 	}
 }
