@@ -39,6 +39,7 @@ public class Hero : TeamMember {
 		selectionBoxLayer = LayerMask.NameToLayer ("SelectionBox");
 
 		nearSensor = GetComponentInChildren<NearSensor> ();
+		steeringUtils.sepThreshold = nearSensor.GetComponent<CircleCollider2D> ().radius;
 	}
 
 	private int[] lastEndPos;
@@ -149,7 +150,7 @@ public class Hero : TeamMember {
 
 		Vector2 followAccel = followPath.getSteering (currentPath, isLoopingPath());
 		//Vector2 sepAccel = Vector2.zero;
-		Vector2 sepAccel = steeringUtils.separation (touching);
+		Vector2 sepAccel = steeringUtils.separation (nearSensor.targets);
 		
 		//if (teamId == TEAM_1) {
 			Vector3 foo = sepAccel;

@@ -26,9 +26,13 @@ public class SteeringUtils : MonoBehaviour {
 
 	private Rigidbody2D rb;
 
+	private int heroLayer;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
+
+		heroLayer = LayerMask.NameToLayer ("Hero");
 	}
 	
 	/* Updates the velocity of the current game object by the given linear acceleration */
@@ -127,20 +131,30 @@ public class SteeringUtils : MonoBehaviour {
 	
 	/* The maximum acceleration for separation */
 	public float sepMaxAcceleration = 10;
+	public float sepThreshold = 1.6666f;
 
-	public Vector2 separation(Dictionary<Transform, Collision2D> targets) {
+	public Vector2 separation(HashSet<Transform> targets) {
 		Vector2 acceleration = Vector2.zero;
+		
+		foreach(Transform t in targets) {
+			// Skip non heroes 
+			if(t.gameObject.layer != heroLayer) {
+				continue;
+			}
 
-		foreach(var coll in targets.Values) {
-			if(coll.transform != null) {
-				for(int i = 0; i < coll.contacts.Length; i++) {
-					acceleration += coll.contacts[i].normal;
-				}
+			/* Get the direction and distance from the target */
+			Vector2 direction = transform.position - t.position;
+			float dist = direction.magnitude;
+
+			if(dist < sepThreshold) {
+				/* Calculate the separation strength (can be changed to use inverse square law rather than linear) */
+				var strength = sepMaxAcceleration * (sepThreshold - direction.magnitude) / sepThreshold;
+				
+				/* Added separation acceleration to the existing steering */
+				direction.Normalize();
+				acceleration += direction * strength;
 			}
 		}
-
-		acceleration.Normalize ();
-		acceleration *= sepMaxAcceleration;
 
 		return acceleration;
 	}
