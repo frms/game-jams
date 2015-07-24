@@ -32,7 +32,7 @@ GameObject:
   - 4: {fileID: 466946}
   - 58: {fileID: 5852422}
   - 114: {fileID: 11422852}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: NearSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,6 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamId: {r: 0, g: 0, b: 0, a: 0}
   highlightSize: {x: 1.29999995, y: 1.29999995, z: 1}
+  mouseIsOver: 0
   atkRate: .5
   atkDmg: 5
 --- !u!212 &21264658
@@ -229,7 +230,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: sepMaxAcceleration

@@ -9,20 +9,47 @@ public class GameManager : MonoBehaviour {
 
 	public Dictionary<Color, List<Hero>> teams = new Dictionary<Color, List<Hero>>();
 
-	private Vector3 mouseDownPos;
+	public static int teamMemberMask;
+	public static int heroMask;
+	public static int defaultMask;
+
+	public static int heroLayer;
+	public static int selectionBoxLayer;
+
+	void Awake() {
+		teamMemberMask = LayerMask.GetMask ("TeamMember", "Hero");
+		heroMask = LayerMask.GetMask ("Hero");
+		defaultMask = ~LayerMask.GetMask ("Ignore Raycast", "SelectionBox");
+		
+		heroLayer = LayerMask.NameToLayer ("Hero");
+		selectionBoxLayer = LayerMask.NameToLayer ("SelectionBox");
+	}
 
 	void Start() {
 		sb = selectionBox.GetComponent<SelectionBox> ();
 	}
 
+	private TeamMember target;
+
+	private Vector3 mouseDownPos;
+
 	// Update is called once per frame
 	void Update () {
+		if (target != null) {
+			target.mouseIsOver = false;
+		}
+
+		target = castRay ();
+
+		if (target != null) {
+			target.mouseIsOver = true;
+		}
+
 		// Left Click
 		if (Input.GetMouseButtonDown (0)) {
-			Hero target = castRay ();
 
-			if (target != null && target.teamId == TeamMember.TEAM_1) {
-				selectHero (target);
+			if (target != null && target.teamId == TeamMember.TEAM_1 && target is Hero) {
+				selectHero ((Hero) target);
 			}
 
 			mouseDownPos = Input.mousePosition;
@@ -38,12 +65,12 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	private Hero castRay() {
+	private TeamMember castRay() {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		
-		RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction, Mathf.Infinity);
+		RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction, Mathf.Infinity, teamMemberMask);
 		if (hit) {
-			return hit.transform.GetComponent<Hero>();
+			return hit.transform.GetComponent<TeamMember>();
 		}
 		
 		return null;

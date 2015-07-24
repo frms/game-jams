@@ -26,13 +26,9 @@ public class SteeringUtils : MonoBehaviour {
 
 	private Rigidbody2D rb;
 
-	private int heroLayer;
-
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
-
-		heroLayer = LayerMask.NameToLayer ("Hero");
 	}
 	
 	/* Updates the velocity of the current game object by the given linear acceleration */
@@ -138,7 +134,7 @@ public class SteeringUtils : MonoBehaviour {
 		
 		foreach(Transform t in targets) {
 			// Skip non heroes 
-			if(t.gameObject.layer != heroLayer) {
+			if(t.gameObject.layer != GameManager.heroLayer) {
 				continue;
 			}
 

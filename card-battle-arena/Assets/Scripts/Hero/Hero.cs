@@ -22,7 +22,6 @@ public class Hero : TeamMember {
 	private Rigidbody2D rb;
 
 	private Dictionary<Transform, Collision2D> touching = new Dictionary<Transform, Collision2D>();
-	private int selectionBoxLayer;
 
 	private NearSensor nearSensor;
 
@@ -36,8 +35,6 @@ public class Hero : TeamMember {
 		followPath = GetComponent<FollowPath> ();
 		rb = GetComponent<Rigidbody2D> ();
 
-		selectionBoxLayer = LayerMask.NameToLayer ("SelectionBox");
-
 		nearSensor = GetComponentInChildren<NearSensor> ();
 		steeringUtils.sepThreshold = nearSensor.GetComponent<CircleCollider2D> ().radius;
 	}
@@ -49,15 +46,12 @@ public class Hero : TeamMember {
 	private float nextFire = 0.0F;
 
 	// Update is called once per frame
-	public override void Update () {
+	void Update () {
 		if (playerControlled) {
 			playerControlledUpdate ();
 		} else if (patrolPath != null) {
 			currentPath = patrolPath;
 		}
-
-		// Control highlight
-		highlight.SetActive (playerControlled || mouseIsOver || inSelectionBox);
 	}
 
 	private void playerControlledUpdate() {
@@ -86,12 +80,17 @@ public class Hero : TeamMember {
 	private Hero castRay() {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		
-		RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction, Mathf.Infinity);
+		RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction, Mathf.Infinity, GameManager.heroMask);
 		if (hit) {
 			return hit.transform.GetComponent<Hero>();
 		}
 
 		return null;
+	}
+
+	public override void LateUpdate () {
+		// Control highlight
+		highlight.SetActive (playerControlled || mouseIsOver || inSelectionBox);
 	}
 
 	void FixedUpdate () {
@@ -103,7 +102,7 @@ public class Hero : TeamMember {
 
 		// Follow path and atk target if its an enemy
 		if (currentPath != null) {
-			if (target != null && nearSensor.targets.Contains(target.transform)) {
+			if (target != null && touching.ContainsKey(target.transform)) {
 				//Look at the target and stop moving
 				steeringUtils.lookAtDirection (target.transform.position - transform.position);
 				rb.velocity = Vector2.zero;
@@ -148,6 +147,9 @@ public class Hero : TeamMember {
 	{
 		rb.mass = 1f;
 
+		// Clean up any destroyed targets
+		nearSensor.targets.RemoveWhere(t => t == null);
+
 		Vector2 followAccel = followPath.getSteering (currentPath, isLoopingPath());
 		//Vector2 sepAccel = Vector2.zero;
 		Vector2 sepAccel = steeringUtils.separation (nearSensor.targets);
@@ -165,7 +167,7 @@ public class Hero : TeamMember {
 	}
 
 	void OnCollisionStay2D(Collision2D coll) {
-		if (coll.gameObject.layer != selectionBoxLayer) {
+		if (coll.gameObject.layer != GameManager.selectionBoxLayer) {
 			touching[coll.transform] = coll;
 		}
 	}

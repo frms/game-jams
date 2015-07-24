@@ -249,11 +249,14 @@ public class AStar {
 	{
 		bool saveSetting = Physics2D.raycastsStartInColliders;
 		Physics2D.raycastsStartInColliders = false;
+
 		int originIndex = 0;
+
 		for (int i = 2; i < path.Count; i++) {
 			Vector3 dir = path [i] - path [originIndex];
 			float dist = dir.magnitude;
-			RaycastHit2D hit = Physics2D.Raycast (path [originIndex], dir, dist);
+
+			RaycastHit2D hit = Physics2D.Raycast (path [originIndex], dir, dist, GameManager.defaultMask);
 			if (hit.transform == null || (target != null && hit.transform == target.transform)) {
 				path.RemoveAt (i - 1);
 				i--;
@@ -262,6 +265,7 @@ public class AStar {
 				originIndex = i - 1;
 			}
 		}
+
 		Physics2D.raycastsStartInColliders = saveSetting;
 	}
 

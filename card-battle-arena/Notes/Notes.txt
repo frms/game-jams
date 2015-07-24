@@ -1,5 +1,3 @@
-Tried to add a more traditional separation  steering. It is messing up the click raycasts, because it is being absorbed by the large player near sensors
-
 Right now the hero to hero movement ends slightly abruptly as soon as the hero is near its target it stops moving. It would be nice if the hero acted more like it does with arrive and slows down to stop.
 
 Other problems that have yet to be tackled
