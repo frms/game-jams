@@ -334,6 +334,8 @@ public class MapBuilder : MonoBehaviour{
 		HealthBar hb = enemyHero.GetComponent<HealthBar> ();
 		hb.barMax = 10000f;
 		hb.barProgress = 10000f;
+
+		placeHero (pos + Vector3.down*tileSize, TeamMember.TEAM_2);
 	}
 
 	private Vector3 placeBase (int x, int y, Color teamColor) {
