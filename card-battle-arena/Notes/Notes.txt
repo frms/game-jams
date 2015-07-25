@@ -1,6 +1,9 @@
 add an atk visualization
 
 
+put in logic that will realize when the character isnt making much progress and finds a path to the next node in its current path that isnt occupied by another character (and the path finding takes into account the other characters)
+
+
 check if char is moving before caring about avoidance
 
 dont collision avoid your target
