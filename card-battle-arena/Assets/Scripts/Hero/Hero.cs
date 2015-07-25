@@ -26,6 +26,7 @@ public class Hero : TeamMember {
 	private HashSet<Transform>  touching = new HashSet<Transform> ();
 
 	private NearSensor collAvoidSensor;
+	private NearSensor atkRange;
 
 	// Use this for initialization
 	public override void Start () {
@@ -39,6 +40,7 @@ public class Hero : TeamMember {
 		rb = GetComponent<Rigidbody2D> ();
 
 		collAvoidSensor = transform.Find ("CollAvoidSensor").GetComponent<NearSensor> ();
+		atkRange = transform.Find ("AtkRange").GetComponent<NearSensor> ();
 	}
 
 	private int[] lastEndPos;
@@ -104,7 +106,7 @@ public class Hero : TeamMember {
 
 		// Follow path and atk target if its an enemy
 		if (currentPath != null) {
-			if (target != null && touching.Contains(target.transform)) {
+			if (target != null && atkRange.targets.Contains(target.transform)) {
 				//Look at the target and stop moving
 				steeringUtils.lookAtDirection (target.transform.position - transform.position);
 				rb.velocity = Vector2.zero;
