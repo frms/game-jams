@@ -1,12 +1,7 @@
-add an atk visualization
-
-
 put in logic that will realize when the character isnt making much progress and finds a path to the next node in its current path that isnt occupied by another character (and the path finding takes into account the other characters)
 
 
 check if char is moving before caring about avoidance
-
-dont collision avoid your target
 
 twitchy hero steering needs to be smoothed
 
@@ -28,15 +23,11 @@ Right now the hero to hero movement ends slightly abruptly as soon as the hero i
 
 Other problems that have yet to be tackled
 	stopping when the end location is too close to the wall
-	making sure you are not overlapping before you stop moving to a target
 	figuring out how to make a group stop figiting when they all try and go to the same location and they cant all fit immediately on top of it
 	going around someone directly on your path
 
 The objects layer on the MapData be not be necessary anymore. I can choose to treat buildings and units the same!
 	If I do keep the objects layer I must make sure that the collider is the same size as the underlying tile representation (or you get a few bugs like heros walking over unwalkable tiles because smooth pathing rays are not hitting a big enough collider or players clicking on a building and instead of going to the building the hero goes a location inside the building because the tile representation is smaller than the collider)
-
-
-Path smoothing is not ignoring the selection box in its raycasts. This is technically a problem but its basically not noticable so no need to fix until something becomes worse.
 
 Consider making the map builder guarentee at least X possible paths to the bases
 
