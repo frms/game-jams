@@ -331,6 +331,9 @@ public class MapBuilder : MonoBehaviour{
 		patrolPath.draw ();
 
 		enemyHero.patrolPath = patrolPath;
+		HealthBar hb = enemyHero.GetComponent<HealthBar> ();
+		hb.barMax = 10000f;
+		hb.barProgress = 10000f;
 	}
 
 	private Vector3 placeBase (int x, int y, Color teamColor) {
