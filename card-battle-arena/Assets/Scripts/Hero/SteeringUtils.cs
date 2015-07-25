@@ -155,7 +155,7 @@ public class SteeringUtils : MonoBehaviour {
 		return acceleration;
 	}
 
-	public float collisionAvoidanceRadius = 0.5f;
+	public float collAvoidRadius = 0.5f;
 
 	public Vector2 collisionAvoidance(HashSet<Transform> targets) {
 		Vector2 acceleration = Vector2.zero;
@@ -195,7 +195,7 @@ public class SteeringUtils : MonoBehaviour {
 			Vector3 separation = relativePos + relativeVel*timeToCollision;
 			
 			float minSeparation = separation.magnitude;
-			if(minSeparation > 2*collisionAvoidanceRadius) {
+			if(minSeparation > 2*collAvoidRadius) {
 				continue;
 			}
 			
@@ -219,7 +219,7 @@ public class SteeringUtils : MonoBehaviour {
 		
 		/* If we are going to collide with no separation or if we are already colliding then 
 		 * steer based on current position */
-		if(firstMinSeparation <= 0 || firstDistance < 2*collisionAvoidanceRadius) {
+		if(firstMinSeparation <= 0 || firstDistance < 2*collAvoidRadius) {
 			acceleration = transform.position - firstTarget.position;
 		}
 		/* Else calculate the future relative position */

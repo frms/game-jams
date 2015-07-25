@@ -32,11 +32,11 @@ public class Hero : TeamMember {
 		map = GameObject.Find ("TileMap").GetComponent<MapBuilder> ().map;
 
 		steeringUtils = GetComponent<SteeringUtils> ();
+		steeringUtils.collAvoidRadius = GetComponent<CircleCollider2D> ().radius;
 		followPath = GetComponent<FollowPath> ();
 		rb = GetComponent<Rigidbody2D> ();
 
 		nearSensor = GetComponentInChildren<NearSensor> ();
-		steeringUtils.sepThreshold = nearSensor.GetComponent<CircleCollider2D> ().radius;
 	}
 
 	private int[] lastEndPos;
