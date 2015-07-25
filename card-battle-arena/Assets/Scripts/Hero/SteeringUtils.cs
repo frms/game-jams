@@ -157,7 +157,7 @@ public class SteeringUtils : MonoBehaviour {
 
 	public float collAvoidRadius = 0.5f;
 
-	public Vector2 collisionAvoidance(HashSet<Transform> targets) {
+	public Vector2 collisionAvoidance(HashSet<Transform> targets, Transform ignoreUnit) {
 		Vector2 acceleration = Vector2.zero;
 		
 		/* 1. Find the target that the character will collide with first */
@@ -172,8 +172,8 @@ public class SteeringUtils : MonoBehaviour {
 		Vector3 firstRelativePos = Vector3.zero, firstRelativeVel = Vector3.zero;
 		
 		foreach(Transform t in targets) {
-			// Skip non heroes 
-			if(t.gameObject.layer != GameManager.heroLayer) {
+			// Skip non heroes and the given ignore unit
+			if(t.gameObject.layer != GameManager.heroLayer || t == ignoreUnit) {
 				continue;
 			}
 

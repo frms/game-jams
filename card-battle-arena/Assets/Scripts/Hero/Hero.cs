@@ -149,7 +149,10 @@ public class Hero : TeamMember {
 		nearSensor.targets.RemoveWhere(t => t == null);
 
 		Vector2 followAccel = followPath.getSteering (currentPath, isLoopingPath());
-		Vector2 collAvoidAccel = steeringUtils.collisionAvoidance (nearSensor.targets);
+
+		Transform ignoreUnit = (target != null) ? target.transform : null;
+		Vector2 collAvoidAccel = steeringUtils.collisionAvoidance (nearSensor.targets, ignoreUnit);
+
 		//Vector2 sepAccel = Vector2.zero;
 		//Vector2 sepAccel = steeringUtils.separation (nearSensor.targets);
 		
