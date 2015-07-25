@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 447640}
   - 212: {fileID: 21298306}
+  - 114: {fileID: 11479766}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -28,6 +29,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11479766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a28f604b0e5347428f79d65b243645a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 8
 --- !u!212 &21298306
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -51,7 +64,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: ce52dd012a1e6a74a914a01c8f44eb8c, type: 3}
   m_Color: {r: .945098042, g: .768627465, b: .0588235296, a: 1}
 --- !u!1001 &100100000
@@ -60,7 +73,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 196076}

@@ -6,6 +6,8 @@ public class Hero : TeamMember {
 	public float atkRate = 0.5F;
 	public float atkDmg = 5f;
 
+	public Transform bullet;
+
 	[System.NonSerialized]
 	public bool playerControlled;
 
@@ -109,7 +111,8 @@ public class Hero : TeamMember {
 
 				if (enemyHealth != null && Time.time > nextFire) {
 					nextFire = Time.time + atkRate;
-					enemyHealth.applyDamage (atkDmg);
+					Transform clone = Instantiate(bullet, transform.position, Quaternion.identity) as Transform;
+					clone.GetComponent<Bullet>().setUp(enemyHealth, atkDmg);
 				}
 			} else if(!isLoopingPath() && isAtEndOfPath ()) {
 				currentPath = null;

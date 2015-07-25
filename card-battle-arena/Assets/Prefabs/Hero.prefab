@@ -226,6 +226,7 @@ MonoBehaviour:
   mouseIsOver: 0
   atkRate: .5
   atkDmg: 5
+  bullet: {fileID: 447640, guid: 6cf534c985912ee4b8add1b47b94e5c9, type: 2}
 --- !u!212 &21264658
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -299,6 +300,10 @@ Prefab:
       propertyPath: sepThreshold
       value: 1.66666663
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 447640, guid: 6cf534c985912ee4b8add1b47b94e5c9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 126240}
