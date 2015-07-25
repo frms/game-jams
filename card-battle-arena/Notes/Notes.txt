@@ -1,3 +1,6 @@
+add an atk visualization
+
+
 check if char is moving before caring about avoidance
 
 dont collision avoid your target

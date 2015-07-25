@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
 	public static int defaultMask;
 
 	public static int heroLayer;
+	public static int teamMember;
 	public static int selectionBoxLayer;
 
 	void Awake() {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour {
 		defaultMask = ~LayerMask.GetMask ("Ignore Raycast", "SelectionBox");
 		
 		heroLayer = LayerMask.NameToLayer ("Hero");
+		teamMember = LayerMask.NameToLayer ("TeamMember");
 		selectionBoxLayer = LayerMask.NameToLayer ("SelectionBox");
 	}
 

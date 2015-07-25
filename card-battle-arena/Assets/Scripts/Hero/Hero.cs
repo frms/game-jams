@@ -23,7 +23,7 @@ public class Hero : TeamMember {
 
 	private HashSet<Transform>  touching = new HashSet<Transform> ();
 
-	private NearSensor nearSensor;
+	private NearSensor collAvoidSensor;
 
 	// Use this for initialization
 	public override void Start () {
@@ -36,7 +36,7 @@ public class Hero : TeamMember {
 		followPath = GetComponent<FollowPath> ();
 		rb = GetComponent<Rigidbody2D> ();
 
-		nearSensor = GetComponentInChildren<NearSensor> ();
+		collAvoidSensor = transform.Find ("CollAvoidSensor").GetComponent<NearSensor> ();
 	}
 
 	private int[] lastEndPos;
@@ -146,12 +146,12 @@ public class Hero : TeamMember {
 		rb.mass = 1f;
 
 		// Clean up any destroyed targets
-		nearSensor.targets.RemoveWhere(t => t == null);
+		collAvoidSensor.targets.RemoveWhere(t => t == null);
 
 		Vector2 followAccel = followPath.getSteering (currentPath, isLoopingPath());
 
 		Transform ignoreUnit = (target != null) ? target.transform : null;
-		Vector2 collAvoidAccel = steeringUtils.collisionAvoidance (nearSensor.targets, ignoreUnit);
+		Vector2 collAvoidAccel = steeringUtils.collisionAvoidance (collAvoidSensor.targets, ignoreUnit);
 
 		//Vector2 sepAccel = Vector2.zero;
 		//Vector2 sepAccel = steeringUtils.separation (nearSensor.targets);
