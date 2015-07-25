@@ -157,9 +157,7 @@ public class Hero : TeamMember {
 		//Vector2 sepAccel = steeringUtils.separation (nearSensor.targets);
 		
 		//if (teamId == TEAM_1) {
-		Vector3 foo = collAvoidAccel;
-		foo.Normalize();
-		foo *= 3;
+		Vector3 foo = collAvoidAccel.normalized * 3;
 		Debug.DrawLine(transform.position, transform.position + foo, Color.cyan);
 		//}
 		
