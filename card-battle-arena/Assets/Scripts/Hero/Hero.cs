@@ -152,14 +152,9 @@ public class Hero : TeamMember {
 
 		Transform ignoreUnit = (target != null) ? target.transform : null;
 		Vector2 collAvoidAccel = steeringUtils.collisionAvoidance (collAvoidSensor.targets, ignoreUnit);
-
-		//Vector2 sepAccel = Vector2.zero;
-		//Vector2 sepAccel = steeringUtils.separation (nearSensor.targets);
 		
-		//if (teamId == TEAM_1) {
 		Vector3 foo = collAvoidAccel.normalized * 3;
 		Debug.DrawLine(transform.position, transform.position + foo, Color.cyan);
-		//}
 		
 		steeringUtils.steer (followAccel + 2*collAvoidAccel);
 		steeringUtils.lookWhereYoureGoing ();
