@@ -153,11 +153,13 @@ public class Hero : TeamMember {
 		Transform ignoreUnit = (target != null) ? target.transform : null;
 		Vector2 collAvoidAccel = steeringUtils.collisionAvoidance (collAvoidSensor.targets, ignoreUnit);
 		
-		Vector3 foo = collAvoidAccel.normalized * 3;
-		Debug.DrawLine(transform.position, transform.position + foo, Color.cyan);
-		
 		steeringUtils.steer (followAccel + 2*collAvoidAccel);
 		steeringUtils.lookWhereYoureGoing ();
+
+		// Debug drawing
+		Vector3 foo = collAvoidAccel.normalized * 3;
+		Debug.DrawLine(transform.position, transform.position + foo, Color.cyan);
+
 		currentPath.draw ();
 	}
 
