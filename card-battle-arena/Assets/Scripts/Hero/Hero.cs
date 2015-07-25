@@ -149,17 +149,18 @@ public class Hero : TeamMember {
 		nearSensor.targets.RemoveWhere(t => t == null);
 
 		Vector2 followAccel = followPath.getSteering (currentPath, isLoopingPath());
-		Vector2 sepAccel = Vector2.zero;
+		Vector2 collAvoidAccel = steeringUtils.collisionAvoidance (nearSensor.targets);
+		//Vector2 sepAccel = Vector2.zero;
 		//Vector2 sepAccel = steeringUtils.separation (nearSensor.targets);
 		
 		//if (teamId == TEAM_1) {
-			Vector3 foo = sepAccel;
-			foo.Normalize();
-			foo *= 3;
-			Debug.DrawLine(transform.position, transform.position + foo, Color.cyan);
+		Vector3 foo = collAvoidAccel;
+		foo.Normalize();
+		foo *= 3;
+		Debug.DrawLine(transform.position, transform.position + foo, Color.cyan);
 		//}
 		
-		steeringUtils.steer (followAccel + sepAccel);
+		steeringUtils.steer (followAccel + 2*collAvoidAccel);
 		steeringUtils.lookWhereYoureGoing ();
 		currentPath.draw ();
 	}
