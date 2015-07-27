@@ -9,6 +9,7 @@ public class Hero : TeamMember {
 	public Transform bullet;
 
 	public float repathTimeout = 1f;
+	public float arriveAfterPathTimeout = 1f;
 
 	[System.NonSerialized]
 	public bool playerControlled;
@@ -46,12 +47,17 @@ public class Hero : TeamMember {
 	}
 
 	private int[] lastEndPos;
+
 	private LinePath currentPath;
 	private float farthestPathParam;
 	private float farthestPathTime;
+	private Vector3 arriveTarget;
+	private float arriveStartTime = float.NegativeInfinity;
+
 	private TeamMember target;
 	private HealthBar enemyHealth;
 	private float nextFire = 0.0F;
+
 
 	// Update is called once per frame
 	void Update () {
@@ -100,6 +106,8 @@ public class Hero : TeamMember {
 		currentPath = AStar.findPath (graph, startPos, endPos, target);
 		farthestPathParam = float.NegativeInfinity;
 		farthestPathTime = Time.time;
+
+		arriveStartTime = float.NegativeInfinity;
 	}
 
 	public override void LateUpdate () {
@@ -116,21 +124,32 @@ public class Hero : TeamMember {
 
 		// Follow path and atk target if its an enemy
 		if (currentPath != null) {
-			if (target != null && atkRange.targets.Contains(target.transform)) {
+			if (target != null && atkRange.targets.Contains (target.transform)) {
 				//Look at the target and stop moving
 				steeringUtils.lookAtDirection (target.transform.position - transform.position);
 				rb.velocity = Vector2.zero;
 
 				if (enemyHealth != null && Time.time > nextFire) {
 					nextFire = Time.time + atkRate;
-					Transform clone = Instantiate(bullet, transform.position, Quaternion.identity) as Transform;
-					clone.GetComponent<Bullet>().setUp(enemyHealth, atkDmg);
+					Transform clone = Instantiate (bullet, transform.position, Quaternion.identity) as Transform;
+					clone.GetComponent<Bullet> ().setUp (enemyHealth, atkDmg);
 				}
-			} else if(!isLoopingPath() && (isAtEndOfPath () || (Time.time - farthestPathTime) >  repathTimeout)) {
+			} else if (!isLoopingPath () && (isAtEndOfPath () || (Time.time - farthestPathTime) > repathTimeout)) {
+				if(!isAtEndOfPath ()) {
+					setArriveTarget ();
+				}
+
 				currentPath = null;
 			} else {
-				moveHero ();
+				moveAlongPath ();
 			}
+		} else if (arriveStartTime + arriveAfterPathTimeout > Time.time) {
+			rb.mass = 1f;
+
+			Vector2 arriveAccel = steeringUtils.arrive(arriveTarget);
+			
+			steeringUtils.steer (arriveAccel);
+			steeringUtils.lookWhereYoureGoing ();
 		}
 		// If we have no path to the player then stand still
 		else {
@@ -156,22 +175,24 @@ public class Hero : TeamMember {
 		return Vector3.Distance (currentPath.endNode, transform.position) < followPath.stopRadius;
 	}
 
-	void moveHero ()
+	void setArriveTarget ()
+	{
+		if (currentPath.Length > 1) {
+			arriveTarget = currentPath.getPosition (farthestPathParam);
+		}
+		else {
+			arriveTarget = currentPath [0];
+		}
+
+		arriveStartTime = Time.time;
+	}
+
+	void moveAlongPath ()
 	{
 		rb.mass = 1f;
 
-		float param;
-
-		if (currentPath.Length > 1) {
-			param = currentPath.getParam (transform.position);
-		} else {
-			param = Vector2.Distance(transform.position, currentPath[0]);
-		}
-		if (param > farthestPathParam) {
-			farthestPathParam = param;
-			farthestPathTime = Time.time;
-		}
-
+		updatePathParam ();
+		
 		// Clean up any destroyed targets
 		collAvoidSensor.targets.RemoveWhere(t => t == null);
 
@@ -188,6 +209,23 @@ public class Hero : TeamMember {
 		Debug.DrawLine(transform.position, transform.position + foo, Color.cyan);
 
 		currentPath.draw ();
+	}
+
+	void updatePathParam ()
+	{
+		float param;
+
+		if (currentPath.Length > 1) {
+			param = currentPath.getParam (transform.position);
+		}
+		else {
+			param = Vector2.Distance (transform.position, currentPath [0]);
+		}
+
+		if (param > farthestPathParam) {
+			farthestPathParam = param;
+			farthestPathTime = Time.time;
+		}
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
