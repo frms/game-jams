@@ -1,13 +1,10 @@
+Do I want the no progress stop following path logic to also affect paths to friendly targets, what about paths to enemies?
+
+Should I add some separation to grouping up units?
+
+
 put in logic that will realize when the character isnt making much progress and finds a path to the next node in its current path that isnt occupied by another character (and the path finding takes into account the other characters)
 
-
-check if char is moving before caring about avoidance
-
-twitchy hero steering needs to be smoothed
-
-
-
-atk range / touching target 
 
 if the target is within atk range then atk
 	if you can get close to the target by going straight to it and not bumping into anyone then move till you can touch the target (test with double raycast to the target making sure you only hit the target)
