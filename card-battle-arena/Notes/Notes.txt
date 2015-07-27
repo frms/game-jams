@@ -1,5 +1,7 @@
 Do I want the no progress stop following path logic to also affect paths to friendly targets, what about paths to enemies?
 
+Consider making the timeout for no progress variable by the distance from your target that you are
+
 Should I add some separation to grouping up units?
 
 
