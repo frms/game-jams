@@ -188,6 +188,8 @@ MonoBehaviour:
   slowRadius: 1
   timeToTarget: .100000001
   turnSpeed: 20
+  smoothing: 1
+  numSamplesForSmoothing: 10
   sepMaxAcceleration: 25
   sepThreshold: 1.66666663
   collAvoidRadius: .5
@@ -320,6 +322,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: repathTimeout
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: numSamplesForSmoothing
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

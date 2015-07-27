@@ -160,8 +160,13 @@ public class Hero : TeamMember {
 	{
 		rb.mass = 1f;
 
-		float param = currentPath.getParam (transform.position);
+		float param;
 
+		if (currentPath.Length > 1) {
+			param = currentPath.getParam (transform.position);
+		} else {
+			param = Vector2.Distance(transform.position, currentPath[0]);
+		}
 		if (param > farthestPathParam) {
 			farthestPathParam = param;
 			farthestPathTime = Time.time;

@@ -26,9 +26,14 @@ public class SteeringUtils : MonoBehaviour {
 
 	private Rigidbody2D rb;
 
+	public bool smoothing = true;
+	public int numSamplesForSmoothing = 5;
+	private Queue<Vector2> velocitySamples;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
+		velocitySamples = new Queue<Vector2> ();
 	}
 	
 	/* Updates the velocity of the current game object by the given linear acceleration */
@@ -63,7 +68,25 @@ public class SteeringUtils : MonoBehaviour {
 	
 	/* Makes the current game object look where he is going */
 	public void lookWhereYoureGoing() {
-		lookAtDirection (rb.velocity);
+		Vector2 direction = rb.velocity;
+
+		if (smoothing) {
+			if (velocitySamples.Count == numSamplesForSmoothing) {
+				velocitySamples.Dequeue ();
+			}
+
+			velocitySamples.Enqueue (rb.velocity);
+
+			direction = Vector2.zero;
+
+			foreach (Vector2 v in velocitySamples) {
+				direction += v;
+			}
+
+			direction /= velocitySamples.Count;
+		}
+
+		lookAtDirection (direction);
 	}
 
 	public void lookAtDirection(Vector2 direction) {
