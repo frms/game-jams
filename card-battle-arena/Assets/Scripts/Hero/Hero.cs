@@ -8,6 +8,8 @@ public class Hero : TeamMember {
 
 	public Transform bullet;
 
+	public float repathTimeout = 1f;
+
 	[System.NonSerialized]
 	public bool playerControlled;
 
@@ -45,6 +47,8 @@ public class Hero : TeamMember {
 
 	private int[] lastEndPos;
 	private LinePath currentPath;
+	private float farthestPathParam;
+	private float farthestPathTime;
 	private TeamMember target;
 	private HealthBar enemyHealth;
 	private float nextFire = 0.0F;
@@ -70,7 +74,7 @@ public class Hero : TeamMember {
 				
 				target = map.objs [lastEndPos [0], lastEndPos [1]];
 
-				currentPath = AStar.findPath (map, transform.position, worldPoint, target);
+				findPath (map, transform.position, worldPoint, target);
 			}
 			
 			if(target != null && target.teamId != TeamMember.TEAM_1) {
@@ -90,6 +94,12 @@ public class Hero : TeamMember {
 		}
 
 		return null;
+	}
+
+	private void findPath(MapData graph, Vector3 startPos, Vector3 endPos, TeamMember target) {
+		currentPath = AStar.findPath (graph, startPos, endPos, target);
+		farthestPathParam = float.NegativeInfinity;
+		farthestPathTime = Time.time;
 	}
 
 	public override void LateUpdate () {
@@ -116,7 +126,7 @@ public class Hero : TeamMember {
 					Transform clone = Instantiate(bullet, transform.position, Quaternion.identity) as Transform;
 					clone.GetComponent<Bullet>().setUp(enemyHealth, atkDmg);
 				}
-			} else if(!isLoopingPath() && isAtEndOfPath ()) {
+			} else if(!isLoopingPath() && (isAtEndOfPath () || (Time.time - farthestPathTime) >  repathTimeout)) {
 				currentPath = null;
 			} else {
 				moveHero ();
@@ -132,7 +142,7 @@ public class Hero : TeamMember {
 		int[] end = map.worldToMapPoint(target.transform.position);
 		
 		if (currentPath == null || lastEndPos == null || lastEndPos [0] != end [0] || lastEndPos [1] != end [1]) { 
-			currentPath = AStar.findPath (map, transform.position, target.transform.position, target);
+			findPath (map, transform.position, target.transform.position, target);
 			
 			lastEndPos = end;
 		}
@@ -149,6 +159,13 @@ public class Hero : TeamMember {
 	void moveHero ()
 	{
 		rb.mass = 1f;
+
+		float param = currentPath.getParam (transform.position);
+
+		if (param > farthestPathParam) {
+			farthestPathParam = param;
+			farthestPathTime = Time.time;
+		}
 
 		// Clean up any destroyed targets
 		collAvoidSensor.targets.RemoveWhere(t => t == null);
