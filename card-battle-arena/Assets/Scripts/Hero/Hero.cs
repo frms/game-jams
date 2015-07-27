@@ -116,7 +116,7 @@ public class Hero : TeamMember {
 	}
 
 	void FixedUpdate () {
-		rb.mass = 1000000f;
+		rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
 		if (target != null && target is Hero) {
 			findPathToHero();
@@ -144,7 +144,7 @@ public class Hero : TeamMember {
 				moveAlongPath ();
 			}
 		} else if (arriveStartTime + arriveAfterPathTimeout > Time.time) {
-			rb.mass = 1f;
+			rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
 			Vector2 arriveAccel = steeringUtils.arrive(arriveTarget);
 			
@@ -189,7 +189,7 @@ public class Hero : TeamMember {
 
 	void moveAlongPath ()
 	{
-		rb.mass = 1f;
+		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
 		updatePathParam ();
 		

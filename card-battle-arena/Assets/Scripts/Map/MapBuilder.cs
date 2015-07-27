@@ -310,12 +310,13 @@ public class MapBuilder : MonoBehaviour{
 		Vector3 pos = placeBase (r.centerX - 1, r.centerY, TeamMember.TEAM_1);
 
 		pos.x += 3*tileSize;
+		pos.y += 1 * tileSize;
 		Hero startHero = placeHero (pos, TeamMember.TEAM_1);
 		gm.selectHero (startHero);
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 1; i < 5; i++) {
 			placeHero (pos + Vector3.down * tileSize * i, TeamMember.TEAM_1);
-			placeHero (pos + ((0.5f + i)* Vector3.down * tileSize) + (Vector3.right * tileSize), TeamMember.TEAM_1);
+			placeHero (pos + ((-0.5f + i)* Vector3.down * tileSize) + (Vector3.right * tileSize), TeamMember.TEAM_1);
 		}
 
 		//Place enemy objects
