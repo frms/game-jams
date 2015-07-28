@@ -1,3 +1,5 @@
+Watch out for timeout repathing and target moved repathing over writing each other's work
+
 Do I want the no progress stop following path logic to also affect paths to friendly targets, what about paths to enemies?
 
 Consider making the timeout for no progress variable by the distance from your target that you are
@@ -35,13 +37,3 @@ Red for enemies
 Blue or Yellow for the currently controlled unit
 
 Make sure hero abilities have appropriate visual indication on how to be used. AOE outlines, cursor changes, etc
-
-
-Found online:
-
-Off the top of my head:
-* Potential fields + edge following. As you mention above (go towards goal until you hit an obstacle, then follow the obstacle edge until you get a clear line of sight). It's so simple, and works surprisingly well in many cases! I do like solutions based on potential fields, like this one, a lot. But it can get into weird failure cases, like going around a column without ever getting a clear line of sight to the goal...
-
-* Flood-fill + density. This one is for the case when there's one destination that everyone's going to as a crowd. First, do a flood fill, so you know the base cost from each cell to the destination. Then start moving agents, following standard gradient descent. But as they occupy each cell, they should bump up its cost, and when they leave, bump it back down (and maybe update neighbors as well). This way other agents will notice high-density cells, because they suddenly have higher cost, and avoid them. But this can also lead to local minima (which might be okay).
-
-* Steering that incorporates A*. Make an A* path to the goal, and a "leash" that follows the path at a constant rate, pulling the agent with - but the agent also gets repelled by other agents nearby, and pulled in by the centroid of the group. As long as the leash is elastic, it can lead to pretty nice behavior.
