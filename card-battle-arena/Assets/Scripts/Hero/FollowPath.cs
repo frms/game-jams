@@ -51,13 +51,6 @@ public class FollowPath : MonoBehaviour {
 			/* Move down the path */
 			param += pathDirection * pathOffset;
 			
-			/* Make sure we don't move past the beginning or end of the path */
-			if (param < 0) {
-				param = 0;
-			} else if (param > path.maxDist) {
-				param = path.maxDist;
-			}
-			
 			/* Set the target position */
 			targetPosition = path.getPosition(param);
 		}

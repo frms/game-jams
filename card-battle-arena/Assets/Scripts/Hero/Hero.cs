@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Hero : TeamMember {
 	public float atkRate = 0.5F;
@@ -144,12 +145,7 @@ public class Hero : TeamMember {
 				moveAlongPath ();
 			}
 		} else if (arriveStartTime + arriveAfterPathTimeout > Time.time) {
-			rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-			Vector2 arriveAccel = steeringUtils.arrive(arriveTarget);
-			
-			steeringUtils.steer (arriveAccel);
-			steeringUtils.lookWhereYoureGoing ();
+			moveToTarget ();
 		}
 		// If we have no path to the player then stand still
 		else {
@@ -185,6 +181,16 @@ public class Hero : TeamMember {
 		}
 
 		arriveStartTime = Time.time;
+	}
+
+	void moveToTarget ()
+	{
+		rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+		Vector2 arriveAccel = steeringUtils.arrive (arriveTarget);
+
+		steeringUtils.steer (arriveAccel);
+		steeringUtils.lookWhereYoureGoing ();
 	}
 
 	void moveAlongPath ()

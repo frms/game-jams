@@ -83,6 +83,13 @@ public class LinePath  {
 	
 	/* Given a param it gets the position on the path */
 	public Vector3 getPosition(float param) {
+		/* Make sure the param is not past the beginning or end of the path */
+		if (param < 0) {
+			param = 0;
+		} else if (param > maxDist) {
+			param = maxDist;
+		}
+
 		/* Find the first node that is farther than given param */
 		int i = 0;
 		for(; i < distances.Length; i++) {
