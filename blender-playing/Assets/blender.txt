@@ -1,0 +1,81 @@
+BLENDER SHORTCUT KEYS!
+t - tool bar
+n - properties bar
+Del - delete something (not backspace bar, it's the little "Del" key next to Isn, Home, End, Page up, and Page down)
+left click - 3D courser
+middle mouse - orbit view, drag scroll
+
+ctrl+u - save startup file
+ctrl+s - save blender file
+ctrl+shift+s - save blender file as
+ctrl+o - open blender file
+
+right click - select
+shift+right click - add/minus select
+
+
+g - grab / move
+r - rotate
+s - scale
+x,y,z, and num pad finetune g,r,s controls
+
+. (period on numpad) - focus on selection
+shift+middle mouse - drag view
+mouse wheel - zoom in and out (or + and - on num pad)
+
+spacebar - search
+
+
+alt+tab - point/line/face
+
+e - extrude
+alt+e - advanced extrude
+i - inset
+ctrl+b - bevel
+ctrl+r - loop cut and slide
+
+right click - select
+shift+right click - add/minus select
+a - deselect / select all
+b - box select
+c - volume select ("paint select")
+alt+right click - loop select
+shift+g - select similar
+ctrl+num pad plus - grow selection
+ctrl+num pad minus - shrink selection
+ctrl+L - select linked
+ctrl+i - invert selection
+
+1 - front
+ctrl+1 - back
+3 - right
+ctrl+3 - left
+7 - top
+ctrl+7 bottom
+5 - perspective
+
+. (period on numpad) - focus on selection
+shift+middle mouse - drag view
+mouse wheel - zoom in and out (or + and - on num pad)
+
+spacebar - search
+
+shift+k - Set Vertex Colors
+
+
+alt + space - change orientation (global, local, normal)
+
+
+grab, scale, rotate, extrude, inset, bevel, mirror, subdivide, subdivision surface, cut loop and slice, box select, deselect/select all, grow selection, shrink selection, focus on selection, front view, right view, top view, change orientation
+
+
+
+
+To Vertex Paint in Blender
+	* Switch from Object Mode to Vertex Paint
+	* Click on Face selection masking
+	* Use the draw brush
+	* In the Shading section of the object properties check Textured Solid
+
+To make unity show the vertex colors use the following shaders
+	http://forum.unity3d.com/threads/standard-shader-with-vertex-colors.316529/
