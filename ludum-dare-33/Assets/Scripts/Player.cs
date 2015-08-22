@@ -12,7 +12,7 @@ public class Player : Mover {
 			currentPath = AStar.findPath(Map.map, startPos, endPos, null);
 		}
 
-		moveUnit (false);
+		moveUnit ();
 	}
 
 	private Vector3 getMousePosition () {

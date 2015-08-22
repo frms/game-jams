@@ -43,7 +43,7 @@ public class Mover : MonoBehaviour {
 
 	internal LinePath currentPath;
 	
-	internal void moveUnit (bool pathLoop)
+	internal void moveUnit ()
 	{
 		Vector2 accel = Vector2.zero;
 	
@@ -52,7 +52,7 @@ public class Mover : MonoBehaviour {
 		if (currentPath != null) {
 			Vector2 targetPosition;
 
-			accel = steerTowardsPath(pathLoop, out targetPosition);
+			accel = steerTowardsPath(out targetPosition);
 			
 			int[] mapPos = Map.map.worldToMapPoint (targetPosition);
 			
@@ -107,7 +107,7 @@ public class Mover : MonoBehaviour {
 							currentPath = new LinePath(newNodes.ToArray());
 						}
 
-						accel = steerTowardsPath(pathLoop, out targetPosition);
+						accel = steerTowardsPath(out targetPosition);
 					}
 				}
 			}
@@ -128,13 +128,7 @@ public class Mover : MonoBehaviour {
 		int i = currentPath.getClosestSegement (pos);
 		
 		for(; i < currentPath.Length; i++) {
-			int index = i;
-
-			if(followPath.pathDirection < 0) {
-				index = currentPath.Length - 1 - i;
-			}
-
-			int[] mapCoords = Map.map.worldToMapPoint(currentPath[index]);
+			int[] mapCoords = Map.map.worldToMapPoint(currentPath[i]);
 			
 			if(Map.map.getObj(mapCoords) == null) {
 				break;
@@ -145,10 +139,10 @@ public class Mover : MonoBehaviour {
 	}
 
 
-	public Vector2 steerTowardsPath(bool pathLoop, out Vector2 targetPosition) {
+	public Vector2 steerTowardsPath(out Vector2 targetPosition) {
 		currentPath.draw ();
 
-		Vector2 accel = followPath.getSteering (currentPath, pathLoop, out targetPosition);
+		Vector2 accel = followPath.getSteering (currentPath, false, out targetPosition);
 		myDebugCircle.position = targetPosition;
 
 		return accel;

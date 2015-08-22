@@ -7,6 +7,15 @@ public class Enemy1 : Mover {
 
 	// Update is called once per frame
 	void Update () {
-		moveUnit (isLooping);
+		if(isLooping && currentPath != null && isAtEndOfPath()) {
+			currentPath = AStar.findPath(Map.map, currentPath.endNode, currentPath[0], null);
+		}
+
+		moveUnit ();
 	}
+
+	bool isAtEndOfPath () {
+		return Vector3.Distance (currentPath.endNode, transform.position) < followPath.stopRadius;
+	}
+
 }
