@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 496218}
   - 212: {fileID: 21232930}
-  - 114: {fileID: 11421652}
+  - 114: {fileID: 11447902}
   - 50: {fileID: 5005294}
   - 114: {fileID: 11445330}
   - 114: {fileID: 11431940}
@@ -48,18 +48,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &11421652
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cfb9fea2adc04d478ce69028485ac82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugCircle: {fileID: 490440, guid: 9eb57c0af05105f429e0dd4e76a7cb46, type: 2}
 --- !u!114 &11431940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,6 +84,19 @@ MonoBehaviour:
   sepMaxAcceleration: 10
   sepThreshold: 1.66659999
   collAvoidRadius: .5
+--- !u!114 &11447902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007c42ceb59a4ea4abda629a9ff0cc0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugCircle: {fileID: 490440, guid: 9eb57c0af05105f429e0dd4e76a7cb46, type: 2}
+  isLooping: 0
 --- !u!212 &21232930
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -128,7 +129,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: debugCircle
+      value: 
+      objectReference: {fileID: 490440, guid: 9eb57c0af05105f429e0dd4e76a7cb46, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 169676}

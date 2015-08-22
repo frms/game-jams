@@ -39,4 +39,33 @@ public class Mover : MonoBehaviour {
 		return (a == null && b == null) || (a != null && b != null && a[0] == b[0] && a[1] == b[1]);
 	}
 
+	internal LinePath currentPath;
+	
+	internal void moveUnit (bool pathLoop)
+	{
+		Vector2 accel;
+		
+		if (currentPath != null) {
+			currentPath.draw ();
+			
+			Vector2 targetPosition;
+			accel = followPath.getSteering (currentPath, pathLoop, out targetPosition);
+			myDebugCircle.position = targetPosition;
+			
+			int[] mapPos = Map.map.worldToMapPoint (targetPosition);
+			
+			if (!equals (mapPos, reservedPos) && Map.map.objs [mapPos [0], mapPos [1]] == null) {
+				Map.map.objs [reservedPos [0], reservedPos [1]] = null;
+				Map.map.objs [mapPos [0], mapPos [1]] = this;
+				reservedPos = mapPos;
+			}
+		}
+		else {
+			accel = steeringUtils.arrive (Map.map.mapToWorldPoint (reservedPos [0], reservedPos [1]));
+		}
+		
+		steeringUtils.steer (accel);
+		steeringUtils.lookWhereYoureGoing ();
+	}
+
 }

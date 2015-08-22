@@ -25,16 +25,21 @@ public class Map : MonoBehaviour {
 
 		player.position = map.mapToWorldPoint(map.width / 2, map.height / 2);
 
-		placeThing((map.width / 2) + 5, map.height / 2, enemy);
+		Transform enemy1 = placeThing((map.width / 2) + 5, map.height / 2, enemy);
+		Enemy1 e1 = enemy1.GetComponent<Enemy1>();
+		e1.isLooping = true;
+		e1.currentPath = AStar.findPath(map, enemy1.position, enemy1.position + Vector3.up*map.tileSize*7, null);
 
 		centerCamera();
 	}
 
-	private void placeThing (int x, int y, Transform orig) {
+	private Transform placeThing (int x, int y, Transform orig) {
 		Vector3 pos = map.mapToWorldPoint (x, y);
 
 		Transform t = Instantiate (orig, pos, Quaternion.identity) as Transform;
 		t.parent = transform;
+
+		return t;
 	}
 
 	private void centerCamera() {
