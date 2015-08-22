@@ -82,13 +82,6 @@ public class AStar {
 		int[] start = graph.worldToMapPoint(startPos);
 		int[] end = graph.worldToMapPoint(endPos);
 
-//		/* If the target is a base then set and use the base target */
-//		Base baseTarget = null;
-//
-//		if (target != null && target is Base) {
-//			baseTarget = (Base) target;
-//		}
-
 		/* Using diagonal distance since I assume this graph is a 8 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
 		EuclideanDistHeuristic heuristic = new EuclideanDistHeuristic (end);
@@ -230,10 +223,6 @@ public class AStar {
 			
 			/* Reverse the path so the connections are from start to finish */
 			path.Reverse();
-
-			/* Make the start and end nodes equal the given start an end nodes */
-			path[0] = startPos;
-			path[path.Count - 1] = endPos;
 
 //			smoothPath (target, path);
 

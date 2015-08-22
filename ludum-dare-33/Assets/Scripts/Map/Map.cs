@@ -10,7 +10,7 @@ public class Map : MonoBehaviour {
 
 	public Transform player;
 
-	public MapData map;
+	public static MapData map;
 
 	// Use this for initialization
 	void Start () {

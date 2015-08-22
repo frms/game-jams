@@ -142,7 +142,7 @@ public class MapData {
 	}
 
 	private bool isWalkable(int x, int y, GameObj target) {
-		bool walkable = tiles [x, y] == 1;
+		bool walkable = tiles [x, y] == 0;
 
 		if(target == null) {
 			walkable = walkable && objs [x, y] == null;
