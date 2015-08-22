@@ -9,6 +9,7 @@ public class Map : MonoBehaviour {
 	public Transform[] tiles;
 
 	public Transform player;
+	public Transform enemy;
 
 	public static MapData map;
 
@@ -18,20 +19,21 @@ public class Map : MonoBehaviour {
 
 		for(int x = 0; x < map.width; x++) {
 			for(int y = 0; y < map.height; y++) {
-				placeTile(x, y);
+				placeThing(x, y, tiles[ map.tiles[x,y] ]);
 			}
 		}
 
 		player.position = map.mapToWorldPoint(map.width / 2, map.height / 2);
 
+		placeThing((map.width / 2) + 5, map.height / 2, enemy);
+
 		centerCamera();
 	}
 
-	private void placeTile (int x, int y) {
-		int i = map.tiles[x,y];
+	private void placeThing (int x, int y, Transform orig) {
 		Vector3 pos = map.mapToWorldPoint (x, y);
 
-		Transform t = Instantiate (tiles[i], pos, Quaternion.identity) as Transform;
+		Transform t = Instantiate (orig, pos, Quaternion.identity) as Transform;
 		t.parent = transform;
 	}
 

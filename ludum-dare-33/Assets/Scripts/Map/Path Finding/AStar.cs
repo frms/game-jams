@@ -78,7 +78,7 @@ public class AStar {
 	}
 
 
-	public static LinePath findPath(MapData graph, Vector3 startPos, Vector3 endPos, GameObj target) {
+	public static LinePath findPath(MapData graph, Vector3 startPos, Vector3 endPos, MonoBehaviour target, bool tilesOnly = true) {
 		int[] start = graph.worldToMapPoint(startPos);
 		int[] end = graph.worldToMapPoint(endPos);
 
@@ -127,7 +127,7 @@ public class AStar {
 				break;
 			}
 			
-			List<Connection> connections = graph.getConnectedNodes(currentNode, target);
+			List<Connection> connections = graph.getConnectedNodes(currentNode, target, tilesOnly);
 
 			for(var i = 0; i < connections.Count; i++) {
 				int[] endNode = connections[i].toNode;

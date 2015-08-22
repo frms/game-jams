@@ -1,30 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
-
-	public Transform debugCircle;
-	private Transform myDebugCircle;
-
-	private SteeringUtils steeringUtils;
-	private FollowPath followPath;
-
-	// Use this for initialization
-	void Start () {
-		steeringUtils = GetComponent<SteeringUtils> ();
-		followPath = GetComponent<FollowPath> ();
-
-		myDebugCircle = Instantiate(debugCircle, transform.position, Quaternion.identity) as Transform;
-	}
+public class Player : Mover {
 
 	private LinePath currentPath;
-
+	
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetMouseButtonDown(1)) {
 			Vector3 endPos = getMousePosition ();
 
-			currentPath = AStar.findPath(Map.map, transform.position, endPos, null);
+			currentPath = AStar.findPath(Map.map, transform.position, endPos, null, false);
 		}
 
 		if(currentPath != null) {

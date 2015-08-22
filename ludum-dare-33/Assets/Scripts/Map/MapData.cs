@@ -8,7 +8,7 @@ public class MapData {
 	public float tileSize;
 
 	public int[,] tiles;
-	public GameObj[,] objs;
+	public MonoBehaviour[,] objs;
 	
 	public MapData(int width, int height, float tileSize) {
 		this.width = width;
@@ -16,7 +16,7 @@ public class MapData {
 		this.tileSize = tileSize;
 		
 		tiles = new int[width,height];
-		objs = new GameObj[width, height];
+		objs = new MonoBehaviour[width, height];
 	}
 
 
@@ -98,7 +98,7 @@ public class MapData {
 		return count;
 	}
 
-	public List<Connection> getConnectedNodes(int[] node, GameObj target) {
+	public List<Connection> getConnectedNodes(int[] node, MonoBehaviour target, bool tilesOnly) {
 		List<Connection> ret = new List<Connection> ();
 		
 		int x = node [0];
@@ -106,48 +106,50 @@ public class MapData {
 		
 		bool left, right, down, up;
 		
-		if (left = (x > 0 && isWalkable (x - 1, y, target) )) {
+		if (left = (x > 0 && isWalkable (x - 1, y, target, tilesOnly) )) {
 			ret.Add(new Connection( x - 1, y, Connection.DEFAULT_COST ));
 		}
 		
-		if (right = (x + 1 < width && isWalkable (x + 1, y, target) )) {
+		if (right = (x + 1 < width && isWalkable (x + 1, y, target, tilesOnly) )) {
 			ret.Add(new Connection( x + 1, y, Connection.DEFAULT_COST ));
 		}
 		
-		if (down = (y > 0 && isWalkable (x, y - 1, target) )) {
+		if (down = (y > 0 && isWalkable (x, y - 1, target, tilesOnly) )) {
 			ret.Add(new Connection( x, y - 1, Connection.DEFAULT_COST ));
 		}
 		
-		if (up = (y + 1 < height && isWalkable (x, y + 1, target) )) {
+		if (up = (y + 1 < height && isWalkable (x, y + 1, target, tilesOnly) )) {
 			ret.Add(new Connection( x, y + 1, Connection.DEFAULT_COST ));
 		}
 		
-		if (left && down && isWalkable (x - 1, y - 1, target) ) {
+		if (left && down && isWalkable (x - 1, y - 1, target, tilesOnly) ) {
 			ret.Add(new Connection( x - 1, y - 1, Connection.DIAGONAL_COST ));
 		}
 		
-		if (right && down && isWalkable (x + 1, y - 1, target) ) {
+		if (right && down && isWalkable (x + 1, y - 1, target, tilesOnly) ) {
 			ret.Add(new Connection( x + 1, y - 1, Connection.DIAGONAL_COST ));
 		}
 		
-		if (left && up && isWalkable (x - 1, y + 1, target) ) {
+		if (left && up && isWalkable (x - 1, y + 1, target, tilesOnly) ) {
 			ret.Add(new Connection( x - 1, y + 1, Connection.DIAGONAL_COST ));
 		}
 		
-		if (right && up && isWalkable (x + 1, y + 1, target) ) {
+		if (right && up && isWalkable (x + 1, y + 1, target, tilesOnly) ) {
 			ret.Add(new Connection( x + 1, y + 1, Connection.DIAGONAL_COST ));
 		}
 		
 		return ret;
 	}
 
-	private bool isWalkable(int x, int y, GameObj target) {
+	private bool isWalkable(int x, int y, MonoBehaviour target, bool tilesOnly) {
 		bool walkable = tiles [x, y] == 0;
 
-		if(target == null) {
-			walkable = walkable && objs [x, y] == null;
-		} else {
-			walkable = walkable && (objs [x, y] == null || objs [x, y] == target);
+		if(tilesOnly == false) {
+			if(target == null) {
+				walkable = walkable && objs [x, y] == null;
+			} else {
+				walkable = walkable && (objs [x, y] == null || objs [x, y] == target);
+			}
 		}
 
 		return  walkable;
