@@ -24,6 +24,10 @@ public class FollowPath : MonoBehaviour {
 
 	public Vector2 getSteering (LinePath path, bool pathLoop) {
 		Vector2 targetPosition;
+		return getSteering(path, pathLoop, out targetPosition);
+	}
+
+	public Vector2 getSteering (LinePath path, bool pathLoop, out Vector2 targetPosition) {
 
 		// If the path has only one node then just go to that position;
 		if (path.Length == 1) {
@@ -40,6 +44,8 @@ public class FollowPath : MonoBehaviour {
 				if(pathLoop) {
 					pathDirection *= -1;
 				} else {
+					targetPosition = finalDestination;
+
 					rb.velocity = Vector2.zero;
 					return Vector2.zero;
 				}

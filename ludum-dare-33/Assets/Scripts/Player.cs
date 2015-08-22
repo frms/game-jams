@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+	public Transform debugCircle;
+	private Transform myDebugCircle;
+
 	private SteeringUtils steeringUtils;
 	private FollowPath followPath;
 
@@ -10,6 +13,8 @@ public class Player : MonoBehaviour {
 	void Start () {
 		steeringUtils = GetComponent<SteeringUtils> ();
 		followPath = GetComponent<FollowPath> ();
+
+		myDebugCircle = Instantiate(debugCircle, transform.position, Quaternion.identity) as Transform;
 	}
 
 	private LinePath currentPath;
@@ -25,7 +30,9 @@ public class Player : MonoBehaviour {
 		if(currentPath != null) {
 			currentPath.draw();
 
-			Vector2 accel = followPath.getSteering (currentPath, false);
+			Vector2 targetPosition;
+			Vector2 accel = followPath.getSteering (currentPath, false, out targetPosition);
+			myDebugCircle.position = targetPosition;
 			
 			steeringUtils.steer (accel);
 			steeringUtils.lookWhereYoureGoing ();

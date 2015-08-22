@@ -13,7 +13,7 @@ public class Map : MonoBehaviour {
 	public static MapData map;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		map = new MapData (mapWidth, mapHeight, tileSize);
 
 		for(int x = 0; x < map.width; x++) {

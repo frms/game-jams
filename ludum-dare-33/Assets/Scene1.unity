@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af1a464c3e51cd41885a811e4ab886d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugCircle: {fileID: 490440, guid: 9eb57c0af05105f429e0dd4e76a7cb46, type: 2}
 --- !u!114 &279081512
 MonoBehaviour:
   m_ObjectHideFlags: 0
