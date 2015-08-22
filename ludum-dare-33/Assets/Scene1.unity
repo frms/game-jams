@@ -95,6 +95,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 753661070}
+  - 114: {fileID: 753661071}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -114,6 +115,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &753661071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 753661069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae69f728fd7bbd429fed3c9067a69d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapWidth: 30
+  mapHeight: 30
+  tileSize: 1
+  tiles:
+  - {fileID: 440724, guid: 9033fefc453983d41a74d4e598ecb1da, type: 2}
 --- !u!1 &1686914641
 GameObject:
   m_ObjectHideFlags: 0
