@@ -8,21 +8,34 @@ public class Player : Mover {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetMouseButtonDown(1)) {
+			Vector3 startPos = Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]);
 			Vector3 endPos = getMousePosition ();
 
-			currentPath = AStar.findPath(Map.map, transform.position, endPos, null, false);
+			currentPath = AStar.findPath(Map.map, startPos, endPos, null, false);
 		}
+
+		Vector2 accel;
 
 		if(currentPath != null) {
 			currentPath.draw();
 
 			Vector2 targetPosition;
-			Vector2 accel = followPath.getSteering (currentPath, false, out targetPosition);
+			accel = followPath.getSteering (currentPath, false, out targetPosition);
 			myDebugCircle.position = targetPosition;
-			
-			steeringUtils.steer (accel);
-			steeringUtils.lookWhereYoureGoing ();
+
+			int[] mapPos = Map.map.worldToMapPoint(targetPosition);
+			if(!equals(mapPos, reservedPos) && Map.map.objs[mapPos[0], mapPos[1]] == null) {
+				Map.map.objs[reservedPos[0], reservedPos[1]] = null;
+
+				Map.map.objs[mapPos[0], mapPos[1]] = this;
+				reservedPos = mapPos;
+			}
+		} else {
+			accel = steeringUtils.arrive(Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]));
 		}
+
+		steeringUtils.steer (accel);
+		steeringUtils.lookWhereYoureGoing ();
 	}
 
 	private Vector3 getMousePosition () {
