@@ -8,6 +8,8 @@ public class Map : MonoBehaviour {
 
 	public Transform[] tiles;
 
+	public Transform player;
+
 	public MapData map;
 
 	// Use this for initialization
@@ -19,6 +21,8 @@ public class Map : MonoBehaviour {
 				placeTile(x, y);
 			}
 		}
+
+		player.position = map.mapToWorldPoint(map.width / 2, map.height / 2);
 
 		centerCamera();
 	}
