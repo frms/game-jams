@@ -97,6 +97,9 @@ GameObject:
   - 4: {fileID: 279081510}
   - 212: {fileID: 279081509}
   - 114: {fileID: 279081511}
+  - 50: {fileID: 279081514}
+  - 114: {fileID: 279081513}
+  - 114: {fileID: 279081512}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -153,6 +156,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af1a464c3e51cd41885a811e4ab886d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &279081512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 279081508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 049423ef460e2524186c56ba0e274368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stopRadius: .0500000007
+  pathOffset: .600000024
+  pathDirection: 1
+--- !u!114 &279081513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 279081508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6f58141e9f357e448fd2fa6f1afc1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxVelocity: 3
+  maxAcceleration: 4
+  targetRadius: .0500000007
+  slowRadius: 1
+  timeToTarget: .100000001
+  turnSpeed: 20
+  smoothing: 1
+  numSamplesForSmoothing: 5
+  sepMaxAcceleration: 10
+  sepThreshold: 1.66659999
+  collAvoidRadius: .5
+--- !u!50 &279081514
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 279081508}
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: .0500000007
+  m_GravityScale: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &753661069
 GameObject:
   m_ObjectHideFlags: 0
