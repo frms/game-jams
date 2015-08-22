@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class LinePath  {
-	private Vector3[] nodes;
+	public Vector3[] nodes;
 	private float[] distances;
 	public float maxDist;
 
@@ -63,6 +63,14 @@ public class LinePath  {
 	
 	/* Gets the param for the closest point on the path given a position */
 	public float getParam(Vector3 position) {
+		int closestSegment = getClosestSegement(position);
+		
+		float param = this.distances[closestSegment] + getParamForSegment(position, nodes[closestSegment], nodes[closestSegment+1]);
+		
+		return param; 
+	}
+
+	public int getClosestSegement(Vector3 position) {
 		/* Find the first point in the closest line segment to the path */
 		float closestDist = distToSegment(position, nodes[0], nodes[1]);
 		int closestSegment = 0;
@@ -75,10 +83,8 @@ public class LinePath  {
 				closestSegment = i;
 			}
 		}
-		
-		float param = this.distances[closestSegment] + getParamForSegment(position, nodes[closestSegment], nodes[closestSegment+1]);
-		
-		return param; 
+
+		return closestSegment;
 	}
 	
 	/* Given a param it gets the position on the path */

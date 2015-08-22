@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
 public class Mover : MonoBehaviour {
 
@@ -43,24 +45,78 @@ public class Mover : MonoBehaviour {
 	
 	internal void moveUnit (bool pathLoop)
 	{
-		Vector2 accel;
-		
+		Vector2 accel = Vector2.zero;
+	
+		bool standStill = false;
+
 		if (currentPath != null) {
-			currentPath.draw ();
-			
 			Vector2 targetPosition;
-			accel = followPath.getSteering (currentPath, pathLoop, out targetPosition);
-			myDebugCircle.position = targetPosition;
+
+			accel = steerTowardsPath(pathLoop, out targetPosition);
 			
 			int[] mapPos = Map.map.worldToMapPoint (targetPosition);
 			
-			if (!equals (mapPos, reservedPos) && Map.map.objs [mapPos [0], mapPos [1]] == null) {
-				Map.map.objs [reservedPos [0], reservedPos [1]] = null;
-				Map.map.objs [mapPos [0], mapPos [1]] = this;
-				reservedPos = mapPos;
+			if (!equals (mapPos, reservedPos)) {
+				if(Map.map.getObj(mapPos) == null) {
+					Map.map.setObj(reservedPos, null);
+					Map.map.setObj(mapPos, this);
+					reservedPos = mapPos;
+				} else {
+					Debug.Log (name + " is moving onto an occupied node");
+
+					int i = findNextUnoccupiedNode (targetPosition);
+
+					// Should prob change the if to find path to target and get as close as possible
+					// and make the else code happen outside of the else block
+					if(i == currentPath.Length) {
+						Debug.Log(name + " has no unoccupied nodes on its current path to its goal");
+						standStill = true;
+					} else {
+						Vector3 startPos = Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]);
+						Vector3 endPos = currentPath[i];
+
+						LinePath detour = AStar.findPath(Map.map, startPos, endPos, null, false);
+
+						/* If we can't find a detour path just find a way to the end node */
+						if(detour == null) {
+							Debug.Log (name + " no detour to next open space. Finding new path to end goal all together.");
+							currentPath = AStar.findPath(Map.map, currentPath[0], currentPath.endNode, null, false);
+						} 
+						/* Else update the current path */
+						else {
+							//Vector3[] newNodes = new Vector3[detour.Length + (currentPath.Length - i - 1)];
+
+							List<Vector3> newNodes = new List<Vector3>();
+
+							for(int j = 0; j < currentPath.Length; j++) {
+								if(currentPath[j] != startPos) {
+									newNodes.Add(currentPath[j]);
+									break;
+								}
+							}
+
+							for(int j = 0; j < detour.Length; j++) {
+								newNodes.Add(detour[j]);
+							}
+
+							i = i + 1;
+							for(; i < currentPath.Length; i++) {
+								newNodes.Add( currentPath[i]);
+							}
+
+							currentPath = new LinePath(newNodes.ToArray());
+						}
+
+						accel = steerTowardsPath(pathLoop, out targetPosition);
+					}
+				}
 			}
 		}
 		else {
+			standStill = true;
+		}
+
+		if (standStill) {
 			accel = steeringUtils.arrive (Map.map.mapToWorldPoint (reservedPos [0], reservedPos [1]));
 		}
 		
@@ -68,4 +124,33 @@ public class Mover : MonoBehaviour {
 		steeringUtils.lookWhereYoureGoing ();
 	}
 
+	public int findNextUnoccupiedNode(Vector2 pos) {
+		int i = currentPath.getClosestSegement (pos);
+		
+		for(; i < currentPath.Length; i++) {
+			int index = i;
+
+			if(followPath.pathDirection < 0) {
+				index = currentPath.Length - 1 - i;
+			}
+
+			int[] mapCoords = Map.map.worldToMapPoint(currentPath[index]);
+			
+			if(Map.map.getObj(mapCoords) == null) {
+				break;
+			}
+		}
+
+		return i;
+	}
+
+
+	public Vector2 steerTowardsPath(bool pathLoop, out Vector2 targetPosition) {
+		currentPath.draw ();
+
+		Vector2 accel = followPath.getSteering (currentPath, pathLoop, out targetPosition);
+		myDebugCircle.position = targetPosition;
+
+		return accel;
+	}
 }

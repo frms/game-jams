@@ -9,7 +9,7 @@ public class Player : Mover {
 			Vector3 startPos = Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]);
 			Vector3 endPos = getMousePosition ();
 
-			currentPath = AStar.findPath(Map.map, startPos, endPos, null, false);
+			currentPath = AStar.findPath(Map.map, startPos, endPos, null);
 		}
 
 		moveUnit (false);

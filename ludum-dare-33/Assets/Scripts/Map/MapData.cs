@@ -171,6 +171,14 @@ public class MapData {
 		return coords;
 	}
 
+	public MonoBehaviour getObj(int[] coords) {
+		return objs[coords[0], coords[1]];
+	}
+
+	public void setObj(int[] coords, MonoBehaviour val) {
+		objs[coords[0], coords[1]] = val;
+	}
+
 //	public void placeBuilding (GameObj b, int x, int y) {
 //		int baseHeight = b.mapCollider.GetLength (0);
 //		int baseWidth = b.mapCollider.GetLength (1);
@@ -187,28 +195,28 @@ public class MapData {
 //		}
 //	}
 
-	public override string ToString() {
-		string ret = "tiles:\n";
-
-		for(int j = height-1; j >= 0; j--) {
-			for (int i = 0; i < width; i++) {
-				ret += tiles[i,j] + " ";
-			}
-			ret += "\n";
-		}
-
-		ret += "objs:\n";
-		
-		for(int j = height-1; j >= 0; j--) {
-			for (int i = 0; i < width; i++) {
-				string str = (objs[i,j] != null) ? "1 " : "0 ";
-				ret += str;
-			}
-			ret += "\n";
-		}
-
-		return ret;
-	}
+//	public override string ToString() {
+//		string ret = "tiles:\n";
+//
+//		for(int j = height-1; j >= 0; j--) {
+//			for (int i = 0; i < width; i++) {
+//				ret += tiles[i,j] + " ";
+//			}
+//			ret += "\n";
+//		}
+//
+//		ret += "objs:\n";
+//		
+//		for(int j = height-1; j >= 0; j--) {
+//			for (int i = 0; i < width; i++) {
+//				string str = (objs[i,j] != null) ? "1 " : "0 ";
+//				ret += str;
+//			}
+//			ret += "\n";
+//		}
+//
+//		return ret;
+//	}
 }
 
 public class Connection {
