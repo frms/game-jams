@@ -33,11 +33,11 @@ public class Player : Mover {
 
 		moveUnit ();
 
-		if (target != null && diagonalDist(reservedPos, target.reservedPos) <= (distToTarget + 0.5f)) {
+		if (enemyHealth != null && diagonalDist(reservedPos, target.reservedPos) <= (distToTarget + 0.5f)) {
 			//Look at the target and stop moving
 			steeringUtils.lookAtDirection (target.transform.position - transform.position);
 			
-			if (enemyHealth != null && Time.time > nextFire) {
+			if (Time.time > nextFire) {
 				nextFire = Time.time + atkRate;
 				Transform clone = Instantiate (bullet, transform.position, Quaternion.identity) as Transform;
 				clone.GetComponent<Bullet> ().setUp (enemyHealth, atkDmg);

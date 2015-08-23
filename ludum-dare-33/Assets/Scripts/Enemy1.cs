@@ -15,16 +15,16 @@ public class Enemy1 : Mover {
 		initialColor = rend.material.color;
 	}
 	
-	void OnMouseEnter() {
+	public virtual void OnMouseEnter() {
 		rend.material.color = Color.red;
 	}
 	
-	void OnMouseExit() {
+	public virtual void OnMouseExit() {
 		rend.material.color = initialColor;
 	}
 
 	// Update is called once per frame
-	void Update () {
+	public virtual void Update () {
 		if(isLooping && currentPath != null && isAtEndOfPath()) {
 			currentPath = AStar.findPath(Map.map, currentPath.endNode, currentPath[0], null, 0);
 		}
@@ -32,7 +32,7 @@ public class Enemy1 : Mover {
 		moveUnit ();
 	}
 
-	bool isAtEndOfPath () {
+	public bool isAtEndOfPath () {
 		return Vector3.Distance (currentPath.endNode, transform.position) < followPath.stopRadius;
 	}
 

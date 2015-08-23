@@ -9,7 +9,7 @@ public class Map : MonoBehaviour {
 	public Transform[] tiles;
 
 	public Transform player;
-	public Transform enemy;
+	public Transform[] enemyTypes;
 
 	public static MapData map;
 
@@ -25,12 +25,14 @@ public class Map : MonoBehaviour {
 
 		player.position = map.mapToWorldPoint(map.width / 2, map.height / 2);
 
-		Transform enemy1 = placeThing((map.width / 2) + 5, map.height / 2, enemy);
+		Transform enemy1 = placeThing((map.width / 2) + 5, map.height / 2, enemyTypes[0]);
 		Enemy1 e1 = enemy1.GetComponent<Enemy1>();
 		e1.isLooping = true;
 		e1.currentPath = AStar.findPath(map, enemy1.position, enemy1.position + Vector3.up*map.tileSize*7, null, 0);
 
-		placeThing((map.width / 2) - 4, map.height / 2 - 1, enemy);
+		placeThing((map.width / 2) - 4, map.height / 2 - 1, enemyTypes[0]);
+
+		placeThing((map.width / 2) - 6, map.height / 2 + 3, enemyTypes[1]);
 
 		centerCamera();
 	}

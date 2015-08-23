@@ -382,7 +382,9 @@ MonoBehaviour:
   tiles:
   - {fileID: 440724, guid: 9033fefc453983d41a74d4e598ecb1da, type: 2}
   player: {fileID: 279081510}
-  enemy: {fileID: 496218, guid: 65e9a4a87750dcb4d9eac5a730486eff, type: 2}
+  enemyTypes:
+  - {fileID: 496218, guid: 65e9a4a87750dcb4d9eac5a730486eff, type: 2}
+  - {fileID: 401548, guid: f9131bb9dd54fe04aa2ee8e8e1913307, type: 2}
 --- !u!1 &1088495023
 GameObject:
   m_ObjectHideFlags: 0
