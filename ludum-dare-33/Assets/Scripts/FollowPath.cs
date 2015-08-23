@@ -10,12 +10,12 @@ public class FollowPath : MonoBehaviour {
 	public float pathDirection = 1f;
 
 	private SteeringUtils steeringUtils;
-	private Rigidbody2D rb;
+	private Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
 		steeringUtils = GetComponent<SteeringUtils> ();
-		rb = GetComponent<Rigidbody2D> ();
+		rb = GetComponent<Rigidbody> ();
 	}
 
 	public Vector2 getSteering (LinePath path) {

@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-[RequireComponent (typeof (Rigidbody2D))]
+[RequireComponent (typeof (Rigidbody))]
 public class SteeringUtils : MonoBehaviour {
 	
 	public float maxVelocity = 3;
@@ -24,7 +24,7 @@ public class SteeringUtils : MonoBehaviour {
 
 	public float turnSpeed = 20f;
 
-	private Rigidbody2D rb;
+	private Rigidbody rb;
 
 	public bool smoothing = true;
 	public int numSamplesForSmoothing = 5;
@@ -32,12 +32,12 @@ public class SteeringUtils : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		rb = GetComponent<Rigidbody2D> ();
+		rb = GetComponent<Rigidbody> ();
 		velocitySamples = new Queue<Vector2> ();
 	}
 	
 	/* Updates the velocity of the current game object by the given linear acceleration */
-	public void steer(Vector2 linearAcceleration) {
+	public void steer(Vector3 linearAcceleration) {
 		rb.velocity += linearAcceleration * Time.deltaTime;
 		
 		if (rb.velocity.magnitude > maxVelocity) {
@@ -45,9 +45,8 @@ public class SteeringUtils : MonoBehaviour {
 		}
 	}
 
-	/* Calls the normal Vector2 linear acceleration */
-	public void steer(Vector3 linearAcceleration) {
-		this.steer (new Vector2 (linearAcceleration.x, linearAcceleration.y));
+	public void steer(Vector2 linearAcceleration) {
+		this.steer (new Vector3 (linearAcceleration.x, linearAcceleration.y, 0));
 	}
 	
 	/* A seek steering behavior. Will return the steering for the current game object to seek a given position */
@@ -200,7 +199,7 @@ public class SteeringUtils : MonoBehaviour {
 //				continue;
 //			}
 
-			Vector2 targetVel = t.GetComponent<Rigidbody2D>().velocity;
+			Vector3 targetVel = t.GetComponent<Rigidbody>().velocity;
 			
 			/* Calculate the time to collision */
 			Vector3 relativePos = transform.position - t.position;

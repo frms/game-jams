@@ -10,7 +10,7 @@ public class Mover : MonoBehaviour {
 	
 	internal SteeringUtils steeringUtils;
 	internal FollowPath followPath;
-	internal Rigidbody2D rb;
+	internal Rigidbody rb;
 	
 	internal int[] reservedPos;
 	
@@ -18,7 +18,7 @@ public class Mover : MonoBehaviour {
 	void Start () {
 		steeringUtils = GetComponent<SteeringUtils> ();
 		followPath = GetComponent<FollowPath> ();
-		rb = GetComponent<Rigidbody2D>();
+		rb = GetComponent<Rigidbody>();
 
 		int[] mapPos = Map.map.worldToMapPoint(transform.position);
 		reservePosition(mapPos);

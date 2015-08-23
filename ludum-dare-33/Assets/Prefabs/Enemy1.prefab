@@ -9,12 +9,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 496218}
   - 114: {fileID: 11447902}
-  - 50: {fileID: 5005294}
   - 114: {fileID: 11445330}
   - 114: {fileID: 11431940}
-  - 58: {fileID: 5809054}
   - 33: {fileID: 3319406}
   - 23: {fileID: 2393480}
+  - 54: {fileID: 5497024}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -65,35 +64,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169676}
   m_Mesh: {fileID: 4300002, guid: e3c01342a72583549b97e26bc40b9713, type: 3}
---- !u!50 &5005294
-Rigidbody2D:
-  serializedVersion: 2
+--- !u!54 &5497024
+Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169676}
+  serializedVersion: 2
   m_Mass: 1
-  m_LinearDrag: 0
+  m_Drag: 0
   m_AngularDrag: .0500000007
-  m_GravityScale: 0
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &5809054
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169676}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: .5
+  m_CollisionDetection: 0
 --- !u!114 &11431940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,7 +141,7 @@ Prefab:
       objectReference: {fileID: 490440, guid: 9eb57c0af05105f429e0dd4e76a7cb46, type: 2}
     - target: {fileID: 0}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
@@ -181,6 +166,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: pathOffset
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_UseGravity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
