@@ -47,18 +47,22 @@ public class Map : MonoBehaviour {
 	}
 
 	private void centerCamera() {
-		float halfMapWidth = (map.width * 0.5f * map.tileSize);
-		float halfMapHeight = (map.height * 0.5f * map.tileSize);
+		//float halfMapWidth = (map.width * 0.5f * map.tileSize);
+		//float halfMapHeight = (map.height * 0.5f * map.tileSize);
+		float halfMapHeight = (6.5f * map.tileSize);
 		
 		float vertHalfFOV = Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad;
 		
-		float z1 = halfMapWidth / (Mathf.Tan(vertHalfFOV) * Camera.main.aspect);
+		//float z1 = halfMapWidth / (Mathf.Tan(vertHalfFOV) * Camera.main.aspect);
 		float z2 = halfMapHeight / Mathf.Tan(vertHalfFOV);
 		
 		Vector3 camPos = new Vector3();
-		camPos.x = halfMapWidth;
-		camPos.y = halfMapHeight;
-		camPos.z = -1f * Mathf.Max(z1, z2);
+//		camPos.x = halfMapWidth;
+//		camPos.y = halfMapHeight;
+//		camPos.z = -1f * Mathf.Max(z1, z2);
+		camPos.x = player.transform.position.x;
+		camPos.y = player.transform.position.y;
+		camPos.z = -z2;
 		
 		Camera.main.transform.position = camPos;
 	}

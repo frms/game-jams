@@ -29,10 +29,5 @@ public class Enemy2 : Enemy1 {
 		moveUnit ();
 
 		tryToAttack();
-
-		float v = GetComponent<Rigidbody>().velocity.magnitude;
-		if(v > 0) {
-			Debug.Log(name + " " + v);
-		}
 	}
 }
