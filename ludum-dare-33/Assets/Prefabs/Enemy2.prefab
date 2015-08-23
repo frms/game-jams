@@ -153,6 +153,14 @@ MonoBehaviour:
   atkDmg: 5
   bullet: {fileID: 486734, guid: cd6c905573ed4194c95eff71a743b165, type: 2}
   isLooping: 0
+  wanderBoxSize: 3
+  nextWander: 0
+  wanderRate:
+  - 2
+  - 4.5
+  jumpStartWanderRate:
+  - 0
+  - 1.5
   seekTargetDist: 4.5
 --- !u!135 &13595212
 SphereCollider:
@@ -196,6 +204,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wanderRate.Array.data[1]
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wanderRate.Array.data[0]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
