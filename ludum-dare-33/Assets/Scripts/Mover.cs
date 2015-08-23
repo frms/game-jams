@@ -91,6 +91,7 @@ public class Mover : MonoBehaviour {
 							for(int j = 0; j < currentPath.Length; j++) {
 								if(currentPath[j] != startPos) {
 									newNodes.Add(currentPath[j]);
+								} else {
 									break;
 								}
 							}
