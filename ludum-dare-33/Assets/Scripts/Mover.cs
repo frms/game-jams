@@ -75,12 +75,12 @@ public class Mover : MonoBehaviour {
 						Vector3 startPos = Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]);
 						Vector3 endPos = currentPath[i];
 
-						LinePath detour = AStar.findPath(Map.map, startPos, endPos, null, false);
+						LinePath detour = AStar.findPath(Map.map, startPos, endPos, null, 0, false);
 
 						/* If we can't find a detour path just find a way to the end node */
 						if(detour == null) {
 							Debug.Log (name + " no detour to next open space. Finding new path to end goal all together.");
-							currentPath = AStar.findPath(Map.map, currentPath[0], currentPath.endNode, null, false);
+							currentPath = AStar.findPath(Map.map, currentPath[0], currentPath.endNode, null, 0, false);
 						} 
 						/* Else update the current path */
 						else {

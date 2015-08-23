@@ -26,7 +26,7 @@ public class Enemy1 : Mover {
 	// Update is called once per frame
 	void Update () {
 		if(isLooping && currentPath != null && isAtEndOfPath()) {
-			currentPath = AStar.findPath(Map.map, currentPath.endNode, currentPath[0], null);
+			currentPath = AStar.findPath(Map.map, currentPath.endNode, currentPath[0], null, 0);
 		}
 
 		moveUnit ();

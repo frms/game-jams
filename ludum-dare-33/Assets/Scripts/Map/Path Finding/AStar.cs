@@ -78,9 +78,15 @@ public class AStar {
 	}
 
 
-	public static LinePath findPath(MapData graph, Vector3 startPos, Vector3 endPos, MonoBehaviour target, bool tilesOnly = true) {
+	public static LinePath findPath(MapData graph, Vector3 startPos, Vector3 endPos, MonoBehaviour target, int distToTarget, bool tilesOnly = true) {
 		int[] start = graph.worldToMapPoint(startPos);
 		int[] end = graph.worldToMapPoint(endPos);
+
+		DiagonalDistHeuristic diagHeuristic = new DiagonalDistHeuristic (end);
+
+		if(target != null) {
+			distToTarget += 1;
+		}
 
 		/* Using diagonal distance since I assume this graph is a 8 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
@@ -121,10 +127,21 @@ public class AStar {
 			}
 
 			/* If its part of the target object then terminate (and change the end node to be equal to the current node) */
-			if(target != null && graph.objs [currentNode [0], currentNode [1]] == target) {
-				end[0] = currentNode[0];
-				end[1] = currentNode[1];
-				break;
+			if(target != null) {
+				if(graph.objs [currentNode [0], currentNode [1]] == target) {
+					end[0] = currentNode[0];
+					end[1] = currentNode[1];
+					break;
+				}
+
+				/* If we are close enough to the target then stop */
+				float diagDist = diagHeuristic.estimate(currentNode);
+
+				if(diagDist <= distToTarget) {
+					end[0] = currentNode[0];
+					end[1] = currentNode[1];
+					break;
+				}
 			}
 			
 			List<Connection> connections = graph.getConnectedNodes(currentNode, target, tilesOnly);

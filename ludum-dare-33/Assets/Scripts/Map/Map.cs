@@ -28,7 +28,7 @@ public class Map : MonoBehaviour {
 		Transform enemy1 = placeThing((map.width / 2) + 5, map.height / 2, enemy);
 		Enemy1 e1 = enemy1.GetComponent<Enemy1>();
 		e1.isLooping = true;
-		e1.currentPath = AStar.findPath(map, enemy1.position, enemy1.position + Vector3.up*map.tileSize*7, null);
+		e1.currentPath = AStar.findPath(map, enemy1.position, enemy1.position + Vector3.up*map.tileSize*7, null, 0);
 
 		centerCamera();
 	}
