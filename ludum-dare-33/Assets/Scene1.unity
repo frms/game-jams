@@ -538,6 +538,12 @@ MonoBehaviour:
   mapWidth: 15
   mapHeight: 15
   tileSize: 1
+  numberOfRooms: 20
+  overlappingRooms: 0
+  mirrorMap: 0
+  roomWidthRange: 0400000008000000
+  roomHeightRange: 0400000008000000
+  innerHallwayWidthRange: 0100000001000000
   tiles:
   - {fileID: 0}
   - {fileID: 440724, guid: 9033fefc453983d41a74d4e598ecb1da, type: 2}
