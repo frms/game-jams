@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: 5
-  maxAcceleration: 12.5
+  maxAcceleration: 20
   targetRadius: .0500000007
   slowRadius: .730000019
   timeToTarget: .100000001
