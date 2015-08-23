@@ -84,6 +84,7 @@ public class AStar {
 
 		DiagonalDistHeuristic diagHeuristic = new DiagonalDistHeuristic (end);
 
+		// Ooph too tired to put into words why this needs to be here
 		if(target != null) {
 			distToTarget += 1;
 		}

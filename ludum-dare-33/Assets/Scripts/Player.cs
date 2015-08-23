@@ -5,22 +5,24 @@ public class Player : Mover {
 
 	public int distToTarget = 2;
 
+	private int[] lastEndPos;
+	private Mover target;
+
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetMouseButtonDown(1)) {
-			Mover target = getTarget();
+			target = getTarget();
 
-			Vector3 startPos = Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]);
 			Vector3 endPos;
 
 			if(target == null) {
 				endPos = getMousePosition ();
-			} else {
-				int[] coords = Map.map.worldToMapPoint(target.transform.position);
-				endPos = Map.map.mapToWorldPoint(coords[0], coords[1]);
+				findPath(endPos);
 			}
+		}
 
-			currentPath = AStar.findPath(Map.map, startPos, endPos, target, distToTarget);
+		if (target != null) {
+			findPathToUnit();
 		}
 
 		moveUnit ();
@@ -41,5 +43,21 @@ public class Player : Mover {
 		mousePos.z = -1 * Camera.main.transform.position.z;
 
 		return Camera.main.ScreenToWorldPoint (mousePos);
+	}
+
+	private void findPathToUnit() {
+		int[] end = Map.map.worldToMapPoint(target.transform.position);
+		
+		if (currentPath == null || lastEndPos == null || lastEndPos [0] != end [0] || lastEndPos [1] != end [1]) { 
+			findPath(target.transform.position);
+			
+			lastEndPos = end;
+		}
+	}
+
+	private void findPath(Vector3 endPos) {
+		Vector3 startPos = Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]);
+
+		currentPath = AStar.findPath(Map.map, startPos, endPos, target, distToTarget);
 	}
 }
