@@ -9,16 +9,22 @@ public class HealthBar : MonoBehaviour {
 	public Vector3 barRotation = new Vector3 (0, 0, 0);
 	public float barProgress = 100;
 	public float barMax = 100;
+
+	public bool isPlayer = false;
 	
 	private Transform bar;
 	private Quaternion barOrientation;
 	
 	// Use this for initialization
 	void Start () {
-		barOrientation = Quaternion.Euler (barRotation.x, barRotation.y, barRotation.z);
-		GameObject clone = Instantiate(barPrefab, (transform.position + barOffset), barOrientation) as GameObject;
-		bar = clone.transform;
-		bar.localScale = barSize;
+		if(isPlayer) {
+			bar = barPrefab.transform;
+		} else {
+			barOrientation = Quaternion.Euler (barRotation.x, barRotation.y, barRotation.z);
+			GameObject clone = Instantiate(barPrefab, (transform.position + barOffset), barOrientation) as GameObject;
+			bar = clone.transform;
+			bar.localScale = barSize;
+		}
 
 //		SpriteRenderer sr = bar.GetComponent<SpriteRenderer> ();
 //		sr.color = GetComponent<TeamMember>().teamId;
@@ -26,8 +32,10 @@ public class HealthBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// Make the bar follow the game obj
-		bar.position = transform.position + (barOrientation * barOffset);
+		if(!isPlayer) {
+			// Make the bar follow the game obj
+			bar.position = transform.position + (barOrientation * barOffset);
+		}
 		
 		// Make the  bar scale to the current barProgress
 		bar.localScale = new Vector3((barProgress/barMax) * barSize.x, barSize.y, barSize.z);
