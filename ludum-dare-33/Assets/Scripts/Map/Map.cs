@@ -329,7 +329,15 @@ public class Map : MonoBehaviour {
 	}
 
 	public void placeUnits() {
-		Room randomRoom = rooms[Random.Range(0, rooms.Count)];
+		int playerRoomIndex = Random.Range(0, rooms.Count);
+
+		Room randomRoom = rooms[playerRoomIndex];
 		player.position = map.mapToWorldPoint(randomRoom.centerX, randomRoom.centerY);
+
+		for(int i = 0; i < rooms.Count; i++) {
+			if(i != playerRoomIndex) {
+				placeThing(rooms[i].centerX, rooms[i].centerY, enemyTypes[1]);
+			}
+		}
 	}
 }
