@@ -30,6 +30,11 @@ public class Enemy1 : Mover {
 
 	// Update is called once per frame
 	public virtual void Update () {
+		checkForDeath();
+		if(timeToDisappear != Mathf.Infinity) {
+			return;
+		}
+
 		if(isLooping && currentPath != null && isAtEndOfPath()) {
 			currentPath = AStar.findPath(Map.map, currentPath.endNode, currentPath[0], null, 0);
 		}
@@ -37,8 +42,27 @@ public class Enemy1 : Mover {
 		moveUnit ();
 	}
 
-	public virtual void OnDestroy() {
+	internal float timeToDisappear = Mathf.Infinity;
+
+	public void IAmDead() {
+		timeToDisappear = Time.time + 2f;
+
 		Map.enemiesRemaining--;
+	}
+
+	public bool IAmBeingEaten = false;
+
+	public void checkForDeath() {
+		if(timeToDisappear != Mathf.Infinity) {
+			Vector2 accel = steeringUtils.arrive (Map.map.mapToWorldPoint (reservedPos [0], reservedPos [1]));
+			
+			steeringUtils.steer (accel);
+			steeringUtils.lookWhereYoureGoing ();
+		}
+
+		if(!IAmBeingEaten && timeToDisappear < Time.time) {
+			Destroy(gameObject);
+		}
 	}
 
 	public bool isAtEndOfPath () {

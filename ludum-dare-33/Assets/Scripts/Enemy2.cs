@@ -21,6 +21,12 @@ public class Enemy2 : Enemy1 {
 
 	// Update is called once per frame
 	public override void Update () {
+		checkForDeath();
+		if(timeToDisappear != Mathf.Infinity) {
+			return;
+		}
+
+
 		if(player != null && Vector2.Distance(player.transform.position, transform.position) < seekTargetDist) {
 			target = player;
 			enemyHealth = playerHealth;

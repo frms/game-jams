@@ -46,8 +46,15 @@ public class HealthBar : MonoBehaviour {
 		
 		// Kill the game obj if it loses all its health
 		if(barProgress <= 0) {
-			Destroy(gameObject);
 			Destroy(bar.gameObject);
+			Destroy(this);
+
+			if(isPlayer) {
+				Destroy(gameObject);
+			} else {
+				Enemy1 e = gameObject.GetComponent<Enemy1>();
+				e.IAmDead();
+			}
 		}
 	}
 
