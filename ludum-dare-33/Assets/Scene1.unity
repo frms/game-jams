@@ -225,6 +225,10 @@ MonoBehaviour:
   atkRate: .5
   atkDmg: 5
   bullet: {fileID: 486734, guid: cd6c905573ed4194c95eff71a743b165, type: 2}
+  critChance: .300000012
+  critMult:
+  - 1.5
+  - 2.20000005
   gameOverPanel: {fileID: 230849386}
 --- !u!114 &279081512
 MonoBehaviour:

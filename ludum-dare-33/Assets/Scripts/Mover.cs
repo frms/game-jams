@@ -79,14 +79,14 @@ public class Mover : MonoBehaviour {
 					Map.map.setObj(mapPos, this);
 					reservedPos = mapPos;
 				} else {
-					Debug.Log (name + " is moving onto an occupied node");
+					//Debug.Log (name + " is moving onto an occupied node");
 
 					int i = findNextUnoccupiedNode (targetPosition);
 
 					// Should prob change the if to find path to target and get as close as possible
 					// and make the else code happen outside of the else block
 					if(i == currentPath.Length) {
-						Debug.Log(name + " has no unoccupied nodes on its current path to its goal");
+						//Debug.Log(name + " has no unoccupied nodes on its current path to its goal");
 						standStill = true;
 					} else {
 						Vector3 startPos = Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]);
@@ -96,7 +96,7 @@ public class Mover : MonoBehaviour {
 
 						/* If we can't find a detour path just find a way to the end node */
 						if(detour == null) {
-							Debug.Log (name + " no detour to next open space. Finding new path to end goal all together.");
+							//Debug.Log (name + " no detour to next open space. Finding new path to end goal all together.");
 							currentPath = AStar.findPath(Map.map, currentPath[0], currentPath.endNode, null, 0, false);
 						} 
 						/* Else update the current path */
@@ -175,7 +175,7 @@ public class Mover : MonoBehaviour {
 
 
 	public Vector2 steerTowardsPath(out Vector2 targetPosition) {
-		currentPath.draw ();
+		//currentPath.draw ();
 
 		Vector2 accel = followPath.getSteering (currentPath, false, out targetPosition);
 		myDebugCircle.position = targetPosition;

@@ -110,8 +110,8 @@ MonoBehaviour:
   barSize: {x: .699999988, y: .150000006, z: 1}
   barOffset: {x: -.349999994, y: .5, z: -.300000012}
   barRotation: {x: 0, y: 0, z: 0}
-  barProgress: 100
-  barMax: 100
+  barProgress: 12
+  barMax: 12
   isPlayer: 0
 --- !u!114 &11462764
 MonoBehaviour:
@@ -212,6 +212,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: wanderRate.Array.data[0]
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barProgress
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barMax
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

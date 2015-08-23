@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Player : Mover {
 
+	public float critChance = 0.3f;
+	public float[] critMult = new float[]{1.5f, 2.2f};
+
 	public GameObject gameOverPanel;
 
 	// Update is called once per frame
@@ -27,7 +30,7 @@ public class Player : Mover {
 
 		moveUnit ();
 
-		tryToAttack();
+		playerTryToAttack();
 
 //		float v = GetComponent<Rigidbody>().velocity.magnitude;
 //		if(v > 0) {
@@ -50,6 +53,26 @@ public class Player : Mover {
 		mousePos.z = -1 * Camera.main.transform.position.z;
 
 		return Camera.main.ScreenToWorldPoint (mousePos);
+	}
+
+	public void playerTryToAttack() {
+		if (enemyHealth != null && diagonalDist(reservedPos, target.reservedPos) <= distToTarget) {
+			//Look at the target and stop moving
+			steeringUtils.lookAtDirection (target.transform.position - transform.position);
+			
+			if (Time.time > nextFire) {
+				nextFire = Time.time + atkRate;
+				Transform clone = Instantiate (bullet, transform.position + Bullet.aboveGround, Quaternion.identity) as Transform;
+
+				float dmg = atkDmg;
+
+				if(Random.value < critChance) {
+					dmg *= Random.Range(critMult[0], critMult[1]);
+				}
+
+				clone.GetComponent<Bullet> ().setUp (enemyHealth, dmg);
+			}
+		}
 	}
 
 	void OnDestroy() {
