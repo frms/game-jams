@@ -28,6 +28,7 @@ public class Map : MonoBehaviour {
 		//buildManualMap();
 
 		build();
+		placeUnits();
 
 		for(int x = 0; x < map.width; x++) {
 			for(int y = 0; y < map.height; y++) {
@@ -325,5 +326,10 @@ public class Map : MonoBehaviour {
 				setHallwayTile (x + currentRoom.x, y + currentRoom.y);
 			}
 		}
+	}
+
+	public void placeUnits() {
+		Room randomRoom = rooms[Random.Range(0, rooms.Count)];
+		player.position = map.mapToWorldPoint(randomRoom.centerX, randomRoom.centerY);
 	}
 }
