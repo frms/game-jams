@@ -15,7 +15,7 @@ public class Mover : MonoBehaviour {
 	internal int[] reservedPos;
 	
 	// Use this for initialization
-	void Start () {
+	public virtual void Start () {
 		steeringUtils = GetComponent<SteeringUtils> ();
 		followPath = GetComponent<FollowPath> ();
 		rb = GetComponent<Rigidbody>();

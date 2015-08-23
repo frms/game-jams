@@ -2,6 +2,8 @@ Comment out debug circles on the movers
 
 Comment out all the Debug.Logs()
 
+Comment out the line path draws
+
 
 
 Update my steering behavior library to take into account that my line paths are seriously flawed when there is a loop within the path. At least update it so all loops will be skipped rather than causing someone to follow the path to stop moving altogether.
