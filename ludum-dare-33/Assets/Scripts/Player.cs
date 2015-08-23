@@ -48,6 +48,8 @@ public class Player : Mover {
 	}
 
 	void OnDestroy() {
-		gameOverPanel.SetActive(true);
+		if(gameOverPanel != null) {
+			gameOverPanel.SetActive(true);
+		}
 	}
 }
