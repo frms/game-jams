@@ -37,6 +37,10 @@ public class Enemy1 : Mover {
 		moveUnit ();
 	}
 
+	public virtual void OnDestroy() {
+		Map.enemiesRemaining--;
+	}
+
 	public bool isAtEndOfPath () {
 		return Vector3.Distance (currentPath.endNode, transform.position) < followPath.stopRadius;
 	}

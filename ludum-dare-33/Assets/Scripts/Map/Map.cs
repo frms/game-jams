@@ -23,6 +23,8 @@ public class Map : MonoBehaviour {
 
 	public static MapData map;
 
+	public static int enemiesRemaining = 0;
+
 	// Use this for initialization
 	void Awake () {
 		//buildManualMap();
@@ -337,6 +339,7 @@ public class Map : MonoBehaviour {
 		for(int i = 0; i < rooms.Count; i++) {
 			if(i != playerRoomIndex) {
 				placeThing(rooms[i].centerX, rooms[i].centerY, enemyTypes[1]);
+				enemiesRemaining++;
 			}
 		}
 	}

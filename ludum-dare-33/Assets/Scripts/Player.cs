@@ -17,8 +17,11 @@ public class Player : Mover {
 
 			if(target == null) {
 				endPos = getMousePosition ();
+				int[] coords = Map.map.worldToMapPoint(endPos);
 
-				findPath(endPos);
+				if(Map.map.tiles[coords[0], coords[1]] == 1) {
+					findPath(endPos);
+				}
 			}
 
 			if(target != null && target.tag == "Enemy") {

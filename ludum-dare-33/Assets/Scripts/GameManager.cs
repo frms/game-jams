@@ -14,4 +14,11 @@ public class GameManager : MonoBehaviour {
 
 		enemyMask = LayerMask.GetMask ("Enemy");
 	}
+
+	// Update is called once per frame
+	void Update () {
+		if(Map.enemiesRemaining <= 0) {
+			Debug.Log("GAME OVER");
+		}
+	}
 }
