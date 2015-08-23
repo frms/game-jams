@@ -30,6 +30,8 @@ public class Map : MonoBehaviour {
 		e1.isLooping = true;
 		e1.currentPath = AStar.findPath(map, enemy1.position, enemy1.position + Vector3.up*map.tileSize*7, null, 0);
 
+		placeThing((map.width / 2) - 4, map.height / 2 - 1, enemy);
+
 		centerCamera();
 	}
 

@@ -12,7 +12,9 @@ public class Player : Mover {
 
 			if(target == null) {
 				endPos = getMousePosition ();
+
 				findPath(endPos);
+				lastEndPos = Map.map.worldToMapPoint(endPos);
 			}
 		}
 

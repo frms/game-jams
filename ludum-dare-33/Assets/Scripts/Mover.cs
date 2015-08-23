@@ -139,16 +139,16 @@ public class Mover : MonoBehaviour {
 		
 		if (currentPath == null || lastEndPos == null || lastEndPos [0] != end [0] || lastEndPos [1] != end [1]) { 
 			Vector3 endPos = Map.map.mapToWorldPoint(end[0], end[1]);
+
 			findPath(endPos);
-			
-			lastEndPos = end;
 		}
 	}
 	
 	public void findPath(Vector3 endPos) {
 		Vector3 startPos = Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]);
-		
+
 		currentPath = AStar.findPath(Map.map, startPos, endPos, target, distToTarget);
+		lastEndPos = Map.map.worldToMapPoint(endPos);
 	}
 
 	public int findNextUnoccupiedNode(Vector2 pos) {
