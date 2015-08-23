@@ -8,7 +8,7 @@ public class Enemy1 : Mover {
 	private Renderer rend;
 	private Color initialColor;
 
-	private static Color r = new Color(0.957f, 0.263f, 0.212f);
+	private static Color r = new Color( 1f, 0.341f, 0.133f);
 
 	public override void Start() {
 		base.Start();

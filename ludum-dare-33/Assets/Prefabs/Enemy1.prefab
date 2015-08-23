@@ -79,7 +79,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &11431940
 MonoBehaviour:
@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f58141e9f357e448fd2fa6f1afc1f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 5
-  maxAcceleration: 12.5
+  maxVelocity: 4
+  maxAcceleration: 10
   targetRadius: .00499999989
   slowRadius: 1
   timeToTarget: .100000001
@@ -131,6 +131,9 @@ MonoBehaviour:
   debugCircle: {fileID: 490440, guid: 9eb57c0af05105f429e0dd4e76a7cb46, type: 2}
   reservedPos: 
   distToTarget: 2
+  atkRate: .5
+  atkDmg: 5
+  bullet: {fileID: 0}
   isLooping: 0
 --- !u!114 &11497492
 MonoBehaviour:
@@ -149,6 +152,7 @@ MonoBehaviour:
   barRotation: {x: 0, y: 0, z: 0}
   barProgress: 100
   barMax: 100
+  isPlayer: 0
 --- !u!135 &13526412
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -156,7 +160,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 169676}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: .5
@@ -247,6 +251,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxVelocity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxAcceleration
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

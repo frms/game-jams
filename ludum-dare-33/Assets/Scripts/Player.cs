@@ -28,6 +28,11 @@ public class Player : Mover {
 		moveUnit ();
 
 		tryToAttack();
+
+		float v = GetComponent<Rigidbody>().velocity.magnitude;
+		if(v > 0) {
+			Debug.Log(name + " " + v);
+		}
 	}
 
 	private Mover getTarget() {

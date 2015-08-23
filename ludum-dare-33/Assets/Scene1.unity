@@ -254,7 +254,7 @@ MonoBehaviour:
   maxVelocity: 5
   maxAcceleration: 12.5
   targetRadius: .0500000007
-  slowRadius: 1
+  slowRadius: .730000019
   timeToTarget: .100000001
   turnSpeed: 20
   smoothing: 1
@@ -299,8 +299,8 @@ MonoBehaviour:
   barSize: {x: 1, y: 1, z: 1}
   barOffset: {x: 0, y: 0, z: 0}
   barRotation: {x: 0, y: 0, z: 0}
-  barProgress: 100
-  barMax: 100
+  barProgress: 1000
+  barMax: 1000
   isPlayer: 1
 --- !u!1 &343830074
 GameObject:
