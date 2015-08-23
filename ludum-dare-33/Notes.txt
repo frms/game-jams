@@ -1,0 +1,3 @@
+Comment out debug circles on the movers
+
+Comment out all the Debug.Logs()
