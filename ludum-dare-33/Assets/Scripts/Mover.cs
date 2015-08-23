@@ -13,6 +13,11 @@ public class Mover : MonoBehaviour {
 	internal Rigidbody rb;
 	
 	internal int[] reservedPos;
+
+	public int distToTarget = 2;
+	
+	internal int[] lastEndPos;
+	internal Mover target;
 	
 	// Use this for initialization
 	public virtual void Start () {
@@ -45,6 +50,10 @@ public class Mover : MonoBehaviour {
 	
 	internal void moveUnit ()
 	{
+		if (target != null) {
+			findPathToUnit();
+		}
+
 		Vector2 accel = Vector2.zero;
 	
 		bool standStill = false;
@@ -123,6 +132,22 @@ public class Mover : MonoBehaviour {
 		
 		steeringUtils.steer (accel);
 		steeringUtils.lookWhereYoureGoing ();
+	}
+
+	public void findPathToUnit() {
+		int[] end = Map.map.worldToMapPoint(target.transform.position);
+		
+		if (currentPath == null || lastEndPos == null || lastEndPos [0] != end [0] || lastEndPos [1] != end [1]) { 
+			findPath(target.transform.position);
+			
+			lastEndPos = end;
+		}
+	}
+	
+	public void findPath(Vector3 endPos) {
+		Vector3 startPos = Map.map.mapToWorldPoint(reservedPos[0], reservedPos[1]);
+		
+		currentPath = AStar.findPath(Map.map, startPos, endPos, target, distToTarget);
 	}
 
 	public int findNextUnoccupiedNode(Vector2 pos) {
