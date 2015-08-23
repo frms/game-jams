@@ -314,8 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae69f728fd7bbd429fed3c9067a69d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 30
-  mapHeight: 30
+  mapWidth: 15
+  mapHeight: 15
   tileSize: 1
   tiles:
   - {fileID: 440724, guid: 9033fefc453983d41a74d4e598ecb1da, type: 2}

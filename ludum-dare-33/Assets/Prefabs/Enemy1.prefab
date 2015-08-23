@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049423ef460e2524186c56ba0e274368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopRadius: .0500000007
+  stopRadius: .00499999989
   pathOffset: .600000024
   pathDirection: 1
 --- !u!114 &11445330
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxVelocity: 5
   maxAcceleration: 12.5
-  targetRadius: .0500000007
+  targetRadius: .00499999989
   slowRadius: 1
   timeToTarget: .100000001
   turnSpeed: 20
@@ -170,6 +170,18 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f03a5a0cd743cc344a40fbf29f5ec136, type: 2}
+    - target: {fileID: 0}
+      propertyPath: targetRadius
+      value: .00499999989
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: stopRadius
+      value: .00499999989
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pathOffset
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 169676}
