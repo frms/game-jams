@@ -14,7 +14,6 @@ public class Player : Mover {
 				endPos = getMousePosition ();
 
 				findPath(endPos);
-				lastEndPos = Map.map.worldToMapPoint(endPos);
 			}
 		}
 
