@@ -8,6 +8,8 @@ public class Enemy1 : Mover {
 	private Renderer rend;
 	private Color initialColor;
 
+	private static Color r = new Color(0.957f, 0.263f, 0.212f);
+
 	public override void Start() {
 		base.Start();
 
@@ -16,7 +18,7 @@ public class Enemy1 : Mover {
 	}
 	
 	public virtual void OnMouseEnter() {
-		rend.material.color = Color.red;
+		rend.material.color = r;
 	}
 	
 	public virtual void OnMouseExit() {
