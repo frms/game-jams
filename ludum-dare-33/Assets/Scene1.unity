@@ -98,12 +98,12 @@ GameObject:
   - 222: {fileID: 230849389}
   - 114: {fileID: 230849388}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: GameOverPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &230849387
 RectTransform:
   m_ObjectHideFlags: 0
@@ -225,6 +225,7 @@ MonoBehaviour:
   atkRate: .5
   atkDmg: 5
   bullet: {fileID: 486734, guid: cd6c905573ed4194c95eff71a743b165, type: 2}
+  gameOverPanel: {fileID: 230849386}
 --- !u!114 &279081512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +396,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 60}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 441.600006, y: 105.599998}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &421236360
 MonoBehaviour:
@@ -436,7 +437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .933333337, g: .933333337, b: .933333337, a: 1}
+  m_Color: {r: .960784316, g: .960784316, b: .960784316, a: 1}
   m_FontData:
     m_Font: {fileID: 12800000, guid: 28cee39c06398164c9d24a07638d3cd8, type: 3}
     m_FontSize: 90
@@ -650,7 +651,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -53.5999985, y: -23.5999985}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1520379656
 MonoBehaviour:
@@ -854,8 +855,9 @@ GameObject:
   - 222: {fileID: 2017870311}
   - 114: {fileID: 2017870310}
   - 114: {fileID: 2017870309}
+  - 114: {fileID: 2017870312}
   m_Layer: 5
-  m_Name: Button
+  m_Name: RestartBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -917,7 +919,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2017870310}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2017870312}
+        m_MethodName: restart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2017870310
@@ -947,6 +960,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2017870307}
+--- !u!114 &2017870312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2017870307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebc395fef6fe0b4b9542483306cc5b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2021954805
 GameObject:
   m_ObjectHideFlags: 0

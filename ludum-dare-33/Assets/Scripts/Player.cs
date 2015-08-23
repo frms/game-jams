@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Player : Mover {
 
+	public GameObject gameOverPanel;
+
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetMouseButtonDown(1)) {
@@ -43,5 +45,9 @@ public class Player : Mover {
 		mousePos.z = -1 * Camera.main.transform.position.z;
 
 		return Camera.main.ScreenToWorldPoint (mousePos);
+	}
+
+	void OnDestroy() {
+		gameOverPanel.SetActive(true);
 	}
 }
