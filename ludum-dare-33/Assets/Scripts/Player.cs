@@ -6,6 +6,8 @@ public class Player : Mover {
 	public float critChance = 0.3f;
 	public float[] critMult = new float[]{1.5f, 2.2f};
 
+	public AudioClip suckClip;
+
 	public GameObject gameOverPanel;
 
 	// Update is called once per frame
@@ -30,6 +32,7 @@ public class Player : Mover {
 				Enemy1 e = target as Enemy1;
 				if(e.isDead()) {
 					e.IAmBeingEaten = true;
+					AudioSource.PlayClipAtPoint(suckClip, Camera.main.transform.position);
 				}
 			} else {
 				enemyHealth = null;
