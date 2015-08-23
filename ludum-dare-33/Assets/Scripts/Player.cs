@@ -33,7 +33,7 @@ public class Player : Mover {
 
 		moveUnit ();
 
-		if (enemyHealth != null && diagonalDist(reservedPos, target.reservedPos) <= (distToTarget + 0.5f)) {
+		if (enemyHealth != null && diagonalDist(reservedPos, target.reservedPos) <= distToTarget) {
 			//Look at the target and stop moving
 			steeringUtils.lookAtDirection (target.transform.position - transform.position);
 			
@@ -64,7 +64,7 @@ public class Player : Mover {
 
 
 	private static float D = 1;
-	private static float D2 = Mathf.Sqrt (2) * D;
+	private static float D2 = D;
 	
 	public float diagonalDist(int[] node, int[] goal) {
 		int dx = Mathf.Abs (node [0] - goal [0]);

@@ -19,7 +19,7 @@ public class AStar {
 	class DiagonalDistHeuristic {
 		private int[] goal;
 		private static float D = 1;
-		private static float D2 = Mathf.Sqrt (2) * D;
+		private static float D2 = D;
 
 
 		public DiagonalDistHeuristic(int[] goal) {
@@ -83,11 +83,6 @@ public class AStar {
 		int[] end = graph.worldToMapPoint(endPos);
 
 		DiagonalDistHeuristic diagHeuristic = new DiagonalDistHeuristic (end);
-
-		// Ooph too tired to put into words why this needs to be here
-		if(target != null) {
-			distToTarget += 1;
-		}
 
 		/* Using diagonal distance since I assume this graph is a 8 direction grid.
 		 * Make AStar more customizable with more distance heuristics (like Euclidean) */
