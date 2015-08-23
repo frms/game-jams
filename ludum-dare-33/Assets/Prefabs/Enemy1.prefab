@@ -15,6 +15,7 @@ GameObject:
   - 23: {fileID: 2393480}
   - 54: {fileID: 5497024}
   - 135: {fileID: 13526412}
+  - 114: {fileID: 11497492}
   m_Layer: 8
   m_Name: Enemy1
   m_TagString: Untagged
@@ -128,7 +129,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugCircle: {fileID: 490440, guid: 9eb57c0af05105f429e0dd4e76a7cb46, type: 2}
+  reservedPos: 
+  distToTarget: 2
   isLooping: 0
+--- !u!114 &11497492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20b8b58303ad6f428e72b7b472434fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barPrefab: {fileID: 145622, guid: c492c7038d6a9034f94b5b82371aa020, type: 2}
+  barSize: {x: .699999988, y: .150000006, z: 1}
+  barOffset: {x: -.349999994, y: .5, z: -.300000012}
+  barRotation: {x: 0, y: 0, z: 0}
+  barProgress: 100
+  barMax: 100
 --- !u!135 &13526412
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -195,6 +215,34 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barPrefab
+      value: 
+      objectReference: {fileID: 145622, guid: c492c7038d6a9034f94b5b82371aa020, type: 2}
+    - target: {fileID: 0}
+      propertyPath: barSize.x
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barSize.y
+      value: .150000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barOffset.x
+      value: -.349999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barOffset.y
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barOffset.z
+      value: -.300000012
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barSize.z
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
