@@ -10,6 +10,7 @@ public class Enemy1 : Mover {
 	private Color initialColor;
 
 	private static Color r = new Color( 1f, 0.341f, 0.133f);
+	private static Color w = new Color( 0.933f, 0.933f, 0.933f);
 
 	internal Transform playerTrans;
 
@@ -23,13 +24,19 @@ public class Enemy1 : Mover {
 
 		playerTrans = GameObject.Find("Player").transform;
 	}
-	
+
+	internal bool isMouseOver = false;
+	private Color rememberColor;
+
 	public virtual void OnMouseEnter() {
+		rememberColor = rend.material.color;
 		rend.material.color = r;
+		isMouseOver = true;
 	}
 	
 	public virtual void OnMouseExit() {
-		rend.material.color = initialColor;
+		rend.material.color = rememberColor;
+		isMouseOver = false;
 	}
 
 	// Update is called once per frame
@@ -52,8 +59,10 @@ public class Enemy1 : Mover {
 		return timeToDisappear != Mathf.Infinity;
 	}
 
+	public float decayTime = 3f;
+
 	public void IAmDead() {
-		timeToDisappear = Time.time + 3f;
+		timeToDisappear = Time.time + decayTime;
 
 		Map.enemiesRemaining--;
 	}
@@ -73,6 +82,7 @@ public class Enemy1 : Mover {
 			}
 
 			if(transform.position == playerTrans.position) {
+				givePlayerLove();
 				Destroy(gameObject);
 			}
 
@@ -84,11 +94,21 @@ public class Enemy1 : Mover {
 			
 			steeringUtils.steer (accel);
 			steeringUtils.lookWhereYoureGoing ();
+
+			if(!isMouseOver) {
+				float t = (timeToDisappear - Time.time) / decayTime;
+				rend.material.color = Color.Lerp(w, initialColor, t);
+			}
 		}
 
 		if(!IAmBeingEaten && timeToDisappear < Time.time) {
 			Destroy(gameObject);
 		}
+	}
+
+	public virtual void givePlayerLove() {
+		HealthBar hb = playerTrans.GetComponent<HealthBar>();
+		hb.applyDamage(-15f);
 	}
 
 	public bool isAtEndOfPath () {

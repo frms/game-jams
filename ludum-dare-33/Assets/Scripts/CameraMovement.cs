@@ -16,7 +16,8 @@ public class CameraMovement : MonoBehaviour {
 	// LateUpdate is called once per frame after the other normal Update functions have already run
 	void LateUpdate () {
 		//Debug.Log (Vector2.Distance (transform.position, target.position));
-
-		transform.position = target.position + displacement;
+		if(target != null) {
+			transform.position = target.position + displacement;
+		}
 	}
 }

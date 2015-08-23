@@ -452,7 +452,6 @@ MonoBehaviour:
   - 1.5
   - 2.20000005
   gameOverPanel: {fileID: 230849386}
-  IAmEating: 0
 --- !u!114 &279081512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,8 +525,8 @@ MonoBehaviour:
   barSize: {x: 1, y: 1, z: 1}
   barOffset: {x: 0, y: 0, z: 0}
   barRotation: {x: 0, y: 0, z: 0}
-  barProgress: 1000
-  barMax: 1000
+  barProgress: 100
+  barMax: 100
   isPlayer: 1
 --- !u!1 &343830074
 GameObject:
