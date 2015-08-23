@@ -539,7 +539,9 @@ MonoBehaviour:
   mapHeight: 15
   tileSize: 1
   tiles:
+  - {fileID: 0}
   - {fileID: 440724, guid: 9033fefc453983d41a74d4e598ecb1da, type: 2}
+  - {fileID: 456922, guid: 74ee00859a1ab414d98b8cb4ca5db60d, type: 2}
   player: {fileID: 279081510}
   enemyTypes:
   - {fileID: 496218, guid: 65e9a4a87750dcb4d9eac5a730486eff, type: 2}

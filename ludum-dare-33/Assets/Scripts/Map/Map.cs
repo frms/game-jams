@@ -19,6 +19,14 @@ public class Map : MonoBehaviour {
 
 		for(int x = 0; x < map.width; x++) {
 			for(int y = 0; y < map.height; y++) {
+				map.tiles[x,y] = 1;
+			}
+		}
+
+		map.tiles[(map.width / 2) - 5, map.height / 2 + 3] = 2;
+
+		for(int x = 0; x < map.width; x++) {
+			for(int y = 0; y < map.height; y++) {
 				placeThing(x, y, tiles[ map.tiles[x,y] ]);
 			}
 		}

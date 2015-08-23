@@ -142,7 +142,7 @@ public class MapData {
 	}
 
 	private bool isWalkable(int x, int y, MonoBehaviour target, bool tilesOnly) {
-		bool walkable = tiles [x, y] == 0;
+		bool walkable = tiles [x, y] == 1;
 
 		if(tilesOnly == false) {
 			if(target == null) {

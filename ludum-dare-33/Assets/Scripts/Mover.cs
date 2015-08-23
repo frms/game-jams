@@ -190,7 +190,7 @@ public class Mover : MonoBehaviour {
 			
 			if (Time.time > nextFire) {
 				nextFire = Time.time + atkRate;
-				Transform clone = Instantiate (bullet, transform.position, Quaternion.identity) as Transform;
+				Transform clone = Instantiate (bullet, transform.position + Bullet.aboveGround, Quaternion.identity) as Transform;
 				clone.GetComponent<Bullet> ().setUp (enemyHealth, atkDmg);
 			}
 		}

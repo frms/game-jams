@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
+	public static Vector3 aboveGround = 0.3f * Vector3.back;
+
 	public float speed = 8f;
 
 	private HealthBar target;
@@ -20,12 +22,12 @@ public class Bullet : MonoBehaviour {
 			return;
 		}
 
-		if (transform.position == target.transform.position) {
+		if ((transform.position.x == target.transform.position.x) && (transform.position.y == target.transform.position.y)) {
 			target.applyDamage (atkDmg);
 			Destroy (gameObject);
 		} else {
 			float step = speed * Time.deltaTime;
-			transform.position = Vector3.MoveTowards (transform.position, target.transform.position, step);
+			transform.position = Vector3.MoveTowards (transform.position, target.transform.position + aboveGround, step);
 		}
 	}
 }
