@@ -68,7 +68,7 @@ public class Enemy1 : Mover {
 	}
 
 	public bool IAmBeingEaten = false;
-	public float eatenSpeed = 3f;
+	public float eatenSpeed = 5f;
 
 	public void checkForDeath() {
 

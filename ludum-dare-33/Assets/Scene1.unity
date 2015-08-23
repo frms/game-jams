@@ -555,12 +555,15 @@ MonoBehaviour:
   distToTarget: 2
   atkRate: .5
   atkDmg: 5
-  bullet: {fileID: 486734, guid: cd6c905573ed4194c95eff71a743b165, type: 2}
+  bullet: {fileID: 440662, guid: 109417d5f74e0a24d99ba47ef188a758, type: 2}
+  shootSound: {fileID: 0}
+  shootVolume: 1
   critChance: .300000012
   critMult:
   - 1.5
   - 2.20000005
   suckClip: {fileID: 8300000, guid: b63ea658a88c7ca409b9c0adba810fe7, type: 3}
+  loseClip: {fileID: 8300000, guid: 34a39cd7a9295f34c93d453048c5a83f, type: 3}
   gameOverPanel: {fileID: 230849386}
 --- !u!114 &279081512
 MonoBehaviour:
@@ -638,6 +641,8 @@ MonoBehaviour:
   barProgress: 100
   barMax: 100
   isPlayer: 1
+  hurtClip: {fileID: 8300000, guid: 5c312547cdb7d704397d68afafd3798c, type: 3}
+  hurtVolume: .5
 --- !u!1 &343830074
 GameObject:
   m_ObjectHideFlags: 0

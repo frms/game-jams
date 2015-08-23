@@ -7,6 +7,7 @@ public class Player : Mover {
 	public float[] critMult = new float[]{1.5f, 2.2f};
 
 	public AudioClip suckClip;
+	public AudioClip loseClip;
 
 	public GameObject gameOverPanel;
 
@@ -67,6 +68,10 @@ public class Player : Mover {
 			steeringUtils.lookAtDirection (target.transform.position - transform.position);
 			
 			if (Time.time > nextFire) {
+				if(shootSound != null) {
+					AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, shootVolume);
+				}
+
 				nextFire = Time.time + atkRate;
 				Transform clone = Instantiate (bullet, transform.position + Bullet.aboveGround, Quaternion.identity) as Transform;
 
@@ -83,6 +88,9 @@ public class Player : Mover {
 
 	void OnDestroy() {
 		if(gameOverPanel != null) {
+			if(Camera.main != null) {
+				AudioSource.PlayClipAtPoint(loseClip, Camera.main.transform.position);
+			}
 			gameOverPanel.SetActive(true);
 		}
 	}

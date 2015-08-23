@@ -41,8 +41,15 @@ public class HealthBar : MonoBehaviour {
 		bar.localScale = new Vector3((barProgress/barMax) * barSize.x, barSize.y, barSize.z);
 	}
 
+	public AudioClip hurtClip;
+	public float hurtVolume = 1f;
+
 	public void applyDamage(float damage) {
 		barProgress -= damage;
+
+		if(hurtClip != null && damage > 0) {
+			AudioSource.PlayClipAtPoint(hurtClip, Camera.main.transform.position, hurtVolume);
+		}
 		
 		// Kill the game obj if it loses all its health
 		if(barProgress <= 0) {

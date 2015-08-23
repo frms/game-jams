@@ -113,6 +113,8 @@ MonoBehaviour:
   barProgress: 12
   barMax: 12
   isPlayer: 0
+  hurtClip: {fileID: 8300000, guid: 131ad5f5bfb478a4196dd9a3a0c126eb, type: 3}
+  hurtVolume: 1
 --- !u!114 &11462764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,10 +151,15 @@ MonoBehaviour:
   debugCircle: {fileID: 490440, guid: 9eb57c0af05105f429e0dd4e76a7cb46, type: 2}
   reservedPos: 
   distToTarget: 2
-  atkRate: .5
+  atkRate: .888800025
   atkDmg: 5
   bullet: {fileID: 486734, guid: cd6c905573ed4194c95eff71a743b165, type: 2}
+  shootSound: {fileID: 0}
+  shootVolume: .699999988
   isLooping: 0
+  decayTime: 3
+  IAmBeingEaten: 0
+  eatenSpeed: 5
   wanderBoxSize: 3
   nextWander: 0
   wanderRate:
@@ -221,6 +228,26 @@ Prefab:
       propertyPath: barMax
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shootSound
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shootVolume
+      value: .699999988
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: eatenSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: atkRate
+      value: .888800025
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hurtClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 131ad5f5bfb478a4196dd9a3a0c126eb, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 140744}

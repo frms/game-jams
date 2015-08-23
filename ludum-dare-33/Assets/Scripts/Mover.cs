@@ -183,12 +183,19 @@ public class Mover : MonoBehaviour {
 		return accel;
 	}
 
+	public AudioClip shootSound;
+	public float shootVolume = 1f;
+
 	public void tryToAttack() {
 		if (enemyHealth != null && diagonalDist(reservedPos, target.reservedPos) <= distToTarget) {
 			//Look at the target and stop moving
 			steeringUtils.lookAtDirection (target.transform.position - transform.position);
 			
 			if (Time.time > nextFire) {
+				if(shootSound != null) {
+					AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, shootVolume);
+				}
+
 				nextFire = Time.time + atkRate;
 				Transform clone = Instantiate (bullet, transform.position + Bullet.aboveGround, Quaternion.identity) as Transform;
 				clone.GetComponent<Bullet> ().setUp (enemyHealth, atkDmg);
