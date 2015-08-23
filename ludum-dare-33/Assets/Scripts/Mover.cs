@@ -12,7 +12,7 @@ public class Mover : MonoBehaviour {
 	internal FollowPath followPath;
 	internal Rigidbody rb;
 	
-	internal int[] reservedPos;
+	public int[] reservedPos;
 
 	public int distToTarget = 2;
 	
@@ -135,10 +135,11 @@ public class Mover : MonoBehaviour {
 	}
 
 	public void findPathToUnit() {
-		int[] end = Map.map.worldToMapPoint(target.transform.position);
+		int[] end = target.reservedPos;
 		
 		if (currentPath == null || lastEndPos == null || lastEndPos [0] != end [0] || lastEndPos [1] != end [1]) { 
-			findPath(target.transform.position);
+			Vector3 endPos = Map.map.mapToWorldPoint(end[0], end[1]);
+			findPath(endPos);
 			
 			lastEndPos = end;
 		}
