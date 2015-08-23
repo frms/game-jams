@@ -535,15 +535,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae69f728fd7bbd429fed3c9067a69d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 15
-  mapHeight: 15
+  mapWidth: 48
+  mapHeight: 27
   tileSize: 1
-  numberOfRooms: 20
+  numberOfRooms: 30
   overlappingRooms: 0
   mirrorMap: 0
   roomWidthRange: 0400000008000000
   roomHeightRange: 0400000008000000
-  innerHallwayWidthRange: 0100000001000000
+  innerHallwayWidthRange: 0200000003000000
   tiles:
   - {fileID: 0}
   - {fileID: 440724, guid: 9033fefc453983d41a74d4e598ecb1da, type: 2}
