@@ -18,6 +18,14 @@ public class Mover : MonoBehaviour {
 	
 	internal int[] lastEndPos;
 	internal Mover target;
+
+	public float atkRate = 0.5F;
+	public float atkDmg = 5f;
+	
+	public Transform bullet;
+	
+	internal HealthBar enemyHealth;
+	internal float nextFire = 0.0F;
 	
 	// Use this for initialization
 	public virtual void Start () {
@@ -173,5 +181,27 @@ public class Mover : MonoBehaviour {
 		myDebugCircle.position = targetPosition;
 
 		return accel;
+	}
+
+	public void tryToAttack() {
+		if (enemyHealth != null && diagonalDist(reservedPos, target.reservedPos) <= distToTarget) {
+			//Look at the target and stop moving
+			steeringUtils.lookAtDirection (target.transform.position - transform.position);
+			
+			if (Time.time > nextFire) {
+				nextFire = Time.time + atkRate;
+				Transform clone = Instantiate (bullet, transform.position, Quaternion.identity) as Transform;
+				clone.GetComponent<Bullet> ().setUp (enemyHealth, atkDmg);
+			}
+		}
+	}
+
+	private static float D = 1;
+	private static float D2 = D;
+	
+	public float diagonalDist(int[] node, int[] goal) {
+		int dx = Mathf.Abs (node [0] - goal [0]);
+		int dy = Mathf.Abs (node [1] - goal [1]);
+		return D * (dx + dy) + (D2 - 2 * D) * Mathf.Min (dx, dy);
 	}
 }

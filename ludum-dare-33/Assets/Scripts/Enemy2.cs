@@ -9,10 +9,13 @@ public class Enemy2 : Enemy1 {
 
 		GameObject player = GameObject.Find("Player");
 		target = player.GetComponent<Mover>();
+		enemyHealth = target.GetComponent<HealthBar>();
 	}
 	
-//	// Update is called once per frame
-//	void Update () {
-//	
-//	}
+	// Update is called once per frame
+	public override void Update () {
+		moveUnit ();
+
+		tryToAttack();
+	}
 }
