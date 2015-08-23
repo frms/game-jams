@@ -8,6 +8,8 @@ public class Player : Mover {
 
 	public GameObject gameOverPanel;
 
+	public bool IAmEating = false;
+
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetMouseButtonDown(1)) {
@@ -26,6 +28,12 @@ public class Player : Mover {
 
 			if(target != null && target.tag == "Enemy") {
 				enemyHealth = target.GetComponent<HealthBar>();
+
+				Enemy1 e = target as Enemy1;
+				if(e.isDead()) {
+					e.IAmBeingEaten = true;
+					IAmEating = true;
+				}
 			} else {
 				enemyHealth = null;
 			}
@@ -34,11 +42,6 @@ public class Player : Mover {
 		moveUnit ();
 
 		playerTryToAttack();
-
-//		float v = GetComponent<Rigidbody>().velocity.magnitude;
-//		if(v > 0) {
-//			Debug.Log(name + " " + v);
-//		}
 	}
 
 	private Mover getTarget() {

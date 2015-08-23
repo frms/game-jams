@@ -452,6 +452,7 @@ MonoBehaviour:
   - 1.5
   - 2.20000005
   gameOverPanel: {fileID: 230849386}
+  IAmEating: 0
 --- !u!114 &279081512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVelocity: 5
-  maxAcceleration: 20
+  maxAcceleration: 17
   targetRadius: .0500000007
   slowRadius: .730000019
   timeToTarget: .100000001

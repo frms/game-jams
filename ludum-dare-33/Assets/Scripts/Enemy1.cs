@@ -11,6 +11,8 @@ public class Enemy1 : Mover {
 
 	private static Color r = new Color( 1f, 0.341f, 0.133f);
 
+	internal Transform playerTrans;
+
 	public override void Start() {
 		base.Start();
 
@@ -18,6 +20,8 @@ public class Enemy1 : Mover {
 		initialColor = rend.material.color;
 
 		nextWander = Time.time + Random.Range(jumpStartWanderRate[0], jumpStartWanderRate[1]);
+
+		playerTrans = GameObject.Find("Player").transform;
 	}
 	
 	public virtual void OnMouseEnter() {
@@ -31,7 +35,7 @@ public class Enemy1 : Mover {
 	// Update is called once per frame
 	public virtual void Update () {
 		checkForDeath();
-		if(timeToDisappear != Mathf.Infinity) {
+		if(timeToDisappear != Mathf.Infinity || IAmBeingEaten) {
 			return;
 		}
 
@@ -44,15 +48,37 @@ public class Enemy1 : Mover {
 
 	internal float timeToDisappear = Mathf.Infinity;
 
+	public bool isDead() {
+		return timeToDisappear != Mathf.Infinity;
+	}
+
 	public void IAmDead() {
-		timeToDisappear = Time.time + 2f;
+		timeToDisappear = Time.time + 3f;
 
 		Map.enemiesRemaining--;
 	}
 
 	public bool IAmBeingEaten = false;
+	public float eatenSpeed = 3f;
 
 	public void checkForDeath() {
+
+		if(IAmBeingEaten) {
+			float step = eatenSpeed * Time.deltaTime;
+			transform.position = Vector2.MoveTowards(transform.position, playerTrans.position, step);
+
+			float dist = Vector3.Distance(transform.position, playerTrans.position);
+			if( dist < 1f ) {
+				transform.localScale = new Vector3(dist, dist, dist);
+			}
+
+			if(transform.position == playerTrans.position) {
+				Destroy(gameObject);
+			}
+
+			return;
+		}
+
 		if(timeToDisappear != Mathf.Infinity) {
 			Vector2 accel = steeringUtils.arrive (Map.map.mapToWorldPoint (reservedPos [0], reservedPos [1]));
 			

@@ -22,7 +22,7 @@ public class Enemy2 : Enemy1 {
 	// Update is called once per frame
 	public override void Update () {
 		checkForDeath();
-		if(timeToDisappear != Mathf.Infinity) {
+		if(timeToDisappear != Mathf.Infinity || IAmBeingEaten) {
 			return;
 		}
 
