@@ -13,7 +13,7 @@ public class Player : Mover {
 
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetMouseButtonDown(1)) {
+		if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) {
 			target = getTarget();
 
 			Vector3 endPos;
