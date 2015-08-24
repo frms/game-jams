@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(Map.enemiesRemaining <= 0) {
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		if(enemies.Length <= 0) {
 			winPanel.SetActive(true);
 		}
 	}
