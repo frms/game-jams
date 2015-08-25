@@ -826,6 +826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winPanel: {fileID: 2040132572}
+  sceneIsEnding: 0
 --- !u!4 &643042743
 Transform:
   m_ObjectHideFlags: 0

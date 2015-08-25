@@ -87,7 +87,7 @@ public class Player : Mover {
 	}
 
 	void OnDestroy() {
-		if(gameOverPanel != null) {
+		if(gameOverPanel != null && !GameManager.Instance.sceneIsEnding) {
 			if(Camera.main != null) {
 				AudioSource.PlayClipAtPoint(loseClip, Camera.main.transform.position);
 			}
