@@ -70,7 +70,7 @@ public class LinePath  {
 		for(int i = 1; i < nodes.Length - 1; i++) {
 			float dist = distToSegment(position, nodes[i], nodes[i+1]);
 			
-			if(dist < closestDist) {
+			if(dist <= closestDist) {
 				closestDist = dist;
 				closestSegment = i;
 			}
