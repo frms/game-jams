@@ -247,8 +247,8 @@ public class AStar {
 
 	private static void smoothPath (TeamMember target, List<Vector3> path)
 	{
-		bool saveSetting = Physics2D.raycastsStartInColliders;
-		Physics2D.raycastsStartInColliders = false;
+		bool saveSetting = Physics2D.queriesStartInColliders;
+		Physics2D.queriesStartInColliders = false;
 
 		int originIndex = 0;
 
@@ -266,7 +266,7 @@ public class AStar {
 			}
 		}
 
-		Physics2D.raycastsStartInColliders = saveSetting;
+		Physics2D.queriesStartInColliders = saveSetting;
 	}
 
 }
