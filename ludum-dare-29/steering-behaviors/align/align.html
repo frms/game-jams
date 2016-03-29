@@ -1,0 +1,32 @@
+<html>
+<head>
+	<script src="../common/js/jquery-2.0.3.min.js"></script>
+	<script src="../common/js/gl-matrix.js"></script>
+	<script src="../common/js/misc.js"></script>
+	<script src="../common/js/camera.js"></script>
+	<script src="../common/js/game-data.js"></script>
+	<script src="js/align.js"></script>
+	<script src="js/main.js"></script>
+	
+	<style>
+        #content {
+            width: 1024px;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+	<div id="content">
+        <canvas id="gameCanvas" width="1024" height="576"></canvas>
+        <div>
+			<p>
+				<form>
+					Orientation: <input id="orientation" type="number" name="orientation"> <input type="submit" value="Align">
+				</form>
+			</p>
+            <span id="fps">FPS:</span> 
+        </div>
+    </div>
+</body>
+</html>

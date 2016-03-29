@@ -1,0 +1,3 @@
+look into min dot product (I think we only do cohesion and vel matching for stuff in front of you
+
+find the right weights for the 3 algs

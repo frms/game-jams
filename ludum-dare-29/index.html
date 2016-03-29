@@ -1,0 +1,58 @@
+<html>
+<head>
+    <title>Rat King</title>
+	<script src="steering-behaviors/common/js/jquery-2.0.3.min.js"></script>
+	<script src="steering-behaviors/common/js/gl-matrix.js"></script>
+	<script src="steering-behaviors/common/js/misc.js"></script>
+	<script src="steering-behaviors/common/js/camera.js"></script>
+	<script src="steering-behaviors/common/js/game-data.js"></script>
+    <script src="steering-behaviors/align/js/align.js"></script>
+	<script src="steering-behaviors/seek/js/seek.js"></script>
+	<script src="steering-behaviors/arrive/js/arrive.js"></script>
+	<script src="steering-behaviors/velocity-match/js/velocity-match.js"></script>
+	<script src="steering-behaviors/separation/js/separation.js"></script>
+	<script src="steering-behaviors/look-where-youre-going/js/look-where-youre-going.js"></script>
+	<script src="steering-behaviors/flocking/js/cohesion.js"></script>
+	<script src="steering-behaviors/flocking/js/flocking.js"></script>
+	<script src="steering-behaviors/flocking/js/main.js"></script>
+	
+	<style>
+        #content {
+            width: 1024px;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        #content p, #content form {
+            margin: 0px;
+        }
+        
+        #gameCanvas {
+            background-image: url('steering-behaviors/common/images/ground.png');
+        }
+        #gameCanvas:-webkit-full-screen {
+            position:fixed;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+        }  
+    </style>
+</head>
+<body>
+	<audio id="music" loop>
+		<source src="steering-behaviors/common/sound/music1.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+    <audio id="attackSound">
+		<source src="steering-behaviors/common/sound/attacksoung2.wav" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+	<div id="content">
+        <canvas id="gameCanvas" width="1024" height="576"></canvas>
+        <div>
+            <span id="fps">FPS:</span> 
+        </div>
+    </div>
+</body>
+</html>

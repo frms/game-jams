@@ -1,0 +1,34 @@
+<html>
+<head>
+	<title>Arrive</title>
+	
+	<script src="js/helper/jquery-2.0.3.min.js"></script>
+	<script src="js/helper/gl-matrix.js"></script>
+	<script src="js/helper/misc.js"></script>
+	<script src="js/helper/camera.js"></script>
+	<script src="js/game-data.js"></script>
+	<script src="js/arrive.js"></script>
+	<script src="js/main.js"></script>
+	
+	<style>
+        #content {
+            width: 1024px;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+	<div id="content">
+        <canvas id="gameCanvas" width="1024" height="576"></canvas>
+        <div>
+			<p>
+				<form id="arrive">
+					x: <input id="x" type="number" name="x"> z: <input id="z" type="number" name="z"> <input type="submit" value="Arrive">
+				</form>
+			</p>
+            <span id="fps">FPS:</span> 
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<html>
+<head>
+	<script src="../common/js/jquery-2.0.3.min.js"></script>
+	<script src="../common/js/gl-matrix.js"></script>
+	<script src="../common/js/misc.js"></script>
+	<script src="../common/js/camera.js"></script>
+	<script src="../common/js/game-data.js"></script>
+	<script src="js/seek.js"></script>
+	<script src="js/main.js"></script>
+	
+	<style>
+        #content {
+            width: 1024px;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+	<div id="content">
+        <canvas id="gameCanvas" width="1024" height="576"></canvas>
+        <div>
+			<p>
+				<form>
+					x: <input id="x" type="number" name="x"> z: <input id="z" type="number" name="z"> <input type="submit" value="Seek">
+				</form>
+			</p>
+            <span id="fps">FPS:</span> 
+        </div>
+    </div>
+</body>
+</html>
