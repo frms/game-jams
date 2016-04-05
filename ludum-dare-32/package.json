@@ -1,0 +1,21 @@
+{
+  "name": "ld32",
+  "version": "0.0.1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "~4.9.x",
+    "extend": "^2.0.0",
+    "performance-now": "^0.2.0",
+    "ws": "^0.7.1"
+  },
+  "engines": {
+    "node": "0.12.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antonpantev/ld32"
+  }
+}
