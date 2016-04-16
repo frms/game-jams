@@ -1,22 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Map : MonoBehaviour {
+public class Map : MonoBehaviour
+{
     public int width = 80;
     public int height = 45;
 
     [Range(0, 1)]
     public float percentWall = 0.4f;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
 
-	}
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     int[,] map;
 
@@ -28,7 +31,7 @@ public class Map : MonoBehaviour {
 
         createGameObjects();
 
-        Debug.Log( ((float) transform.childCount) / ((width) * (height)));
+        Debug.Log(((float)transform.childCount) / ((width) * (height)));
     }
 
     private void randomFillMap()
