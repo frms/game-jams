@@ -6,6 +6,8 @@ public class Map : MonoBehaviour
     public int width = 80;
     public int height = 45;
 
+    public int smoothRuns;
+
     [Range(0, 1)]
     public float percentWall = 0.4f;
 
@@ -28,6 +30,11 @@ public class Map : MonoBehaviour
         map = new int[width, height];
 
         randomFillMap();
+
+        for (int i = 0; i < smoothRuns; i++)
+        {
+            smoothMap();
+        }
 
         createGameObjects();
 
@@ -54,6 +61,51 @@ public class Map : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void smoothMap()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                int count = getWallCount(x, y);
+
+                if (count > 4)
+                {
+                    map[x, y] = 1;
+                }
+                else if (count < 4)
+                {
+                    map[x, y] = 0;
+                }
+            }
+        }
+    }
+
+    private int getWallCount(int x, int y)
+    {
+        int count = 0;
+
+        for (int i = x - 1; i <= x + 1; i++)
+        {
+            for (int j = y - 1; j <= y + 1; j++)
+            {
+                if (i >= 0 && i < width && j >= 0 && j < height)
+                {
+                    if (i != x || j != y)
+                    {
+                        count += map[i, j];
+                    }
+                }
+                else
+                {
+                    count++;
+                }
+            }
+        }
+
+        return count;
     }
 
     private void createGameObjects()
