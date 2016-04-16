@@ -11,18 +11,6 @@ public class Map : MonoBehaviour
     [Range(0, 1)]
     public float percentWall = 0.4f;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     int[,] map;
 
     public void buildMap()
@@ -38,7 +26,8 @@ public class Map : MonoBehaviour
 
         createGameObjects();
 
-        Debug.Log(((float)transform.childCount) / ((width) * (height)));
+        Transform ground = GameObject.Find("Ground").transform;
+        ground.localScale = new Vector3(width / 10f, 1f, height / 10f);
     }
 
     private void randomFillMap()
