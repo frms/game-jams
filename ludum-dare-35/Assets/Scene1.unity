@@ -2560,6 +2560,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 55994840}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &56572473
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 455198, guid: 2d852fb609c7d2d4dbaf51b31da1579a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455198, guid: 2d852fb609c7d2d4dbaf51b31da1579a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455198, guid: 2d852fb609c7d2d4dbaf51b31da1579a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455198, guid: 2d852fb609c7d2d4dbaf51b31da1579a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455198, guid: 2d852fb609c7d2d4dbaf51b31da1579a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455198, guid: 2d852fb609c7d2d4dbaf51b31da1579a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 455198, guid: 2d852fb609c7d2d4dbaf51b31da1579a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 455198, guid: 2d852fb609c7d2d4dbaf51b31da1579a, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 2d852fb609c7d2d4dbaf51b31da1579a, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &58420415
 GameObject:
   m_ObjectHideFlags: 0
@@ -29789,7 +29831,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &704891974
 AudioListener:
   m_ObjectHideFlags: 0
@@ -84181,7 +84223,8 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e56a7c1705dd46d46a14e0d8fc20cc18, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: fee010b9440b3434c90aeb12ff1a4d06, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: fee010b9440b3434c90aeb12ff1a4d06, type: 3}
   m_IsPrefabParent: 0
 --- !u!1 &1871492584
