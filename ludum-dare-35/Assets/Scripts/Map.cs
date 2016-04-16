@@ -113,7 +113,7 @@ public class Map : MonoBehaviour
                 if (map[x, y] == 1)
                 {
                     GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    go.transform.position = new Vector3(-width / 2 + x + .5f, 0, -height / 2 + y + .5f);
+                    go.transform.position = new Vector3(-width / 2 + x + .5f, 0.5f, -height / 2 + y + .5f);
                     go.transform.parent = transform;
                 }
             }
