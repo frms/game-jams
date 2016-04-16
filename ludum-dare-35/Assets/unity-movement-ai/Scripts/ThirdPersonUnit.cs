@@ -17,6 +17,9 @@ public class ThirdPersonUnit : MonoBehaviour {
     private float vertAxis = 0f;
     private float sideStepDir = 0f;
 
+    public Transform bulletSpawnPoint;
+    public Transform bulletPrefab;
+
     // Use this for initialization
     void Start()
     {
@@ -32,12 +35,21 @@ public class ThirdPersonUnit : MonoBehaviour {
         if (Input.GetKey(KeyCode.Q))
         {
             sideStepDir = 1f;
-        } else if (Input.GetKey(KeyCode.E))
+        }
+        else if (Input.GetKey(KeyCode.E))
         {
             sideStepDir = -1f;
-        } else
+        }
+        else
         {
             sideStepDir = 0f;
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Vector3 eulerAngles = bulletPrefab.eulerAngles;
+            eulerAngles.y = transform.eulerAngles.y;
+            Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.Euler(eulerAngles));
         }
     }
 
