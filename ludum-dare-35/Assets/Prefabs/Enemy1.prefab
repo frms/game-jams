@@ -131,7 +131,12 @@ MonoBehaviour:
   barMax: 5
   hurtClip: {fileID: 0}
   hurtVolume: 1
-  fadeInTime: 2.5
+  fadeInTime:
+  - 1.75
+  - 2.5
+  fadeOutTime:
+  - 0.25
+  - 0.65
   explodeDist: 0.85
   explodeDmg: 15
 --- !u!114 &11461768
@@ -191,6 +196,14 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: fadeInTime.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fadeOutTime.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 19fc278d23f7fe84592b88c08e2c8e65, type: 2}
@@ -225,6 +238,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Name
       value: Enemy1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fadeInTime.Array.data[0]
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fadeInTime.Array.data[1]
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fadeOutTime.Array.data[0]
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fadeOutTime.Array.data[1]
+      value: 0.65
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -36,7 +36,9 @@ public class Fader : MonoBehaviour {
         checkMat();
 
         desiredAlpha = targetAlpha;
-        speed = (desiredAlpha - mat.color.a) / time;
+        speed = Mathf.Abs(desiredAlpha - mat.color.a) / time;
+
+        done = false;
 
         StopCoroutine("fade");
         StartCoroutine("fade");
@@ -44,8 +46,6 @@ public class Fader : MonoBehaviour {
 
     IEnumerator fade()
     {
-        done = false;
-
         while (mat.color.a != desiredAlpha)
         {
             float difference = desiredAlpha - mat.color.a;

@@ -24,7 +24,7 @@ public class Player: Health {
     public Transform bulletPrefab;
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         rb = GetComponent<MovementAIRigidbody>();
     }

@@ -27,11 +27,18 @@ public class Enemy1 : Enemy {
         rb = GetComponent<Rigidbody>();
 
         Vector3 screenDiag = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 10)) - Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 10));
-        awakeDist = 1.1f * Mathf.Max(screenDiag.x, screenDiag.z);
+        awakeDist = 0.95f * Mathf.Min(screenDiag.x, screenDiag.z);
     }
 
     void FixedUpdate()
     {
+        if(barProgress <= 0 && f.done)
+        {
+            Map m = GameObject.Find("Map").GetComponent<Map>();
+            m.spawn(1);
+            Destroy(gameObject);
+        }
+
         if(player == null)
         {
             return;
@@ -60,12 +67,5 @@ public class Enemy1 : Enemy {
 
         steeringBasics.steer(accel);
         steeringBasics.lookWhereYoureGoing();
-    }
-
-    public override void outOfHealth()
-    {
-        Map m = GameObject.Find("Map").GetComponent<Map>();
-        m.spawn(1);
-        Destroy(gameObject);
     }
 }

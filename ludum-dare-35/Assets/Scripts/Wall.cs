@@ -11,16 +11,11 @@ public class Wall : Health {
     private int x, y;
 
 	// Use this for initialization
-	void Start ()
+	public override void Start ()
     {
         randomColor();
 
-        Fader f = GetComponent<Fader>();
-        f.setAlpha(0);
-
-        f.targetAlpha(1, 0.5f + 1.7f * Random.value);
-        //f.targetAlpha(1, 1.5f);
-
+        base.Start();
 
         m = GameObject.Find("Map").GetComponent<Map>();
         x = (int)(transform.position.x - 0.5f + (m.width / 2));
@@ -40,13 +35,21 @@ public class Wall : Health {
         GetComponent<Renderer>().material.color = wallColors[colorIndex];
     }
 
-    public override void outOfHealth()
+    void Update()
     {
-        if(canBeDestroyed)
+        if (canBeDestroyed && barProgress <= 0 && f.done)
         {
             m.openSpots.Add(new int[] { x, y });
             m.spawn(0);
             Destroy(gameObject);
+        }
+    }
+
+    public override void outOfHealth()
+    {
+        if(canBeDestroyed)
+        {
+            base.outOfHealth();
         }
     }
 }
