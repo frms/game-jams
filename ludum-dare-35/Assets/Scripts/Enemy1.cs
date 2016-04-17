@@ -15,6 +15,8 @@ public class Enemy1 : Enemy {
 
     private Rigidbody rb;
 
+    public GameObject explosionPrefab;
+
     // Use this for initialization
     public override void Start () {
         base.Start();
@@ -56,6 +58,8 @@ public class Enemy1 : Enemy {
         {
             player.GetComponent<Health>().applyDamage(explodeDmg);
             applyDamage(10000000f);
+
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         }
 
         Vector3 accel = wallAvoidance.getSteering();
