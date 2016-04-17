@@ -6,22 +6,19 @@ public class Enemy : MonoBehaviour
     public float fadeInTime = 2.5f;
     private Fader f;
 
-    //public LinePath path;
-
     private SteeringBasics steeringBasics;
     private WallAvoidance wallAvoidance;
-    //private FollowPath followPath;
 
     private Transform player;
+
+    public float explodeDist = 0.85f;
+    public float explodeDmg = 15f;
 
     // Use this for initialization
     void Start()
     {
-        //path.calcDistances();
-
         steeringBasics = GetComponent<SteeringBasics>();
         wallAvoidance = GetComponent<WallAvoidance>();
-        //followPath = GetComponent<FollowPath>();
 
         player = GameObject.Find("Player").transform;
 
@@ -37,22 +34,20 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        //if (followPath.isAtEndOfPath(path))
-        //{
-        //    path.reversePath();
-        //}
+        if(Vector3.Distance(player.position, transform.position) <= explodeDist)
+        {
+            player.GetComponent<Health>().applyDamage(explodeDmg);
+            Destroy(gameObject);
+        }
 
         Vector3 accel = wallAvoidance.getSteering();
 
         if (accel.magnitude < 0.005f)
         {
-            //accel = followPath.getSteering(path);
             accel = steeringBasics.arrive(player.position);
         }
 
         steeringBasics.steer(accel);
         steeringBasics.lookWhereYoureGoing();
-
-        //path.draw();
     }
 }

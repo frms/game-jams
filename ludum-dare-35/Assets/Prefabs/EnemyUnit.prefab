@@ -15,7 +15,6 @@ GameObject:
   - 135: {fileID: 13580766}
   - 114: {fileID: 11491368}
   - 114: {fileID: 11461768}
-  - 114: {fileID: 11495286}
   - 114: {fileID: 11414374}
   m_Layer: 0
   m_Name: EnemyUnit
@@ -46,7 +45,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: e33b8884dceab444ca669f053bd8cec7, type: 2}
+  - {fileID: 2100000, guid: af67f3ad8861f6a4782dfff23f9d714f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -152,24 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 454199605d05250439c3f0cf078964ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path:
-    nodes:
-    - {x: 0, y: 0, z: 0}
-    - {x: -10, y: 0, z: -2}
---- !u!114 &11495286
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 162318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 049423ef460e2524186c56ba0e274368, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stopRadius: 0.005
-  pathOffset: 0.71
-  pathDirection: 1
+  fadeInTime: 2.5
+  explodeDist: 0.85
+  explodeDmg: 15
 --- !u!135 &13580766
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -188,7 +172,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af67f3ad8861f6a4782dfff23f9d714f, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162318}
