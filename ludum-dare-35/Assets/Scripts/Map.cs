@@ -11,6 +11,8 @@ public class Map : MonoBehaviour
     [Range(0, 1)]
     public float percentWall = 0.4f;
 
+    public GameObject wallPrefab;
+
     int[,] map;
 
     public void buildMap()
@@ -112,7 +114,7 @@ public class Map : MonoBehaviour
             {
                 if (map[x, y] == 1)
                 {
-                    GameObject go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    GameObject go = Instantiate(wallPrefab);
                     go.transform.position = new Vector3(-width / 2 + x + .5f, 0.5f, -height / 2 + y + .5f);
                     go.transform.parent = transform;
                 }

@@ -4,22 +4,22 @@ using System.Collections;
 public class Enemy : MonoBehaviour
 {
 
-    public LinePath path;
+    //public LinePath path;
 
     private SteeringBasics steeringBasics;
     private WallAvoidance wallAvoidance;
-    private FollowPath followPath;
+    //private FollowPath followPath;
 
     private Transform player;
 
     // Use this for initialization
     void Start()
     {
-        path.calcDistances();
+        //path.calcDistances();
 
         steeringBasics = GetComponent<SteeringBasics>();
         wallAvoidance = GetComponent<WallAvoidance>();
-        followPath = GetComponent<FollowPath>();
+        //followPath = GetComponent<FollowPath>();
 
         player = GameObject.Find("Player").transform;
     }
@@ -42,6 +42,6 @@ public class Enemy : MonoBehaviour
         steeringBasics.steer(accel);
         steeringBasics.lookWhereYoureGoing();
 
-        path.draw();
+        //path.draw();
     }
 }
