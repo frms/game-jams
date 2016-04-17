@@ -4,6 +4,7 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 
     public float speed;
+    public float dmg;
 
     private Rigidbody rb;
 
@@ -12,14 +13,4 @@ public class Bullet : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         rb.velocity = -transform.up * speed;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    void OnTriggerEnter(Collider other)
-    {
-        Destroy(gameObject);
-    }
 }

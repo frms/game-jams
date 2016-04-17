@@ -32,6 +32,6 @@ public class Health : MonoBehaviour {
 
     public virtual void outOfHealth()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 }

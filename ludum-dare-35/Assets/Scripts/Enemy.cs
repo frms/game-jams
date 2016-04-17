@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Health
 {
     public float fadeInTime = 2.5f;
     private Fader f;
