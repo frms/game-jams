@@ -60,6 +60,10 @@ public class Enemy1 : Enemy {
             applyDamage(10000000f);
 
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
+            rb.velocity = Vector3.zero;
+
+            Camera.main.GetComponent<CameraMovement>().shake = 0.05f;
         }
 
         Vector3 accel = wallAvoidance.getSteering();

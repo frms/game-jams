@@ -14,6 +14,8 @@ public class EnemyBullet : Bullet {
                 {
                     h.applyDamage(dmg);
                 }
+
+                Camera.main.GetComponent<CameraMovement>().shake = 0.05f;
             }
 
             Destroy(gameObject);

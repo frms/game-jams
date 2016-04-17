@@ -714,6 +714,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1918716589}
+  shake: 0
+  shakeAmount: 0.09
+  decreaseFactor: 1
 --- !u!1 &724126155
 GameObject:
   m_ObjectHideFlags: 0
