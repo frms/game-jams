@@ -4,7 +4,8 @@ using System.Collections;
 public class EnemyBullet : Bullet {
     void OnTriggerEnter(Collider other)
     {
-        if ((other.tag != "Enemy"))
+        //Debug.Log(other.gameObject.layer + " " + GameManager.dontSense);
+        if ((other.tag != "Enemy") && other.gameObject.layer != GameManager.dontSense)
         {
             if(other.tag == "Player")
             {

@@ -26,10 +26,10 @@ public class GameManager : MonoBehaviour {
 
 	//public bool sceneIsEnding = false;
 
-	//public static int enemyMask;
+	public static int dontSense;
 
 	void Awake() {
-		//enemyMask = LayerMask.GetMask ("Enemy");
+		dontSense = LayerMask.NameToLayer("DontSense");
 	}
 
 	// Update is called once per frame

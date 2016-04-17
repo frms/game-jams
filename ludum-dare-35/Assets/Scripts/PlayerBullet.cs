@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerBullet : Bullet {
     void OnTriggerEnter(Collider other)
     {
-        if ((other.tag != "Player")) {
+        if ((other.tag != "Player") && other.gameObject.layer != GameManager.dontSense) {
             Health h = other.GetComponent<Health>();
             if (h != null)
             {

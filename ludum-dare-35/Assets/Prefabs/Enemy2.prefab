@@ -105,6 +105,11 @@ MonoBehaviour:
   hurtClip: {fileID: 0}
   hurtVolume: 1
   fadeInTime: 2.5
+  bulletPrefab: {fileID: 428036, guid: c15609129d6042b449a221109b4cde82, type: 2}
+  spawnOffsetDist: 0.85
+  timeBetweenFire:
+  - 0.75
+  - 1.25
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -113,6 +118,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: timeBetweenFire.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
@@ -120,6 +129,22 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 19fc278d23f7fe84592b88c08e2c8e65, type: 2}
+    - target: {fileID: 0}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 428036, guid: c15609129d6042b449a221109b4cde82, type: 2}
+    - target: {fileID: 0}
+      propertyPath: spawnOffsetDist
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: timeBetweenFire.Array.data[0]
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: timeBetweenFire.Array.data[1]
+      value: 1.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 120652}
