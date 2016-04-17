@@ -37,6 +37,11 @@ public class Map : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        buildMap();
+    }
+
     public void buildMap()
     {
         map = new int[width, height];
@@ -178,8 +183,14 @@ public class Map : MonoBehaviour
         int randIndex = Random.Range(0, openSpots.Count);
         Vector3 p = pos(openSpots[randIndex][0], openSpots[randIndex][1], 0);
 
-        if (Vector3.Distance(player.position, p) < centerEmptyDist) {
-            return;
+        Collider[] cols = Physics.OverlapBox(p + (0.5f * Vector3.up), new Vector3(0.45f, 0.45f, 0.45f));
+
+        for (int i = 0; i < cols.Length; i++)
+        {
+            if (cols[i].tag == "Player" || cols[i].tag == "Enemy")
+            {
+                return;
+            }
         }
 
         int randEnemyIndex = Random.Range(0, enemyPrefabs.Length);
@@ -193,6 +204,44 @@ public class Map : MonoBehaviour
     private Vector3 pos(int x, int y, float aboveGround)
     {
         return new Vector3(-width / 2 + x + .5f, aboveGround, -height / 2 + y + .5f);
+    }
+
+    public void spawn(int i)
+    {
+        if(player == null)
+        {
+            return;
+        }
+
+        if(i == 0)
+        {
+            placeRandomWall();
+        } else
+        {
+            placeEnemy(enemyPrefabs[i - 1]);
+        }
+    }
+
+    private void placeRandomWall()
+    {
+        int randIndex = Random.Range(0, openSpots.Count);
+        Vector3 p = pos(openSpots[randIndex][0], openSpots[randIndex][1], 0.5f);
+
+        Collider[] cols = Physics.OverlapBox(p, new Vector3(0.45f, 0.45f, 0.45f));
+
+        for(int i = 0; i < cols.Length; i++)
+        {
+            if(cols[i].tag == "Player" || cols[i].tag == "Enemy")
+            {
+                return;
+            }
+        }
+
+        openSpots.RemoveAt(randIndex);
+
+        GameObject go = Instantiate(wallPrefab);
+        go.transform.position = p;
+        go.transform.parent = transform;
     }
 
 }
