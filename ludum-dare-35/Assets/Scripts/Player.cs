@@ -18,18 +18,22 @@ public class Player: Health {
 
     private float horAxis = 0f;
     private float vertAxis = 0f;
-    private float sideStepDir = 0f;
 
     public Transform bulletSpawnPoint;
     public Transform bulletPrefab;
 
     public float timeBetweenFire;
     private float nextFire;
+    private Flash ff;
+
+    public float bulletRandom;
+    public float whiskers;
 
     // Use this for initialization
     public override void Start()
     {
         rb = GetComponent<MovementAIRigidbody>();
+        ff = GetComponentInChildren<Flash>();
         nextFire = Time.time;
     }
 
@@ -39,25 +43,21 @@ public class Player: Health {
         horAxis = Input.GetAxisRaw("Horizontal");
         vertAxis = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Q))
-        {
-            sideStepDir = 1f;
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            sideStepDir = -1f;
-        }
-        else
-        {
-            sideStepDir = 0f;
-        }
-
         if (Input.GetButton("Fire1") && nextFire < Time.time)
         {
             nextFire = Time.time + timeBetweenFire;
 
+            //ff.flash();
+
             Vector3 eulerAngles = bulletPrefab.eulerAngles;
-            eulerAngles.y = transform.eulerAngles.y;
+
+            eulerAngles.y = transform.eulerAngles.y - whiskers + Random.Range(-bulletRandom, bulletRandom);
+            Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.Euler(eulerAngles));
+
+            eulerAngles.y = transform.eulerAngles.y + Random.Range(-bulletRandom, bulletRandom);
+            Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.Euler(eulerAngles));
+
+            eulerAngles.y = transform.eulerAngles.y + whiskers + Random.Range(-bulletRandom, bulletRandom);
             Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.Euler(eulerAngles));
         }
 

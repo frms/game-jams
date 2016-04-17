@@ -94,8 +94,8 @@ MonoBehaviour:
   - 0.5
   - 2.2
   fadeOutTime:
-  - 0.08
-  - 0.08
+  - 0.05
+  - 0.05
   hurtClip: {fileID: 0}
   hurtVolume: 1
   wallColors:
@@ -317,11 +317,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: fadeOutTime.Array.data[0]
-      value: 0.08
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: fadeOutTime.Array.data[1]
-      value: 0.08
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -48,6 +48,7 @@ public class Health : MonoBehaviour {
 
     public virtual void outOfHealth()
     {
-        f.targetAlpha(0f, Random.Range(fadeOutTime[0], fadeOutTime[1]));
+        if(f != null)
+            f.targetAlpha(0f, Random.Range(fadeOutTime[0], fadeOutTime[1]));
     }
 }
