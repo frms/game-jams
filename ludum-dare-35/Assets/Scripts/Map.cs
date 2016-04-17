@@ -14,6 +14,10 @@ public class Map : MonoBehaviour
 
     public GameObject wallPrefab;
 
+    public float centerEmptyDist = 3f;
+
+    public int numEnemies = 25;
+
     public Transform[] enemyPrefabs;
 
     int[,] map;
@@ -49,7 +53,7 @@ public class Map : MonoBehaviour
                 if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
                 {
                     map[x, y] = 1;
-                } else if(Vector2.Distance(center, new Vector2(x, y)) < 3)
+                } else if(Vector2.Distance(center, new Vector2(x, y)) < centerEmptyDist)
                 {
                     map[x, y] = 0;
                 }
@@ -150,7 +154,7 @@ public class Map : MonoBehaviour
             GameObject.DestroyImmediate(enemies.GetChild(0).gameObject);
         }
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < numEnemies; i++)
         {
             placeEnemy(enemies);
         }
@@ -159,9 +163,18 @@ public class Map : MonoBehaviour
     private void placeEnemy(Transform parent)
     {
         int randIndex = Random.Range(0, openSpots.Count);
+        Vector3 p = pos(openSpots[randIndex][0], openSpots[randIndex][1], 0);
+
+        Vector3 center = new Vector3(width / 2f, 0, height / 2f);
+        if (Vector3.Distance(center, p) < centerEmptyDist) {
+            return;
+        }
+
         int randEnemyIndex = Random.Range(0, enemyPrefabs.Length);
 
-        Transform t = Instantiate(enemyPrefabs[randEnemyIndex], pos(openSpots[randIndex][0], openSpots[randIndex][1], 0), Quaternion.identity) as Transform;
+        Quaternion orientation = Quaternion.Euler(0, Random.value * 360f, 0);
+
+        Transform t = Instantiate(enemyPrefabs[randEnemyIndex], p, orientation) as Transform;
         t.parent = parent;
     }
 
