@@ -88,6 +88,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783ebd88b6076194496b288ecb510753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallColors:
+  - {r: 0.8745098, g: 0.6862745, b: 0.6862745, a: 1}
+  - {r: 0.7921569, g: 0.59607846, b: 0.7882353, a: 1}
+  - {r: 1, g: 0.4117647, b: 0.38431373, a: 1}
+  - {r: 0.9764706, g: 0.8, b: 0.56078434, a: 1}
+  - {r: 0.92941177, g: 0.7882353, b: 0.6862745, a: 1}
+  - {r: 0.68235296, g: 0.7764706, b: 0.8156863, a: 1}
+  - {r: 0.5882353, g: 0.8, b: 0.61960787, a: 1}
+  - {r: 1, g: 0.75686276, b: 0.02745098, a: 1}
+  percentPinkWalls: 0.6
 --- !u!114 &11472886
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,6 +117,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_CastShadows
       value: 0
@@ -142,6 +156,130 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[0].r
+      value: 0.8745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[0].g
+      value: 0.6862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[0].b
+      value: 0.6862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[0].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[1].r
+      value: 0.7921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[1].g
+      value: 0.59607846
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[1].b
+      value: 0.7882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[1].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[2].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[2].g
+      value: 0.4117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[2].b
+      value: 0.38431373
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[2].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[3].r
+      value: 0.9764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[3].g
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[3].b
+      value: 0.56078434
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[3].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[4].r
+      value: 0.92941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[4].g
+      value: 0.7882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[4].b
+      value: 0.6862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[4].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[5].r
+      value: 0.68235296
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[5].g
+      value: 0.7764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[5].b
+      value: 0.8156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[5].a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[6].r
+      value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[6].g
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[6].b
+      value: 0.61960787
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[7].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[7].g
+      value: 0.75686276
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallColors.Array.data[7].b
+      value: 0.02745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: percentPinkWalls
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
