@@ -11,12 +11,14 @@ GameObject:
   - 33: {fileID: 3312106}
   - 23: {fileID: 2311244}
   - 65: {fileID: 6518612}
+  - 114: {fileID: 11472886}
+  - 114: {fileID: 11457158}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &452224
 Transform:
@@ -75,6 +77,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99, y: 0.99, z: 0.99}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11457158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783ebd88b6076194496b288ecb510753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11472886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7776fe5766585ba4baf2fd59796149e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  done: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -114,6 +139,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: da7526778acf5494bbd430aa32919275, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 193188}
