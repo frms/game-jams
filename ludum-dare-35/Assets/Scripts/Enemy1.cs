@@ -48,7 +48,7 @@ public class Enemy1 : Enemy {
         if (Vector3.Distance(player.position, transform.position) <= explodeDist)
         {
             player.GetComponent<Health>().applyDamage(explodeDmg);
-            Destroy(gameObject);
+            applyDamage(10000000f);
         }
 
         Vector3 accel = wallAvoidance.getSteering();
@@ -60,5 +60,12 @@ public class Enemy1 : Enemy {
 
         steeringBasics.steer(accel);
         steeringBasics.lookWhereYoureGoing();
+    }
+
+    public override void outOfHealth()
+    {
+        Map m = GameObject.Find("Map").GetComponent<Map>();
+        m.spawn(1);
+        Destroy(gameObject);
     }
 }

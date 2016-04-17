@@ -54,5 +54,12 @@ public class Enemy2 : Enemy {
             nextFire = getNextFire();
         }
     }
-	
+
+    public override void outOfHealth()
+    {
+        Map m = GameObject.Find("Map").GetComponent<Map>();
+        m.spawn(2);
+        Destroy(gameObject);
+    }
+
 }

@@ -19,6 +19,7 @@ public class Map : MonoBehaviour
     public int numEnemies = 25;
 
     public Transform[] enemyPrefabs;
+    private Transform enemies;
 
     int[,] map;
 
@@ -30,7 +31,10 @@ public class Map : MonoBehaviour
         {
             if(_player == null)
             {
-                _player = GameObject.Find("Player").transform;
+                GameObject go = GameObject.Find("Player");
+
+                if(go != null)
+                    _player = go.transform;
             }
 
             return _player;
@@ -52,6 +56,8 @@ public class Map : MonoBehaviour
         {
             smoothMap();
         }
+
+        enemies = GameObject.Find("Enemies").transform;
 
         createGameObjects();
 
@@ -164,8 +170,6 @@ public class Map : MonoBehaviour
 
     private void createEnemies()
     {
-        Transform enemies = GameObject.Find("Enemies").transform;
-
         // Remove old enemies objects
         while (enemies.childCount > 0)
         {
@@ -174,11 +178,12 @@ public class Map : MonoBehaviour
 
         for (int i = 0; i < numEnemies; i++)
         {
-            placeEnemy(enemies);
+            int randEnemyIndex = Random.Range(0, enemyPrefabs.Length);
+            placeEnemy(randEnemyIndex);
         }
     }
 
-    private void placeEnemy(Transform parent)
+    private void placeEnemy(int enemyIndex)
     {
         int randIndex = Random.Range(0, openSpots.Count);
         Vector3 p = pos(openSpots[randIndex][0], openSpots[randIndex][1], 0);
@@ -193,12 +198,10 @@ public class Map : MonoBehaviour
             }
         }
 
-        int randEnemyIndex = Random.Range(0, enemyPrefabs.Length);
-
         Quaternion orientation = Quaternion.Euler(0, Random.value * 360f, 0);
 
-        Transform t = Instantiate(enemyPrefabs[randEnemyIndex], p, orientation) as Transform;
-        t.parent = parent;
+        Transform t = Instantiate(enemyPrefabs[enemyIndex], p, orientation) as Transform;
+        t.parent = enemies;
     }
 
     private Vector3 pos(int x, int y, float aboveGround)
@@ -218,7 +221,7 @@ public class Map : MonoBehaviour
             placeRandomWall();
         } else
         {
-            placeEnemy(enemyPrefabs[i - 1]);
+            placeEnemy(i-1);
         }
     }
 
