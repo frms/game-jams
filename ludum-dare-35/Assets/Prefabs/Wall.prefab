@@ -13,6 +13,7 @@ GameObject:
   - 65: {fileID: 6518612}
   - 114: {fileID: 11472886}
   - 114: {fileID: 11457158}
+  - 114: {fileID: 11420252}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -77,6 +78,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99, y: 0.99, z: 0.99}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11420252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a20b8b58303ad6f428e72b7b472434fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barProgress: 1
+  barMax: 1
+  hurtClip: {fileID: 0}
+  hurtVolume: 1
 --- !u!114 &11457158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,6 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783ebd88b6076194496b288ecb510753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barProgress: 1
+  barMax: 1
+  hurtClip: {fileID: 0}
+  hurtVolume: 1
   wallColors:
   - {r: 0.8745098, g: 0.6862745, b: 0.6862745, a: 1}
   - {r: 0.7921569, g: 0.59607846, b: 0.7882353, a: 1}
@@ -280,6 +300,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: percentPinkWalls
       value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barProgress
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barMax
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

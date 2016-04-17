@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Wall : MonoBehaviour {
+public class Wall : Health {
 
     public Color[] wallColors;
     public float percentPinkWalls = 0.5f;
+
+    private bool canBeDestroyed;
 
 	// Use this for initialization
 	void Start ()
@@ -16,6 +18,13 @@ public class Wall : MonoBehaviour {
 
         f.targetAlpha(1, 0.5f + 1.7f * Random.value);
         //f.targetAlpha(1, 1.5f);
+
+
+        Map m = GameObject.Find("Map").GetComponent<Map>();
+        int x = (int)(transform.position.x - 0.5f + (m.width / 2));
+        int y = (int)(transform.position.z - 0.5f + (m.height / 2));
+        //(-width / 2 + x + .5f, aboveGround, -height / 2 + y + .5f);
+        canBeDestroyed = !(x == 0 || x == m.width - 1 || y == 0 || y == m.height - 1);
     }
 
     private void randomColor()
@@ -29,8 +38,9 @@ public class Wall : MonoBehaviour {
         GetComponent<Renderer>().material.color = wallColors[colorIndex];
     }
 
-    // Update is called once per frame
-    void Update () {
-	
-	}
+    public override void outOfHealth()
+    {
+        if(canBeDestroyed)
+            Destroy(gameObject);
+    }
 }

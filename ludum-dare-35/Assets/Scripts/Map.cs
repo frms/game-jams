@@ -14,13 +14,28 @@ public class Map : MonoBehaviour
 
     public GameObject wallPrefab;
 
-    public float centerEmptyDist = 3f;
+    public float centerEmptyDist = 1f;
 
     public int numEnemies = 25;
 
     public Transform[] enemyPrefabs;
 
     int[,] map;
+
+    private Transform _player;
+
+    private Transform player
+    {
+        get
+        {
+            if(_player == null)
+            {
+                _player = GameObject.Find("Player").transform;
+            }
+
+            return _player;
+        }
+    }
 
     public void buildMap()
     {
@@ -41,8 +56,6 @@ public class Map : MonoBehaviour
 
     private void randomFillMap()
     {
-        Vector2 center = new Vector2(width / 2f, height / 2f);
-
         System.Random rand = new System.Random();
 
         for (int x = 0; x < width; x++)
@@ -53,7 +66,7 @@ public class Map : MonoBehaviour
                 if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
                 {
                     map[x, y] = 1;
-                } else if(Vector2.Distance(center, new Vector2(x, y)) < centerEmptyDist)
+                } else if(Vector2.Distance(player.position, pos(x, y, 0)) < centerEmptyDist)
                 {
                     map[x, y] = 0;
                 }
@@ -165,8 +178,7 @@ public class Map : MonoBehaviour
         int randIndex = Random.Range(0, openSpots.Count);
         Vector3 p = pos(openSpots[randIndex][0], openSpots[randIndex][1], 0);
 
-        Vector3 center = new Vector3(width / 2f, 0, height / 2f);
-        if (Vector3.Distance(center, p) < centerEmptyDist) {
+        if (Vector3.Distance(player.position, p) < centerEmptyDist) {
             return;
         }
 
