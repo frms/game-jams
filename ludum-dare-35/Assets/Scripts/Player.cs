@@ -29,12 +29,16 @@ public class Player: Health {
     public float bulletRandom;
     public float whiskers;
 
+    private AudioSource shootClip;
+
     // Use this for initialization
     public override void Start()
     {
         rb = GetComponent<MovementAIRigidbody>();
         ff = GetComponentInChildren<Flash>();
         nextFire = Time.time;
+
+        shootClip = transform.FindChild("ShootSound").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -59,6 +63,12 @@ public class Player: Health {
 
             eulerAngles.y = transform.eulerAngles.y + whiskers + Random.Range(-bulletRandom, bulletRandom);
             Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.Euler(eulerAngles));
+
+
+            if (shootClip != null)
+            {
+                shootClip.Play();
+            }
         }
 
         // Make the  bar scale to the current barProgress

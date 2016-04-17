@@ -110,6 +110,8 @@ MonoBehaviour:
   - 0.4
   hurtClip: {fileID: 0}
   hurtVolume: 1
+  explosionClip: {fileID: 8300000, guid: 77e242a949da44d42a98aa3c4f8681e5, type: 3}
+  explosionVolume: 0.5
   bulletPrefab: {fileID: 428036, guid: c15609129d6042b449a221109b4cde82, type: 2}
   spawnOffsetDist: 0.85
   timeBetweenFire:
@@ -177,6 +179,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: fadeInTime.Array.data[1]
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: explosionClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 77e242a949da44d42a98aa3c4f8681e5, type: 3}
+    - target: {fileID: 0}
+      propertyPath: explosionVolume
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
