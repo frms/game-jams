@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour {
     private Rigidbody rb;
 
 	// Use this for initialization
-	void Start () {
+	public virtual void Start () {
         rb = GetComponent<Rigidbody>();
         rb.velocity = -transform.up * speed;
 	}

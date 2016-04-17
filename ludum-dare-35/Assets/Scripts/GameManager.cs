@@ -27,10 +27,17 @@ public class GameManager : MonoBehaviour {
 	//public bool sceneIsEnding = false;
 
 	public static int dontSense;
+    public static float playerBulletDist;
 
 	void Awake() {
 		dontSense = LayerMask.NameToLayer("DontSense");
 	}
+
+    void Start()
+    {
+        Vector3 screenDiag = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 10)) - Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 10));
+        playerBulletDist = 0.5f * 1f * screenDiag.x;
+    }
 
 	// Update is called once per frame
 	void Update () {
