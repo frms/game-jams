@@ -23,10 +23,14 @@ public class Player: Health {
     public Transform bulletSpawnPoint;
     public Transform bulletPrefab;
 
+    public float timeBetweenFire;
+    private float nextFire;
+
     // Use this for initialization
     public override void Start()
     {
         rb = GetComponent<MovementAIRigidbody>();
+        nextFire = Time.time;
     }
 
     // Update is called once per frame
@@ -48,8 +52,10 @@ public class Player: Health {
             sideStepDir = 0f;
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1") && nextFire < Time.time)
         {
+            nextFire = Time.time + timeBetweenFire;
+
             Vector3 eulerAngles = bulletPrefab.eulerAngles;
             eulerAngles.y = transform.eulerAngles.y;
             Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.Euler(eulerAngles));
@@ -86,13 +92,6 @@ public class Player: Health {
         {
             rb.velocity = Vector3.zero;
         }
-    }
-
-    private void rotateChar()
-    {
-        rb.angularVelocity = horAxis * turnSpeed * Mathf.Deg2Rad;
-        // Clear out any x/z orientation
-        rb.rotation = Quaternion.Euler(0, rb.rotation.eulerAngles.y, 0);
     }
 
     public override void outOfHealth()

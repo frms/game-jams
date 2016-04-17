@@ -1768,10 +1768,11 @@ MonoBehaviour:
   bar: {fileID: 813093561}
   barSize: {x: 1, y: 1, z: 1}
   losePanel: {fileID: 1213614672}
-  speed: 5
+  speed: 6.5
   turnSpeed: 120
   bulletSpawnPoint: {fileID: 1447949590}
   bulletPrefab: {fileID: 428036, guid: 492424baff18fc947936032907a9e7fb, type: 2}
+  timeBetweenFire: 0.1
 --- !u!135 &1918716584
 SphereCollider:
   m_ObjectHideFlags: 0
