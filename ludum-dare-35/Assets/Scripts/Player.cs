@@ -61,15 +61,31 @@ public class Player: Health {
 
     void FixedUpdate()
     {
-        rotateChar();
+        //rotateChar();
         moveChar();
     }
 
     private void moveChar()
     {
-        Vector3 vel = (transform.right * vertAxis) + (transform.forward * sideStepDir);
-        vel = vel.normalized * speed;
-        rb.velocity = vel;
+        Vector3 vel = new Vector3(horAxis, 0, vertAxis);
+
+        if (vel.sqrMagnitude > 0.031)
+        {
+            rb.velocity = vel.normalized * speed;
+
+            // Rotate the character
+            float moveAngle = Mathf.Atan2(-vel.z, vel.x) * Mathf.Rad2Deg;
+            if (moveAngle < 0)
+            {
+                moveAngle += 360;
+            }
+
+            //Debug.Log (moveAngle);
+            rb.rotation = Quaternion.Euler(0, moveAngle, 0);
+        } else
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
 
     private void rotateChar()
