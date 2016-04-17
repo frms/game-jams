@@ -14,6 +14,8 @@ public class Enemy : Health
     public float explodeDist = 0.85f;
     public float explodeDmg = 15f;
 
+    private Rigidbody rb;
+
     // Use this for initialization
     void Start()
     {
@@ -25,12 +27,15 @@ public class Enemy : Health
         f = GetComponent<Fader>();
         f.setAlpha(0f);
         f.targetAlpha(1f, fadeInTime);
+
+        rb = GetComponent<Rigidbody>();
     }
 
     void FixedUpdate()
     {
-        if(!f.done)
+        if(!f.done || player == null)
         {
+            rb.velocity = Vector3.zero;   
             return;
         }
 

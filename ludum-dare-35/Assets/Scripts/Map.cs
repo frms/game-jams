@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Map : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Map : MonoBehaviour
     public float percentWall = 0.4f;
 
     public GameObject wallPrefab;
+
+    public Transform[] enemyPrefabs;
 
     int[,] map;
 
@@ -34,6 +37,8 @@ public class Map : MonoBehaviour
 
     private void randomFillMap()
     {
+        Vector2 center = new Vector2(width / 2f, height / 2f);
+
         System.Random rand = new System.Random();
 
         for (int x = 0; x < width; x++)
@@ -44,6 +49,9 @@ public class Map : MonoBehaviour
                 if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
                 {
                     map[x, y] = 1;
+                } else if(Vector2.Distance(center, new Vector2(x, y)) < 3)
+                {
+                    map[x, y] = 0;
                 }
                 // Else randomize the tile
                 else
@@ -99,6 +107,8 @@ public class Map : MonoBehaviour
         return count;
     }
 
+    public List<int[]> openSpots;
+
     private void createGameObjects()
     {
         // Remove old map objects
@@ -106,6 +116,8 @@ public class Map : MonoBehaviour
         {
             GameObject.DestroyImmediate(transform.GetChild(0).gameObject);
         }
+
+        openSpots = new List<int[]>();
 
         // Create the new map objects
         for (int x = 0; x < width; x++)
@@ -115,11 +127,47 @@ public class Map : MonoBehaviour
                 if (map[x, y] == 1)
                 {
                     GameObject go = Instantiate(wallPrefab);
-                    go.transform.position = new Vector3(-width / 2 + x + .5f, 0.5f, -height / 2 + y + .5f);
+                    go.transform.position = pos(x, y, 0.5f);
                     go.transform.parent = transform;
+                }
+                else
+                {
+                    openSpots.Add(new int[] { x, y });
                 }
             }
         }
+
+        createEnemies();
+    }
+
+    private void createEnemies()
+    {
+        Transform enemies = GameObject.Find("Enemies").transform;
+
+        // Remove old enemies objects
+        while (enemies.childCount > 0)
+        {
+            GameObject.DestroyImmediate(enemies.GetChild(0).gameObject);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            placeEnemy(enemies);
+        }
+    }
+
+    private void placeEnemy(Transform parent)
+    {
+        int randIndex = Random.Range(0, openSpots.Count);
+        int randEnemyIndex = Random.Range(0, enemyPrefabs.Length);
+
+        Transform t = Instantiate(enemyPrefabs[randEnemyIndex], pos(openSpots[randIndex][0], openSpots[randIndex][1], 0), Quaternion.identity) as Transform;
+        t.parent = parent;
+    }
+
+    private Vector3 pos(int x, int y, float aboveGround)
+    {
+        return new Vector3(-width / 2 + x + .5f, aboveGround, -height / 2 + y + .5f);
     }
 
 }

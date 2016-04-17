@@ -8,6 +8,8 @@ public class Player: Health {
     public Transform bar;
     public Vector3 barSize = new Vector3(1, 1, 1);
 
+    public GameObject losePanel;
+
     public float speed = 5;
 
     public float turnSpeed = 120f;
@@ -77,11 +79,15 @@ public class Player: Health {
         rb.rotation = Quaternion.Euler(0, rb.rotation.eulerAngles.y, 0);
     }
 
-    void OnDestroy()
+    public override void outOfHealth()
     {
+        losePanel.SetActive(true);
+
         if (bar != null)
         {
             Destroy(bar.gameObject);
         }
+
+        Destroy(gameObject);
     }
 }

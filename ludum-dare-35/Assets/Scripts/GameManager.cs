@@ -22,9 +22,9 @@ public class GameManager : MonoBehaviour {
 
 
 
-	public GameObject winPanel;
+	//public GameObject winPanel;
 
-	public bool sceneIsEnding = false;
+	//public bool sceneIsEnding = false;
 
 	//public static int enemyMask;
 
