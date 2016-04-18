@@ -1314,7 +1314,7 @@ MonoBehaviour:
   percentWall: 0.45
   wallPrefab: {fileID: 193188, guid: ad684449ad2b7dd4b88f597fed0d857f, type: 2}
   centerEmptyDist: 1.8
-  numEnemies: 35
+  numEnemies: 40
   enemyPrefabs:
   - {fileID: 462560, guid: f2f5a4c34db69ad43aa9ba8b00e5608e, type: 2}
   - {fileID: 462692, guid: 537d0007f08e23a428b6244b842cd280, type: 2}

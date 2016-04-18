@@ -29,7 +29,7 @@ public class Enemy1 : Enemy {
         rb = GetComponent<Rigidbody>();
 
         Vector3 screenDiag = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 10)) - Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 10));
-        awakeDist = 0.95f * Mathf.Min(screenDiag.x, screenDiag.z);
+        awakeDist = 0.95f * Mathf.Max(screenDiag.x, screenDiag.z);
     }
 
     void FixedUpdate()

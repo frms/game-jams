@@ -48,9 +48,11 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-		//if(enemies.Length <= 0) {
-		//	winPanel.SetActive(true);
-		//}
-	}
+        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //if(enemies.Length <= 0) {
+        //	winPanel.SetActive(true);
+        //}
+        if (Input.GetKey("escape"))
+            Application.Quit();
+    }
 }
