@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour {
 	public static int dontSense;
     public static float playerBulletDist;
 
+    public static int enemyKillCount = 0;
+
+    public static int bubbleDestroyed = 0;
+
 	void Awake() {
 		dontSense = LayerMask.NameToLayer("DontSense");
 	}
@@ -37,6 +41,9 @@ public class GameManager : MonoBehaviour {
     {
         Vector3 screenDiag = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 10)) - Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 10));
         playerBulletDist = 0.5f * 1.5f * screenDiag.x;
+
+        enemyKillCount = 0;
+        bubbleDestroyed = 0;
     }
 
 	// Update is called once per frame

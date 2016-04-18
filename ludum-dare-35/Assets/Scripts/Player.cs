@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Text;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(MovementAIRigidbody))]
 public class Player: Health {
@@ -104,9 +105,14 @@ public class Player: Health {
         }
     }
 
+    public Text t1, t2;
+
     public override void outOfHealth()
     {
         losePanel.SetActive(true);
+
+        t1.text = "Enemies Killed: " + GameManager.enemyKillCount;
+        t2.text = "Bubbles Popped: " + GameManager.bubbleDestroyed;
 
         if (bar != null)
         {

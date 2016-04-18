@@ -16,6 +16,8 @@ public class Enemy : Health
             {
                 AudioSource.PlayClipAtPoint(explosionClip, Camera.main.transform.position, explosionVolume);
             }
+
+            GameManager.enemyKillCount++;
         }
     }
 }

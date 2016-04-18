@@ -50,6 +50,8 @@ public class Wall : Health {
         if(canBeDestroyed)
         {
             base.outOfHealth();
+
+            GameManager.bubbleDestroyed++;
         }
     }
 }
