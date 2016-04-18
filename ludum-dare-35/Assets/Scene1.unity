@@ -1974,8 +1974,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c696d0f15a9fe1f4c969c592f7dcbdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barProgress: 1000
-  barMax: 1000
+  barProgress: 70
+  barMax: 70
   fadeInTime:
   - 0
   - 0
