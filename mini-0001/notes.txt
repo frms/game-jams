@@ -1,0 +1,10 @@
+Nothing is set in stone. Here are my current thoughts about what this game could be:
+
+The game is about holding onto the most important thing in the world (which is another person).
+
+Its a 2D platformer where you play a pair of people (but it feels just like you are playing one char like in normal 2D platformers). While the two of you are together you are 1 complete player. But as soon as you take damage one person from the pair is broken off and you lose one of your abilities. Also your health starts to diminish until you die unless you recombine with your partener.
+
+I think the complete player can just jump/move and shoot a boomerang. If the player takes damage and loses a partner then the player loses the ability to use his boomerang.
+
+Think about what kind of scenarios or gameplay occur (or would be interesting) if the goal is to hold onto your partner. I assume designing a level that is constantly hurting you slightly and forcing you to chase after your partner could be an area to look into.
+
