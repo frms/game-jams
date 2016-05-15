@@ -5,34 +5,37 @@ using UnityStandardAssets._2D;
 [RequireComponent(typeof(PlatformerCharacter2D))]
 public class BasicEnemy : MonoBehaviour {
 
-    private PlatformerCharacter2D m_Character;
-    private bool m_Jump;
+    public float atkDist;
 
+    private PlatformerCharacter2D character;
     private Transform player;
-
 
     void Awake()
     {
-        m_Character = GetComponent<PlatformerCharacter2D>();
+        character = GetComponent<PlatformerCharacter2D>();
         player = GameObject.Find("Player").transform;
     }
-
 
     void Update()
     {
 
     }
 
-
     void FixedUpdate()
     {
-        // Read the inputs.
         bool crouch = false;
-        float h = sign(player.position.x - transform.position.x);
+        bool jump = false;
 
-        // Pass all parameters to the character control script.
-        m_Character.Move(h, crouch, m_Jump);
-        m_Jump = false;
+        float deltaX = player.position.x - transform.position.x;
+
+        float h = sign(deltaX);
+
+        if(Mathf.Abs(deltaX) <= atkDist)
+        {
+            h = 0;
+        }
+
+        character.Move(h, crouch, jump);
     }
 
     private static int sign(float number)
