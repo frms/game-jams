@@ -10,13 +10,20 @@ public class Player : Health {
 
     public GameObject boomerangPrefab;
 
+    public GameObject partnerPrefab;
+    public Vector2 partnerDropOffset;
+    public Vector2 partnerDropImpulse;
+    private bool hasPartner;
 
     private PlatformerCharacter2D character;
     private bool jump;
 
     private void Awake()
     {
+        hasPartner = true;
+
         character = GetComponent<PlatformerCharacter2D>();
+        jump = false;
     }
 
     private void Update()
@@ -42,6 +49,24 @@ public class Player : Health {
 
         character.Move(h, crouch, jump);
         jump = false;
+    }
+
+    public override void applyDamage(float damage)
+    {
+        if(hasPartner)
+        {
+            Vector3 pos = transform.position;
+            pos.x += Mathf.Sign(transform.localScale.x) * partnerDropOffset.x;
+            pos.y += partnerDropOffset.y;
+
+            GameObject go = Instantiate(partnerPrefab, pos, Quaternion.identity) as GameObject;
+            Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
+            rb.AddForce(partnerDropImpulse, ForceMode2D.Impulse);
+
+            hasPartner = false;
+        }
+
+        base.applyDamage(damage);
     }
 
     public override void outOfHealth()

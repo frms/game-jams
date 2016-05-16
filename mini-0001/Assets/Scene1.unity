@@ -252,14 +252,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 11444078, guid: 9e9850aa70820bf41a69650ff897cc7b, type: 2}
-      propertyPath: atkCooldown
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11444078, guid: 9e9850aa70820bf41a69650ff897cc7b, type: 2}
-      propertyPath: atkDmg
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e9850aa70820bf41a69650ff897cc7b, type: 2}
   m_IsPrefabParent: 0
@@ -552,12 +544,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea21eff9235699945beaca97f6c01f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barProgress: 10000
-  barMax: 10000
+  currentHealth: 100
+  maxHealth: 100
   hurtClip: {fileID: 0}
   hurtVolume: 1
   healthBar: {fileID: 242019224}
   boomerangPrefab: {fileID: 192836, guid: ff642f43be33a6f4fa155a4457b3df3d, type: 2}
+  partnerPrefab: {fileID: 121566, guid: c1e53f36eff458045ae1a01ae28871e0, type: 2}
+  partnerDropOffset: {x: 0.5, y: 0}
+  partnerDropImpulse: {x: 5, y: 7}
 --- !u!114 &1633985049
 MonoBehaviour:
   m_ObjectHideFlags: 0
