@@ -3,7 +3,7 @@ using System.Collections;
 using UnityStandardAssets._2D;
 
 [RequireComponent(typeof(PlatformerCharacter2D))]
-public class BasicEnemy : MonoBehaviour {
+public class BasicEnemy : Health {
 
     public float atkDist;
     public float atkCooldown;

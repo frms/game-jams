@@ -8,6 +8,9 @@ public class Player : Health {
 
     public Transform healthBar;
 
+    public GameObject boomerangPrefab;
+
+
     private PlatformerCharacter2D character;
     private bool jump;
 
@@ -22,6 +25,11 @@ public class Player : Health {
         {
             // Read the jump input in Update so button presses aren't missed.
             jump = CrossPlatformInputManager.GetButtonDown("Jump");
+        }
+
+        if(CrossPlatformInputManager.GetButtonDown("Fire1"))
+        {
+            Instantiate(boomerangPrefab, transform.position, Quaternion.identity);
         }
 
         healthBar.localScale = new Vector3(percentHealth, 1f, 1f);

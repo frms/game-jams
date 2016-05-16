@@ -32,7 +32,7 @@ GameObject:
   - 61: {fileID: 6116182}
   m_Layer: 0
   m_Name: BasicEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -163,7 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf6992f3a16efd34983ad9431030b4c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 10
+  maxHealth: 10
+  hurtClip: {fileID: 0}
+  hurtVolume: 1
   atkDist: 1
+  atkCooldown: 0.5
+  atkDmg: 10
 --- !u!114 &11459604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -218,7 +224,35 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barProgress
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: barMax
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: currentHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: atkCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: atkDmg
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 160670}

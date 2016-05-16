@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Health : MonoBehaviour {
 
-	public float barProgress = 100;
-	public float barMax = 100;
+	public float currentHealth = 100;
+	public float maxHealth = 100;
 
     public float percentHealth
     {
         get
         {
-            return barProgress / barMax;
+            return currentHealth / maxHealth;
         }
     }
 
@@ -18,19 +18,19 @@ public class Health : MonoBehaviour {
 	public float hurtVolume = 1f;
 
 	public void applyDamage(float damage) {
-        if(barProgress <= 0)
+        if(currentHealth <= 0)
         {
             return;
         }
 
-		barProgress -= damage;
+		currentHealth -= damage;
 
 		if(hurtClip != null && damage > 0) {
 			AudioSource.PlayClipAtPoint(hurtClip, Camera.main.transform.position, hurtVolume);
 		}
 		
 		// Kill the game obj if it loses all its health
-		if(barProgress <= 0) {
+		if(currentHealth <= 0) {
             outOfHealth();
 		}
 	}

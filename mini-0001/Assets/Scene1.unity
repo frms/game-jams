@@ -552,11 +552,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea21eff9235699945beaca97f6c01f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barProgress: 100
-  barMax: 100
+  barProgress: 10000
+  barMax: 10000
   hurtClip: {fileID: 0}
   hurtVolume: 1
   healthBar: {fileID: 242019224}
+  boomerangPrefab: {fileID: 192836, guid: ff642f43be33a6f4fa155a4457b3df3d, type: 2}
 --- !u!114 &1633985049
 MonoBehaviour:
   m_ObjectHideFlags: 0
