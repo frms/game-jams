@@ -35,6 +35,12 @@ public class Boomerang : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (player == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         float step = speed * Time.deltaTime;
 
         if (!hasReachedTarget)
@@ -50,7 +56,7 @@ public class Boomerang : MonoBehaviour
         }
         else
         {
-            if (Vector2.Distance(rb.position, player.position) > 0.3f)
+            if (Vector2.Distance(rb.position, player.position) > 0.5f)
             {
                 rb.MovePosition(Vector2.MoveTowards(rb.position, player.position, step));
             }
@@ -66,7 +72,7 @@ public class Boomerang : MonoBehaviour
         if(other.tag == "Enemy")
         {
             Health h = other.GetComponent<Health>();
-            h.applyDamage(dmg);
+            h.applyDamage(transform, dmg);
         }
     }
 }

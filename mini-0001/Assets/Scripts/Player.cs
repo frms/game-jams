@@ -51,22 +51,35 @@ public class Player : Health {
         jump = false;
     }
 
-    public override void applyDamage(float damage)
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if(coll.gameObject.layer == LayerMask.NameToLayer("Partner"))
+        {
+            Destroy(coll.gameObject);
+            hasPartner = true;
+        }
+    }
+
+    public override void applyDamage(Transform other, float damage)
     {
         if(hasPartner)
         {
+            float dir = Mathf.Sign(transform.position.x - other.position.x);
+
             Vector3 pos = transform.position;
-            pos.x += Mathf.Sign(transform.localScale.x) * partnerDropOffset.x;
+            pos.x += dir * partnerDropOffset.x;
             pos.y += partnerDropOffset.y;
 
             GameObject go = Instantiate(partnerPrefab, pos, Quaternion.identity) as GameObject;
-            Rigidbody2D rb = go.GetComponent<Rigidbody2D>();
-            rb.AddForce(partnerDropImpulse, ForceMode2D.Impulse);
+
+            Vector3 impulse = partnerDropImpulse;
+            impulse.x *= dir;
+            go.GetComponent<Rigidbody2D>().AddForce(impulse, ForceMode2D.Impulse);
 
             hasPartner = false;
         }
 
-        base.applyDamage(damage);
+        base.applyDamage(other, damage);
     }
 
     public override void outOfHealth()

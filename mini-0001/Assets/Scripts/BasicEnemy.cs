@@ -50,7 +50,7 @@ public class BasicEnemy : Health {
     {
         if (lastAtk + atkCooldown <= Time.time)
         {
-            player.applyDamage(atkDmg);
+            player.applyDamage(transform, atkDmg);
             lastAtk = Time.time;
         }
     }

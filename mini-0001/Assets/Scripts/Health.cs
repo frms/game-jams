@@ -17,7 +17,7 @@ public class Health : MonoBehaviour {
     public AudioClip hurtClip;
 	public float hurtVolume = 1f;
 
-	public virtual void applyDamage(float damage) {
+	public virtual void applyDamage(Transform other, float damage) {
         if(currentHealth <= 0)
         {
             return;
