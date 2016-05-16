@@ -168,7 +168,7 @@ MonoBehaviour:
   hurtClip: {fileID: 0}
   hurtVolume: 1
   atkDist: 1
-  atkCooldown: 0.5
+  atkCooldown: 3
   atkDmg: 10
 --- !u!114 &11459604
 MonoBehaviour:
@@ -247,7 +247,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: atkCooldown
-      value: 0.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: atkDmg

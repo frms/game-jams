@@ -553,6 +553,7 @@ MonoBehaviour:
   partnerPrefab: {fileID: 121566, guid: c1e53f36eff458045ae1a01ae28871e0, type: 2}
   partnerDropOffset: {x: 0.5, y: 0}
   partnerDropImpulse: {x: 5, y: 7}
+  partnerDropHealthDrain: 5
 --- !u!114 &1633985049
 MonoBehaviour:
   m_ObjectHideFlags: 0

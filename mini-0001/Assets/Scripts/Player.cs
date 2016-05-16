@@ -13,6 +13,8 @@ public class Player : Health {
     public GameObject partnerPrefab;
     public Vector2 partnerDropOffset;
     public Vector2 partnerDropImpulse;
+    public float partnerDropHealthDrain;
+
     private bool hasPartner;
 
     private PlatformerCharacter2D character;
@@ -34,9 +36,18 @@ public class Player : Health {
             jump = CrossPlatformInputManager.GetButtonDown("Jump");
         }
 
-        if(CrossPlatformInputManager.GetButtonDown("Fire1"))
+        if(hasPartner && CrossPlatformInputManager.GetButtonDown("Fire1"))
         {
             Instantiate(boomerangPrefab, transform.position, Quaternion.identity);
+        }
+
+        if(!hasPartner)
+        {
+            applyDamage(transform, partnerDropHealthDrain * Time.deltaTime);
+        }
+        else if(currentHealth < maxHealth)
+        {
+            currentHealth = Mathf.Min(currentHealth + partnerDropHealthDrain * Time.deltaTime, maxHealth);
         }
 
         healthBar.localScale = new Vector3(percentHealth, 1f, 1f);
