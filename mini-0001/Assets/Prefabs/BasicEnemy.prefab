@@ -167,6 +167,7 @@ MonoBehaviour:
   maxHealth: 10
   hurtClip: {fileID: 0}
   hurtVolume: 1
+  idleDist: 9
   atkDist: 1
   atkCooldown: 2
   atkDmg: 10
@@ -268,6 +269,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.x
       value: 1.3286498
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: idleDist
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

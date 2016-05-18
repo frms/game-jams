@@ -5,6 +5,8 @@ using UnityStandardAssets._2D;
 [RequireComponent(typeof(PlatformerCharacter2D))]
 public class BasicEnemy : Health {
 
+    public float idleDist;
+
     public float atkDist;
     public float atkCooldown;
     public float atkDmg;
@@ -33,14 +35,19 @@ public class BasicEnemy : Health {
         bool jump = false;
 
         float deltaX = player.transform.position.x - transform.position.x;
+        float dist = Mathf.Abs(deltaX);
 
         float h = sign(deltaX);
 
-        if(Mathf.Abs(deltaX) <= atkDist)
+        if(dist <= atkDist)
         {
             h = 0;
 
             tryToAtk();
+        }
+        else if(dist >= idleDist)
+        {
+            h = 0;
         }
 
         character.Move(h, crouch, jump);
