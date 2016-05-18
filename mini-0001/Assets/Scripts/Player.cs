@@ -20,12 +20,16 @@ public class Player : Health {
     private PlatformerCharacter2D character;
     private bool jump;
 
+    private Rigidbody2D rb;
+
     private void Awake()
     {
         hasPartner = true;
 
         character = GetComponent<PlatformerCharacter2D>();
         jump = false;
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -36,7 +40,7 @@ public class Player : Health {
             jump = CrossPlatformInputManager.GetButtonDown("Jump");
         }
 
-        if(hasPartner && CrossPlatformInputManager.GetButtonDown("Fire1"))
+        if(CrossPlatformInputManager.GetButtonDown("Fire1"))
         {
             Instantiate(boomerangPrefab, transform.position, Quaternion.identity);
         }
@@ -85,6 +89,10 @@ public class Player : Health {
 
             Vector3 impulse = partnerDropImpulse;
             impulse.x *= dir;
+            if((rb.velocity.x < 0 && impulse.x < 0) || (rb.velocity.x > 0 && impulse.x > 0))
+            {
+                impulse.x += rb.velocity.x;
+            }
             go.GetComponent<Rigidbody2D>().AddForce(impulse, ForceMode2D.Impulse);
 
             hasPartner = false;

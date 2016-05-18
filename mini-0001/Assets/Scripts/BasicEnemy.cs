@@ -39,15 +39,11 @@ public class BasicEnemy : Health {
 
         float h = sign(deltaX);
 
-        if(dist <= atkDist)
+        if(dist <= atkDist*0.8f || dist >= idleDist)
         {
             h = 0;
 
             tryToAtk();
-        }
-        else if(dist >= idleDist)
-        {
-            h = 0;
         }
 
         character.Move(h, crouch, jump);
@@ -55,7 +51,7 @@ public class BasicEnemy : Health {
 
     private void tryToAtk()
     {
-        if (lastAtk + atkCooldown <= Time.time)
+        if (Vector3.Distance(player.transform.position, transform.position) < atkDist && lastAtk + atkCooldown <= Time.time)
         {
             player.applyDamage(transform, atkDmg);
             lastAtk = Time.time;

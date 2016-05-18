@@ -7,7 +7,7 @@ public class Goal : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-            Debug.Log("level cleared");
+            Debug.Log("LEVEL CLEARED!!");
         }
     }
 }
