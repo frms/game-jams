@@ -39,10 +39,13 @@ public class BasicEnemy : Health {
 
         float h = sign(deltaX);
 
-        if(dist <= atkDist*0.8f || dist >= idleDist)
+        if(dist >= idleDist)
         {
             h = 0;
-
+        }
+        else if (dist <= atkDist)
+        {
+            h = 0;
             tryToAtk();
         }
 
@@ -51,7 +54,7 @@ public class BasicEnemy : Health {
 
     private void tryToAtk()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) < atkDist && lastAtk + atkCooldown <= Time.time)
+        if (Mathf.Abs(player.transform.position.y - transform.position.y) < 0.5f && lastAtk + atkCooldown <= Time.time)
         {
             player.applyDamage(transform, atkDmg);
             lastAtk = Time.time;
