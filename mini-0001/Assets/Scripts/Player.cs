@@ -37,10 +37,10 @@ public class Player : Health {
         if (!jump)
         {
             // Read the jump input in Update so button presses aren't missed.
-            jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            jump = CrossPlatformInputManager.GetButtonDown("Fire1") || CrossPlatformInputManager.GetButtonDown("Jump");
         }
 
-        if(CrossPlatformInputManager.GetButtonDown("Fire1"))
+        if(CrossPlatformInputManager.GetButtonDown("Fire2"))
         {
             Instantiate(boomerangPrefab, transform.position, Quaternion.identity);
         }
