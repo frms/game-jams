@@ -16,7 +16,7 @@ public class BasicEnemy : Health {
 
     void Awake()
     {
-        lastAtk = Time.time;
+        lastAtk = Time.time - atkCooldown;
 
         character = GetComponent<PlatformerCharacter2D>();
         player = GameObject.Find("Player").GetComponent<Health>();

@@ -84,7 +84,7 @@ Transform:
   m_GameObject: {fileID: 160670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.3, y: 0, z: 0}
-  m_LocalScale: {x: 1.7715329, y: 1.7715304, z: 1}
+  m_LocalScale: {x: 1.3286498, y: 1.32865, z: 1}
   m_Children:
   - {fileID: 421220}
   - {fileID: 435564}
@@ -168,7 +168,7 @@ MonoBehaviour:
   hurtClip: {fileID: 0}
   hurtVolume: 1
   atkDist: 1
-  atkCooldown: 3
+  atkCooldown: 2
   atkDmg: 10
 --- !u!114 &11459604
 MonoBehaviour:
@@ -247,7 +247,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: atkCooldown
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: atkDmg
@@ -260,6 +260,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: 1.32865
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 1.3286498
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
