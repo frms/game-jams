@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
     public GameObject dotPrefab;
     public int[] numDots;
 
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour {
         transform.localScale = new Vector3(widthHeight.x, transform.localScale.y, widthHeight.z);
 
         float num = Random.Range(numDots[0], numDots[1] + 1);
-        for(int i = 0; i < num; i++)
+        for (int i = 0; i < num; i++)
         {
             Vector3 pos = new Vector3();
             pos.x = Random.Range(bottomLeft.x, topRight.x);
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void OnTriggerStay(Collider other)
+    private void keepInBounds(Collider other)
     {
         Transform t = other.transform;
 
@@ -54,5 +55,15 @@ public class GameManager : MonoBehaviour {
         {
             t.position = new Vector3(t.position.x, t.position.y, t.position.z - widthHeight.z);
         }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        keepInBounds(other);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        keepInBounds(other);
     }
 }

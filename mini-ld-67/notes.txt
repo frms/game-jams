@@ -1,0 +1,7 @@
+Possibilities:
+
+Player physically bumps into the dots so they bounce around
+Player absorbs dots on touch (like pacman eat)
+Player needs to go a certain speed when hitting a dot to absorb it
+Enemies seek the player but avoid the dots
+Player needs to pick up the big dot to be able to shoot the enemies
