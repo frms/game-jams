@@ -62,7 +62,7 @@ public class Wander2 : MonoBehaviour {
         //move the target in front of the character
         Vector3 targetPosition = transform.position + transform.right * wanderDistance + wanderTarget;
 
-        //Debug.DrawLine(transform.position, targetPosition);
+        Debug.DrawLine(transform.position, targetPosition);
 
         return steeringBasics.seek(targetPosition);
     }
