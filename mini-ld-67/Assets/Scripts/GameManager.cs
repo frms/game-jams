@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public int[] numDots;
 
     public GameObject ghostPrefab;
-    public int numGhosts;
+    public Color[] ghostColors;
 
     private Vector3 bottomLeft;
     private Vector3 topRight;
@@ -26,9 +26,10 @@ public class GameManager : MonoBehaviour
 
         createDots();
 
-        for(int i = 0; i < numGhosts; i++)
+        for(int i = 0; i < ghostColors.Length; i++)
         {
-            Instantiate(ghostPrefab, randomPos(), Quaternion.FromToRotation(Vector3.right, randomDir()));
+            GameObject go = Instantiate(ghostPrefab, randomPos(), Quaternion.FromToRotation(Vector3.right, randomDir())) as GameObject;
+            go.GetComponent<Renderer>().material.color = ghostColors[i];
         }
     }
 

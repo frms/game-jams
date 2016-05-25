@@ -369,7 +369,11 @@ MonoBehaviour:
   dotPrefab: {fileID: 183534, guid: 08277984b6ffa9e49bc315d9eb9d0c59, type: 2}
   numDots: 0a0000000a000000
   ghostPrefab: {fileID: 153972, guid: 4e4e840a8fc93934b92e5f7bf07c9f00, type: 2}
-  numGhosts: 4
+  ghostColors:
+  - {r: 1, g: 0.4117647, b: 0.38431373, a: 1}
+  - {r: 1, g: 0.81960785, b: 0.8627451, a: 1}
+  - {r: 0.5568628, g: 0.83137256, b: 0.95686275, a: 1}
+  - {r: 1, g: 0.72156864, b: 0.31764707, a: 1}
 --- !u!4 &1035878748
 Transform:
   m_ObjectHideFlags: 0
