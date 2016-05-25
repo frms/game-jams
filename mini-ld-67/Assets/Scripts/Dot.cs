@@ -11,7 +11,6 @@ public class Dot : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
 
-        Vector2 dir = Random.insideUnitCircle.normalized;
-        rb.velocity = new Vector3(dir.x, 0, dir.y) * Random.Range(speed[0], speed[1]);
+        rb.velocity = GameManager.randomDir() * Random.Range(speed[0], speed[1]);
 	}
 }

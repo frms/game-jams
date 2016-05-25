@@ -1,16 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : Health {
+
+    public Transform heartPrefab;
+    public Transform heartsContainer;
 
     public float thrust;
     public float maxSpeed;
     public float turnSpeed;
 
+    public override float currentHealth
+    {
+        get
+        {
+            return base.currentHealth;
+        }
+
+        set
+        {
+            base.currentHealth = value;
+            
+            for(int i = heartsContainer.childCount; i < base.currentHealth; i++)
+            {
+                Transform t = Instantiate(heartPrefab) as Transform;
+                t.SetParent(heartsContainer, false);
+            }
+
+            for (int i = heartsContainer.childCount; i > base.currentHealth; i--)
+            {
+                Destroy(heartsContainer.GetChild(0).gameObject);
+            }
+        }
+    }
+
     private Rigidbody rb;
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+        base.Start();
+
         rb = GetComponent<Rigidbody>();
 	}
 	

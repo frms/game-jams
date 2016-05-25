@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
     public GameObject dotPrefab;
     public int[] numDots;
 
+    public GameObject ghostPrefab;
+    public int numGhosts;
+
     private Vector3 bottomLeft;
     private Vector3 topRight;
     private Vector3 widthHeight;
@@ -21,15 +24,45 @@ public class GameManager : MonoBehaviour
 
         transform.localScale = new Vector3(widthHeight.x, transform.localScale.y, widthHeight.z);
 
+        createDots();
+
+        for(int i = 0; i < numGhosts; i++)
+        {
+            Instantiate(ghostPrefab, randomPos(), Quaternion.FromToRotation(Vector3.right, randomDir()));
+        }
+    }
+
+    private void createDots()
+    {
         float num = Random.Range(numDots[0], numDots[1] + 1);
         for (int i = 0; i < num; i++)
         {
-            Vector3 pos = new Vector3();
-            pos.x = Random.Range(bottomLeft.x, topRight.x);
-            pos.z = Random.Range(bottomLeft.z, topRight.z);
-
-            Instantiate(dotPrefab, pos, Quaternion.identity);
+            Instantiate(dotPrefab, randomPos(), Quaternion.identity);
         }
+    }
+
+    private Vector3 randomPos()
+    {
+        Vector3 pos = new Vector3();
+        pos.x = Random.Range(bottomLeft.x, topRight.x);
+        pos.z = Random.Range(bottomLeft.z, topRight.z);
+        return pos;
+    }
+
+    public static Vector3 randomDir()
+    {
+        Vector2 dir = Random.insideUnitCircle.normalized;
+        return new Vector3(dir.x, 0, dir.y);
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        keepInBounds(other);
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        keepInBounds(other);
     }
 
     private void keepInBounds(Collider other)
@@ -55,15 +88,5 @@ public class GameManager : MonoBehaviour
         {
             t.position = new Vector3(t.position.x, t.position.y, t.position.z - widthHeight.z);
         }
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        keepInBounds(other);
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        keepInBounds(other);
     }
 }
