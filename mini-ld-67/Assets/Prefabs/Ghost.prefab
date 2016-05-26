@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d0fb7ad878c96643a9ef33951d933ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 25
+  maxAcceleration: 45
 --- !u!114 &11414118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,6 +255,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c1d0afb9f4e46844b92f05c677375c44, type: 2}
+    - target: {fileID: 0}
+      propertyPath: maxAcceleration
+      value: 45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 153972}

@@ -38,7 +38,9 @@ public class GameManager : MonoBehaviour
         float num = Random.Range(numDots[0], numDots[1] + 1);
         for (int i = 0; i < num; i++)
         {
-            Instantiate(dotPrefab, randomPos(), Quaternion.identity);
+            Vector3 pos = randomPos();
+            pos.y = dotPrefab.transform.position.y;
+            Instantiate(dotPrefab, pos, Quaternion.identity);
         }
     }
 
