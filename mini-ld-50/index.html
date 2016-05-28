@@ -1,0 +1,46 @@
+<html>
+<head>
+	<style>
+		body {
+			font-family: "Helvetica Neue", helvetica, arial;
+			padding: 15px;
+		}
+
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		ul li {
+			line-height: 1.4;
+		}
+		
+		#content {
+			width: 1024px;
+			display: block;
+			margin: 0 auto;
+		}
+	</style>
+
+	<script src="js/helper/jquery-2.0.3.min.js"></script>
+	<script src="js/helper/gl-matrix.js"></script>
+	<script src="js/helper/misc.js"></script>
+	<script src="js/helper/camera.js"></script>
+	<script src="js/helper/game-data.js"></script>
+	<script src="js/main.js"></script>
+
+</head>
+<body>
+	<audio id="music" autoplay loop>
+		<source src="./music/Exhumed title.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+	<div id="content">
+        <canvas id="gameCanvas" width="1024" height="576"></canvas>
+        <div>
+            <span id="fps">FPS:</span> <span><input type="checkbox" id="musicCheckbox">Music</span>
+        </div>
+    </div>
+</body>
+</html>

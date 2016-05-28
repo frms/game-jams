@@ -1,0 +1,23 @@
+{
+  "name": "minild50",
+  "version": "0.0.0",
+  "description": "Ton and Jim's Mini Ludum Dare 50",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mini",
+    "ludum",
+    "dare"
+  ],
+  "author": "woodenrabbit",
+  "license": "MIT",
+  "dependencies": {
+    "express": "~3.5.0",
+    "ws": "~0.4.31"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}

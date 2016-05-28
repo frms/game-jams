@@ -1,0 +1,23 @@
+Move attacking constants (spread across server and front end) to one single file/location
+Only try and draw things(map) within range of the camera
+Fix it so we send something to heroku every 30 second to prevent disconnect
+
+30 key events per second (33.333 ms)
+
+Latency:
+Single client (0.5 sec delay) 35ms
+Double client (0.5 sec delay) 35ms
+
+
+
+Client: Send current player state
+Server: Subtract time from new state from the time from last state (stored)
+Server: Use player state and dt to calculate new position
+Server: Return position and dt
+Client: interpolate between last server position and new server position over dt time 
+
+
+Max Tile Size 64x64
+Map Section 16 by 9 tiles
+
+context.rect(players[you].position[0]+60,players[you].position[2]-110,130,175);
