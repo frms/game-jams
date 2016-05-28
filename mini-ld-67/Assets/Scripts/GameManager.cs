@@ -28,7 +28,9 @@ public class GameManager : MonoBehaviour
 
         for(int i = 0; i < ghostColors.Length; i++)
         {
-            GameObject go = Instantiate(ghostPrefab, randomPos(), Quaternion.FromToRotation(Vector3.right, randomDir())) as GameObject;
+            Vector3 pos = randomPos();
+            pos.y = ghostPrefab.transform.position.y;
+            GameObject go = Instantiate(ghostPrefab, pos, Quaternion.FromToRotation(Vector3.right, randomDir())) as GameObject;
             go.GetComponent<Renderer>().material.color = ghostColors[i];
         }
     }
