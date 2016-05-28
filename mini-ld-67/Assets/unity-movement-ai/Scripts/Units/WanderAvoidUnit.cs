@@ -26,9 +26,6 @@ public class WanderAvoidUnit : MonoBehaviour {
         if (accel.magnitude < 0.005f)
         {
             accel = wander.getSteering();
-        } else
-        {
-            Debug.DrawLine(transform.position, transform.position + accel.normalized, Color.red, 0f, false);
         }
 
         steeringBasics.steer(accel);

@@ -124,7 +124,7 @@ public class WallAvoidance : MonoBehaviour {
     private bool genericCast(Vector3 direction, out GenericCastHit hit, float distance = Mathf.Infinity)
     {
         bool result = false;
-        Vector3 origin = transform.position;
+        Vector3 origin = rb.colliderPosition;
 
         if (rb.is3D)
         {
@@ -132,13 +132,11 @@ public class WallAvoidance : MonoBehaviour {
 
             if(wallDetection == WallDetection.Raycast)
             {
-                origin += Vector3.up * (rb.boundingRadius / 2f);
                 result = Physics.Raycast(origin, direction, out h, distance, castMask.value);
             }
             else
             {
-                origin += Vector3.up * rb.boundingRadius;
-                result = Physics.SphereCast(origin, (rb.boundingRadius * 0.5f), direction, out h, distance, castMask.value);
+                result = Physics.SphereCast(origin, (rb.radius * 0.5f), direction, out h, distance, castMask.value);
             }
 
             hit = new GenericCastHit(h);
@@ -164,7 +162,7 @@ public class WallAvoidance : MonoBehaviour {
             {
                 h = Physics2D.Raycast(origin, direction, distance, castMask.value);
             } else {
-                h = Physics2D.CircleCast(origin, (rb.boundingRadius / 2f), direction, distance, castMask.value);
+                h = Physics2D.CircleCast(origin, (rb.radius * 0.5f), direction, distance, castMask.value);
             }
 
             result = (h.collider != null); //RaycastHit2D auto evaluates to true or false evidently

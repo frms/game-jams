@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class CollisionAvoidance : MonoBehaviour {
     public float maxAcceleration = 15f;
 
-    //public float agentRadius = 0.25f;
+    [Tooltip("How much space can be between two characters before they are considered colliding")]
+    public float distanceBetween = 0f;
 
     private MovementAIRigidbody rb;
 
@@ -27,15 +28,14 @@ public class CollisionAvoidance : MonoBehaviour {
         /* The first target that will collide and other data that
 		 * we will need and can avoid recalculating */
         MovementAIRigidbody firstTarget = null;
-        //float firstMinSeparation = 0, firstDistance = 0;
         float firstMinSeparation = 0, firstDistance = 0, firstRadius = 0;
         Vector3 firstRelativePos = Vector3.zero, firstRelativeVel = Vector3.zero;
 
         foreach (MovementAIRigidbody r in targets)
         {
             /* Calculate the time to collision */
-            Vector3 relativePos = transform.position - r.position;
-            Vector3 relativeVel = rb.velocity - r.velocity;
+            Vector3 relativePos = rb.colliderPosition - r.colliderPosition;
+            Vector3 relativeVel = rb.realVelocity - r.realVelocity;
             float distance = relativePos.magnitude;
             float relativeSpeed = relativeVel.magnitude;
 
@@ -50,10 +50,7 @@ public class CollisionAvoidance : MonoBehaviour {
             Vector3 separation = relativePos + relativeVel * timeToCollision;
             float minSeparation = separation.magnitude;
 
-            float targetRadius = r.boundingRadius;
-
-            if (minSeparation > rb.boundingRadius + targetRadius)
-            //if (minSeparation > 2 * agentRadius)
+            if (minSeparation > rb.radius + r.radius + distanceBetween)
             {
                 continue;
             }
@@ -67,7 +64,7 @@ public class CollisionAvoidance : MonoBehaviour {
                 firstDistance = distance;
                 firstRelativePos = relativePos;
                 firstRelativeVel = relativeVel;
-                firstRadius = targetRadius;
+                firstRadius = r.radius;
             }
         }
 
@@ -81,10 +78,9 @@ public class CollisionAvoidance : MonoBehaviour {
 
         /* If we are going to collide with no separation or if we are already colliding then 
 		 * steer based on current position */
-        if (firstMinSeparation <= 0 || firstDistance < rb.boundingRadius + firstRadius)
-        //if (firstMinSeparation <= 0 || firstDistance < 2 * agentRadius)
+        if (firstMinSeparation <= 0 || firstDistance < rb.radius + firstRadius + distanceBetween)
         {
-            acceleration = transform.position - firstTarget.position;
+            acceleration = rb.colliderPosition - firstTarget.colliderPosition;
         }
         /* Else calculate the future relative position */
         else
@@ -93,6 +89,7 @@ public class CollisionAvoidance : MonoBehaviour {
         }
 
         /* Avoid the target */
+        acceleration = rb.convertVector(acceleration);
         acceleration.Normalize();
         acceleration *= maxAcceleration;
 

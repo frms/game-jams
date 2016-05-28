@@ -108,7 +108,7 @@ public class Spawner : MonoBehaviour {
         {
             float dist = Vector3.Distance(thingsToAvoid[i].position, pos);
 
-            if(dist < halfSize + thingsToAvoid[i].boundingRadius)
+            if(dist < halfSize + thingsToAvoid[i].radius)
             {
                 return false;
             }
@@ -119,7 +119,7 @@ public class Spawner : MonoBehaviour {
         {
             float dist = Vector3.Distance(o.position, pos);
 
-            if (dist < o.boundingRadius + spaceBetweenObjects + halfSize)
+            if (dist < o.radius + spaceBetweenObjects + halfSize)
             {
                 return false;
             }

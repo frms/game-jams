@@ -27,27 +27,45 @@ public class MovementAIRigidbody : MonoBehaviour
     /* The maximum slope the character can climb in degrees */
     public float slopeLimit = 80f;
 
+    private SphereCollider col3D;
+    private CircleCollider2D col2D;
 
     /// <summary>
-    /// This holds the bounding radius for the current game object (either the radius of a sphere
-    /// or circle collider). If the game object does not have a sphere or circle collider this 
-    /// will be set to -1.
+    /// The radius for the current game object (either the radius of a sphere or circle
+    /// collider). If the game object does not have a sphere or circle collider this 
+    /// will return -1.
     /// </summary>
-    [System.NonSerialized]
-    public float boundingRadius = -1f;
+    public float radius
+    {
+        get
+        {
+            if(col3D != null)
+            {
+                return Mathf.Max(rb3D.transform.localScale.x, rb3D.transform.localScale.y, rb3D.transform.localScale.z) * col3D.radius;
+            }
+            else if(col2D != null)
+            {
+                return Mathf.Max(rb2D.transform.localScale.x, rb2D.transform.localScale.y) * col2D.radius;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+    }
 
     [System.NonSerialized]
     public bool is3D;
 
     /// <summary>
-    /// Holds the current ground normal for this character. This value is only used by 3D 
+    /// The current ground normal for this character. This value is only used by 3D 
     /// characters who cannot fly.
     /// </summary>
     [System.NonSerialized]
     public Vector3 wallNormal = Vector3.zero;
 
     /// <summary>
-    /// Holds the current movement plane normal for this character. This value is only
+    /// The current movement plane normal for this character. This value is only
     /// used by 3D characters who cannot fly.
     /// </summary>
     [System.NonSerialized]
@@ -61,7 +79,16 @@ public class MovementAIRigidbody : MonoBehaviour
         setUp();
     }
 
+    /// <summary>
+    /// Sets up the MovementAIRigidbody so it knows about its underlying collider and rigidbody.
+    /// </summary>
     public void setUp()
+    {
+        setUpRigidbody();
+        setUpCollider();
+    }
+
+    private void setUpRigidbody()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
@@ -74,15 +101,33 @@ public class MovementAIRigidbody : MonoBehaviour
             this.rb2D = GetComponent<Rigidbody2D>();
             is3D = false;
         }
+    }
 
-        setBoundingRadius();
+    private void setUpCollider()
+    {
+        if (is3D)
+        {
+            SphereCollider col = rb3D.GetComponent<SphereCollider>();
+
+            if (col != null)
+            {
+                col3D = col;
+            }
+        }
+        else
+        {
+            CircleCollider2D col = rb2D.GetComponent<CircleCollider2D>();
+
+            if (col != null)
+            {
+                col2D = col;
+            }
+        }
     }
 
     void Start()
     {
         StartCoroutine(debugDraw());
-
-        setBoundingRadius();
 
         /* Call fixed update for 3D grounded characters to make sure they get proper 
          * ground / movement normals before their velocity is set */
@@ -97,50 +142,24 @@ public class MovementAIRigidbody : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
 
-        Debug.DrawLine(transform.position + (Vector3.up * 0.3f), transform.position + (Vector3.up * 0.3f) + (velocity.normalized), Color.red, 0f, false);
-        Debug.DrawLine(transform.position + (Vector3.up * 0.3f), transform.position + (Vector3.up * 0.3f) + (Vector3.ProjectOnPlane(velocity, movementNormal).normalized), Color.magenta, 0f, false);
-        Debug.DrawLine(transform.position + (Vector3.up * 0.3f), transform.position + (Vector3.up * 0.3f) + (rb3D.velocity.normalized * 1.5f), Color.green, 0f, false);
-        Debug.DrawLine(transform.position + (Vector3.up * 0.3f), transform.position + (Vector3.up * 0.3f) + (wallNormal), Color.yellow, 0f, false);
-        Debug.DrawLine(transform.position + (Vector3.up * 0.3f), transform.position + (Vector3.up * 0.3f) + (movementNormal), Color.yellow, 0f, false);
+        Vector3 origin = colliderPosition;
+        Debug.DrawLine(origin, origin + (velocity.normalized), Color.red, 0f, false);
+        if(is3D)
+        {
+            Debug.DrawLine(origin, origin + (Vector3.ProjectOnPlane(velocity, movementNormal).normalized), Color.magenta, 0f, false);
+            Debug.DrawLine(origin, origin + (realVelocity.normalized), Color.green, 0f, false);
+            Debug.DrawLine(origin, origin + (wallNormal), Color.yellow, 0f, false);
+            Debug.DrawLine(origin, origin + (movementNormal), Color.yellow, 0f, false);
+        }
 
         //Debug.Log("waitforfixedupdate " + transform.position.ToString("f4"));
         //Debug.Log(rb3D.velocity.magnitude);
         //Debug.Log(movementNormal.ToString("f4"));
         //Debug.Log("--------------------------------------------------------------------------------");
+        //SteeringBasics.debugCross(colliderPosition, 0.5f, Color.red, 0, false);
 
         countDebug = 0;
         StartCoroutine(debugDraw());
-    }
-
-    private void setBoundingRadius()
-    {
-        if (is3D)
-        {
-            SphereCollider col = rb3D.GetComponent<SphereCollider>();
-
-            if (col != null)
-            {
-                boundingRadius = Mathf.Max(rb3D.transform.localScale.x, rb3D.transform.localScale.y, rb3D.transform.localScale.z) * col.radius;
-            }
-            else
-            {
-                CapsuleCollider capCol = rb3D.GetComponent<CapsuleCollider>();
-
-                if (capCol != null)
-                {
-                    boundingRadius = Mathf.Max(rb3D.transform.localScale.x, rb3D.transform.localScale.z) * capCol.radius;
-                }
-            }
-        }
-        else
-        {
-            CircleCollider2D col = rb2D.GetComponent<CircleCollider2D>();
-
-            if (col != null)
-            {
-                boundingRadius = Mathf.Max(rb2D.transform.localScale.x, rb2D.transform.localScale.y) * col.radius;
-            }
-        }
     }
 
     void FixedUpdate()
@@ -209,14 +228,14 @@ public class MovementAIRigidbody : MonoBehaviour
 
     private bool sphereCast(Vector3 dir, out RaycastHit hitInfo, float dist, int layerMask, Vector3 planeNormal = default(Vector3))
     {
-        /* The position of the characer is assumed to be at the base of the character,
-         * so make sure the sphere origin is truly in the middle of the character sphere.
+        /* Make sure we use the collider's origin for our cast (which can be different
+         * then the transform.position).
          *
          * Also if we are given a planeNormal then raise the origin a tiny amount away
          * from the plane to avoid problems when the given dir is just barely moving  
-         * into the plane (this occurs due to floating point inaccuracies when the dir
-         * is calculated with cross products) */
-        Vector3 origin = rb3D.position + (Vector3.up * boundingRadius) + (planeNormal * 0.001f);
+         * into the plane (this can occur due to floating point inaccuracies when the 
+         * dir is calculated with cross products) */
+        Vector3 origin = colliderPosition + (planeNormal * 0.001f);
 
         /* Start the ray with a small offset from inside the character, so it will
          * hit any colliders that the character is already touching. */
@@ -224,7 +243,7 @@ public class MovementAIRigidbody : MonoBehaviour
 
         float maxDist = (spherecastOffset + dist);
 
-        if (Physics.SphereCast(origin, boundingRadius, dir, out hitInfo, maxDist, layerMask))
+        if (Physics.SphereCast(origin, radius, dir, out hitInfo, maxDist, layerMask))
         {
             /* Remove the small offset from the distance before returning*/
             hitInfo.distance -= spherecastOffset;
@@ -276,7 +295,7 @@ public class MovementAIRigidbody : MonoBehaviour
             Vector3 direction = rb3D.velocity.normalized;
             float dist = rb3D.velocity.magnitude * Time.deltaTime;
 
-            Vector3 origin = rb3D.position + (Vector3.up * boundingRadius);
+            Vector3 origin = colliderPosition;
             countDebug++;
 
             if (i == 0)
@@ -385,13 +404,18 @@ public class MovementAIRigidbody : MonoBehaviour
 
             velocity = newVel;
 
-            //Debug.DrawLine(transform.position + (Vector3.up * 0.3f), transform.position + (Vector3.up * 0.3f) + (Vector3.up), Color.blue);
-            //Debug.DrawLine(transform.position + (Vector3.up * 0.3f), transform.position + (Vector3.up * 0.3f) + (planeMovement.normalized), Color.magenta);
+            //Debug.DrawLine(colliderPosition, colliderPosition + (Vector3.up), Color.blue);
+            //Debug.DrawLine(colliderPosition, colliderPosition + (planeMovement.normalized), Color.magenta);
         }
 
         return velocity;
     }
 
+    /// <summary>
+    /// The position that should be used for most movement AI code. For 2D chars the position will 
+    /// be on the X/Y plane. For 3D grounded characters the position is on the X/Z plane. For 3D
+    /// flying characters the position is in full 3D (X/Y/Z).
+    /// </summary>
     public Vector3 position
     {
         get
@@ -414,8 +438,32 @@ public class MovementAIRigidbody : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets the position of the collider (which can be offset from the transform position).
+    /// </summary>
+    public Vector3 colliderPosition
+    {
+        get
+        {
+            if (is3D)
+            {
+                return transform.TransformPoint(col3D.center);
+            }
+            else
+            {
+                return transform.TransformPoint(col2D.offset);
+            }
+        }
+    }
+
     private int count = 0;
 
+    /// <summary>
+    /// The velocity that should be used for movement AI code. For 2D chars this velocity will be on 
+    /// the X/Y plane. For 3D grounded characters this velocity will be on the X/Z plane but will be
+    /// applied on whatever plane the character is currently moving on. For 3D flying characters the
+    /// velocity will be in full 3D (X/Y/Z).
+    /// </summary>
     public Vector3 velocity
     {
         get
@@ -474,6 +522,28 @@ public class MovementAIRigidbody : MonoBehaviour
 
                     limitMovementOnSteepSlopes();
                 }
+            }
+            else
+            {
+                rb2D.velocity = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// The actual velocity of the underlying unity rigidbody.
+    /// </summary>
+    public Vector3 realVelocity
+    {
+        get
+        {
+            return (is3D) ? rb3D.velocity : (Vector3) rb2D.velocity;
+        }
+        set
+        {
+            if(is3D)
+            {
+                rb3D.velocity = value;
             }
             else
             {
@@ -606,11 +676,10 @@ public class MovementAIRigidbody : MonoBehaviour
     }
 
     /// <summary>
-    /// Converts the given vector to a vector that is appropriate for the kind of 
-    /// character this rigidbody is on. If the character is a 2D character then
-    /// the z component will be zeroed out. If the character is a grounded 3D 
-    /// character then the y component will be zeroed out. And if the character is 
-    /// flying 3D character no changes will be made to the vector.
+    /// Converts the vector based what kind of character the rigidbody is on. 
+    /// If it is a 2D character then the Z component will be zeroed out. If it
+    /// is a grounded 3D character then the Y component will be zeroed out. 
+    /// And if it is flying 3D character no changes will be made to the vector.
     /// </summary>
     /// <param name="v"></param>
     /// <returns></returns>
@@ -696,9 +765,7 @@ public class MovementAIRigidbody : MonoBehaviour
         return !(a == b);
     }
 
-    /* This function is here to ensure we have a rigidbody (2D or 3D) */
-
-    //Since we use editor calls we omit this function on build time
+    /* This function is here to ensure we have a rigidbody (2D or 3D). */
     #if UNITY_EDITOR
     [System.Diagnostics.Conditional("UNITY_EDITOR")]
     public void Reset()
