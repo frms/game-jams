@@ -55,4 +55,12 @@ public class Player : Health {
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Dot")
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 }
