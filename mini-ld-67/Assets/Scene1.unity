@@ -95,6 +95,7 @@ GameObject:
   - 224: {fileID: 202747200}
   - 114: {fileID: 202747202}
   - 114: {fileID: 202747201}
+  - 114: {fileID: 202747203}
   m_Layer: 5
   m_Name: Hearts
   m_TagString: Untagged
@@ -152,6 +153,18 @@ MonoBehaviour:
   m_Spacing: 5
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
+--- !u!114 &202747203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 202747199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fbebc5b238ac94ea4ffd96ba6c74c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heartPrefab: {fileID: 22403128, guid: 94ed462df09591843a84c5acc056ea36, type: 2}
 --- !u!1 &262208370
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,11 +196,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7717821815605914e9f8ff2a9bff2974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 3
   maxHealth: 3
   hurtClip: {fileID: 0}
   hurtVolume: 1
-  heartPrefab: {fileID: 22403128, guid: 94ed462df09591843a84c5acc056ea36, type: 2}
-  heartsContainer: {fileID: 202747200}
   thrust: 10
   maxSpeed: Infinity
   turnSpeed: 240
