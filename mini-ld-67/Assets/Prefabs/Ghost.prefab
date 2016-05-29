@@ -30,7 +30,6 @@ GameObject:
   - 114: {fileID: 11498486}
   - 54: {fileID: 5402994}
   - 135: {fileID: 13578100}
-  - 114: {fileID: 11428686}
   - 114: {fileID: 11456036}
   - 114: {fileID: 11414118}
   - 114: {fileID: 11414092}
@@ -126,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d0fb7ad878c96643a9ef33951d933ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAcceleration: 25
+  maxAcceleration: 50
   distanceBetween: 0
 --- !u!114 &11414118
 MonoBehaviour:
@@ -147,17 +146,6 @@ MonoBehaviour:
   timeToTarget: 0.1
   smoothing: 1
   numSamplesForSmoothing: 5
---- !u!114 &11428686
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 153972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc8bb85285d9974684a932daef751b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11450332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,8 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5943b3ef333d3b45b456e9a8ce26d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderRadius: 3.5
-  wanderDistance: 0
+  wanderRadius: 1.2
+  wanderDistance: 1
   wanderJitter: 40
 --- !u!114 &11456036
 MonoBehaviour:
@@ -223,7 +211,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.666667
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13578100
 SphereCollider:
@@ -258,11 +246,23 @@ Prefab:
       objectReference: {fileID: 2100000, guid: c1d0afb9f4e46844b92f05c677375c44, type: 2}
     - target: {fileID: 0}
       propertyPath: maxAcceleration
-      value: 25
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wanderRadius
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wanderDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Radius
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
