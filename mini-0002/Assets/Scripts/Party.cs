@@ -6,6 +6,8 @@ public class Party : MonoBehaviour {
     public Transform slotPrefab;
     public Vector2 slotPadding;
     public int numSlots;
+
+    public Transform[] slots;
     
     public Vector2 slotSize
     {
@@ -16,19 +18,48 @@ public class Party : MonoBehaviour {
         }
     }
 
-	// Use this for initialization
-	void Start () {
-        Vector2 delta = slotSize + slotPadding;
+    private Vector2 firstSlotPos;
+    private Vector2 slotDelta;
 
-        Vector2 pos = Vector2.zero;
-        pos.x = delta.x * ( numSlots - 1 ) * -0.5f;
+    void Awake()
+    {
+        slots = new Transform[numSlots];
+
+        slotDelta = slotSize + slotPadding;
+
+        firstSlotPos = Vector2.zero;
+        firstSlotPos.x = slotDelta.x * (numSlots - 1) * -0.5f;
+    }
+
+	// Use this for initialization
+	void Start ()
+    {
+        Vector2 pos = firstSlotPos;
 
 	    for(int i = 0; i < numSlots; i++)
         {
             Transform t = Instantiate(slotPrefab, pos, Quaternion.identity) as Transform;
             t.SetParent(transform, false);
 
-            pos.x += delta.x;
+            pos.x += slotDelta.x;
         }
 	}
+
+    public void setSlot(int i, Transform character)
+    {
+        slots[i] = character;
+        character.SetParent(transform);
+
+        Vector3 pos = slotPos(i);
+        pos.z = character.position.z;
+
+        character.localPosition = pos;
+    }
+
+    private Vector2 slotPos(int i)
+    {
+        Vector2 pos = firstSlotPos;
+        pos.x += i * slotDelta.x;
+        return pos;
+    }
 }

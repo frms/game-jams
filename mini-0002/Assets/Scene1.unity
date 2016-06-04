@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyPrefab: {fileID: 492148, guid: 28119842d8637884886616077166be53, type: 2}
+  charPrefab: {fileID: 478348, guid: 999204330ae5af8409c73803a6e72712, type: 2}
 --- !u!4 &274602238
 Transform:
   m_ObjectHideFlags: 0
