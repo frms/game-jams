@@ -3,7 +3,8 @@ using System.Collections;
 
 public class BattleManager : MonoBehaviour {
     public Transform partyPrefab;
-    public Transform charPrefab;
+    public Transform playerCharPrefab;
+    public Transform enemyCharPrefab;
 
 	// Use this for initialization
 	void Start ()
@@ -24,6 +25,9 @@ public class BattleManager : MonoBehaviour {
     {
         Transform t = Instantiate(partyPrefab, pos, Quaternion.identity) as Transform;
         t.name = "EnemyParty";
+
+        Party p = t.GetComponent<Party>();
+        p.setSlot(p.numSlots / 2, Instantiate(enemyCharPrefab) as Transform);
     }
 
     private void createPlayerParty(Vector2 pos)
@@ -32,7 +36,7 @@ public class BattleManager : MonoBehaviour {
         t.name = "PlayerParty";
 
         Party p = t.GetComponent<Party>();
-        p.setSlot(p.numSlots / 2, Instantiate(charPrefab) as Transform);
+        p.setSlot(p.numSlots / 2, Instantiate(playerCharPrefab) as Transform);
     }
 
     // Update is called once per frame

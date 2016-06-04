@@ -113,7 +113,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyPrefab: {fileID: 492148, guid: 28119842d8637884886616077166be53, type: 2}
-  charPrefab: {fileID: 478348, guid: 999204330ae5af8409c73803a6e72712, type: 2}
+  playerCharPrefab: {fileID: 478348, guid: 999204330ae5af8409c73803a6e72712, type: 2}
+  enemyCharPrefab: {fileID: 478348, guid: 802baa1f9bdf3614c98ee85d51f20636, type: 2}
 --- !u!4 &274602238
 Transform:
   m_ObjectHideFlags: 0
@@ -175,7 +176,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0.63529414, b: 0.9098039, a: 1}
+  m_BackGroundColor: {r: 0.6, g: 0.8509804, b: 0.91764706, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0

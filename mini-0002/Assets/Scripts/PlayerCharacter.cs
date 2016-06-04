@@ -1,26 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Slot : MonoBehaviour
-{
-    public Color defaultColor;
+public class PlayerCharacter : Hoverable {
     public Color selectedColor;
-    public Color hoverColor;
-
+    
     public bool isSelected = false;
-    private bool isHovered = false;
-
-    private SpriteRenderer sr;
-
-
-    // Use this for initialization
-    void Start()
-    {
-        sr = GetComponent<SpriteRenderer>();
-    }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
         if (isSelected)
         {
@@ -34,16 +21,6 @@ public class Slot : MonoBehaviour
         {
             sr.color = defaultColor;
         }
-    }
-
-    void OnMouseEnter()
-    {
-        isHovered = true;
-    }
-
-    void OnMouseExit()
-    {
-        isHovered = false;
     }
 
     void OnMouseDown()
