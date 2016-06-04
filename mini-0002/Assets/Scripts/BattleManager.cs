@@ -6,8 +6,50 @@ public class BattleManager : MonoBehaviour {
     public Transform playerCharPrefab;
     public Transform enemyCharPrefab;
 
-	// Use this for initialization
-	void Start ()
+    private PlayerCharacter _selected = null;
+    public PlayerCharacter selected
+    {
+        get
+        {
+            return _selected;
+        }
+        set
+        {
+            if (_selected != null)
+            {
+                _selected.isSelected = false;
+            }
+
+            _selected = value;
+
+            if (_selected != null)
+            {
+                _selected.isSelected = true;
+            }
+        }
+    }
+
+    private static BattleManager _main = null;
+
+    public static BattleManager main
+    {
+        get { return _main; }
+    }
+
+    void Awake()
+    {
+        if (_main != null && _main != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        else {
+            _main = this;
+        }
+    }
+
+    // Use this for initialization
+    void Start ()
     {
         Vector3 viewportTop = new Vector3(0.5f, 1f, -Camera.main.transform.position.z);
         Party p = partyPrefab.GetComponent<Party>();
@@ -42,6 +84,21 @@ public class BattleManager : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-	
+        if(selected != null)
+        {
+            if(!selected.handleInput())
+            {
+                selected = null;
+            }
+        }
+        else if(Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            if (hit.collider != null && hit.collider.tag == "PlayerChar")
+            {
+                selected = hit.collider.GetComponent<PlayerCharacter>();
+            }
+        }
 	}
 }
