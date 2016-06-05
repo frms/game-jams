@@ -4,7 +4,7 @@ using System.Collections;
 public class BattleManager : MonoBehaviour
 {
     public Transform partyPrefab;
-    public Transform playerCharPrefab;
+    public Transform[] playerCharPrefabs;
     public Transform enemyCharPrefab;
 
     public Party playerParty;
@@ -82,7 +82,8 @@ public class BattleManager : MonoBehaviour
         t.name = "PlayerParty";
 
         playerParty = t.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numSlots / 2, Instantiate(playerCharPrefab) as Transform);
+        playerParty.setSlot(playerParty.numSlots / 2, Instantiate(playerCharPrefabs[0]) as Transform);
+        playerParty.setSlot(0, Instantiate(playerCharPrefabs[1]) as Transform);
     }
 
     // Update is called once per frame

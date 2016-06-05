@@ -12,10 +12,10 @@ public class SingleTarget : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        tryToAtk();
+        tryToUse();
     }
 
-    public void tryToAtk()
+    public void tryToUse()
     {
         if (target != null && lastTimeUsed + rate < Time.time)
         {

@@ -113,7 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partyPrefab: {fileID: 492148, guid: 28119842d8637884886616077166be53, type: 2}
-  playerCharPrefab: {fileID: 478348, guid: 999204330ae5af8409c73803a6e72712, type: 2}
+  playerCharPrefabs:
+  - {fileID: 478348, guid: 999204330ae5af8409c73803a6e72712, type: 2}
+  - {fileID: 463482, guid: 60e59b540f976d341945059467541fee, type: 2}
   enemyCharPrefab: {fileID: 478348, guid: 802baa1f9bdf3614c98ee85d51f20636, type: 2}
   playerParty: {fileID: 0}
   enemyParty: {fileID: 0}
