@@ -90,8 +90,8 @@ MonoBehaviour:
   maxHealth: 100
   hurtClip: {fileID: 0}
   hurtVolume: 1
-  bulletPrefab: {fileID: 0}
-  atkRate: 0
+  bulletPrefab: {fileID: 11487696, guid: 3e779a2eca81b1f489e8984883a6d97c, type: 2}
+  atkRate: 2
   atkTarget: {fileID: 0}
 --- !u!212 &21259576
 SpriteRenderer:
@@ -241,6 +241,19 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: -0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: atkRate
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: atkTarget
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 11487696, guid: 3e779a2eca81b1f489e8984883a6d97c,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 188612}

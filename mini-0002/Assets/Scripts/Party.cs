@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Party : MonoBehaviour {
 
@@ -61,5 +62,27 @@ public class Party : MonoBehaviour {
         Vector2 pos = firstSlotPos;
         pos.x += i * slotDelta.x;
         return pos;
+    }
+
+    public Transform getRandomChar()
+    {
+        List<Transform> list = new List<Transform>();
+
+        for(int i = 0; i < slots.Length; i++)
+        {
+            if(slots[i] != null)
+            {
+                list.Add(slots[i]);
+            }
+        }
+
+        if(list.Count == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return list[Random.Range(0, list.Count)];
+        }
     }
 }

@@ -6,6 +6,9 @@ public class BattleManager : MonoBehaviour {
     public Transform playerCharPrefab;
     public Transform enemyCharPrefab;
 
+    public Party playerParty;
+    public Party enemyParty;
+
     private PlayerCharacter _selected = null;
     public PlayerCharacter selected
     {
@@ -68,8 +71,8 @@ public class BattleManager : MonoBehaviour {
         Transform t = Instantiate(partyPrefab, pos, Quaternion.identity) as Transform;
         t.name = "EnemyParty";
 
-        Party p = t.GetComponent<Party>();
-        p.setSlot(p.numSlots / 2, Instantiate(enemyCharPrefab) as Transform);
+        enemyParty = t.GetComponent<Party>();
+        enemyParty.setSlot(enemyParty.numSlots / 2, Instantiate(enemyCharPrefab) as Transform);
     }
 
     private void createPlayerParty(Vector2 pos)
@@ -77,8 +80,8 @@ public class BattleManager : MonoBehaviour {
         Transform t = Instantiate(partyPrefab, pos, Quaternion.identity) as Transform;
         t.name = "PlayerParty";
 
-        Party p = t.GetComponent<Party>();
-        p.setSlot(p.numSlots / 2, Instantiate(playerCharPrefab) as Transform);
+        playerParty = t.GetComponent<Party>();
+        playerParty.setSlot(playerParty.numSlots / 2, Instantiate(playerCharPrefab) as Transform);
     }
 
     // Update is called once per frame
