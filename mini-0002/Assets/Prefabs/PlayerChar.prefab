@@ -92,6 +92,8 @@ MonoBehaviour:
   hurtVolume: 1
   selectedColor: {r: 0.70980394, g: 0.9019608, b: 0.11372549, a: 1}
   isSelected: 0
+  bulletPrefab: {fileID: 11452532, guid: 619d4099ae4885741b0233acd226ed19, type: 2}
+  atkRate: 0.5
 --- !u!212 &21249370
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -239,6 +241,15 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.x
       value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 11452532, guid: 619d4099ae4885741b0233acd226ed19,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: atkRate
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

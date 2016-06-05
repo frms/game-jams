@@ -6,6 +6,12 @@ public class PlayerCharacter : Health {
     
     public bool isSelected = false;
 
+    public Bullet bulletPrefab;
+    public float atkRate;
+
+    private Transform atkTarget = null;
+    private float lastAtkTime = -Mathf.Infinity;
+
     // Update is called once per frame
     public override void Update()
     {
@@ -23,6 +29,14 @@ public class PlayerCharacter : Health {
         }
 
         updateHealthBar();
+
+        if(atkTarget != null && lastAtkTime + atkRate < Time.time)
+        {
+            Bullet b = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as Bullet;
+            b.target = atkTarget;
+
+            lastAtkTime = Time.time;
+        }
     }
 
     public bool handleInput()
@@ -33,7 +47,7 @@ public class PlayerCharacter : Health {
 
             if (hit.collider != null && hit.collider.tag == "EnemyChar")
             {
-                Debug.Log("ATK!! " + hit.collider.name);
+                atkTarget = hit.transform;
             }
 
             return false;
