@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerCharacter : Health {
+public class PlayerCharacter : DmgDealer {
     public Color selectedColor;
     
     public bool isSelected = false;
 
-    public Bullet bulletPrefab;
-    public float atkRate;
-
-    private Transform atkTarget = null;
-    private float lastAtkTime = -Mathf.Infinity;
-
     // Update is called once per frame
     public override void Update()
+    {
+        setColor();
+
+        updateHealthBar();
+
+        tryToAtk();
+    }
+
+    private void setColor()
     {
         if (isSelected)
         {
@@ -26,16 +29,6 @@ public class PlayerCharacter : Health {
         else
         {
             sr.color = defaultColor;
-        }
-
-        updateHealthBar();
-
-        if(atkTarget != null && lastAtkTime + atkRate < Time.time)
-        {
-            Bullet b = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as Bullet;
-            b.target = atkTarget;
-
-            lastAtkTime = Time.time;
         }
     }
 

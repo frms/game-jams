@@ -26,7 +26,7 @@ GameObject:
   - 4: {fileID: 478348}
   - 212: {fileID: 21265050}
   - 58: {fileID: 5817126}
-  - 114: {fileID: 11429746}
+  - 114: {fileID: 11440812}
   m_Layer: 0
   m_Name: EnemyChar
   m_TagString: EnemyChar
@@ -73,7 +73,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &11429746
+--- !u!114 &11440812
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 188612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1623b6de9aea3194c9e2d3f0a369b768, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c2340c0d102cce4b8a1d5c71bff0c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
@@ -90,6 +90,9 @@ MonoBehaviour:
   maxHealth: 100
   hurtClip: {fileID: 0}
   hurtVolume: 1
+  bulletPrefab: {fileID: 0}
+  atkRate: 0
+  atkTarget: {fileID: 0}
 --- !u!212 &21259576
 SpriteRenderer:
   m_ObjectHideFlags: 1
