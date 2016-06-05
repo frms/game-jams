@@ -17,6 +17,32 @@ public class Health : Hoverable {
     public AudioClip hurtClip;
     public float hurtVolume = 1f;
 
+    private Transform healthBar;
+
+    public override void Start()
+    {
+        base.Start();
+
+        healthBar = transform.FindChild("HealthBar");
+
+        SpriteRenderer healthSr = healthBar.GetComponent<SpriteRenderer>();
+        healthSr.color = hoverColor;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        updateHealthBar();
+    }
+
+    public void updateHealthBar()
+    {
+        Vector3 scale = healthBar.transform.localScale;
+        scale.x = percentHealth;
+        healthBar.transform.localScale = scale;
+    }
+
     public virtual void applyDamage(float damage) {
         if(currentHealth <= 0)
         {

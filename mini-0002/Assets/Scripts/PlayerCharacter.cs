@@ -21,6 +21,8 @@ public class PlayerCharacter : Health {
         {
             sr.color = defaultColor;
         }
+
+        updateHealthBar();
     }
 
     public bool handleInput()
