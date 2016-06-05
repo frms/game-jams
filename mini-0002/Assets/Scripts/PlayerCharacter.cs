@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerCharacter : Hoverable {
+public class PlayerCharacter : Health {
     public Color selectedColor;
     
     public bool isSelected = false;

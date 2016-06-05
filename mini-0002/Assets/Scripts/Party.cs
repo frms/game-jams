@@ -51,7 +51,7 @@ public class Party : MonoBehaviour {
         character.SetParent(transform);
 
         Vector3 pos = slotPos(i);
-        pos.z = character.position.z;
+        pos += character.position;
 
         character.localPosition = pos;
     }
