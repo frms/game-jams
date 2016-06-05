@@ -1,10 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerCharacter : DmgDealer {
+public class PlayerCharacter : Health
+{
     public Color selectedColor;
     
     public bool isSelected = false;
+
+    private SingleTarget singleTarget;
+
+    public override void Start()
+    {
+        base.Start();
+
+        singleTarget = GetComponent<SingleTarget>();
+    }
 
     // Update is called once per frame
     public override void Update()
@@ -12,8 +22,6 @@ public class PlayerCharacter : DmgDealer {
         setColor();
 
         updateHealthBar();
-
-        tryToAtk();
     }
 
     private void setColor()
@@ -40,7 +48,7 @@ public class PlayerCharacter : DmgDealer {
 
             if (hit.collider != null && hit.collider.tag == "EnemyChar")
             {
-                atkTarget = hit.transform;
+                singleTarget.target = hit.transform;
             }
 
             return false;

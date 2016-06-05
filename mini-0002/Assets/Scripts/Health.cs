@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class Health : Hoverable {
+public class Health : Hoverable
+{
 
     public float currentHealth = 100;
     public float maxHealth = 100;

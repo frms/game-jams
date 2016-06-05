@@ -27,6 +27,7 @@ GameObject:
   - 212: {fileID: 21265050}
   - 58: {fileID: 5817126}
   - 114: {fileID: 11440812}
+  - 114: {fileID: 11461832}
   m_Layer: 0
   m_Name: EnemyChar
   m_TagString: EnemyChar
@@ -90,9 +91,20 @@ MonoBehaviour:
   maxHealth: 100
   hurtClip: {fileID: 0}
   hurtVolume: 1
+--- !u!114 &11461832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f1ce90315c135459b2e98853b6c3b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 11487696, guid: 3e779a2eca81b1f489e8984883a6d97c, type: 2}
-  atkRate: 2
-  atkTarget: {fileID: 0}
+  rate: 2
+  target: {fileID: 0}
 --- !u!212 &21259576
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -254,6 +266,10 @@ Prefab:
       value: 
       objectReference: {fileID: 11487696, guid: 3e779a2eca81b1f489e8984883a6d97c,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: rate
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 188612}

@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Party : MonoBehaviour {
+public class Party : MonoBehaviour
+{
 
     public Transform slotPrefab;
     public Vector2 slotPadding;

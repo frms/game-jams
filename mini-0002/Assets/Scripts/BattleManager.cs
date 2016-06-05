@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BattleManager : MonoBehaviour {
+public class BattleManager : MonoBehaviour
+{
     public Transform partyPrefab;
     public Transform playerCharPrefab;
     public Transform enemyCharPrefab;
