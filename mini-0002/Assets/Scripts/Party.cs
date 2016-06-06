@@ -43,26 +43,48 @@ public class Party : MonoBehaviour
             Transform t = Instantiate(slotPrefab, pos, Quaternion.identity) as Transform;
             t.SetParent(transform, false);
 
+            Slot s = t.GetComponent<Slot>();
+            s.index = i;
+            s.parent = this;
+
             pos.x += slotDelta.x;
         }
 	}
 
-    public void setSlot(int i, Transform character)
+    public void setSlot(int index, Transform character)
     {
-        slots[i] = character;
-        character.SetParent(transform);
+        slots[index] = character;
+        character.SetParent(transform, false);
 
-        Vector3 pos = slotPos(i);
-        pos += character.position;
+        Vector3 pos = slotPos(index);
+        pos += character.localPosition;
 
         character.localPosition = pos;
     }
 
-    private Vector2 slotPos(int i)
+    private Vector2 slotPos(int index)
     {
         Vector2 pos = firstSlotPos;
-        pos.x += i * slotDelta.x;
+        pos.x += index * slotDelta.x;
         return pos;
+    }
+
+    public void tryToMove(int index, Transform character)
+    {
+        if (slots[index] == null)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i] == character)
+                {
+                    slots[i] = null;
+                    character.localPosition -= (Vector3)slotPos(i);
+                    break;
+                }
+            }
+
+            setSlot(index, character);
+        }
     }
 
     public Transform getRandomChar()

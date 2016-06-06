@@ -13,6 +13,8 @@ public class PlayerDmgDealer : PlayerCharacter {
 
     public override bool handleInput()
     {
+        bool stillControlling = true;
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = PlayerCharacter.raycastAtMouse();
@@ -22,9 +24,11 @@ public class PlayerDmgDealer : PlayerCharacter {
                 singleTarget.target = hit.transform;
             }
 
-            return false;
+            stillControlling = false;
         }
 
-        return true;
+        stillControlling &= handleMove();
+
+        return stillControlling;
     }
 }

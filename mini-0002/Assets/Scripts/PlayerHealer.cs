@@ -14,6 +14,8 @@ public class PlayerHealer : PlayerCharacter
 
     public override bool handleInput()
     {
+        bool stillControlling = true;
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = PlayerCharacter.raycastAtMouse();
@@ -23,9 +25,11 @@ public class PlayerHealer : PlayerCharacter
                 singleTarget.target = hit.transform;
             }
 
-            return false;
+            stillControlling = false;
         }
 
-        return true;
+        stillControlling &= handleMove();
+
+        return stillControlling;
     }
 }
