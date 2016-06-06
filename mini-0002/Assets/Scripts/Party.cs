@@ -7,30 +7,30 @@ public class Party : MonoBehaviour
 
     public Transform slotPrefab;
     public Vector2 slotPadding;
-    public int numSlots;
+    public int numCols;
+    public int numRows;
 
-    public Transform[] slots;
-    
-    public Vector2 slotSize
+    public Transform[,] grid;
+
+    [System.NonSerialized]
+    public Vector2 slotSize;
+    [System.NonSerialized]
+    public Vector2 firstSlotPos;
+    [System.NonSerialized]
+    public Vector2 slotDelta;
+
+    public void Awake()
     {
-        get
-        {
-            BoxCollider2D col = slotPrefab.GetComponent<BoxCollider2D>();
-            return Vector2.Scale(col.size, slotPrefab.localScale);
-        }
-    }
+        grid = new Transform[numCols, numRows];
 
-    private Vector2 firstSlotPos;
-    private Vector2 slotDelta;
-
-    void Awake()
-    {
-        slots = new Transform[numSlots];
+        BoxCollider2D col = slotPrefab.GetComponent<BoxCollider2D>();
+        slotSize = Vector2.Scale(col.size, slotPrefab.localScale);
 
         slotDelta = slotSize + slotPadding;
 
         firstSlotPos = Vector2.zero;
-        firstSlotPos.x = slotDelta.x * (numSlots - 1) * -0.5f;
+        firstSlotPos.x = slotDelta.x * (numCols - 1) * -0.5f;
+        firstSlotPos.y = slotDelta.y * (numRows - 1) * -0.5f;
     }
 
 	// Use this for initialization
@@ -38,52 +38,63 @@ public class Party : MonoBehaviour
     {
         Vector2 pos = firstSlotPos;
 
-	    for(int i = 0; i < numSlots; i++)
+	    for(int i = 0; i < numCols; i++)
         {
-            Transform t = Instantiate(slotPrefab, pos, Quaternion.identity) as Transform;
-            t.SetParent(transform, false);
+            pos.y = firstSlotPos.y;
 
-            Slot s = t.GetComponent<Slot>();
-            s.index = i;
-            s.parent = this;
+            for(int j = 0; j < numRows; j++)
+            {
+                Transform t = Instantiate(slotPrefab, pos, Quaternion.identity) as Transform;
+                t.SetParent(transform, false);
+
+                Slot s = t.GetComponent<Slot>();
+                s.x = i;
+                s.y = j;
+                s.parent = this;
+
+                pos.y += slotDelta.y;
+            }
 
             pos.x += slotDelta.x;
         }
 	}
 
-    public void setSlot(int index, Transform character)
+    public void setSlot(int x, int y, Transform character)
     {
-        slots[index] = character;
+        grid[x, y] = character;
         character.SetParent(transform, false);
 
-        Vector3 pos = slotPos(index);
+        Vector3 pos = slotPos(x, y);
         pos += character.localPosition;
 
         character.localPosition = pos;
     }
 
-    private Vector2 slotPos(int index)
+    private Vector2 slotPos(int x, int y)
     {
         Vector2 pos = firstSlotPos;
-        pos.x += index * slotDelta.x;
+        pos.x += x * slotDelta.x;
+        pos.y += y * slotDelta.y;
         return pos;
     }
 
-    public void tryToMove(int index, Transform character)
+    public void tryToMove(int x, int y, Transform character)
     {
-        if (slots[index] == null)
+        if (grid[x, y] == null)
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < numCols; i++)
             {
-                if (slots[i] == character)
+                for(int j = 0; j < numRows; j++)
                 {
-                    slots[i] = null;
-                    character.localPosition -= (Vector3)slotPos(i);
-                    break;
+                    if (grid[i, j] == character)
+                    {
+                        grid[i, j] = null;
+                        character.localPosition -= (Vector3)slotPos(i, j);
+                    }
                 }
             }
 
-            setSlot(index, character);
+            setSlot(x, y, character);
         }
     }
 
@@ -91,11 +102,14 @@ public class Party : MonoBehaviour
     {
         List<Transform> list = new List<Transform>();
 
-        for(int i = 0; i < slots.Length; i++)
+        for(int i = 0; i < numCols; i++)
         {
-            if(slots[i] != null)
+            for(int j = 0; j < numRows; j++)
             {
-                list.Add(slots[i]);
+                if (grid[i, j] != null)
+                {
+                    list.Add(grid[i, j]);
+                }
             }
         }
 

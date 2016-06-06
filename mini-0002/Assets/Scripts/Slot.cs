@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Slot : Hoverable
 {
-    public int index;
+    public int x;
+    public int y;
     public Party parent;
 
     public void tryToMove(Transform character)
     {
-        parent.tryToMove(index, character);
+        parent.tryToMove(x, y, character);
     }
 }

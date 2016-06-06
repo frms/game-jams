@@ -57,9 +57,10 @@ public class BattleManager : MonoBehaviour
     {
         Vector3 viewportTop = new Vector3(0.5f, 1f, -Camera.main.transform.position.z);
         Party p = partyPrefab.GetComponent<Party>();
+        p.Awake();  // Call Awake manually because the prefab won't ever call it
 
         Vector2 partyPos = Camera.main.ViewportToWorldPoint(viewportTop);
-        partyPos.y -= ( p.slotSize.y / 2 ) + p.slotPadding.y;
+        partyPos.y -= -p.firstSlotPos.y + ( p.slotSize.y / 2 ) + p.slotPadding.y;
 
         createEnemyParty(partyPos);
 
@@ -73,7 +74,7 @@ public class BattleManager : MonoBehaviour
         t.name = "EnemyParty";
 
         enemyParty = t.GetComponent<Party>();
-        enemyParty.setSlot(enemyParty.numSlots / 2, Instantiate(enemyCharPrefab) as Transform);
+        enemyParty.setSlot(enemyParty.numCols / 2, 0, Instantiate(enemyCharPrefab) as Transform);
     }
 
     private void createPlayerParty(Vector2 pos)
@@ -82,8 +83,8 @@ public class BattleManager : MonoBehaviour
         t.name = "PlayerParty";
 
         playerParty = t.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numSlots / 2, Instantiate(playerCharPrefabs[0]) as Transform);
-        playerParty.setSlot(0, Instantiate(playerCharPrefabs[1]) as Transform);
+        playerParty.setSlot(playerParty.numCols / 2, 0, Instantiate(playerCharPrefabs[0]) as Transform);
+        playerParty.setSlot(0, 0, Instantiate(playerCharPrefabs[1]) as Transform);
     }
 
     // Update is called once per frame

@@ -41,7 +41,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: 485034, guid: dee0c6c7539a7e74caf2c8b39827f85f, type: 2}
   slotPadding: {x: 0.25, y: 0.25}
-  numSlots: 6
+  numCols: 6
+  numRows: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -56,6 +57,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: slotPadding.y
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: numCols
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: numRows
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
