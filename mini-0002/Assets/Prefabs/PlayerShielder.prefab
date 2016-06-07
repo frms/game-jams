@@ -92,6 +92,7 @@ MonoBehaviour:
   hurtVolume: 1
   selectedColor: {r: 0.70980394, g: 0.9019608, b: 0.11372549, a: 1}
   isSelected: 0
+  shieldPrefab: {fileID: 455604, guid: 1b3e02d566563fa4c984919c2d167b31, type: 2}
 --- !u!212 &21203368
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -207,6 +208,10 @@ Prefab:
       propertyPath: selectedColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shieldPrefab
+      value: 
+      objectReference: {fileID: 455604, guid: 1b3e02d566563fa4c984919c2d167b31, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 143814}

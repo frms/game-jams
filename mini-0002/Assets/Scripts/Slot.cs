@@ -16,4 +16,9 @@ public class Slot : Hoverable
     {
         return parent.grid[x, y] == null;
     }
+
+    public void set(Transform character)
+    {
+        parent.setSlot(x, y, character);
+    }
 }

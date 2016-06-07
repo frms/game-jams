@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerShielder : PlayerCharacter
 {
+    public Transform shieldPrefab;
+
     public override bool handleInput()
     {
         bool stillControlling = true;
@@ -13,7 +15,7 @@ public class PlayerShielder : PlayerCharacter
 
             if (s != null && s.isOpen())
             {
-                Debug.Log("Place shield");
+                s.set(Instantiate(shieldPrefab));
             }
 
             stillControlling = false;

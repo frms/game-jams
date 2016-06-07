@@ -26,15 +26,21 @@ public class Health : Hoverable
 
         healthBar = transform.FindChild("HealthBar");
 
-        SpriteRenderer healthSr = healthBar.GetComponent<SpriteRenderer>();
-        healthSr.color = hoverColor;
+        if(healthBar != null)
+        {
+            SpriteRenderer healthSr = healthBar.GetComponent<SpriteRenderer>();
+            healthSr.color = hoverColor;
+        }
     }
 
     public override void Update()
     {
         base.Update();
 
-        updateHealthBar();
+        if(healthBar != null)
+        {
+            updateHealthBar();
+        }
     }
 
     public void updateHealthBar()
