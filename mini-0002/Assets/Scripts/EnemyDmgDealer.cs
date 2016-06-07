@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyCharacter : Health
+public class EnemyDmgDealer : Health
 {
     private SingleTarget singleTarget;
 

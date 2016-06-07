@@ -29,7 +29,7 @@ GameObject:
   - 114: {fileID: 11440812}
   - 114: {fileID: 11461832}
   m_Layer: 0
-  m_Name: EnemyChar
+  m_Name: EnemyDmgDealer
   m_TagString: EnemyChar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

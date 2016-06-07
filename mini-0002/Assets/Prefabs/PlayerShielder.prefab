@@ -43,6 +43,7 @@ GameObject:
   - 212: {fileID: 21264012}
   - 58: {fileID: 5815388}
   - 114: {fileID: 11466264}
+  - 114: {fileID: 11419072}
   m_Layer: 0
   m_Name: PlayerShielder
   m_TagString: PlayerChar
@@ -102,6 +103,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &11419072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 143814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3083cceaef16abe47a1682a64e269d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldPrefab: {fileID: 455604, guid: 1b3e02d566563fa4c984919c2d167b31, type: 2}
+  rate: 2
 --- !u!114 &11466264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,8 +135,6 @@ MonoBehaviour:
   hurtVolume: 1
   selectedColor: {r: 0.70980394, g: 0.9019608, b: 0.11372549, a: 1}
   isSelected: 0
-  shieldPrefab: {fileID: 455604, guid: 1b3e02d566563fa4c984919c2d167b31, type: 2}
-  rate: 2
 --- !u!212 &21203368
 SpriteRenderer:
   m_ObjectHideFlags: 1
