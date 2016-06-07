@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 0.49803922, b: 0.15294118, a: 1}
-  hoverColor: {r: 1, g: 0.68235296, b: 0.7882353, a: 1}
+  hoverColor: {r: 1, g: 0.5686275, b: 0.7124184, a: 1}
   currentHealth: 100
   maxHealth: 100
   hurtClip: {fileID: 0}
@@ -194,11 +194,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hoverColor.g
-      value: 0.639
+      value: 0.5686275
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hoverColor.b
-      value: 0.7593334
+      value: 0.7124184
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hoverColor.a
