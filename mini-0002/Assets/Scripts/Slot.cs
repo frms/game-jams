@@ -11,4 +11,9 @@ public class Slot : Hoverable
     {
         parent.tryToMove(x, y, character);
     }
+
+    public bool isOpen()
+    {
+        return parent.grid[x, y] == null;
+    }
 }

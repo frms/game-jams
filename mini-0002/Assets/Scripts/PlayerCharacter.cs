@@ -42,16 +42,11 @@ public abstract class PlayerCharacter : Health
 
         if (Input.GetMouseButtonDown(1))
         {
-            RaycastHit2D hit = PlayerCharacter.raycastAtMouse();
+            Slot s = getPlayerSlotAtMouse();
 
-            if (hit.collider != null && hit.collider.tag == "Slot")
+            if(s != null)
             {
-                Slot s = hit.collider.GetComponent<Slot>();
-
-                if (s.parent == BattleManager.main.playerParty)
-                {
-                    s.tryToMove(transform);
-                }
+                s.tryToMove(transform);
             }
 
             stillControlling = false;
@@ -63,5 +58,22 @@ public abstract class PlayerCharacter : Health
     public static RaycastHit2D raycastAtMouse()
     {
         return Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+    }
+
+    public static Slot getPlayerSlotAtMouse()
+    {
+        RaycastHit2D hit = PlayerCharacter.raycastAtMouse();
+
+        if (hit.collider != null && hit.collider.tag == "Slot")
+        {
+            Slot s = hit.collider.GetComponent<Slot>();
+
+            if (s.parent == BattleManager.main.playerParty)
+            {
+                return s;
+            }
+        }
+
+        return null;
     }
 }

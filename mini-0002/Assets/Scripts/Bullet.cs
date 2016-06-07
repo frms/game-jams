@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
 
     public Transform target;
 
-    private int targetLayer;
+    private string targetTag;
 
     // Use this for initialization
     void Start()
@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            targetLayer = target.gameObject.layer;
+            targetTag = target.tag;
         }
     }
 
@@ -52,7 +52,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.layer == targetLayer)
+        if(other.tag == targetTag)
         {
             other.GetComponent<Health>().applyDamage(dmg);
             Destroy(gameObject);

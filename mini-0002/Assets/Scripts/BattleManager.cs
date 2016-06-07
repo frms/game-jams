@@ -85,6 +85,7 @@ public class BattleManager : MonoBehaviour
         playerParty = t.GetComponent<Party>();
         playerParty.setSlot(playerParty.numCols / 2, 0, Instantiate(playerCharPrefabs[0]) as Transform);
         playerParty.setSlot(0, 0, Instantiate(playerCharPrefabs[1]) as Transform);
+        playerParty.setSlot(playerParty.numCols - 1, 0, Instantiate(playerCharPrefabs[2]) as Transform);
     }
 
     // Update is called once per frame
