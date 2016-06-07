@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f87f8ff3301fb458e436cdbe658e49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
+  defaultColor: {r: 0.24705882, g: 0.28235295, b: 0.8, a: 1}
   hoverColor: {r: 1, g: 0.68235296, b: 0.7882353, a: 1}
   currentHealth: 100
   maxHealth: 100
@@ -248,6 +248,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: decisionTime.Array.data[1]
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: defaultColor.r
+      value: 0.24705882
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: defaultColor.g
+      value: 0.28235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: defaultColor.b
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

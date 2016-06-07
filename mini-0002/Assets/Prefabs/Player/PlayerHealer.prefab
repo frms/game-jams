@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9009cfbe34dcedc42a1214b529059af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
+  defaultColor: {r: 0.6392157, g: 0.28627452, b: 0.6431373, a: 1}
   hoverColor: {r: 0.39215687, g: 0.8666667, b: 0.09019608, a: 1}
   currentHealth: 100
   maxHealth: 100
@@ -181,15 +181,15 @@ Prefab:
         type: 2}
     - target: {fileID: 0}
       propertyPath: defaultColor.r
-      value: 0.13333334
+      value: 0.6392157
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultColor.g
-      value: 0.69411767
+      value: 0.28627452
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultColor.b
-      value: 0.29803923
+      value: 0.6431373
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultColor.a
