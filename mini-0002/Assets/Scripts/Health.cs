@@ -58,6 +58,11 @@ public class Health : Hoverable
 
         currentHealth -= damage;
 
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
         if(hurtClip != null && damage > 0) {
             AudioSource.PlayClipAtPoint(hurtClip, Camera.main.transform.position, hurtVolume);
         }
