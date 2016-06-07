@@ -10,6 +10,8 @@ public class BattleManager : MonoBehaviour
     public Party playerParty;
     public Party enemyParty;
 
+    public string battleName;
+
     private PlayerCharacter _selected = null;
     public PlayerCharacter selected
     {
@@ -52,6 +54,8 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private Vector2 topPartyPos, bottomPartyPos;
+
     // Use this for initialization
     void Start ()
     {
@@ -59,35 +63,13 @@ public class BattleManager : MonoBehaviour
         Party p = partyPrefab.GetComponent<Party>();
         p.Awake();  // Call Awake manually because the prefab won't ever call it
 
-        Vector2 partyPos = Camera.main.ViewportToWorldPoint(viewportTop);
-        partyPos.y -= -p.firstSlotPos.y + ( p.slotSize.y / 2 ) + p.slotPadding.y;
+        topPartyPos = Camera.main.ViewportToWorldPoint(viewportTop);
+        topPartyPos.y -= -p.firstSlotPos.y + ( p.slotSize.y / 2 ) + p.slotPadding.y;
 
-        createEnemyParty(partyPos);
+        bottomPartyPos = topPartyPos;
+        bottomPartyPos.y *= -1;
 
-        partyPos.y *= -1;
-        createPlayerParty(partyPos);
-    }
-
-    private void createEnemyParty(Vector2 pos)
-    {
-        Transform t = Instantiate(partyPrefab, pos, Quaternion.identity) as Transform;
-        t.name = "EnemyParty";
-
-        enemyParty = t.GetComponent<Party>();
-        enemyParty.setSlot(enemyParty.numCols / 2, 0, Instantiate(enemyCharPrefabs[0]) as Transform);
-        enemyParty.setSlot(0, 1, Instantiate(enemyCharPrefabs[1]) as Transform);
-        enemyParty.setSlot(enemyParty.numCols - 1, 1, Instantiate(enemyCharPrefabs[2]) as Transform);
-    }
-
-    private void createPlayerParty(Vector2 pos)
-    {
-        Transform t = Instantiate(partyPrefab, pos, Quaternion.identity) as Transform;
-        t.name = "PlayerParty";
-
-        playerParty = t.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numCols / 2, 0, Instantiate(playerCharPrefabs[0]) as Transform);
-        playerParty.setSlot(0, 0, Instantiate(playerCharPrefabs[1]) as Transform);
-        playerParty.setSlot(playerParty.numCols - 1, 0, Instantiate(playerCharPrefabs[2]) as Transform);
+        GetType().GetMethod(battleName).Invoke(this, null);
     }
 
     // Update is called once per frame
@@ -110,4 +92,39 @@ public class BattleManager : MonoBehaviour
             }
         }
 	}
+
+
+    public void battle1()
+    {
+        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
+        ept.name = "EnemyParty";
+
+        enemyParty = ept.GetComponent<Party>();
+        enemyParty.setSlot(enemyParty.numCols / 2, 0, Instantiate(enemyCharPrefabs[0]) as Transform);
+        enemyParty.setSlot(0, 1, Instantiate(enemyCharPrefabs[1]) as Transform);
+        enemyParty.setSlot(enemyParty.numCols - 1, 1, Instantiate(enemyCharPrefabs[2]) as Transform);
+
+        Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
+        ppt.name = "PlayerParty";
+
+        playerParty = ppt.GetComponent<Party>();
+        playerParty.setSlot(playerParty.numCols / 2, 0, Instantiate(playerCharPrefabs[0]) as Transform);
+        playerParty.setSlot(0, 0, Instantiate(playerCharPrefabs[1]) as Transform);
+        playerParty.setSlot(playerParty.numCols - 1, 0, Instantiate(playerCharPrefabs[2]) as Transform);
+    }
+
+    public void battle2()
+    {
+        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
+        ept.name = "EnemyParty";
+
+        enemyParty = ept.GetComponent<Party>();
+        enemyParty.setSlot(enemyParty.numCols / 2, 0, Instantiate(enemyCharPrefabs[0]) as Transform);
+
+        Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
+        ppt.name = "PlayerParty";
+
+        playerParty = ppt.GetComponent<Party>();
+        playerParty.setSlot(playerParty.numCols / 2, 0, Instantiate(playerCharPrefabs[0]) as Transform);
+    }
 }
