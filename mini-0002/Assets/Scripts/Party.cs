@@ -102,7 +102,7 @@ public class Party : MonoBehaviour
         }
     }
 
-    public Transform getRandomChar()
+    public Transform getRandomChar(bool includeShields = true)
     {
         List<Transform> list = new List<Transform>();
 
@@ -110,7 +110,7 @@ public class Party : MonoBehaviour
         {
             for(int j = 0; j < numRows; j++)
             {
-                if (grid[i, j] != null)
+                if (grid[i, j] != null && (includeShields || !grid[i, j].name.Contains("Wall")))
                 {
                     list.Add(grid[i, j]);
                 }

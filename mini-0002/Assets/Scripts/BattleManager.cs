@@ -75,7 +75,8 @@ public class BattleManager : MonoBehaviour
 
         enemyParty = t.GetComponent<Party>();
         enemyParty.setSlot(enemyParty.numCols / 2, 0, Instantiate(enemyCharPrefabs[0]) as Transform);
-        enemyParty.setSlot(enemyParty.numCols - 1, 1, Instantiate(enemyCharPrefabs[1]) as Transform);
+        enemyParty.setSlot(0, 1, Instantiate(enemyCharPrefabs[1]) as Transform);
+        enemyParty.setSlot(enemyParty.numCols - 1, 1, Instantiate(enemyCharPrefabs[2]) as Transform);
     }
 
     private void createPlayerParty(Vector2 pos)
