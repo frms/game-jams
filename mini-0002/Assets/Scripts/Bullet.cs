@@ -9,23 +9,32 @@ public class Bullet : MonoBehaviour
 
     public Transform target;
 
-    private Vector2 dest;
+    private int targetLayer;
 
-	// Use this for initialization
-	void Start () {
-        if (target != null)
-        {
-            dest =  target.position;
-        }
-        else
+    // Use this for initialization
+    void Start()
+    {
+        if (target == null)
         {
             Destroy(gameObject);
         }
+        else
+        {
+            targetLayer = target.gameObject.layer;
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if((Vector2) transform.position != dest)
+
+    private Vector2 dest;
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (target != null)
+        {
+            dest = target.position;
+        }
+
+        if ((Vector2)transform.position != dest)
         {
             Vector3 newPos = Vector2.MoveTowards(transform.position, dest, Time.deltaTime * speed);
             newPos.z = transform.position.z;
@@ -33,11 +42,19 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            if (target != null)
+            if(target != null)
             {
                 target.GetComponent<Health>().applyDamage(dmg);
             }
+            Destroy(gameObject);
+        }
+    }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.layer == targetLayer)
+        {
+            other.GetComponent<Health>().applyDamage(dmg);
             Destroy(gameObject);
         }
     }
