@@ -4,6 +4,26 @@ using System.Collections;
 public class PlayerShielder : PlayerCharacter
 {
     public Transform shieldPrefab;
+    public float rate;
+
+    private float lastTimeUsed = 0;
+    private Transform progressBar;
+
+    public override void Start()
+    {
+        base.Start();
+
+        progressBar = transform.FindChild("ProgressBar");
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        Vector3 scale = progressBar.transform.localScale;
+        scale.x = Mathf.Min(Time.time - lastTimeUsed, rate) / rate;
+        progressBar.transform.localScale = scale;
+    }
 
     public override bool handleInput()
     {
@@ -11,13 +31,16 @@ public class PlayerShielder : PlayerCharacter
 
         if (Input.GetMouseButtonDown(0))
         {
-            Slot s = getPlayerSlotAtMouse();
-
-            if (s != null && s.isOpen())
+            if (lastTimeUsed + rate < Time.time)
             {
-                s.set(Instantiate(shieldPrefab));
-            }
+                Slot s = getPlayerSlotAtMouse();
 
+                if (s != null && s.isOpen())
+                {
+                    s.set(Instantiate(shieldPrefab));
+                    lastTimeUsed = Time.time;
+                }
+            }
             stillControlling = false;
         }
 
