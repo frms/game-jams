@@ -117,7 +117,9 @@ MonoBehaviour:
   - {fileID: 478348, guid: 999204330ae5af8409c73803a6e72712, type: 2}
   - {fileID: 463482, guid: 60e59b540f976d341945059467541fee, type: 2}
   - {fileID: 434096, guid: d7e912db3801585449ce0ab5d2d9b968, type: 2}
-  enemyCharPrefab: {fileID: 478348, guid: 802baa1f9bdf3614c98ee85d51f20636, type: 2}
+  enemyCharPrefabs:
+  - {fileID: 478348, guid: 802baa1f9bdf3614c98ee85d51f20636, type: 2}
+  - {fileID: 469898, guid: 0df457111ff44b14a81a962bfc38cccd, type: 2}
   playerParty: {fileID: 0}
   enemyParty: {fileID: 0}
 --- !u!4 &274602238

@@ -11,6 +11,7 @@ public class Party : MonoBehaviour
     public int numRows;
 
     public Transform[,] grid;
+    public Slot[,] slots;
 
     [System.NonSerialized]
     public Vector2 slotSize;
@@ -22,6 +23,7 @@ public class Party : MonoBehaviour
     public void Awake()
     {
         grid = new Transform[numCols, numRows];
+        slots = new Slot[numCols, numRows];
 
         BoxCollider2D col = slotPrefab.GetComponent<BoxCollider2D>();
         slotSize = Vector2.Scale(col.size, slotPrefab.localScale);
@@ -51,6 +53,8 @@ public class Party : MonoBehaviour
                 s.x = i;
                 s.y = j;
                 s.parent = this;
+
+                slots[i, j] = s;
 
                 pos.y += slotDelta.y;
             }
@@ -113,9 +117,32 @@ public class Party : MonoBehaviour
             }
         }
 
-        if(list.Count == 0)
+        return random<Transform>(list);
+    }
+
+    public Slot getRandomEmptySlot()
+    {
+        List<Slot> list = new List<Slot>();
+
+        for (int i = 0; i < numCols; i++)
         {
-            return null;
+            for (int j = 0; j < numRows; j++)
+            {
+                if (grid[i, j] == null)
+                {
+                    list.Add(slots[i, j]);
+                }
+            }
+        }
+
+        return random<Slot>(list);
+    }
+
+    private static T random<T>(List<T> list)
+    {
+        if (list.Count == 0)
+        {
+            return default(T);
         }
         else
         {

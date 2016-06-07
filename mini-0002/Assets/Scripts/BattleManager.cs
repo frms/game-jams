@@ -5,7 +5,7 @@ public class BattleManager : MonoBehaviour
 {
     public Transform partyPrefab;
     public Transform[] playerCharPrefabs;
-    public Transform enemyCharPrefab;
+    public Transform[] enemyCharPrefabs;
 
     public Party playerParty;
     public Party enemyParty;
@@ -74,7 +74,8 @@ public class BattleManager : MonoBehaviour
         t.name = "EnemyParty";
 
         enemyParty = t.GetComponent<Party>();
-        enemyParty.setSlot(enemyParty.numCols / 2, 0, Instantiate(enemyCharPrefab) as Transform);
+        enemyParty.setSlot(enemyParty.numCols / 2, 0, Instantiate(enemyCharPrefabs[0]) as Transform);
+        enemyParty.setSlot(enemyParty.numCols - 1, 1, Instantiate(enemyCharPrefabs[1]) as Transform);
     }
 
     private void createPlayerParty(Vector2 pos)

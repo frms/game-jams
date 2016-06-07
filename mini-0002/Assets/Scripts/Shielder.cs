@@ -6,11 +6,12 @@ public class Shielder : MonoBehaviour
     public Transform shieldPrefab;
     public float rate;
 
-    private float lastTimeUsed = 0;
+    private float lastTimeUsed;
     private Transform progressBar;
 
     void Start()
     {
+        lastTimeUsed = Time.time;
         progressBar = transform.FindChild("ProgressBar");
     }
 
@@ -23,10 +24,15 @@ public class Shielder : MonoBehaviour
 
     public void tryToUse(Slot s)
     {
-        if (s != null && s.isOpen() && lastTimeUsed + rate < Time.time)
+        if (s != null && s.isOpen() && isReady())
         {
             s.set(Instantiate(shieldPrefab));
             lastTimeUsed = Time.time;
         }
+    }
+
+    public bool isReady()
+    {
+        return lastTimeUsed + rate < Time.time;
     }
 }
