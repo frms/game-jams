@@ -94,7 +94,7 @@ public class BattleManager : MonoBehaviour
 	}
 
 
-    public void battle1()
+    public void battleAll()
     {
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
@@ -113,13 +113,18 @@ public class BattleManager : MonoBehaviour
         playerParty.setSlot(playerParty.numCols - 1, 0, Instantiate(playerCharPrefabs[2]) as Transform);
     }
 
-    public void battle2()
+    public void battle1()
     {
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
 
         enemyParty = ept.GetComponent<Party>();
-        enemyParty.setSlot(enemyParty.numCols / 2, 0, Instantiate(enemyCharPrefabs[0]) as Transform);
+        Transform e1 = Instantiate(enemyCharPrefabs[0]) as Transform;
+        enemyParty.setSlot(enemyParty.numCols / 2, 1, e1);
+        Transform e2 = Instantiate(enemyCharPrefabs[1]) as Transform;
+        enemyParty.setSlot((enemyParty.numCols / 2) - 1, 1, e2);
+
+        e2.GetComponent<SingleTarget>().target = e1;
 
         Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
         ppt.name = "PlayerParty";

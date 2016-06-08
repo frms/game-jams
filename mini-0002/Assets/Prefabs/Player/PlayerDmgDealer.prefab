@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 11452532, guid: 619d4099ae4885741b0233acd226ed19, type: 2}
-  rate: 0.5
+  rate: 0.6666667
   target: {fileID: 0}
 --- !u!114 &11478294
 MonoBehaviour:
@@ -266,7 +266,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rate
-      value: 0.5
+      value: 0.6666667
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
