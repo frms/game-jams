@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Health : Hoverable
 {
@@ -19,12 +20,14 @@ public class Health : Hoverable
     public float hurtVolume = 1f;
 
     private Transform healthBar;
+    private Text healthText;
 
     public override void Start()
     {
         base.Start();
 
         healthBar = transform.FindChild("HealthBar");
+        healthText = GetComponentInChildren<Text>();
 
         if(healthBar != null)
         {
@@ -37,17 +40,19 @@ public class Health : Hoverable
     {
         base.Update();
 
-        if(healthBar != null)
+        if(healthBar != null && healthText != null)
         {
-            updateHealthBar();
+            updateHealth();
         }
     }
 
-    public void updateHealthBar()
+    public void updateHealth()
     {
         Vector3 scale = healthBar.transform.localScale;
         scale.x = percentHealth;
         healthBar.transform.localScale = scale;
+
+        healthText.text = ((int) currentHealth).ToString();
     }
 
     public virtual void applyDamage(float damage) {

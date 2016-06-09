@@ -12,7 +12,7 @@ public abstract class PlayerCharacter : Health
     {
         setColor();
 
-        updateHealthBar();
+        updateHealth();
     }
 
     private void setColor()
