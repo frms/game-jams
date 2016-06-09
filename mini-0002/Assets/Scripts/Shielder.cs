@@ -6,19 +6,31 @@ public class Shielder : MonoBehaviour
     public Transform shieldPrefab;
     public float rate;
 
-    private float lastTimeUsed;
+    private float timeSinceLastUse = 0;
     private Transform progressBar;
 
     void Start()
     {
-        lastTimeUsed = Time.time;
         progressBar = transform.FindChild("ProgressBar");
+        updateProgressBar();
     }
 
     void Update()
     {
+        if(BattleManager.main.isPaused)
+        {
+            return;
+        }
+
+        timeSinceLastUse += Time.deltaTime;
+
+        updateProgressBar();
+    }
+
+    private void updateProgressBar()
+    {
         Vector3 scale = progressBar.transform.localScale;
-        scale.x = Mathf.Min(Time.time - lastTimeUsed, rate) / rate;
+        scale.x = Mathf.Min(timeSinceLastUse / rate, 1);
         progressBar.transform.localScale = scale;
     }
 
@@ -27,12 +39,13 @@ public class Shielder : MonoBehaviour
         if (s != null && s.isOpen() && isReady())
         {
             s.set(Instantiate(shieldPrefab));
-            lastTimeUsed = Time.time;
+            timeSinceLastUse = 0;
+            updateProgressBar();
         }
     }
 
     public bool isReady()
     {
-        return lastTimeUsed + rate < Time.time;
+        return timeSinceLastUse >= rate;
     }
 }

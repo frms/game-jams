@@ -7,7 +7,7 @@ public class SingleTarget : MonoBehaviour
     public float rate;
 
     public Transform target = null;
-    private float lastTimeUsed = -Mathf.Infinity;
+    private float timeSinceLastUse = 0;
 
     // Update is called once per frame
     public void Update()
@@ -17,12 +17,19 @@ public class SingleTarget : MonoBehaviour
 
     public void tryToUse()
     {
-        if (target != null && lastTimeUsed + rate < Time.time)
+        if(BattleManager.main.isPaused)
+        {
+            return;
+        }
+
+        timeSinceLastUse += Time.deltaTime;
+
+        if (target != null && timeSinceLastUse >= rate)
         {
             Bullet b = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as Bullet;
             b.target = target;
 
-            lastTimeUsed = Time.time;
+            timeSinceLastUse = 0;
         }
     }
 }

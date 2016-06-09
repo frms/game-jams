@@ -29,6 +29,11 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(BattleManager.main.isPaused)
+        {
+            return;
+        }
+
         if (target != null)
         {
             dest = target.position;

@@ -14,11 +14,16 @@ public class EnemyShielder : Health
         shielder = GetComponent<Shielder>();
     }
 
-    private float readyToTryTime = -1;
+    private float thinkingTimeLeft = Mathf.Infinity;
 
     public override void Update()
     {
         base.Update();
+
+        if(BattleManager.main.isPaused)
+        {
+            return;
+        }
 
         if (shielder.isReady())
         {
@@ -26,20 +31,24 @@ public class EnemyShielder : Health
 
             if (s == null)
             {
-                readyToTryTime = -1;
+                thinkingTimeLeft = Mathf.Infinity;
             }
-            else if (readyToTryTime == -1)
+            else if (thinkingTimeLeft == Mathf.Infinity)
             {
-                readyToTryTime = Time.time + Random.Range(decisionTime[0], decisionTime[1]);
+                thinkingTimeLeft = Random.Range(decisionTime[0], decisionTime[1]);
             }
-            else if(readyToTryTime <= Time.time)
+            else if (thinkingTimeLeft > 0)
+            {
+                thinkingTimeLeft -= Time.deltaTime;
+            }
+            else
             {
                 shielder.tryToUse(s);
             }
         }
         else
         {
-            readyToTryTime = -1;
+            thinkingTimeLeft = Mathf.Infinity;
         }
     }
 }
