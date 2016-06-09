@@ -3,6 +3,20 @@ using System.Collections;
 
 public class BattleManager : MonoBehaviour
 {
+    public GameObject pauseOverlay;
+
+    public bool isPaused
+    {
+        get
+        {
+            return pauseOverlay.activeSelf;
+        }
+        set
+        {
+            pauseOverlay.SetActive(value);
+        }
+    }
+
     public Transform partyPrefab;
     public Transform[] playerCharPrefabs;
     public Transform[] enemyCharPrefabs;
@@ -90,6 +104,11 @@ public class BattleManager : MonoBehaviour
             {
                 selected = hit.collider.GetComponent<PlayerCharacter>();
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            isPaused = !isPaused;
         }
 	}
 
