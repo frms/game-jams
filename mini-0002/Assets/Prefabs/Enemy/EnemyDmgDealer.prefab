@@ -140,6 +140,7 @@ MonoBehaviour:
   maxHealth: 120
   hurtClip: {fileID: 0}
   hurtVolume: 1
+  randomTargetEachAtk: 0
 --- !u!114 &11461154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -443,6 +444,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: maxHealth
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: randomTargetEachAtk
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

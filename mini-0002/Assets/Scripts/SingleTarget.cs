@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class SingleTarget : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class SingleTarget : MonoBehaviour
 
     public Transform target = null;
     private float timeSinceLastUse = 0;
+
+    public event Action UseEvent;
 
     // Update is called once per frame
     public void Update()
@@ -28,14 +31,23 @@ public class SingleTarget : MonoBehaviour
         {
             Bullet b = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as Bullet;
             b.target = target;
-
-            SpriteRenderer sr = b.GetComponent<SpriteRenderer>();
-            float h, s, v;
-            Color.RGBToHSV(sr.color, out h, out s, out v);
-            s *= 1 - (rate/4f);
-            sr.color = Color.HSVToRGB(h, s, v);
+            setSaturation(b);
 
             timeSinceLastUse = 0;
+
+            if(UseEvent != null)
+            {
+                UseEvent();
+            }
         }
+    }
+
+    private void setSaturation(Bullet b)
+    {
+        SpriteRenderer sr = b.GetComponent<SpriteRenderer>();
+        float h, s, v;
+        Color.RGBToHSV(sr.color, out h, out s, out v);
+        s *= 1 - (rate / 4f);
+        sr.color = Color.HSVToRGB(h, s, v);
     }
 }

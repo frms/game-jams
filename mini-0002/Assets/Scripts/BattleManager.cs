@@ -112,7 +112,7 @@ public class BattleManager : MonoBehaviour
         }
 	}
 
-    private Transform createSingleTargetChar(Transform prefab, float hp = -1, float rate = -1, Transform target = null)
+    private Transform createSingleTarget(Transform prefab, float hp = -1, float rate = -1, Transform target = null)
     {
         Transform t = Instantiate(prefab) as Transform;
 
@@ -145,16 +145,16 @@ public class BattleManager : MonoBehaviour
         ppt.name = "PlayerParty";
 
         playerParty = ppt.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0]));
-        playerParty.setSlot(0, 0, createSingleTargetChar(playerCharPrefabs[1]));
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTarget(playerCharPrefabs[0]));
+        playerParty.setSlot(0, 0, createSingleTarget(playerCharPrefabs[1]));
         playerParty.setSlot(playerParty.numCols - 1, 0, Instantiate(playerCharPrefabs[2]) as Transform);
 
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
 
         enemyParty = ept.GetComponent<Party>();
-        enemyParty.setSlot(enemyParty.numCols / 2, 0, createSingleTargetChar(enemyCharPrefabs[0]));
-        enemyParty.setSlot(0, 1, createSingleTargetChar(enemyCharPrefabs[1]));
+        enemyParty.setSlot(enemyParty.numCols / 2, 0, createSingleTarget(enemyCharPrefabs[0]));
+        enemyParty.setSlot(0, 1, createSingleTarget(enemyCharPrefabs[1]));
         enemyParty.setSlot(enemyParty.numCols - 1, 1, Instantiate(enemyCharPrefabs[2]) as Transform);
     }
 
@@ -167,15 +167,15 @@ public class BattleManager : MonoBehaviour
         ppt.name = "PlayerParty";
 
         playerParty = ppt.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0]));
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTarget(playerCharPrefabs[0]));
 
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
 
         enemyParty = ept.GetComponent<Party>();
-        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 120, 1);
+        Transform e1 = createSingleTarget(enemyCharPrefabs[0], 120, 1);
         enemyParty.setSlot(enemyParty.getRandomEmptySlot(), e1);
-        Transform e2 = createSingleTargetChar(enemyCharPrefabs[1], 50, 1, e1);
+        Transform e2 = createSingleTarget(enemyCharPrefabs[1], 50, 1, e1);
         enemyParty.setSlot(enemyParty.getRandomEmptySlot(), e2);
     }
 
@@ -188,7 +188,7 @@ public class BattleManager : MonoBehaviour
         ppt.name = "PlayerParty";
 
         playerParty = ppt.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0]));
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTarget(playerCharPrefabs[0]));
 
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
@@ -197,9 +197,9 @@ public class BattleManager : MonoBehaviour
 
         int x = playerParty.getRandomCharSlot().x;
 
-        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 50, 0.6f);
+        Transform e1 = createSingleTarget(enemyCharPrefabs[0], 50, 0.6f);
         enemyParty.setSlot(x, 1, e1);
-        Transform e2 = createSingleTargetChar(enemyCharPrefabs[0], 150, 2f);
+        Transform e2 = createSingleTarget(enemyCharPrefabs[0], 150, 2f);
         enemyParty.setSlot(x, 0, e2);
     }
 
@@ -212,7 +212,7 @@ public class BattleManager : MonoBehaviour
         ppt.name = "PlayerParty";
 
         playerParty = ppt.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0]));
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTarget(playerCharPrefabs[0]));
 
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
@@ -221,13 +221,13 @@ public class BattleManager : MonoBehaviour
 
         int x = Random.Range(1, enemyParty.numCols - 1);
 
-        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 25, 1.2f);
+        Transform e1 = createSingleTarget(enemyCharPrefabs[0], 25, 1.2f);
         enemyParty.setSlot(x - 1, 1, e1);
 
-        Transform e2 = createSingleTargetChar(enemyCharPrefabs[0], 125, 3f);
+        Transform e2 = createSingleTarget(enemyCharPrefabs[0], 125, 3f);
         enemyParty.setSlot(x, 0, e2);
 
-        Transform e3 = createSingleTargetChar(enemyCharPrefabs[0], 25, 1.2f);
+        Transform e3 = createSingleTarget(enemyCharPrefabs[0], 25, 1.2f);
         enemyParty.setSlot(x + 1, 1, e3);
     }
 
@@ -240,15 +240,15 @@ public class BattleManager : MonoBehaviour
         ppt.name = "PlayerParty";
 
         playerParty = ppt.GetComponent<Party>();
-        playerParty.setSlot((playerParty.numCols / 2) - 1, 0, createSingleTargetChar(playerCharPrefabs[0], 50));
-        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0], 50));
-        playerParty.setSlot((playerParty.numCols / 2) + 1, 0, createSingleTargetChar(playerCharPrefabs[0], 50));
+        playerParty.setSlot((playerParty.numCols / 2) - 1, 0, createSingleTarget(playerCharPrefabs[0], 50));
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTarget(playerCharPrefabs[0], 50));
+        playerParty.setSlot((playerParty.numCols / 2) + 1, 0, createSingleTarget(playerCharPrefabs[0], 50));
 
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
 
         enemyParty = ept.GetComponent<Party>();
-        enemyParty.setSlot(enemyParty.getRandomEmptySlot(), createSingleTargetChar(enemyCharPrefabs[0], 500, 1f));
+        enemyParty.setSlot(enemyParty.getRandomEmptySlot(), createSingleTarget(enemyCharPrefabs[0], 500, 1f));
     }
 
     /// <summary>
@@ -260,13 +260,39 @@ public class BattleManager : MonoBehaviour
         ppt.name = "PlayerParty";
 
         playerParty = ppt.GetComponent<Party>();
-        playerParty.setSlot((playerParty.numCols / 2) - 1, 0, createSingleTargetChar(playerCharPrefabs[0], 30));
-        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0], 170));
+        playerParty.setSlot((playerParty.numCols / 2) - 1, 0, createSingleTarget(playerCharPrefabs[0], 30));
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTarget(playerCharPrefabs[0], 170));
 
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
 
         enemyParty = ept.GetComponent<Party>();
-        enemyParty.setSlot(enemyParty.getRandomEmptySlot(), createSingleTargetChar(enemyCharPrefabs[0], 400, 1f, playerParty.getWeakestChar()));
+        enemyParty.setSlot(enemyParty.getRandomEmptySlot(), createSingleTarget(enemyCharPrefabs[0], 400, 1f, playerParty.getWeakestChar()));
+    }
+
+    /// <summary>
+    /// The enemy will randomly attack the player party, but the player party has many weaker chars that need to be protected.
+    /// </summary>
+    public void battle6()
+    {
+        Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
+        ppt.name = "PlayerParty";
+
+        playerParty = ppt.GetComponent<Party>();
+        playerParty.setSlot(0, 0, createSingleTarget(playerCharPrefabs[0], 30));
+        playerParty.setSlot(1, 0, createSingleTarget(playerCharPrefabs[0], 30));
+        playerParty.setSlot(2, 0, createSingleTarget(playerCharPrefabs[0], 170));
+        playerParty.setSlot(3, 0, createSingleTarget(playerCharPrefabs[0], 170));
+        playerParty.setSlot(4, 0, createSingleTarget(playerCharPrefabs[0], 30));
+        playerParty.setSlot(5, 0, createSingleTarget(playerCharPrefabs[0], 30));
+
+
+        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
+        ept.name = "EnemyParty";
+
+        enemyParty = ept.GetComponent<Party>();
+        Transform e = createSingleTarget(enemyCharPrefabs[0], 600, 0.25f);
+        e.GetComponent<EnemyDmgDealer>().newTargetEachAtk = true;
+        enemyParty.setSlot(enemyParty.getRandomEmptySlot(), e);
     }
 }

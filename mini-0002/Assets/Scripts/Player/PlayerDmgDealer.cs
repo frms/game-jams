@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerDmgDealer : PlayerCharacter {
+public class PlayerDmgDealer : PlayerCharacter
+{
     private SingleTarget singleTarget;
 
     public override void Start()
