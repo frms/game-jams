@@ -112,43 +112,91 @@ public class BattleManager : MonoBehaviour
         }
 	}
 
+    private Transform createSingleTargetChar(Transform prefab, float hp = -1, float rate = -1, Transform target = null)
+    {
+        Transform t = Instantiate(prefab) as Transform;
+
+        if(hp != -1)
+        {
+            Health h = t.GetComponent<Health>();
+            h.currentHealth = hp;
+            h.maxHealth = hp;
+        }
+
+        SingleTarget st = t.GetComponent<SingleTarget>();
+
+        if(rate != -1)
+        {
+            st.rate = rate;
+        }
+
+        if(target != null)
+        {
+            st.target = target;
+        }
+
+        return t;
+    }
+
 
     public void battleAll()
     {
-        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
-        ept.name = "EnemyParty";
-
-        enemyParty = ept.GetComponent<Party>();
-        enemyParty.setSlot(enemyParty.numCols / 2, 0, Instantiate(enemyCharPrefabs[0]) as Transform);
-        enemyParty.setSlot(0, 1, Instantiate(enemyCharPrefabs[1]) as Transform);
-        enemyParty.setSlot(enemyParty.numCols - 1, 1, Instantiate(enemyCharPrefabs[2]) as Transform);
-
         Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
         ppt.name = "PlayerParty";
 
         playerParty = ppt.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numCols / 2, 0, Instantiate(playerCharPrefabs[0]) as Transform);
-        playerParty.setSlot(0, 0, Instantiate(playerCharPrefabs[1]) as Transform);
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0]));
+        playerParty.setSlot(0, 0, createSingleTargetChar(playerCharPrefabs[1]));
         playerParty.setSlot(playerParty.numCols - 1, 0, Instantiate(playerCharPrefabs[2]) as Transform);
+
+        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
+        ept.name = "EnemyParty";
+
+        enemyParty = ept.GetComponent<Party>();
+        enemyParty.setSlot(enemyParty.numCols / 2, 0, createSingleTargetChar(enemyCharPrefabs[0]));
+        enemyParty.setSlot(0, 1, createSingleTargetChar(enemyCharPrefabs[1]));
+        enemyParty.setSlot(enemyParty.numCols - 1, 1, Instantiate(enemyCharPrefabs[2]) as Transform);
     }
 
+    /// <summary>
+    /// Defeat the healer first or die
+    /// </summary>
     public void battle1()
     {
-        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
-        ept.name = "EnemyParty";
-
-        enemyParty = ept.GetComponent<Party>();
-        Transform e1 = Instantiate(enemyCharPrefabs[0]) as Transform;
-        enemyParty.setSlot(enemyParty.numCols / 2, 1, e1);
-        Transform e2 = Instantiate(enemyCharPrefabs[1]) as Transform;
-        enemyParty.setSlot((enemyParty.numCols / 2) - 1, 1, e2);
-
-        e2.GetComponent<SingleTarget>().target = e1;
-
         Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
         ppt.name = "PlayerParty";
 
         playerParty = ppt.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numCols / 2, 0, Instantiate(playerCharPrefabs[0]) as Transform);
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0]));
+
+        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
+        ept.name = "EnemyParty";
+
+        enemyParty = ept.GetComponent<Party>();
+        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 60, 1);
+        enemyParty.setSlot(enemyParty.numCols / 2, 1, e1);
+        Transform e2 = createSingleTargetChar(enemyCharPrefabs[1], 25, 1, e1);
+        enemyParty.setSlot((enemyParty.numCols / 2) - 1, 1, e2);
+    }
+
+    /// <summary>
+    /// Defeat the enemy in the back first to win (move your char to get a clear shot).
+    /// </summary>
+    public void battle2()
+    {
+        Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
+        ppt.name = "PlayerParty";
+
+        playerParty = ppt.GetComponent<Party>();
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0]));
+
+        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
+        ept.name = "EnemyParty";
+
+        enemyParty = ept.GetComponent<Party>();
+        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 25, 0.6f);
+        enemyParty.setSlot(enemyParty.numCols / 2, 1, e1);
+        Transform e2 = createSingleTargetChar(enemyCharPrefabs[0], 75, 3f);
+        enemyParty.setSlot(enemyParty.numCols / 2, 0, e2);
     }
 }
