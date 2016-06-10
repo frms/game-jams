@@ -19,20 +19,17 @@ public class Health : Hoverable
     public AudioClip hurtClip;
     public float hurtVolume = 1f;
 
-    private Transform healthBar;
     private Text healthText;
 
     public override void Start()
     {
         base.Start();
 
-        healthBar = transform.FindChild("HealthBar");
         healthText = GetComponentInChildren<Text>();
 
-        if(healthBar != null)
+        if(healthText != null)
         {
-            SpriteRenderer healthSr = healthBar.GetComponent<SpriteRenderer>();
-            healthSr.color = hoverColor;
+            healthText.color = hoverColor;
         }
     }
 
@@ -40,7 +37,7 @@ public class Health : Hoverable
     {
         base.Update();
 
-        if(healthBar != null && healthText != null)
+        if(healthText != null)
         {
             updateHealth();
         }
@@ -48,10 +45,6 @@ public class Health : Hoverable
 
     public void updateHealth()
     {
-        Vector3 scale = healthBar.transform.localScale;
-        scale.x = percentHealth;
-        healthBar.transform.localScale = scale;
-
         healthText.text = ((int) currentHealth).ToString();
     }
 
