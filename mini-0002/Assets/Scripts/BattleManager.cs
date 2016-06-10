@@ -199,4 +199,29 @@ public class BattleManager : MonoBehaviour
         Transform e2 = createSingleTargetChar(enemyCharPrefabs[0], 150, 3f);
         enemyParty.setSlot(enemyParty.numCols / 2, 0, e2);
     }
+
+    /// <summary>
+    /// Defeat the weaker/higher dmg enemies first.
+    /// </summary>
+    public void battle3()
+    {
+        Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
+        ppt.name = "PlayerParty";
+
+        playerParty = ppt.GetComponent<Party>();
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0]));
+
+        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
+        ept.name = "EnemyParty";
+
+        enemyParty = ept.GetComponent<Party>();
+        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 25, 1.2f);
+        enemyParty.setSlot((enemyParty.numCols / 2) - 1, 1, e1);
+
+        Transform e2 = createSingleTargetChar(enemyCharPrefabs[0], 125, 3f);
+        enemyParty.setSlot(enemyParty.numCols / 2, 0, e2);
+
+        Transform e3 = createSingleTargetChar(enemyCharPrefabs[0], 25, 1.2f);
+        enemyParty.setSlot((enemyParty.numCols / 2) + 1, 1, e3);
+    }
 }
