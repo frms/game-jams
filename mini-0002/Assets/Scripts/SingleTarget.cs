@@ -29,6 +29,12 @@ public class SingleTarget : MonoBehaviour
             Bullet b = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as Bullet;
             b.target = target;
 
+            SpriteRenderer sr = b.GetComponent<SpriteRenderer>();
+            float h, s, v;
+            Color.RGBToHSV(sr.color, out h, out s, out v);
+            s *= 1 - (rate/4f);
+            sr.color = Color.HSVToRGB(h, s, v);
+
             timeSinceLastUse = 0;
         }
     }

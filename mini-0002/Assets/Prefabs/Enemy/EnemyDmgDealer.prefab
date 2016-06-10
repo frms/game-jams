@@ -136,8 +136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 1, g: 0.49803922, b: 0.15294118, a: 1}
   hoverColor: {r: 1, g: 0.5686275, b: 0.7124184, a: 1}
-  currentHealth: 60
-  maxHealth: 60
+  currentHealth: 120
+  maxHealth: 120
   hurtClip: {fileID: 0}
   hurtVolume: 1
 --- !u!114 &11461154
@@ -438,11 +438,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: currentHealth
-      value: 60
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: maxHealth
-      value: 60
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

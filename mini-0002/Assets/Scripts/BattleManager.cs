@@ -173,9 +173,9 @@ public class BattleManager : MonoBehaviour
         ept.name = "EnemyParty";
 
         enemyParty = ept.GetComponent<Party>();
-        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 60, 1);
+        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 120, 1);
         enemyParty.setSlot(enemyParty.numCols / 2, 1, e1);
-        Transform e2 = createSingleTargetChar(enemyCharPrefabs[1], 25, 1, e1);
+        Transform e2 = createSingleTargetChar(enemyCharPrefabs[1], 50, 1, e1);
         enemyParty.setSlot((enemyParty.numCols / 2) - 1, 1, e2);
     }
 
@@ -194,9 +194,9 @@ public class BattleManager : MonoBehaviour
         ept.name = "EnemyParty";
 
         enemyParty = ept.GetComponent<Party>();
-        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 25, 0.6f);
+        Transform e1 = createSingleTargetChar(enemyCharPrefabs[0], 50, 0.6f);
         enemyParty.setSlot(enemyParty.numCols / 2, 1, e1);
-        Transform e2 = createSingleTargetChar(enemyCharPrefabs[0], 75, 3f);
+        Transform e2 = createSingleTargetChar(enemyCharPrefabs[0], 150, 3f);
         enemyParty.setSlot(enemyParty.numCols / 2, 0, e2);
     }
 }

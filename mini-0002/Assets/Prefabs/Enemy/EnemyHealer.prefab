@@ -204,8 +204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultColor: {r: 0.6392157, g: 0.28627452, b: 0.6431373, a: 1}
   hoverColor: {r: 1, g: 0.5686275, b: 0.7124184, a: 1}
-  currentHealth: 25
-  maxHealth: 25
+  currentHealth: 50
+  maxHealth: 50
   hurtClip: {fileID: 0}
   hurtVolume: 1
 --- !u!212 &21221432
@@ -361,11 +361,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: currentHealth
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: maxHealth
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rate
