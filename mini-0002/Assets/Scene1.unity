@@ -194,7 +194,7 @@ MonoBehaviour:
   - {fileID: 469898, guid: 0df457111ff44b14a81a962bfc38cccd, type: 2}
   playerParty: {fileID: 0}
   enemyParty: {fileID: 0}
-  battleName: battle3
+  battleName: battle4
 --- !u!4 &274602238
 Transform:
   m_ObjectHideFlags: 0

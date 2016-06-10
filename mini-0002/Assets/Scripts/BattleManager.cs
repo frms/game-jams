@@ -224,4 +224,24 @@ public class BattleManager : MonoBehaviour
         Transform e3 = createSingleTargetChar(enemyCharPrefabs[0], 25, 1.2f);
         enemyParty.setSlot((enemyParty.numCols / 2) + 1, 1, e3);
     }
+
+    /// <summary>
+    /// One big bad enemy will lock on to a player character. The player will need to move around his party so the damage gets distributed across the whole party rather than just 1 char.
+    /// </summary>
+    public void battle4()
+    {
+        Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
+        ppt.name = "PlayerParty";
+
+        playerParty = ppt.GetComponent<Party>();
+        playerParty.setSlot((playerParty.numCols / 2) - 1, 0, createSingleTargetChar(playerCharPrefabs[0], 50));
+        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTargetChar(playerCharPrefabs[0], 50));
+        playerParty.setSlot((playerParty.numCols / 2) + 1, 0, createSingleTargetChar(playerCharPrefabs[0], 50));
+
+        Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
+        ept.name = "EnemyParty";
+
+        enemyParty = ept.GetComponent<Party>();
+        enemyParty.setSlot(enemyParty.numCols / 2, 0, createSingleTargetChar(enemyCharPrefabs[0], 500, 1f));
+    }
 }
