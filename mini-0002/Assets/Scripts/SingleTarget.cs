@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class SingleTarget : MonoBehaviour
 {
+    public Text dpsText;
+    public Color positiveColor;
+    public Color negativeColor;
+
     public Bullet bulletPrefab;
     public float rate;
 
@@ -11,6 +15,24 @@ public class SingleTarget : MonoBehaviour
     private float timeSinceLastUse = 0;
 
     public event Action UseEvent;
+
+    void Start()
+    {
+        if (dpsText != null)
+        {
+            int dps = (int)(bulletPrefab.dmg / rate);
+            dpsText.text = Mathf.Abs(dps).ToString();
+
+            if(dps >= 0)
+            {
+                dpsText.color = positiveColor;
+            }
+            else
+            {
+                dpsText.color = negativeColor;
+            }
+        }
+    }
 
     // Update is called once per frame
     public void Update()
@@ -31,7 +53,6 @@ public class SingleTarget : MonoBehaviour
         {
             Bullet b = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as Bullet;
             b.target = target;
-            setSaturation(b);
 
             timeSinceLastUse = 0;
 
@@ -40,14 +61,5 @@ public class SingleTarget : MonoBehaviour
                 UseEvent();
             }
         }
-    }
-
-    private void setSaturation(Bullet b)
-    {
-        SpriteRenderer sr = b.GetComponent<SpriteRenderer>();
-        float h, s, v;
-        Color.RGBToHSV(sr.color, out h, out s, out v);
-        s *= 1 - (rate / 4f);
-        sr.color = Color.HSVToRGB(h, s, v);
     }
 }

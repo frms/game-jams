@@ -1,10 +1,9 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class Health : Hoverable
 {
-
+    public Text healthText;
     public float currentHealth = 100;
     public float maxHealth = 100;
 
@@ -19,17 +18,13 @@ public class Health : Hoverable
     public AudioClip hurtClip;
     public float hurtVolume = 1f;
 
-    private Text healthText;
-
     public override void Start()
     {
         base.Start();
 
-        healthText = GetComponentInChildren<Text>();
-
         if(healthText != null)
         {
-            healthText.color = hoverColor;
+            //healthText.color = hoverColor;
         }
     }
 
