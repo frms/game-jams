@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -49,30 +50,39 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private static BattleManager _main = null;
-
-    public static BattleManager main
-    {
-        get { return _main; }
-    }
+    public static BattleManager main;
 
     void Awake()
     {
-        if (_main != null && _main != this)
+        if (main != null && main != this)
         {
-            Destroy(this.gameObject);
+            DestroyImmediate(gameObject);
             return;
         }
         else {
-            _main = this;
+            DontDestroyOnLoad(gameObject);
+            main = this;
         }
+    }
+
+    void Start()
+    {
+        if(Application.isEditor)
+        {
+            setUp();
+        }
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        setUp();
     }
 
     private Vector2 topPartyPos, bottomPartyPos;
 
-    // Use this for initialization
-    void Start ()
-    {
+    private void setUp() {
+        pauseOverlay = GameObject.Find("PauseOverlay");
+
         Vector3 viewportTop = new Vector3(0.5f, 1f, -Camera.main.transform.position.z);
         Party p = partyPrefab.GetComponent<Party>();
         p.setUp();  // Call setUp() manually because the prefab won't ever call it
@@ -109,6 +119,11 @@ public class BattleManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             isPaused = !isPaused;
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("BattleScene");
         }
 	}
 

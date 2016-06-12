@@ -221,8 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dpsText: {fileID: 11483032}
-  positiveColor: {r: 0.92941177, g: 0.10980392, b: 0.14117648, a: 1}
-  negativeColor: {r: 0.13333334, g: 0.69411767, b: 0.29803923, a: 1}
+  positiveColor: {r: 0.9529412, g: 0.3882353, b: 0.4117647, a: 1}
+  negativeColor: {r: 0.40392157, g: 0.7882353, b: 0.5176471, a: 1}
   bulletPrefab: {fileID: 11434720, guid: 5df58528cfda27041b7a85f8d3b968a0, type: 2}
   rate: 0.5
   target: {fileID: 0}
@@ -324,14 +324,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9009cfbe34dcedc42a1214b529059af0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultColor: {r: 0.6392157, g: 0.28627452, b: 0.6431373, a: 1}
-  hoverColor: {r: 0.39215687, g: 0.8666667, b: 0.09019608, a: 1}
+  defaultColor: {r: 0.7529412, g: 0.50980395, b: 0.75686276, a: 1}
+  hoverColor: {r: 0.58431375, g: 0.9098039, b: 0.3764706, a: 1}
   healthText: {fileID: 11400646}
   currentHealth: 100
   maxHealth: 100
   hurtClip: {fileID: 0}
   hurtVolume: 1
-  selectedColor: {r: 0.70980394, g: 0.9019608, b: 0.11372549, a: 1}
+  selectedColor: {r: 0.8, g: 0.93333334, b: 0.39215687, a: 1}
   isSelected: 0
 --- !u!114 &11461078
 MonoBehaviour:
@@ -554,15 +554,15 @@ Prefab:
         type: 2}
     - target: {fileID: 0}
       propertyPath: defaultColor.r
-      value: 0.6392157
+      value: 0.7529412
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultColor.g
-      value: 0.28627452
+      value: 0.50980395
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultColor.b
-      value: 0.6431373
+      value: 0.75686276
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: defaultColor.a
@@ -570,15 +570,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hoverColor.r
-      value: 0.39215687
+      value: 0.58431375
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hoverColor.g
-      value: 0.8666667
+      value: 0.9098039
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hoverColor.b
-      value: 0.09019608
+      value: 0.3764706
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: hoverColor.a
@@ -586,15 +586,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: selectedColor.r
-      value: 0.70980394
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: selectedColor.g
-      value: 0.9019608
+      value: 0.93333334
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: selectedColor.b
-      value: 0.11372549
+      value: 0.39215687
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: selectedColor.a
@@ -603,6 +603,30 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: positiveColor.r
+      value: 0.9529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: positiveColor.g
+      value: 0.3882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: positiveColor.b
+      value: 0.4117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: negativeColor.r
+      value: 0.40392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: negativeColor.g
+      value: 0.7882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: negativeColor.b
+      value: 0.5176471
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
