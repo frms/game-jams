@@ -18,10 +18,8 @@ public class Player : MonoBehaviour
     {
         float xAxis = Input.GetAxisRaw("Horizontal");
 
-        Vector2 vel = Vector2.zero;
+        Vector2 vel = rb.velocity;
         vel.x = xAxis * speed;
         rb.velocity = vel;
-
-        Debug.Log(xAxis + " " + vel.ToString("F4"));
 	}
 }
