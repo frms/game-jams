@@ -4,6 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     public float speed;
+    public float jump;
 
     private Rigidbody2D rb;
 
@@ -14,6 +15,16 @@ public class Player : MonoBehaviour
 	}
 	
 	// Update is called once per frame
+    void Update ()
+    {
+        if(Input.GetButtonDown("Jump"))
+        {
+            Vector2 vel = rb.velocity;
+            vel.y += jump;
+            rb.velocity = vel;
+        }
+    }
+
 	void FixedUpdate ()
     {
         float xAxis = Input.GetAxisRaw("Horizontal");
