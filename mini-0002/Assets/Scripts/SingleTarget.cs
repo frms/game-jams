@@ -14,16 +14,24 @@ public class SingleTarget : MonoBehaviour
     public Transform target = null;
     private float timeSinceLastUse = 0;
 
+    public float dps
+    {
+        get
+        {
+            return bulletPrefab.dmg / rate;
+        }
+    }
+
     public event Action UseEvent;
 
     void Start()
     {
         if (dpsText != null)
         {
-            int dps = (int)(bulletPrefab.dmg / rate);
-            dpsText.text = Mathf.Abs(dps).ToString();
+            int dpsInt = (int)(dps);
+            dpsText.text = Mathf.Abs(dpsInt).ToString();
 
-            if(dps >= 0)
+            if(dpsInt >= 0)
             {
                 dpsText.color = positiveColor;
             }

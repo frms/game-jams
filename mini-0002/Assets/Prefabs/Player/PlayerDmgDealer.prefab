@@ -310,7 +310,7 @@ MonoBehaviour:
   positiveColor: {r: 0.9529412, g: 0.3882353, b: 0.4117647, a: 1}
   negativeColor: {r: 0.40392157, g: 0.7882353, b: 0.5176471, a: 1}
   bulletPrefab: {fileID: 11452532, guid: 619d4099ae4885741b0233acd226ed19, type: 2}
-  rate: 0.6666667
+  rate: 0.5
   target: {fileID: 0}
 --- !u!114 &11472222
 MonoBehaviour:
@@ -353,8 +353,8 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 0.654902, b: 0.41960785, a: 1}
   hoverColor: {r: 0.58431375, g: 0.9098039, b: 0.3764706, a: 1}
   healthText: {fileID: 11459802}
-  currentHealth: 200
-  maxHealth: 200
+  currentHealth: 100
+  maxHealth: 100
   hurtClip: {fileID: 0}
   hurtVolume: 1
   selectedColor: {r: 0.8, g: 0.93333334, b: 0.39215687, a: 1}
@@ -639,7 +639,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: rate
-      value: 0.6666667
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Layer
@@ -647,11 +647,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: currentHealth
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: maxHealth
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: positiveColor.r

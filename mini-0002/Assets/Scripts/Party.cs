@@ -212,4 +212,49 @@ public class Party : MonoBehaviour
 
         return ret;
     }
+
+    public float getHp()
+    {
+        float total = 0;
+
+        for (int i = 0; i < numCols; i++)
+        {
+            for (int j = 0; j < numRows; j++)
+            {
+                Transform t = grid[i, j];
+
+                if (t != null)
+                {
+                    total += t.GetComponent<Health>().currentHealth;
+                }
+            }
+        }
+
+        return total;
+    }
+
+    public float getDps()
+    {
+        float total = 0;
+
+        for (int i = 0; i < numCols; i++)
+        {
+            for (int j = 0; j < numRows; j++)
+            {
+                Transform t = grid[i, j];
+
+                if (t != null)
+                {
+                    SingleTarget st = t.GetComponent<SingleTarget>();
+
+                    if(st != null && st.dps > 0)
+                    {
+                        total += st.dps;
+                    }
+                }
+            }
+        }
+
+        return total;
+    }
 }

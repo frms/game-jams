@@ -93,6 +93,11 @@ public class BattleManager : MonoBehaviour
         bottomPartyPos = topPartyPos;
         bottomPartyPos.y *= -1;
 
+        if(playerParty == null)
+        {
+            initialPlayerParty();
+        }
+
         GetType().GetMethod(battleName).Invoke(this, null);
     }
 
@@ -154,16 +159,21 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    public void battleAll()
+    public void initialPlayerParty()
     {
         Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
         ppt.name = "PlayerParty";
 
         playerParty = ppt.GetComponent<Party>();
         playerParty.setSlot(playerParty.getRandomEmptySlot(), createSingleTarget(playerCharPrefabs[0]));
-        playerParty.setSlot(playerParty.getRandomEmptySlot(), createSingleTarget(playerCharPrefabs[1]));
-        playerParty.setSlot(playerParty.getRandomEmptySlot(), Instantiate(playerCharPrefabs[2]) as Transform);
+        //playerParty.setSlot(playerParty.getRandomEmptySlot(), createSingleTarget(playerCharPrefabs[1]));
+        //playerParty.setSlot(playerParty.getRandomEmptySlot(), Instantiate(playerCharPrefabs[2]) as Transform);
 
+        DontDestroyOnLoad(ppt.gameObject);
+    }
+
+    public void battleAll()
+    {
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
 
@@ -178,19 +188,34 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public void battle1()
     {
-        Transform ppt = Instantiate(partyPrefab, bottomPartyPos, Quaternion.identity) as Transform;
-        ppt.name = "PlayerParty";
+        float ppDps = playerParty.getDps();
+        float ppHp = playerParty.getHp();
 
-        playerParty = ppt.GetComponent<Party>();
-        playerParty.setSlot(playerParty.numCols / 2, 0, createSingleTarget(playerCharPrefabs[0]));
+        /* Min dmg the player party will take in this fight */
+        float minDmgPercent = 0.1f;
+
+        /* Max dmg the player party will take in this fight */
+        float maxDmgPercent = 0.85f;
+
+        /* Constants 1 and 3 are magic constants that I picked to help determine the length of the battle */
+        float ehHp = 1 * ppDps;
+        float edHp = 3 * ppDps;
+
+        float tmin = (ehHp + edHp) / ppDps;
+
+        float edDps = (minDmgPercent * ppHp ) / tmin;
+
+        float tmax = (maxDmgPercent * ppHp) / edDps;
+
+        float ehDps = (edHp / tmax) - ppDps;
 
         Transform ept = Instantiate(partyPrefab, topPartyPos, Quaternion.identity) as Transform;
         ept.name = "EnemyParty";
 
         enemyParty = ept.GetComponent<Party>();
-        Transform e1 = createSingleTarget(enemyCharPrefabs[0], 120, 1);
+        Transform e1 = createSingleTarget(enemyCharPrefabs[0], edHp, 10 / edDps);
         enemyParty.setSlot(enemyParty.getRandomEmptySlot(), e1);
-        Transform e2 = createSingleTarget(enemyCharPrefabs[1], 50, 1, e1);
+        Transform e2 = createSingleTarget(enemyCharPrefabs[1], ehHp, -10 / ehDps, e1);
         enemyParty.setSlot(enemyParty.getRandomEmptySlot(), e2);
     }
 
