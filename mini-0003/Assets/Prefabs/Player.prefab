@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6.5
   jump: 20
+  groundCheckDist: 0.05
 --- !u!124 &12480624
 Behaviour:
   m_ObjectHideFlags: 1

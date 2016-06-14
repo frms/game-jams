@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public float speed;
     public float jump;
+    public float groundCheckDist;
 
     private bool onGround = false;
 
@@ -52,19 +53,54 @@ public class Player : MonoBehaviour
 
         Vector2 vel = rb.velocity;
         vel.x = xAxis * speed;
+
+        RaycastHit2D hit;
+        if (circleCast(vel.normalized, out hit, vel.magnitude * Time.fixedDeltaTime))
+        {
+            /* Move up to whatever we hit */
+            rb.position += vel.normalized * Mathf.Max(0, hit.distance);
+
+            /* Project our velocity against what we hit so we don't move it. Obviously 
+             * we'd need to keep checking the projected velocity if we really care to
+             * avoid moving stuff. */
+            Vector2 slope;
+            slope.x = -hit.normal.y;
+            slope.y = hit.normal.x;
+            vel = Vector3.Project(vel, slope);
+        }
+
         rb.velocity = vel;
+
+        Debug.DrawLine(rb.position, rb.position + rb.velocity.normalized, Color.red, 0f, false);
 
         checkGround();
 	}
 
     private void checkGround()
     {
-        Vector2 origin = rb.position + (2 * Physics2D.minPenetrationForPenalty * Vector2.up);
-        float dist = 3 * Physics2D.minPenetrationForPenalty;
-        RaycastHit2D hit = Physics2D.CircleCast(origin, radius, Vector2.down, dist);
-        onGround = (hit.collider != null);
+        RaycastHit2D hit;
+        onGround = circleCast(Vector2.down, out hit, groundCheckDist);
+    }
 
-        //Debug.DrawLine(hit.point, hit.point + hit.normal, Color.red, 0f, false);
-        //Debug.Log((hit.collider != null) ? hit.collider.name : "none");
+    private bool circleCast(Vector2 dir, out RaycastHit2D hit, float dist)
+    {
+        Vector2 origin = rb.position - Physics2D.minPenetrationForPenalty * dir;
+        float maxDist = Physics2D.minPenetrationForPenalty + dist;
+        
+        hit = Physics2D.CircleCast(origin, radius, dir, maxDist);
+
+        if(hit.collider != null)
+        {
+            /* I'm not sure why but it seems that I need to subtract the
+             * Physics2D.minPenetrationForPenalty twice (instead of what should be once).
+             * It seems like in Physics 2D the min penetration is more like a min
+             * separation and overlap is never allowed. */
+            hit.distance -= 2 * Physics2D.minPenetrationForPenalty;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
