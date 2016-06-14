@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21291276}
   - 58: {fileID: 5875514}
   - 50: {fileID: 5057854}
+  - 114: {fileID: 11427198}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -44,7 +45,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -62,6 +63,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &11427198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2064e401c976bb246b16bb64721764d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dist: 5
+  hitVel: {x: 5, y: 15}
 --- !u!212 &21291276
 SpriteRenderer:
   m_ObjectHideFlags: 1

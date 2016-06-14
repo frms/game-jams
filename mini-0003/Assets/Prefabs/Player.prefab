@@ -158,7 +158,8 @@ MonoBehaviour:
   speed: 6.5
   jump: 20
   groundCheckDist: 0.05
-  bullet: {fileID: 0}
+  bulletPrefab: {fileID: 472664, guid: f238439e5a2545d40b38e60316c30137, type: 2}
+  bulletSpeed: 8
 --- !u!124 &12480624
 Behaviour:
   m_ObjectHideFlags: 1

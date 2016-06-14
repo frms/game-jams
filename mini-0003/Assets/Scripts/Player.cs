@@ -6,7 +6,11 @@ public class Player : MonoBehaviour
     public float speed;
     public float jump;
     public float groundCheckDist;
-    public Transform bullet;
+    public Transform bulletPrefab;
+    public float bulletSpeed;
+    private Transform lastBullet = null;
+
+    private float facing = 1;
 
     private bool onGround = false;
 
@@ -23,17 +27,33 @@ public class Player : MonoBehaviour
         radius = Mathf.Max(transform.localScale.x, transform.localScale.y) * col.radius;
     }
 
-
 	// Update is called once per frame
     void Update ()
     {
+        updateFacing();
+
         /* Using Jump button for atk (and up button for jump) */
-        if(Input.GetButtonDown("Jump"))
+        if (Input.GetButton("Jump") && lastBullet == null)
         {
-            Debug.Log("HI");
+            lastBullet = Instantiate(bulletPrefab, rb.position, Quaternion.identity) as Transform;
+            lastBullet.GetComponent<Rigidbody2D>().velocity = facing * bulletSpeed * Vector2.right;
         }
 
         tryToJump();
+    }
+
+    private void updateFacing()
+    {
+        float xAxis = Input.GetAxisRaw("Horizontal");
+
+        if (xAxis > 0)
+        {
+            facing = 1;
+        }
+        else if (xAxis < 0)
+        {
+            facing = -1;
+        }
     }
 
     private bool upDown = false;
