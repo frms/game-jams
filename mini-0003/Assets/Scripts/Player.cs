@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public float speed;
     public float jump;
     public float groundCheckDist;
+    public Transform bullet;
 
     private bool onGround = false;
 
@@ -22,16 +23,28 @@ public class Player : MonoBehaviour
         radius = Mathf.Max(transform.localScale.x, transform.localScale.y) * col.radius;
     }
 
-    private bool upDown = false;
 
 	// Update is called once per frame
     void Update ()
     {
+        /* Using Jump button for atk (and up button for jump) */
+        if(Input.GetButtonDown("Jump"))
+        {
+            Debug.Log("HI");
+        }
+
+        tryToJump();
+    }
+
+    private bool upDown = false;
+
+    private void tryToJump()
+    {
         float yAxis = Input.GetAxisRaw("Vertical");
 
-        if(yAxis > 0 && upDown == false)
+        if (yAxis > 0 && upDown == false)
         {
-            if(onGround)
+            if (onGround)
             {
                 Vector2 vel = rb.velocity;
                 vel.y += jump;
@@ -41,7 +54,7 @@ public class Player : MonoBehaviour
             upDown = true;
         }
 
-        if(yAxis <= 0)
+        if (yAxis <= 0)
         {
             upDown = false;
         }
