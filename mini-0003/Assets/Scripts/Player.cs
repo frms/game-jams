@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         RaycastHit2D hit = Physics2D.CircleCast(origin, radius, Vector2.down, dist);
         onGround = (hit.collider != null);
 
-        Debug.DrawLine(hit.point, hit.point + hit.normal, Color.red, 0f, false);
-        Debug.Log((hit.collider != null) ? hit.collider.name : "none");
+        //Debug.DrawLine(hit.point, hit.point + hit.normal, Color.red, 0f, false);
+        //Debug.Log((hit.collider != null) ? hit.collider.name : "none");
     }
 }

@@ -46,8 +46,9 @@ MonoBehaviour:
   - {fileID: 412114, guid: 69fdd024aae08084781a9143ece5c958, type: 2}
   - {fileID: 428598, guid: 1d79667ef56282e4385611be18c16ad6, type: 2}
   - {fileID: 493094, guid: d584bc89f26cbe046877b8e46ad15b68, type: 2}
-  count: 20
-  sepDist: 3
+  count: 15
+  sepDist: 4
+  percentParallax: 0.075
 --- !u!212 &21208182
 SpriteRenderer:
   m_ObjectHideFlags: 1

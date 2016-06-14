@@ -9,12 +9,19 @@ public class CloudBox : MonoBehaviour
 
     public float sepDist;
 
+    public float percentParallax;
+    private Transform player;
+    private Vector2 lastPos;
+
     private Vector2 bottomLeft, topRight;
     private List<Transform> clouds;
 
     // Use this for initialization
     void Start()
     {
+        player = GameObject.Find("Player").transform;
+        lastPos = player.position;
+
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.enabled = false;
 
@@ -31,6 +38,7 @@ public class CloudBox : MonoBehaviour
             {
                 Quaternion rot = Quaternion.Euler(0, 0, Random.Range(0f, 0f));
                 Transform t = Instantiate(prefabs[Random.Range(0, prefabs.Length)], pos, rot) as Transform;
+                t.parent = transform;
                 clouds.Add(t);
             }
         }
@@ -65,5 +73,18 @@ public class CloudBox : MonoBehaviour
         }
 
         return true;
+    }
+
+    void LateUpdate()
+    {
+        Vector2 deltaPos = (Vector2)player.position - lastPos;
+        deltaPos *= -percentParallax;
+
+        Vector2 pos = transform.position;
+        //pos.x += deltaPos.x;
+        pos += deltaPos;
+        transform.position = pos;
+
+        lastPos = player.position;
     }
 }
