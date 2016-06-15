@@ -30,7 +30,6 @@ public class CloudBox : MonoBehaviour
         clouds = new List<Transform>();
 
         int count = (int) Mathf.Round(density * (transform.localScale.x * transform.localScale.y));
-        Debug.Log(count);
 
         for(int i = 0; i < count; i++)
         {
