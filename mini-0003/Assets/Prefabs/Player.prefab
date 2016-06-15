@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6.5
   jump: 20
-  groundCheckDist: 0.05
+  groundCheckDist: 0.15
   bulletPrefab: {fileID: 472664, guid: f238439e5a2545d40b38e60316c30137, type: 2}
   bulletSpeed: 10
 --- !u!124 &12480624
