@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
         updateFacing();
 
         /* Using Jump button for atk (and up button for jump) */
-        if (Input.GetButton("Jump") && lastBullet == null)
+        if (Input.GetButtonDown("Jump") && lastBullet == null)
         {
             lastBullet = Instantiate(bulletPrefab, rb.position, Quaternion.identity) as Transform;
             lastBullet.GetComponent<Rigidbody2D>().velocity = facing * bulletSpeed * Vector2.right;
