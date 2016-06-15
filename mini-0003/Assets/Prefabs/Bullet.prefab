@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dist: 5
-  hitVel: {x: 5, y: 15}
+  hitVel: {x: 8, y: 21}
 --- !u!212 &21291276
 SpriteRenderer:
   m_ObjectHideFlags: 1
