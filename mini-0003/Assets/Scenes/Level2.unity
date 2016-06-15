@@ -334,7 +334,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 443948, guid: 212e2cd470b3b7047b7b1d27e77549c5, type: 2}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5021354, guid: 212e2cd470b3b7047b7b1d27e77549c5, type: 2}
       propertyPath: m_Mass

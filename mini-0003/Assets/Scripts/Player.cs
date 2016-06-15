@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -30,6 +31,12 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
     void Update ()
     {
+        if(rb.position.y < -5)
+        {
+            int scene = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(scene);
+        }
+
         updateFacing();
 
         /* Using Jump button for atk (and up button for jump) */
