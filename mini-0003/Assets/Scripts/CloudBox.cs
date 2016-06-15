@@ -5,8 +5,7 @@ public class CloudBox : MonoBehaviour
 {
     public Transform[] prefabs;
 
-    public int count;
-
+    public float density;
     public float sepDist;
 
     public float percentParallax;
@@ -29,6 +28,9 @@ public class CloudBox : MonoBehaviour
         topRight = bottomLeft + (Vector2)transform.localScale;
 
         clouds = new List<Transform>();
+
+        int count = (int) Mathf.Round(density * (transform.localScale.x * transform.localScale.y));
+        Debug.Log(count);
 
         for(int i = 0; i < count; i++)
         {
