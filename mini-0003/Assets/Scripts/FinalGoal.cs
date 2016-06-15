@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class FinalGoal : MonoBehaviour
 {
-    public Text winText;
+    public GameObject winText;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -12,7 +12,7 @@ public class FinalGoal : MonoBehaviour
         {
             other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             other.GetComponent<Player>().enabled = false;
-            winText.enabled = true;
+            winText.SetActive(true);
         }
     }
 }
