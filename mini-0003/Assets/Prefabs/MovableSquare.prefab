@@ -100,7 +100,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161136}
   serializedVersion: 2
-  lengthInSec: 2
+  lengthInSec: 1
   startDelay:
     scalar: 0
     maxCurve:
@@ -200,28 +200,28 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4278190335
+          rgba: 4290425855
         key1:
           serializedVersion: 2
-          rgba: 4278255615
+          rgba: 4290437119
         key2:
           serializedVersion: 2
-          rgba: 65280
+          rgba: 12255231
         key3:
           serializedVersion: 2
-          rgba: 15597312
+          rgba: 12053677
         key4:
           serializedVersion: 2
-          rgba: 16711680
+          rgba: 15782283
         key5:
           serializedVersion: 2
-          rgba: 15925503
+          rgba: 15380971
         key6:
           serializedVersion: 2
-          rgba: 255
+          rgba: 12235775
         key7:
           serializedVersion: 2
-          rgba: 255
+          rgba: 12235775
         ctime0: 193
         ctime1: 10922
         ctime2: 21845
@@ -459,7 +459,7 @@ ParticleSystem:
     serializedVersion: 2
     m_Type: 1
     rate:
-      scalar: 10
+      scalar: 8.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
