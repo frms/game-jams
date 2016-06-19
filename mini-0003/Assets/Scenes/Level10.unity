@@ -222,7 +222,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalPosition.z
@@ -254,7 +254,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalScale.y
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalScale.x
@@ -1274,7 +1274,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 443948, guid: 212e2cd470b3b7047b7b1d27e77549c5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.5
+      value: 7.25
       objectReference: {fileID: 0}
     - target: {fileID: 443948, guid: 212e2cd470b3b7047b7b1d27e77549c5, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1306,7 +1306,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 443948, guid: 212e2cd470b3b7047b7b1d27e77549c5, type: 2}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 443948, guid: 212e2cd470b3b7047b7b1d27e77549c5, type: 2}
       propertyPath: m_LocalScale.y
@@ -1323,6 +1323,10 @@ Prefab:
     - target: {fileID: 5021354, guid: 212e2cd470b3b7047b7b1d27e77549c5, type: 2}
       propertyPath: m_UseAutoMass
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5021354, guid: 212e2cd470b3b7047b7b1d27e77549c5, type: 2}
+      propertyPath: m_GravityScale
+      value: 1.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 212e2cd470b3b7047b7b1d27e77549c5, type: 2}
@@ -1387,7 +1391,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 9.25
+      value: 8.75
       objectReference: {fileID: 0}
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1597,7 +1601,7 @@ Prefab:
       propertyPath: m_Text
       value: 'Congratulations
 
-        You Won!'
+        You Win!'
       objectReference: {fileID: 0}
     - target: {fileID: 11425810, guid: 505e01780af1c7a4e84bc3cadb078907, type: 2}
       propertyPath: m_FontData.m_FontSize
@@ -2085,7 +2089,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 18
+      value: 17.75
       objectReference: {fileID: 0}
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2117,7 +2121,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalScale.x
-      value: 17
+      value: 17.5
       objectReference: {fileID: 0}
     - target: {fileID: 474796, guid: ef94e9c05e951d64a9f61781f4e52877, type: 2}
       propertyPath: m_LocalScale.y
