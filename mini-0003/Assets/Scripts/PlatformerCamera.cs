@@ -24,8 +24,8 @@ public class PlatformerCamera : MonoBehaviour
         screenSize = topRight - bottomLeft;
 
         platformOffset = screenSize.y * 0.2f;
-        innerXSize = screenSize.x / 10f;
-        outerXSize = screenSize.x / 10f;
+        innerXSize = screenSize.x * 0.1f;
+        outerXSize = screenSize.x * 0.11f;
 
         facing = target.facing;
 
@@ -56,11 +56,13 @@ public class PlatformerCamera : MonoBehaviour
         if (targetLeft < outerLeft)
         {
             seekInner = innerXSize * -0.5f;
+            facing = -1;
         }
 
         if (targetRight > outerRight)
         {
             seekInner = innerXSize * 0.5f;
+            facing = 1;
         }
 
         if(seekInner != 0)
@@ -73,16 +75,25 @@ public class PlatformerCamera : MonoBehaviour
                 seekInner = 0;
             }
         }
+        else
+        {
+            if(facing < 0 && innerRight > targetPos.x)
+            {
+                pos.x = targetPos.x + innerXSize * -0.5f;
+            }
+            if (facing > 0 && innerLeft < targetPos.x)
+            {
+                pos.x = targetPos.x + innerXSize * 0.5f;
+            }
+        }
 
 
         // Y code
         if (target.isTouchingGround)
         {
             float targetBottom = target.transform.position.y - (target.size.y / 2f);
-            pos.y = targetBottom + platformOffset;
+            pos.y = moveTowards(pos.y, targetBottom + platformOffset);
         }
-
-        pos.y = moveTowards(transform.position.y, pos.y);
 
         transform.position = pos;
 
