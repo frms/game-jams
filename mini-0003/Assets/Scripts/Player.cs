@@ -11,16 +11,18 @@ public class Player : MonoBehaviour
     public float bulletSpeed;
     private Transform lastBullet = null;
 
-    private float facing = 1;
     private Transform eye;
-    private bool onGround = false;
+    internal float facing = 1;
+    internal bool canJump = false;
+    internal bool isTouchingGround = false;
 
     private Rigidbody2D rb;
 
     private float radius;
 
-	// Use this for initialization
-	void Start ()
+    internal Vector2 size;
+
+	void Awake ()
     {
         eye = transform.FindChild("Eye");
 
@@ -28,6 +30,13 @@ public class Player : MonoBehaviour
 
         CircleCollider2D col = GetComponent<CircleCollider2D>();
         radius = Mathf.Max(transform.localScale.x, transform.localScale.y) * col.radius;
+
+        size = new Vector2(2f * radius, 2f * radius);
+    }
+
+    void Start()
+    {
+        StartCoroutine(checkGround());
     }
 
 	// Update is called once per frame
@@ -77,7 +86,7 @@ public class Player : MonoBehaviour
 
         if (yAxis > 0 && upDown == false)
         {
-            if (onGround)
+            if (canJump)
             {
                 Vector2 vel = rb.velocity;
                 vel.y += jump;
@@ -118,14 +127,26 @@ public class Player : MonoBehaviour
         rb.velocity = vel;
 
         Debug.DrawLine(rb.position, rb.position + rb.velocity.normalized, Color.red, 0f, false);
-
-        checkGround();
 	}
 
-    private void checkGround()
+    /* I am updating our ground check bools in WaitForFixedUpdate(), since it will run
+     * right after the physics time step (even though WaitForFixedUpdate() is supposed
+     * to run right before the time step (another Unity bug :/)). So we have the updated
+     * physics location before we check for the ground. Before I had been doing the
+     * ground check in FixedUpdate(), but on the first physics frame that jump velocity
+     * is applied the player is still on the ground until the internal physics runs so
+     * our ground check will still be true. And if a graphics frame is run at this point
+     * it will see the char as being slightly above the ground but with grounded bools
+     * which are still true. */
+    private IEnumerator checkGround()
     {
+        yield return new WaitForFixedUpdate();
+
         RaycastHit2D hit;
-        onGround = circleCast(Vector2.down, out hit, groundCheckDist);
+        canJump = circleCast(Vector2.down, out hit, groundCheckDist);
+        isTouchingGround = canJump && hit.distance <= 0.0001f;
+
+        StartCoroutine(checkGround());
     }
 
     private bool circleCast(Vector2 dir, out RaycastHit2D hit, float dist)
