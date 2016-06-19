@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private Transform lastBullet = null;
 
     private float facing = 1;
-
+    private Transform eye;
     private bool onGround = false;
 
     private Rigidbody2D rb;
@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        eye = transform.FindChild("Eye");
+
         rb = GetComponent<Rigidbody2D>();
 
         CircleCollider2D col = GetComponent<CircleCollider2D>();
@@ -61,6 +63,10 @@ public class Player : MonoBehaviour
         {
             facing = -1;
         }
+
+        Vector3 pos = eye.localPosition;
+        pos.x = Mathf.Abs(pos.x) * facing;
+        eye.localPosition = pos;
     }
 
     private bool upDown = false;
