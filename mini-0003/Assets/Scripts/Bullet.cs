@@ -27,15 +27,19 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Movable")
+        if(other.name != "Player")
         {
-            hitVel.x = Mathf.Abs(hitVel.x);
-            if (rb.velocity.x < 0)
+            if (other.tag == "Movable")
             {
-                hitVel.x *= -1;
+                hitVel.x = Mathf.Abs(hitVel.x);
+                if (rb.velocity.x < 0)
+                {
+                    hitVel.x *= -1;
+                }
+
+                other.GetComponent<Rigidbody2D>().velocity += hitVel;
             }
 
-            other.GetComponent<Rigidbody2D>().velocity += hitVel;
             Destroy(gameObject);
         }
     }

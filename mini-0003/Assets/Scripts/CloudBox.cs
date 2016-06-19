@@ -12,7 +12,7 @@ public class CloudBox : MonoBehaviour
     private Transform player;
     private Vector2 lastPos;
 
-    private Vector2 bottomLeft, topRight;
+    internal Vector2 bottomLeft, topRight;
     private List<Transform> clouds;
 
     // Use this for initialization
@@ -82,7 +82,6 @@ public class CloudBox : MonoBehaviour
         deltaPos *= -percentParallax;
 
         Vector2 pos = transform.position;
-        //pos.x += deltaPos.x;
         pos += deltaPos;
         transform.position = pos;
 

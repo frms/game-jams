@@ -56,6 +56,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 446808}
+  - 114: {fileID: 11477322}
   m_Layer: 0
   m_Name: Cloud1
   m_TagString: Untagged
@@ -148,6 +149,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 446808}
   m_RootOrder: 2
+--- !u!114 &11477322
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ae097d0ea1e21c4784c4086b5d60d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: {x: 0.05, y: 0.35}
+  chanceToMove: 1
 --- !u!212 &21207022
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -212,6 +212,10 @@ Prefab:
       propertyPath: sceneName
       value: Level2
       objectReference: {fileID: 0}
+    - target: {fileID: 6138058, guid: d7271a321fcd85548bc24c6180187007, type: 2}
+      propertyPath: m_Size.x
+      value: 0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7271a321fcd85548bc24c6180187007, type: 2}
   m_IsPrefabParent: 0
@@ -432,7 +436,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22450860, guid: 505e01780af1c7a4e84bc3cadb078907, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 507.90695
+      value: 514.65283
       objectReference: {fileID: 0}
     - target: {fileID: 22450860, guid: 505e01780af1c7a4e84bc3cadb078907, type: 2}
       propertyPath: m_SizeDelta.y
