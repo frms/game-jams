@@ -88,10 +88,30 @@ public class PlatformerCamera : MonoBehaviour
             }
         }
 
-        // Y Direction
+        /* Y Direction */
+
         /* Platform Snaping */
         if (target.isTouchingGround)
         {
+            /* When I was using the target's transform position I would get a small
+             * jitter on platform snapping landing. I think this is due to the character
+             * being interpolated (and thus the rb of the char is desync and ahead of 
+             * the transform pos of the char). So I think the code was finding out that
+             * it is on ground (in the physics update loop) before the game was reflecting
+             * it since the char was set to interpolation. So when I tried snapping to
+             * the foot of the transform pos it would have a few frames of movement when
+             * it should already be "snapped". Instead I'm using the rigidbody position 
+             * which is not causing any jitter on snap landing. Of course normally if I
+             * were to use the rigidbody position in this LateUpdate loop I would see
+             * jitter since LateUpdate is refreshing more often then FixedUpdate. But
+             * in this case it won't cause any problems since I'm moving towards the 
+             * position rather than instantly setting my y coord based on the rigidbody
+             * pos. I'm not %100 sure if my thoughts on the original problem are actually
+             * correct. I did not want to spend time to really dig in and verify.
+             * Also it will be annoying to verify since turning Interpolation off
+             * temporarily will cause jitter from the fact that LateUpdate is desynced
+             * from FixedUpdate. So I'd have to verify it in some manner that would avoid
+             * other sources of jitter. */
             float targetBottom = target.rigidbodyPos.y - (target.size.y / 2f);
             pos.y = moveTowards(pos.y, targetBottom + platformOffset);
         }
