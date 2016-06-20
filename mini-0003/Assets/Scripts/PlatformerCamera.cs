@@ -6,14 +6,18 @@ public class PlatformerCamera : MonoBehaviour
     public Player target;
     public float speed;
 
-    public Transform squarePrefab;
+    public Transform debugSquarePrefab;
 
     private Vector2 screenSize;
     private float platformOffset;
+    private float lookUpDownOffset;
     private float ySize;
     private float innerXSize;
     private float outerXSize;
     private float facing;
+
+    internal bool lookUp;
+    internal bool lookDown;
 
 	// Use this for initialization
 	void Start ()
@@ -23,6 +27,7 @@ public class PlatformerCamera : MonoBehaviour
         screenSize = topRight - bottomLeft;
 
         platformOffset = screenSize.y * (1f/6f);
+        lookUpDownOffset = screenSize.y * 0.25f;
         ySize = screenSize.y * 0.75f;
         innerXSize = screenSize.x * 0.1f;
         outerXSize = screenSize.x * 0.11f;
@@ -82,6 +87,18 @@ public class PlatformerCamera : MonoBehaviour
 
         /* Y Direction */
 
+        float yOffset = 0;
+
+        if (lookUp)
+        {
+            yOffset = lookUpDownOffset;
+        }
+
+        if (lookDown)
+        {
+            yOffset = -lookUpDownOffset;
+        }
+
         /* Platform Snaping */
         if (target.isTouchingGround)
         {
@@ -105,9 +122,9 @@ public class PlatformerCamera : MonoBehaviour
              * from FixedUpdate. So I'd have to verify it in some manner that would avoid
              * other sources of jitter. */
             float targetBottom = target.rigidbodyPos.y - (target.size.y / 2f);
-            pos.y = moveTowards(pos.y, targetBottom + platformOffset);
+            pos.y = moveTowards(pos.y, targetBottom + yOffset + platformOffset);
         }
-        /* Keep in target within Y bounds */
+        /* Keep the target within Y bounds */
         else
         {
             float targetBottom = targetPos.y - (target.size.y / 2f);
@@ -132,12 +149,17 @@ public class PlatformerCamera : MonoBehaviour
         debugDraw();
     }
 
+    private float moveTowards(float s, float e)
+    {
+        return Mathf.MoveTowards(s, e, speed * Time.deltaTime);
+    }
+
     private Transform[] debugSquares;
 
     private void debugDraw()
     {
         /* Draw nothing if there is no prefab */
-        if(squarePrefab == null)
+        if(debugSquarePrefab == null)
         {
             return;
         }
@@ -147,7 +169,7 @@ public class PlatformerCamera : MonoBehaviour
             debugSquares = new Transform[5];
             for (int i = 0; i < 5; i++)
             {
-                debugSquares[i] = Instantiate(squarePrefab) as Transform;
+                debugSquares[i] = Instantiate(debugSquarePrefab) as Transform;
             }
         }
 
@@ -212,10 +234,5 @@ public class PlatformerCamera : MonoBehaviour
         }
 
         square.localScale = scale;
-    }
-
-    private float moveTowards(float s, float e)
-    {
-        return Mathf.MoveTowards(s, e, speed * Time.deltaTime);
     }
 }

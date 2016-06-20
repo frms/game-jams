@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    private PlatformerCamera cam;
 
 
     void Awake ()
@@ -39,6 +40,8 @@ public class Player : MonoBehaviour
         eye = transform.FindChild("Eye");
 
         size = new Vector2(2f * radius, 2f * radius);
+
+        cam = Camera.main.GetComponent<PlatformerCamera>();
     }
 
     void Start()
@@ -54,6 +57,8 @@ public class Player : MonoBehaviour
             int scene = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(scene);
         }
+
+        cam.lookDown = (Input.GetAxisRaw("Vertical") == -1);
 
         updateFacing();
 
