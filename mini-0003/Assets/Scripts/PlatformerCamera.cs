@@ -15,8 +15,6 @@ public class PlatformerCamera : MonoBehaviour
     private float outerXSize;
     private float facing;
 
-    private Transform[] debugSquares;
-
 	// Use this for initialization
 	void Start ()
     {
@@ -30,12 +28,6 @@ public class PlatformerCamera : MonoBehaviour
         outerXSize = screenSize.x * 0.11f;
 
         facing = target.facing;
-
-        debugSquares = new Transform[5];
-        for(int i = 0; i < 5; i++)
-        {
-            debugSquares[i] = Instantiate(squarePrefab) as Transform;
-        }
     }
 
     private float seekInner = 0;
@@ -140,8 +132,25 @@ public class PlatformerCamera : MonoBehaviour
         debugDraw();
     }
 
+    private Transform[] debugSquares;
+
     private void debugDraw()
     {
+        /* Draw nothing if there is no prefab */
+        if(squarePrefab == null)
+        {
+            return;
+        }
+
+        if(debugSquares == null)
+        {
+            debugSquares = new Transform[5];
+            for (int i = 0; i < 5; i++)
+            {
+                debugSquares[i] = Instantiate(squarePrefab) as Transform;
+            }
+        }
+
         float innerLeft = transform.position.x - (innerXSize * 0.5f);
         float innerRight = transform.position.x + (innerXSize * 0.5f);
         float outerLeft = innerLeft - outerXSize;

@@ -616,7 +616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1846849514}
   speed: 10
-  squarePrefab: {fileID: 443288, guid: fb60fb09f11506c4bb40cced5140200c, type: 2}
+  squarePrefab: {fileID: 0}
 --- !u!1001 &198764209
 Prefab:
   m_ObjectHideFlags: 0
