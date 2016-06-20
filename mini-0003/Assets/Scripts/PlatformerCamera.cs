@@ -8,7 +8,6 @@ public class PlatformerCamera : MonoBehaviour
 
     public Transform debugSquarePrefab;
 
-    private Vector2 screenSize;
     private float platformOffset;
     private float lookUpDownOffset;
     private float ySize;
@@ -19,8 +18,9 @@ public class PlatformerCamera : MonoBehaviour
     internal bool lookUp;
     internal bool lookDown;
 
-	// Use this for initialization
-	void Start ()
+    private Vector2 screenSize;
+
+    void Start ()
     {
         Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, -Camera.main.transform.position.z));
         Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, -Camera.main.transform.position.z));
@@ -42,7 +42,8 @@ public class PlatformerCamera : MonoBehaviour
         Vector3 pos = transform.position;
         Vector3 targetPos = target.transform.position;
 
-        // X Direction
+        /* X Direction */
+
         float targetLeft = targetPos.x - (target.size.x / 2f);
         float targetRight = targetPos.x + (target.size.x / 2f);
 
@@ -50,6 +51,8 @@ public class PlatformerCamera : MonoBehaviour
         float innerRight = transform.position.x + (innerXSize * 0.5f);
         float outerLeft = innerLeft - outerXSize;
         float outerRight = innerRight + outerXSize;
+
+        /* Seek an inner bound if the target goes past an outer bound */
 
         if (targetLeft < outerLeft)
         {
@@ -73,6 +76,8 @@ public class PlatformerCamera : MonoBehaviour
                 seekInner = 0;
             }
         }
+        /* Move the camera forward if the character is walking into an inner
+         * bound in the correct direction */
         else
         {
             if(facing < 0 && innerRight > targetPos.x)
@@ -180,33 +185,33 @@ public class PlatformerCamera : MonoBehaviour
 
         Vector2 start, end;
 
-        // Platform snapping 
+        /* Platform snapping */
         start.x = transform.position.x - (screenSize.x * 0.3f);
         start.y = transform.position.y - platformOffset;
         end.x = transform.position.x + (screenSize.x * 0.3f);
         end.y = start.y;
         drawLine(start, end, debugSquares[0]);
 
-        // Inner Left 
+        /* Inner Left */
         start.x = innerLeft;
         start.y = transform.position.y - (screenSize.y * 0.35f);
         end.x = innerLeft;
         end.y = transform.position.y + (screenSize.y * 0.35f);
         drawLine(start, end, debugSquares[1]);
 
-        // Inner Right 
+        /* Inner Right */
         start.x = innerRight;
         end.x = innerRight;
         drawLine(start, end, debugSquares[2]);
 
-        // Outer Left 
+        /* Outer Left */
         start.x = outerLeft;
         start.y = transform.position.y - (screenSize.y * 0.25f);
         end.x = outerLeft;
         end.y = transform.position.y + (screenSize.y * 0.25f);
         drawLine(start, end, debugSquares[3]);
 
-        // Outer Right 
+        /* Outer Right */
         start.x = outerRight;
         end.x = outerRight;
         drawLine(start, end, debugSquares[4]);
