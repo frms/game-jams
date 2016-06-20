@@ -8,11 +8,11 @@ public class PlatformerCamera : MonoBehaviour
 
     public Transform debugSquarePrefab;
 
-    private float platformOffset;
+    private float platformSnapOffset;
     private float lookUpDownOffset;
-    private float ySize;
-    private float innerXSize;
-    private float outerXSize;
+    private float height;
+    private float innerWidth;
+    private float sideWidth;
     private float facing;
 
     internal bool lookUp;
@@ -26,11 +26,11 @@ public class PlatformerCamera : MonoBehaviour
         Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, -Camera.main.transform.position.z));
         screenSize = topRight - bottomLeft;
 
-        platformOffset = screenSize.y * (1f/6f);
+        platformSnapOffset = screenSize.y * (1f/6f);
         lookUpDownOffset = screenSize.y * 0.25f;
-        ySize = screenSize.y * 0.75f;
-        innerXSize = screenSize.x * 0.1f;
-        outerXSize = screenSize.x * 0.11f;
+        height = screenSize.y * 0.75f;
+        innerWidth = screenSize.x * 0.1f;
+        sideWidth = screenSize.x * 0.11f;
 
         facing = target.facing;
     }
@@ -47,22 +47,22 @@ public class PlatformerCamera : MonoBehaviour
         float targetLeft = targetPos.x - (target.size.x / 2f);
         float targetRight = targetPos.x + (target.size.x / 2f);
 
-        float innerLeft = transform.position.x - (innerXSize * 0.5f);
-        float innerRight = transform.position.x + (innerXSize * 0.5f);
-        float outerLeft = innerLeft - outerXSize;
-        float outerRight = innerRight + outerXSize;
+        float innerLeft = transform.position.x - (innerWidth * 0.5f);
+        float innerRight = transform.position.x + (innerWidth * 0.5f);
+        float outerLeft = innerLeft - sideWidth;
+        float outerRight = innerRight + sideWidth;
 
         /* Seek an inner bound if the target goes past an outer bound */
 
         if (targetLeft < outerLeft)
         {
-            seekInner = innerXSize * -0.5f;
+            seekInner = innerWidth * -0.5f;
             facing = -1;
         }
 
         if (targetRight > outerRight)
         {
-            seekInner = innerXSize * 0.5f;
+            seekInner = innerWidth * 0.5f;
             facing = 1;
         }
 
@@ -82,11 +82,11 @@ public class PlatformerCamera : MonoBehaviour
         {
             if(facing < 0 && innerRight > targetPos.x)
             {
-                pos.x = targetPos.x + innerXSize * -0.5f;
+                pos.x = targetPos.x + innerWidth * -0.5f;
             }
             if (facing > 0 && innerLeft < targetPos.x)
             {
-                pos.x = targetPos.x + innerXSize * 0.5f;
+                pos.x = targetPos.x + innerWidth * 0.5f;
             }
         }
 
@@ -127,7 +127,7 @@ public class PlatformerCamera : MonoBehaviour
              * from FixedUpdate. So I'd have to verify it in some manner that would avoid
              * other sources of jitter. */
             float targetBottom = target.rigidbodyPos.y - (target.size.y / 2f);
-            pos.y = moveTowards(pos.y, targetBottom + yOffset + platformOffset);
+            pos.y = moveTowards(pos.y, targetBottom + yOffset + platformSnapOffset);
         }
         /* Keep the target within Y bounds */
         else
@@ -135,8 +135,8 @@ public class PlatformerCamera : MonoBehaviour
             float targetBottom = targetPos.y - (target.size.y / 2f);
             float targetTop = targetPos.y + (target.size.y / 2f);
 
-            float camBottom = transform.position.y - (ySize / 2f);
-            float camTop = transform.position.y + (ySize / 2f);
+            float camBottom = transform.position.y - (height / 2f);
+            float camTop = transform.position.y + (height / 2f);
 
             if (targetBottom < camBottom)
             {
@@ -178,16 +178,16 @@ public class PlatformerCamera : MonoBehaviour
             }
         }
 
-        float innerLeft = transform.position.x - (innerXSize * 0.5f);
-        float innerRight = transform.position.x + (innerXSize * 0.5f);
-        float outerLeft = innerLeft - outerXSize;
-        float outerRight = innerRight + outerXSize;
+        float innerLeft = transform.position.x - (innerWidth * 0.5f);
+        float innerRight = transform.position.x + (innerWidth * 0.5f);
+        float outerLeft = innerLeft - sideWidth;
+        float outerRight = innerRight + sideWidth;
 
         Vector2 start, end;
 
         /* Platform snapping */
         start.x = transform.position.x - (screenSize.x * 0.3f);
-        start.y = transform.position.y - platformOffset;
+        start.y = transform.position.y - platformSnapOffset;
         end.x = transform.position.x + (screenSize.x * 0.3f);
         end.y = start.y;
         drawLine(start, end, debugSquares[0]);
