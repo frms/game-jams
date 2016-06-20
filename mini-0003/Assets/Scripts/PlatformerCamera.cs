@@ -6,19 +6,23 @@ public class PlatformerCamera : MonoBehaviour
     public Player target;
     public float speed;
 
-    public Transform debugSquarePrefab;
+    public enum NumberType { units, percentage }
+    public NumberType kindOfNumbers = NumberType.percentage;
 
-    private float platformSnapOffset;
-    private float lookUpDownOffset;
-    private float height;
-    private float innerWidth;
-    private float sideWidth;
-    private float facing;
+    public float platformSnapOffset = (1f / 6f);
+    public float lookUpDownOffset = 0.25f;
+    public float height = 0.75f;
+    public float innerWidth = 0.1f;
+    public float sideWidth = 0.11f;
+
+    public Transform debugSquarePrefab;
 
     internal bool lookUp;
     internal bool lookDown;
 
     private Vector2 screenSize;
+
+    private float facing;
 
     void Start ()
     {
@@ -26,11 +30,14 @@ public class PlatformerCamera : MonoBehaviour
         Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, -Camera.main.transform.position.z));
         screenSize = topRight - bottomLeft;
 
-        platformSnapOffset = screenSize.y * (1f/6f);
-        lookUpDownOffset = screenSize.y * 0.25f;
-        height = screenSize.y * 0.75f;
-        innerWidth = screenSize.x * 0.1f;
-        sideWidth = screenSize.x * 0.11f;
+        if(kindOfNumbers == NumberType.percentage)
+        {
+            platformSnapOffset *= screenSize.y;
+            lookUpDownOffset *= screenSize.y;
+            height *= screenSize.y;
+            innerWidth *= screenSize.x;
+            sideWidth *= screenSize.x;
+        }
 
         facing = target.facing;
     }
