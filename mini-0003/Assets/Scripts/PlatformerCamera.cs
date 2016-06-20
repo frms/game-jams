@@ -91,7 +91,7 @@ public class PlatformerCamera : MonoBehaviour
         // Y code
         if (target.isTouchingGround)
         {
-            float targetBottom = target.transform.position.y - (target.size.y / 2f);
+            float targetBottom = target.rigidbodyPos.y - (target.size.y / 2f);
             pos.y = moveTowards(pos.y, targetBottom + platformOffset);
         }
 

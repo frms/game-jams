@@ -11,25 +11,32 @@ public class Player : MonoBehaviour
     public float bulletSpeed;
     private Transform lastBullet = null;
 
+    private Rigidbody2D rb;
+    private float radius;
+
     private Transform eye;
     internal float facing = 1;
     internal bool canJump = false;
     internal bool isTouchingGround = false;
-
-    private Rigidbody2D rb;
-
-    private float radius;
-
     internal Vector2 size;
-
-	void Awake ()
+    internal Vector2 rigidbodyPos
     {
-        eye = transform.FindChild("Eye");
+        get
+        {
+            return rb.position;
+        }
+    }
 
+
+
+    void Awake ()
+    {
         rb = GetComponent<Rigidbody2D>();
 
         CircleCollider2D col = GetComponent<CircleCollider2D>();
         radius = Mathf.Max(transform.localScale.x, transform.localScale.y) * col.radius;
+
+        eye = transform.FindChild("Eye");
 
         size = new Vector2(2f * radius, 2f * radius);
     }
@@ -144,7 +151,7 @@ public class Player : MonoBehaviour
 
         RaycastHit2D hit;
         canJump = circleCast(Vector2.down, out hit, groundCheckDist);
-        isTouchingGround = canJump && hit.distance <= 0.0001f;
+        isTouchingGround = canJump && hit.distance <= 0.005f;
 
         StartCoroutine(checkGround());
     }
