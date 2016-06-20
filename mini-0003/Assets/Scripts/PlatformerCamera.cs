@@ -10,6 +10,7 @@ public class PlatformerCamera : MonoBehaviour
 
     private Vector2 screenSize;
     private float platformOffset;
+    private float ySize;
     private float innerXSize;
     private float outerXSize;
     private float facing;
@@ -23,7 +24,8 @@ public class PlatformerCamera : MonoBehaviour
         Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, -Camera.main.transform.position.z));
         screenSize = topRight - bottomLeft;
 
-        platformOffset = screenSize.y * 0.2f;
+        platformOffset = screenSize.y * (1f/6f);
+        ySize = screenSize.y * 0.75f;
         innerXSize = screenSize.x * 0.1f;
         outerXSize = screenSize.x * 0.11f;
 
@@ -48,8 +50,9 @@ public class PlatformerCamera : MonoBehaviour
         float outerRight = innerRight + outerXSize;
 
         Vector3 pos = transform.position;
-
         Vector3 targetPos = target.transform.position;
+
+        // X Direction
         float targetLeft = targetPos.x - (target.size.x / 2f);
         float targetRight = targetPos.x + (target.size.x / 2f);
 
@@ -87,12 +90,28 @@ public class PlatformerCamera : MonoBehaviour
             }
         }
 
-
-        // Y code
+        // Y Direction
         if (target.isTouchingGround)
         {
             float targetBottom = target.rigidbodyPos.y - (target.size.y / 2f);
             pos.y = moveTowards(pos.y, targetBottom + platformOffset);
+        } else
+        {
+            float targetBottom = targetPos.y - (target.size.y / 2f);
+            float targetTop = targetPos.y + (target.size.y / 2f);
+
+            float camBottom = transform.position.y - (ySize / 2f);
+            float camTop = transform.position.y + (ySize / 2f);
+
+            if (targetBottom < camBottom)
+            {
+                pos.y += targetBottom - camBottom;
+            }
+
+            if (targetTop > camTop)
+            {
+                pos.y += targetTop - camTop;
+            }
         }
 
         transform.position = pos;
