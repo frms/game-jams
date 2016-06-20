@@ -42,19 +42,17 @@ public class PlatformerCamera : MonoBehaviour
 
 	void LateUpdate ()
     {
-        float startX = transform.position.x;
-
-        float innerLeft = transform.position.x - (innerXSize * 0.5f);
-        float innerRight = transform.position.x + (innerXSize * 0.5f);
-        float outerLeft = innerLeft - outerXSize;
-        float outerRight = innerRight + outerXSize;
-
         Vector3 pos = transform.position;
         Vector3 targetPos = target.transform.position;
 
         // X Direction
         float targetLeft = targetPos.x - (target.size.x / 2f);
         float targetRight = targetPos.x + (target.size.x / 2f);
+
+        float innerLeft = transform.position.x - (innerXSize * 0.5f);
+        float innerRight = transform.position.x + (innerXSize * 0.5f);
+        float outerLeft = innerLeft - outerXSize;
+        float outerRight = innerRight + outerXSize;
 
         if (targetLeft < outerLeft)
         {
@@ -91,11 +89,14 @@ public class PlatformerCamera : MonoBehaviour
         }
 
         // Y Direction
+        /* Platform Snaping */
         if (target.isTouchingGround)
         {
             float targetBottom = target.rigidbodyPos.y - (target.size.y / 2f);
             pos.y = moveTowards(pos.y, targetBottom + platformOffset);
-        } else
+        }
+        /* Keep in target within Y bounds */
+        else
         {
             float targetBottom = targetPos.y - (target.size.y / 2f);
             float targetTop = targetPos.y + (target.size.y / 2f);
@@ -116,15 +117,16 @@ public class PlatformerCamera : MonoBehaviour
 
         transform.position = pos;
 
-        innerLeft += -startX + transform.position.x;
-        innerRight += -startX + transform.position.x;
-        outerLeft += -startX + transform.position.x;
-        outerRight += -startX + transform.position.x;
-        debugDraw(innerLeft, innerRight, outerLeft, outerRight);
+        debugDraw();
     }
 
-    private void debugDraw(float innerLeft, float innerRight, float outerLeft, float outerRight)
+    private void debugDraw()
     {
+        float innerLeft = transform.position.x - (innerXSize * 0.5f);
+        float innerRight = transform.position.x + (innerXSize * 0.5f);
+        float outerLeft = innerLeft - outerXSize;
+        float outerRight = innerRight + outerXSize;
+
         Vector2 start, end;
 
         // Platform snapping 
