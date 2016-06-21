@@ -4,11 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public float speed;
-    public float jump;
-    public float groundCheckDist;
+    public float speed = 6.5f;
+    public float jump = 20f;
+    public float groundCheckDist = 0.15f;
     public Transform bulletPrefab;
-    public float bulletSpeed;
+    public float bulletSpeed = 15f;
     private Transform lastBullet = null;
 
     private Rigidbody2D rb;
@@ -52,11 +52,7 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
     void Update ()
     {
-        if(rb.position.y < -5)
-        {
-            int scene = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(scene);
-        }
+        resetOnFall();
 
         cam.lookDown = (Input.GetAxisRaw("Vertical") == -1);
 
@@ -70,6 +66,15 @@ public class Player : MonoBehaviour
         }
 
         tryToJump();
+    }
+
+    private void resetOnFall()
+    {
+        if (rb.position.y < -5)
+        {
+            int scene = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(scene);
+        }
     }
 
     private void updateFacing()
@@ -90,13 +95,13 @@ public class Player : MonoBehaviour
         eye.localPosition = pos;
     }
 
-    private bool upDown = false;
+    private bool isUpDown = false;
 
     private void tryToJump()
     {
         float yAxis = Input.GetAxisRaw("Vertical");
 
-        if (yAxis > 0 && upDown == false)
+        if (yAxis > 0 && isUpDown == false)
         {
             if (canJump)
             {
@@ -105,12 +110,12 @@ public class Player : MonoBehaviour
                 rb.velocity = vel;
             }
 
-            upDown = true;
+            isUpDown = true;
         }
 
         if (yAxis <= 0)
         {
-            upDown = false;
+            isUpDown = false;
         }
     }
 

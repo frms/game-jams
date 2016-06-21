@@ -4,7 +4,7 @@ using System.Collections;
 public class PlatformerCamera : MonoBehaviour
 {
     public Player target;
-    public float speed;
+    public float speed = 10f;
 
     public enum NumberType { units, percentage }
     public NumberType kindOfNumbers = NumberType.percentage;
