@@ -2,6 +2,13 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 2D platformer player who looks ahead as to where the character is moving and
+/// stop a collision (though repeat looks will need to be add to truly stop
+/// all a collision).
+/// Rigidbody should be set to Interpolate for smooth camera follow.
+/// Physics 2D settings should have "Queries Start In Collider" turned off.
+/// </summary>
 public class Player : MonoBehaviour
 {
     public float speed = 6.5f;
