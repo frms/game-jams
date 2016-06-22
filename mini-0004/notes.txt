@@ -1,0 +1,6 @@
+Line of dmg and stuns
+Gain a shield
+Invulnerable Charge
+	charge through an area in a direction then reappear and deal dmg
+Spawn a minion every time you use an ability
+Melee sky atks?
