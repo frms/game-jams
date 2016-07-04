@@ -1,0 +1,12 @@
+html, body {
+	height: 100%;
+	font-family: 'Roboto', sans-serif;
+}
+
+#output, #controls {
+	height: 50%;
+}
+
+#output {
+	overflow-y: auto;
+}
