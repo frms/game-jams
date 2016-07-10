@@ -5,7 +5,7 @@ let player, enemy;
 
 $(document).ready(function() {
 	$output = $('#output');
-	startBattle();
+	newGame();
 
 	$('#controls a').click(function(e){
 		playerTurn(this.innerText);
@@ -14,18 +14,21 @@ $(document).ready(function() {
 
 		if(player.hp <= 0) {
 			display('Player lost!');
-			startBattle();
+			newGame();
 		} else if(enemy.hp <= 0) {
 			display('Player wins!');
-			startBattle();
+			nextBattle();
 		}
 
 		e.preventDefault();
 	})
 });
 
-function startBattle() {
+function newGame() {
 	player = new Creature(100, 20);
+	nextBattle();
+}
+function nextBattle() {
 	enemy = new Creature(80, 15);
 
 	display('---------------------------------------------------------------');
