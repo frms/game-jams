@@ -1,14 +1,37 @@
-var $output;
+"use strict";
+
+let $output;
+let player, enemy;
 
 $(document).ready(function() {
 	$output = $('#output');
+	startBattle();
 
 	$('#controls a').click(function(e){
 		playerTurn(this.innerText);
 		enemyTurn();
+		display(`${player} ${enemy}`);
+
+		if(player.hp <= 0) {
+			display('Player lost!');
+			startBattle();
+		} else if(enemy.hp <= 0) {
+			display('Player wins!');
+			startBattle();
+		}
+
 		e.preventDefault();
 	})
 });
+
+function startBattle() {
+	player = new Creature(100, 20);
+	enemy = new Creature(80, 15);
+
+	display('---------------------------------------------------------------');
+	display('Battle begins!');
+	display(`${player} ${enemy}`);
+}
 
 function display(str) {
 	$output.html($output.html() + str + '<br>');
@@ -16,13 +39,12 @@ function display(str) {
 }
 
 function playerTurn(action) {
-	display('Player ' + action);
+	let dmg = player.attack(enemy);
+	display(`Player ${action} for ${dmg}`);
 }
 
 function enemyTurn() {
-	if(Math.random() < 0.5) {
-		display('Enemy Punch');
-	} else {
-		display('Enemy Kick');
-	}
+	let str = (Math.random() < 0.5) ? 'Enemy Punch' : 'Enemy Kick';
+	let dmg = enemy.attack(player);
+	display(str + ` for ${dmg}`)
 }
