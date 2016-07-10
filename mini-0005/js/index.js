@@ -7,7 +7,7 @@ $(document).ready(function() {
 	$output = $('#output');
 	newGame();
 
-	$('#controls a').click(function(e){
+	$('.move').click(function(e){
 		playerTurn(this.innerText);
 		enemyTurn();
 		display(`${player} ${enemy}`);
@@ -19,8 +19,6 @@ $(document).ready(function() {
 			display('Player wins!');
 			nextBattle();
 		}
-
-		e.preventDefault();
 	})
 });
 

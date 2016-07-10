@@ -5,8 +5,26 @@ html, body {
 
 #output, #controls {
 	height: 50%;
+	overflow-y: auto;
 }
 
-#output {
-	overflow-y: auto;
+#controls {
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	box-sizing: border-box;
+	padding: 5px;
+	background: #E3F2FD;
+}
+
+.move {
+	box-sizing: border-box;
+	width: calc(50% - 10px);
+	padding: 10px;
+	margin: 5px;
+	background: #2196F3;
+	color: #fff;
+	cursor: pointer;
+	font-size: xx-large;
+	text-align: center;
 }
