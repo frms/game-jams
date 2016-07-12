@@ -3,12 +3,29 @@ html, body {
 	font-family: 'Roboto', sans-serif;
 }
 
-#output, #controls {
-	height: 50%;
+body {
+	display: flex;
+	flex-direction: column;
+	font-size: x-large;
+}
+
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+#output {
+	flex-grow: 1;
 	overflow-y: auto;
+	padding: 10px;
 }
 
 #controls {
+	flex-shrink: 0;
 	display: flex;
 	flex-wrap: wrap;
 	align-content: flex-start;
@@ -27,4 +44,5 @@ html, body {
 	cursor: pointer;
 	font-size: xx-large;
 	text-align: center;
+	user-select: none;
 }
