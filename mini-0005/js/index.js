@@ -30,7 +30,6 @@ function nextBattle() {
 	enemy = new Creature(80, 15);
 
 	display('-------------------------------');
-	display('Battle begins!');
 	display(`${player} ${enemy}`);
 }
 
