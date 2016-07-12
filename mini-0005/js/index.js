@@ -29,7 +29,7 @@ function newGame() {
 function nextBattle() {
 	enemy = new Creature(80, 15);
 
-	display('---------------------------------------------------------------');
+	display('-------------------------------');
 	display('Battle begins!');
 	display(`${player} ${enemy}`);
 }
