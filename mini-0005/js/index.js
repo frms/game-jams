@@ -10,13 +10,14 @@ function display(str) {
 }
 
 function nextBattle() {
-	enemy = new Creature(enemyHB, 80, 15);
+	let num = Math.trunc(Math.random() * Creature.list.length);
+	enemy = new Creature(enemyHB, num);
 
 	display('-------------------------------');
 }
 
 function newGame() {
-	player = new Creature(playerHB, 100, 20);
+	player = new Creature(playerHB, 0);
 	nextBattle();
 }
 

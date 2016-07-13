@@ -9,17 +9,19 @@ class HealthBar {
 
 	update(hp, maxHp) {
 		this.textElem.text(hp);
-		var percent = Math.max(100*hp/maxHp, 0);
+		let percent = Math.max(100*hp/maxHp, 0);
 		this.barElem.css('width', `${percent}%`);
 	}
 }
 
 class Creature {
-	constructor(healthBar, hp, dmg) {
+	constructor(healthBar, num) {
 		this.healthBar = healthBar;
-		this.maxHp = hp;
-		this.hp = hp;
-		this.dmg = dmg;
+
+		let stats = Creature.list[num];
+		this.maxHp = stats.hp;
+		this.hp = stats.hp;
+		this.dmg = stats.dmg;
 	}
 
 	get hp() {
@@ -46,3 +48,18 @@ class Creature {
 		return `${this.constructor.name} {hp:${this.hp}, dmg:${this.dmg}}`;
 	}
 }
+
+Creature.list = [
+	{
+		hp: 80,
+		dmg: 15
+	},
+	{
+		hp: 30,
+		dmg: 40
+	},
+	{
+		hp: 55,
+		dmg: 10
+	}
+];
