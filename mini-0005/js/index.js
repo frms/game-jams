@@ -11,13 +11,13 @@ function display(str) {
 
 function nextBattle() {
 	let num = Math.trunc(Math.random() * Creature.list.length);
-	enemy = new Creature(enemyUI, num);
+	enemy = new Creature(num, 1, enemyUI);
 
 	display('-------------------------------');
 }
 
 function newGame() {
-	player = new Creature(playerUI, 0);
+	player = new Creature(0, 1, playerUI);
 	nextBattle();
 }
 

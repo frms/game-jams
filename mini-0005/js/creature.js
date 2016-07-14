@@ -4,30 +4,37 @@ class BattleUI {
 	constructor(selector) {
 		let elem = $(selector);
 		this.nameElem = elem.find('.name');
+		this.levelElem = elem.find('.level');
 		this.barElem = elem.find('.health-bar');
 		this.textElem = elem.find('.health-text');
 	}
 
-	setUp(name) {
-		this.nameElem.text(name);
+	setUp(creature) {
+		this.nameElem.text(creature.name);
+		this.update(creature)
 	}
 
-	update(hp, maxHp) {
-		this.textElem.text(hp);
-		let percent = Math.max(100*hp/maxHp, 0);
+	update(creature) {
+		this.levelElem.text(`Lvl ${creature.level}`);
+		this.textElem.text(creature.hp);
+		let percent = Math.max(100*creature.hp/creature.maxHp, 0);
 		this.barElem.css('width', `${percent}%`);
 	}
 }
 
 class Creature {
-	constructor(battleUI, num) {
-		this.battleUI = battleUI;
-		this.battleUI.setUp(num);
+	constructor(num, lvl, battleUI) {
+		this.name = num;
 
 		let stats = Creature.list[num];
 		this.maxHp = stats.hp;
 		this.hp = stats.hp;
 		this.dmg = stats.dmg;
+
+		this.exp = Math.pow(lvl, 3);
+
+		this.battleUI = battleUI;
+		this.battleUI.setUp(this);
 	}
 
 	get hp() {
@@ -38,8 +45,12 @@ class Creature {
 		this.curHp = Math.round(val);
 
 		if(this.battleUI) {
-			this.battleUI.update(this.curHp, this.maxHp)
+			this.battleUI.update(this)
 		}
+	}
+
+	get level() {
+		return Math.trunc(Math.cbrt(this.exp));
 	}
 
 	attack(target) {

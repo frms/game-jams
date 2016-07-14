@@ -16,6 +16,10 @@ body {
 	font-size: xx-large;
 }
 
+.level {
+	float: right;
+}
+
 .health {
 	width: 40vw;
 	background: #CFD8DC;
@@ -35,7 +39,6 @@ body {
 
 .enemy {
 	float: right;
-	text-align: right;
 }
 
 .enemy .health, .enemy .health div {
