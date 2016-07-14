@@ -1,10 +1,15 @@
 "use strict";
 
-class HealthBar {
+class BattleUI {
 	constructor(selector) {
 		let elem = $(selector);
+		this.nameElem = elem.find('.name');
 		this.barElem = elem.find('.health-bar');
 		this.textElem = elem.find('.health-text');
+	}
+
+	setUp(name) {
+		this.nameElem.text(name);
 	}
 
 	update(hp, maxHp) {
@@ -15,8 +20,9 @@ class HealthBar {
 }
 
 class Creature {
-	constructor(healthBar, num) {
-		this.healthBar = healthBar;
+	constructor(battleUI, num) {
+		this.battleUI = battleUI;
+		this.battleUI.setUp(num);
 
 		let stats = Creature.list[num];
 		this.maxHp = stats.hp;
@@ -31,8 +37,8 @@ class Creature {
 	set hp(val) {
 		this.curHp = Math.round(val);
 
-		if(this.healthBar) {
-			this.healthBar.update(this.curHp, this.maxHp)
+		if(this.battleUI) {
+			this.battleUI.update(this.curHp, this.maxHp)
 		}
 	}
 

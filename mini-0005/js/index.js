@@ -1,7 +1,7 @@
 "use strict";
 
-let $output;
-let playerHB, enemyHB;
+let $output
+let playerUI, enemyUI;
 let player, enemy;
 
 function display(str) {
@@ -11,13 +11,13 @@ function display(str) {
 
 function nextBattle() {
 	let num = Math.trunc(Math.random() * Creature.list.length);
-	enemy = new Creature(enemyHB, num);
+	enemy = new Creature(enemyUI, num);
 
 	display('-------------------------------');
 }
 
 function newGame() {
-	player = new Creature(playerHB, 0);
+	player = new Creature(playerUI, 0);
 	nextBattle();
 }
 
@@ -47,8 +47,8 @@ function moveClick(e){
 
 $(document).ready(function() {
 	$output = $('#output');
-	playerHB = new HealthBar('.player.health');
-	enemyHB = new HealthBar('.enemy.health');
+	playerUI = new BattleUI('.player');
+	enemyUI = new BattleUI('.enemy');
 	newGame();
 
 	$('.move').click(moveClick);

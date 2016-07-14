@@ -13,10 +13,11 @@ body {
 #battle {
 	flex-shrink: 0;
 	padding: 10px;
+	font-size: xx-large;
 }
 
 .health {
-	width: 35%;
+	width: 40vw;
 	background: #CFD8DC;
 }
 
@@ -26,14 +27,18 @@ body {
 
 .health-text {
 	padding: 5px 10px;
-	font-size: xx-large;
 }
 
-.player.health {
+.player {
 	float: left;
 }
 
-.enemy.health, .enemy.health div {
+.enemy {
+	float: right;
+	text-align: right;
+}
+
+.enemy .health, .enemy .health div {
 	float: right;
 }
 
