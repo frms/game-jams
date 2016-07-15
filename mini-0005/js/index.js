@@ -1,12 +1,12 @@
 "use strict";
 
-let $output
+let output
 let playerUI, enemyUI;
 let player, enemy;
 
 function display(str) {
-	$output.html($output.html() + str + '<br>');
-	$output[0].scrollTop = $output[0].scrollHeight;
+	output.html(output.html() + str + '<br>');
+	output[0].scrollTop = output[0].scrollHeight;
 }
 
 function nextBattle() {
@@ -41,12 +41,13 @@ function moveClick(e){
 		newGame();
 	} else if(enemy.hp <= 0) {
 		display('Player wins!');
+		player.exp += enemy.defeatExp;
 		nextBattle();
 	}
 }
 
 $(document).ready(function() {
-	$output = $('#output');
+	output = $('#output');
 	playerUI = new BattleUI('.player');
 	enemyUI = new BattleUI('.enemy');
 	newGame();

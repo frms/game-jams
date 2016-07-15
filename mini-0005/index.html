@@ -12,10 +12,10 @@
 	<script src="/js/creature.js" defer></script>
 	<script src="/js/index.js" defer></script>
 </head>
-<body>
+<body class="dark-primary-text">
 <div id="battle">
 	<div class="player">
-		<div>
+		<div class="title">
 			<span class="name"></span>
 			<span class="level"></span>
 		</div>
@@ -24,9 +24,11 @@
 				<div class="health-text"></div>
 			</div>
 		</div>
+		<div class="exp-bar"></div>
+		<div class="exp-text dark-secondary-text">156/2500</div>
 	</div>
 	<div class="enemy">
-		<div>
+		<div class="title">
 			<span class="name"></span>
 			<span class="level"></span>
 		</div>
@@ -38,7 +40,7 @@
 	</div>
 </div>
 <div id="output"></div>
-<div id="controls" class="no-select">
+<div id="controls" class="light-primary-text no-select">
 	<div class="move">Fire</div>
 	<div class="move">Water</div>
 	<div class="move">Earth</div>

@@ -3,38 +3,47 @@
 class BattleUI {
 	constructor(selector) {
 		let elem = $(selector);
-		this.nameElem = elem.find('.name');
-		this.levelElem = elem.find('.level');
-		this.barElem = elem.find('.health-bar');
-		this.textElem = elem.find('.health-text');
+		this.name = elem.find('.name');
+		this.level = elem.find('.level');
+		this.healthBar = elem.find('.health-bar');
+		this.healthText = elem.find('.health-text');
+		this.expBar = elem.find('.exp-bar');
+		this.expText = elem.find('.health-text');
 	}
 
 	setUp(creature) {
-		this.nameElem.text(creature.name);
+		this.name.text(creature.name);
 		this.update(creature)
 	}
 
 	update(creature) {
-		this.levelElem.text(`Lvl ${creature.level}`);
-		this.textElem.text(creature.hp);
+		this.level.text(`Lvl ${creature.level}`);
+		this.healthText.text(creature.hp);
 		let percent = Math.max(100*creature.hp/creature.maxHp, 0);
-		this.barElem.css('width', `${percent}%`);
+		this.healthBar.css('width', `${percent}%`);
 	}
 }
 
 class Creature {
-	constructor(num, lvl, battleUI) {
-		this.name = num;
 
-		let stats = Creature.list[num];
-		this.maxHp = stats.hp;
-		this.hp = stats.hp;
-		this.dmg = stats.dmg;
+	constructor(num, lvl, battleUI) {
+		this.num = num;
+		this.name = num;
 
 		this.exp = Math.pow(lvl, 3);
 
 		this.battleUI = battleUI;
 		this.battleUI.setUp(this);
+	}
+
+	updateUI() {
+		if(this.battleUI) {
+			this.battleUI.update(this)
+		}
+	}
+
+	get baseStats() {
+		return Creature.list[this.num];
 	}
 
 	get hp() {
@@ -43,14 +52,35 @@ class Creature {
 
 	set hp(val) {
 		this.curHp = Math.round(val);
+		this.updateUI();
+	}
 
-		if(this.battleUI) {
-			this.battleUI.update(this)
-		}
+	get exp() {
+		return this.curExp;
 	}
 
 	get level() {
 		return Math.trunc(Math.cbrt(this.exp));
+	}
+
+	set exp(val) {
+		let startLevel = this.level;
+		this.curExp = val;
+
+		if(startLevel != this.level) {
+			let stats = this.baseStats;
+			this.maxHp = stats.hp * this.level;
+			this.dmg = stats.dmg * this.level;
+
+			this.hp = this.maxHp;
+
+			this.updateUI();
+		}
+	}
+
+	get defeatExp() {
+		let stats = this.baseStats;
+		return ((Math.sqrt(stats.hp) + Math.sqrt(stats.dmg)) * this.level) / 6;
 	}
 
 	attack(target) {
