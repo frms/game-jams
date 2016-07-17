@@ -7,6 +7,7 @@ body {
 	flex-direction: column;
 	font-size: x-large;
 	font-family: 'Roboto', sans-serif;
+	background: #E3F2FD;
 }
 
 /* Text color */
@@ -35,13 +36,21 @@ body {
 	color: rgba(255,255,255,0.50);
 }
 
+.button {
+	box-sizing: border-box;
+	padding: 10px;
+	margin: 5px;
+	background: #42A5F5;
+	cursor: pointer;
+	text-align: center;
+	font-size: xx-large;
+}
+
 /* Battle UI */
 
 #battle {
 	flex-shrink: 0;
-	padding: 10px;
-	font-size: x-large;
-	background: #E3F2FD;
+	padding: 10px 10px 5px 10px;
 }
 
 #battle .title {
@@ -87,10 +96,27 @@ body {
 	margin-top: 5px;
 }
 
+/* Zones */
+
+#zones {
+	display: flex;
+	flex-direction: row;
+	flex-shrink: 0;
+	padding: 0px 5px 10px 5px;
+}
+
+.zone {
+	flex-grow: 1;
+	margin: 0px 5px;
+}
+
+/* Output */
+
 #output {
 	flex-grow: 1;
 	overflow-y: auto;
 	padding: 0px 10px;
+	background: white;
 }
 
 /* Controls */
@@ -102,19 +128,10 @@ body {
 	align-content: flex-start;
 	box-sizing: border-box;
 	padding: 5px;
-	background: #E3F2FD;
 }
 
 .move {
-	box-sizing: border-box;
 	width: calc(50% - 10px);
-	padding: 10px;
-	margin: 5px;
-	background: #2196F3;
-	cursor: pointer;
-	font-size: xx-large;
-	text-align: center;
-	user-select: none;
 }
 
 /* Misc */

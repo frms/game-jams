@@ -72,9 +72,9 @@ class Creature {
 			this.dmg = stats.dmg * this.level;
 
 			this.hp = this.maxHp;
-
-			this.updateUI();
 		}
+		
+		this.updateUI();
 	}
 
 	get levelExp() {
