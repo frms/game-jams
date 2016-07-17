@@ -62,16 +62,20 @@ class Creature {
 		return Math.trunc(Math.cbrt(this.exp));
 	}
 
+	levelUp() {
+		let stats = this.base;
+		this.maxHp = stats.hp * this.level;
+		this.dmg = stats.dmg * this.level;
+
+		this.hp = this.maxHp;
+	}
+
 	set exp(val) {
 		let startLevel = this.level;
 		this.curExp = val;
 
 		if(startLevel != this.level) {
-			let stats = this.base;
-			this.maxHp = stats.hp * this.level;
-			this.dmg = stats.dmg * this.level;
-
-			this.hp = this.maxHp;
+			this.levelUp();
 		}
 		
 		this.updateUI();
@@ -109,16 +113,16 @@ Creature.list = [
 		"hp": "1715.85083",
 		"dmg": "666.5039063"
 	},
-	{
-		"name": "Betty",
-		"hp": "1274.108887",
-		"dmg": "585.9375"
-	},
-	{
-		"name": "Charlotte",
-		"hp": "1705.932617",
-		"dmg": "585.9375"
-	},
+	// {
+	// 	"name": "Betty",
+	// 	"hp": "1274.108887",
+	// 	"dmg": "585.9375"
+	// },
+	// {
+	// 	"name": "Charlotte",
+	// 	"hp": "1705.932617",
+	// 	"dmg": "585.9375"
+	// },
 	{
 		"name": "Daisy",
 		"hp": "1025.390625",
@@ -127,7 +131,7 @@ Creature.list = [
 	{
 		"name": "Evie",
 		"hp": "843.8110352",
-		"dmg": "1312.5"
+		"dmg": "545.5078125"
 	},
 	{
 		"name": "Freya",
@@ -137,18 +141,18 @@ Creature.list = [
 	{
 		"name": "Gracie",
 		"hp": "923.9196777",
-		"dmg": "205.078125"
+		"dmg": "194.8242188"
 	},
-	{
-		"name": "Holly",
-		"hp": "1493.835449",
-		"dmg": "0"
-	},
-	{
-		"name": "Isla",
-		"hp": "1319.885254",
-		"dmg": "0"
-	},
+	// {
+	// 	"name": "Holly",
+	// 	"hp": "1493.835449",
+	// 	"dmg": "0"
+	// },
+	// {
+	// 	"name": "Isla",
+	// 	"hp": "1319.885254",
+	// 	"dmg": "0"
+	// },
 	{
 		"name": "Jessica",
 		"hp": "1243.591309",
@@ -182,7 +186,7 @@ Creature.list = [
 	{
 		"name": "Patrick",
 		"hp": "2563.476563",
-		"dmg": "1171.875"
+		"dmg": "761.71875"
 	},
 	{
 		"name": "Queenie",

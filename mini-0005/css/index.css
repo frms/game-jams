@@ -110,6 +110,10 @@ body {
 	margin: 0px 5px;
 }
 
+.zone.current {
+	background: #0D47A1;
+}
+
 /* Output */
 
 #output {

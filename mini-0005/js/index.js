@@ -1,6 +1,7 @@
 "use strict";
 
 let output
+let zones;
 let playerUI, enemyUI;
 let player, enemy;
 
@@ -10,14 +11,15 @@ function display(str) {
 }
 
 function nextBattle() {
-	let num = Math.trunc(Math.random() * Creature.list.length);
-	enemy = new Creature(num, 1, enemyUI);
+	zones.update(player.level);
+	enemy = zones.spawnCreature(enemyUI);
 
 	display('-------------------------------');
 }
 
 function newGame() {
-	player = new Creature(0, 1, playerUI);
+	zones = new Zones('#zones');
+	player = new Creature(0, 5, playerUI);
 	nextBattle();
 }
 
