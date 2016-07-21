@@ -25,7 +25,7 @@ public class PassThroughTest : MonoBehaviour
 
         while (transform.childCount > 0)
         {
-           DestroyImmediate(transform.GetChild(0).gameObject);
+            DestroyImmediate(transform.GetChild(0).gameObject);
         }
 
         drawLine(disp);
@@ -64,7 +64,20 @@ public class PassThroughTest : MonoBehaviour
     {
         Vector3 result = start.position;
 
-        if (Physics2D.OverlapCircle(end.position, radius) == null)
+        /* I create an overlap radius that is slightly smaller than the actual radius.
+         * I do this because my tests seem to show that Physics2D.circleCast() can 
+         * return results where the circle is actually overlapping with a collider
+         * by <= Physics2D.minPenetrationForPenalty. And my tests also seem to 
+         * suggest that Physics2D.OverlapCircle() will consider a circle overlaping
+         * even if it is not overlapping but it is less than Physics2D.minPenetrationForPenalty
+         * away from a collider (which matches up what you see with most colliders coming
+         * to rest slightly less than Physics2D.minPenetrationForPenalty away from other
+         * colliders in the scene). So I must remove Physics2D.minPenetrationForPenalty
+         * twice from the radius to make sure our overlap test does not count any colliders
+         * that the circle is right up against. */
+        float overlapRadius = radius - (2f * Physics2D.minPenetrationForPenalty);
+
+        if (Physics2D.OverlapCircle(end.position, overlapRadius) == null)
         {
             result = end.position;
         }
@@ -74,7 +87,7 @@ public class PassThroughTest : MonoBehaviour
 
             for (int i = hits.Length - 1; i >= 0; i--)
             {
-                if (Physics2D.OverlapCircle(hits[i].centroid, radius) == null)
+                if (Physics2D.OverlapCircle(hits[i].centroid, overlapRadius) == null)
                 {
                     result = hits[i].centroid;
                     break;
@@ -91,6 +104,7 @@ public class PassThroughTest : MonoBehaviour
         bool origQueriesStartInColliders = Physics2D.queriesStartInColliders;
         Physics2D.queriesStartInColliders = false;
 
+        /* Move back by min penetration to hit any colliders that we are already touching */
         Vector2 origin = pos - Physics2D.minPenetrationForPenalty * dir;
         float maxDist = Physics2D.minPenetrationForPenalty + dist;
 
@@ -98,12 +112,8 @@ public class PassThroughTest : MonoBehaviour
 
         for (int i = 0; i < hits.Length; i++)
         {
-            /* I'm not sure why but it seems that I need to subtract the
-             * Physics2D.minPenetrationForPenalty twice (instead of what should be once).
-             * It seems like in Physics 2D the min penetration is more like a min
-             * separation and overlap is never allowed. */
-            hits[i].distance -= 2 * Physics2D.minPenetrationForPenalty;
-            hits[i].centroid -= (2 * Physics2D.minPenetrationForPenalty) * dir;
+            /* Remove the min penetration from the distance. */
+            hits[i].distance -= Physics2D.minPenetrationForPenalty;
         }
 
         Physics2D.queriesStartInColliders = origQueriesStartInColliders;
