@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
         if (circleCast(vel.normalized, out hit, vel.magnitude * Time.fixedDeltaTime))
         {
             /* Move up to whatever we hit */
-            rb.position += vel.normalized * Mathf.Max(0, hit.distance);
+            rb.position = hit.centroid;
 
             /* Project our velocity against what we hit so we don't move it. Obviously 
              * we'd need to keep checking the projected velocity if we really care to
