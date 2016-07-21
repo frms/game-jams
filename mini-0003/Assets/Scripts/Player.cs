@@ -168,7 +168,14 @@ public class Player : MonoBehaviour
 
         RaycastHit2D hit;
         canJump = circleCast(Vector2.down, out hit, groundCheckDist);
-        isTouchingGround = canJump && hit.distance <= 0.005f;
+        /* It seems that any colliders which are less than Physics2D.minPenetrationForPenalty
+         * apart are considered to be touching. So any distance less than
+         * minPenetrationForPenalty means that we can jump.
+         *
+         * Though sometimes I see a collider come to rest slightly more than minPenetrationForPenalty
+         * distance away from another collider so maybe I'm wrong with the above assumption. Thats
+         * why I'm checking for 150% of minPenetrationForPenalty.*/
+        isTouchingGround = canJump && hit.distance <= 1.5f * Physics2D.minPenetrationForPenalty;
 
         StartCoroutine(checkGround());
     }
@@ -182,11 +189,8 @@ public class Player : MonoBehaviour
 
         if(hit.collider != null)
         {
-            /* I'm not sure why but it seems that I need to subtract the
-             * Physics2D.minPenetrationForPenalty twice (instead of what should be once).
-             * It seems like in Physics 2D the min penetration is more like a min
-             * separation and overlap is never allowed. */
-            hit.distance -= 2 * Physics2D.minPenetrationForPenalty;
+            /* Remove the min penetration we added */
+            hit.distance -= Physics2D.minPenetrationForPenalty;
             return true;
         }
         else
