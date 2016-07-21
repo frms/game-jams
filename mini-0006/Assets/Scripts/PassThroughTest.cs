@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[ExecuteInEditMode]
 public class PassThroughTest : MonoBehaviour
 {
 
@@ -14,12 +15,49 @@ public class PassThroughTest : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         Vector3 disp = end.position - start.position;
+
+        while (transform.childCount > 0)
+        {
+           DestroyImmediate(transform.GetChild(0).gameObject);
+        }
 
         drawLine(disp);
 
         Color green = new Color(0f, 1f, 0f, 0.35f);
         drawCircle(passThrough(disp), green);
+    }
+
+    private void drawLine(Vector3 disp)
+    {
+        float zRot = Mathf.Atan2(disp.y, disp.x) * Mathf.Rad2Deg;
+
+        Transform line = Instantiate(squarePrefab, start.position + disp / 2f, Quaternion.Euler(0, 0, zRot)) as Transform;
+        line.parent = transform;
+
+        Vector3 scale = line.localScale;
+        scale.x = disp.magnitude + (2 * radius);
+        line.localScale = scale;
+
+        SpriteRenderer sr = line.GetComponent<SpriteRenderer>();
+        Color color = sr.color;
+        color.a = 0.35f;
+        sr.color = color;
+    }
+
+    private void drawCircle(Vector3 pos, Color color)
+    {
+        Transform t = Instantiate(circlePrefab, pos, Quaternion.identity) as Transform;
+        t.parent = transform;
+
+        SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
+        sr.color = color;
     }
 
     private Vector3 passThrough(Vector3 disp)
@@ -36,9 +74,6 @@ public class PassThroughTest : MonoBehaviour
 
             for (int i = hits.Length - 1; i >= 0; i--)
             {
-                Debug.Log(hits[i].distance);
-                Debug.Log(Physics2D.OverlapCircle(hits[i].centroid, radius) == null);
-
                 if (Physics2D.OverlapCircle(hits[i].centroid, radius) == null)
                 {
                     result = hits[i].centroid;
@@ -74,34 +109,5 @@ public class PassThroughTest : MonoBehaviour
         Physics2D.queriesStartInColliders = origQueriesStartInColliders;
 
         return hits;
-    }
-
-    private void drawLine(Vector3 disp)
-    {
-        float zRot = Mathf.Atan2(disp.y, disp.x) * Mathf.Rad2Deg;
-
-        Transform line = Instantiate(squarePrefab, start.position + disp / 2f, Quaternion.Euler(0, 0, zRot)) as Transform;
-        Vector3 scale = line.localScale;
-        scale.x = disp.magnitude + 1f;
-        line.localScale = scale;
-
-        SpriteRenderer sr = line.GetComponent<SpriteRenderer>();
-        Color color = sr.color;
-        color.a = 0.35f;
-        sr.color = color;
-    }
-
-    private void drawCircle(Vector3 pos, Color color)
-    {
-        Transform t = Instantiate(circlePrefab, pos, Quaternion.identity) as Transform;
-
-        SpriteRenderer sr = t.GetComponent<SpriteRenderer>();
-        sr.color = color;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
