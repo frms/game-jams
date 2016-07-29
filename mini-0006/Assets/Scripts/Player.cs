@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
     public float speed = 8.413461538f;
 
+    public GameObject passThroughPath;
     public float passThroughSpeed = 8.413461538f;
     public float passThroughDist = 4.5f;
 
@@ -43,7 +44,6 @@ public class Player : MonoBehaviour
     }
 
     private Vector2 passThroughDest;
-    private bool isPassingThrough = false;
 
     private void passThrough(Vector2 dir)
     {
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        isPassingThrough = true;
+        passThroughPath.SetActive(true);
 
         Debug.DrawLine(rb.position, endPos, Color.white, 1.0f, false);
         Debug.DrawLine(rb.position, passThroughDest, Color.green, 1.0f, false);
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(isPassingThrough)
+        if(passThroughPath.activeSelf)
         {
             col.isTrigger = true;
 
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
             {
                 rb.velocity = Vector2.zero;
                 rb.position = passThroughDest;
-                isPassingThrough = false;
+                passThroughPath.SetActive(false);
             }
         }
         else
