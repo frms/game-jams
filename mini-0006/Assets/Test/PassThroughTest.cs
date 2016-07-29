@@ -83,7 +83,7 @@ public class PassThroughTest : MonoBehaviour
         }
         else
         {
-            RaycastHit2D[] hits = circleCastAll(start.position, radius, disp.normalized, disp.magnitude);
+            RaycastHit2D[] hits = PhysicsHelper.circleCastAll(start.position, radius, disp.normalized, disp.magnitude);
 
             for (int i = hits.Length - 1; i >= 0; i--)
             {
@@ -96,28 +96,5 @@ public class PassThroughTest : MonoBehaviour
         }
 
         return result;
-    }
-
-    private RaycastHit2D[] circleCastAll(Vector2 pos, float radius, Vector2 dir, float dist)
-    {
-        /* Make sure we don't count collider that we start in */
-        bool origQueriesStartInColliders = Physics2D.queriesStartInColliders;
-        Physics2D.queriesStartInColliders = false;
-
-        /* Move back by min penetration to hit any colliders that we are already touching */
-        Vector2 origin = pos - Physics2D.minPenetrationForPenalty * dir;
-        float maxDist = Physics2D.minPenetrationForPenalty + dist;
-
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(origin, radius, dir, maxDist);
-
-        for (int i = 0; i < hits.Length; i++)
-        {
-            /* Remove the min penetration from the distance. */
-            hits[i].distance -= Physics2D.minPenetrationForPenalty;
-        }
-
-        Physics2D.queriesStartInColliders = origQueriesStartInColliders;
-
-        return hits;
     }
 }
