@@ -4,10 +4,11 @@ public class Player : MonoBehaviour
 {
     public float speed = 8.413461538f;
 
-    public GameObject passThroughPath;
+    public GameObject passThroughPrefab;
     public float passThroughSpeed = 8.413461538f;
     public float passThroughDist = 4.5f;
 
+    private GameObject passThroughPath;
     private Rigidbody2D rb;
     private CircleCollider2D col;
     private float radius;
@@ -16,6 +17,9 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        passThroughPath = Instantiate(passThroughPrefab) as GameObject;
+        passThroughPath.SetActive(false);
+
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<CircleCollider2D>();
         radius = Mathf.Max(rb.transform.localScale.x, rb.transform.localScale.y) * col.radius;
@@ -107,5 +111,19 @@ public class Player : MonoBehaviour
                 rb.rotation = Mathf.Atan2(dir[1], dir[0]) * Mathf.Rad2Deg;
             }
         }
-    } 
+    }
+
+    void LateUpdate()
+    {
+        if (passThroughPath.activeSelf)
+        {
+            Vector2 disp = (Vector3) passThroughDest - transform.position;
+            float dist = disp.magnitude;
+            float zRot = Mathf.Atan2(disp.y, disp.x) * Mathf.Rad2Deg;
+
+            passThroughPath.transform.position = transform.position + Vector3.right * dist / 2f;
+            passThroughPath.transform.localScale = new Vector3(dist, radius, 1f);
+            passThroughPath.transform.rotation = Quaternion.Euler(0, 0, zRot);
+        }
+    }
 }
