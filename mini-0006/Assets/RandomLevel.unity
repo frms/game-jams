@@ -116,8 +116,9 @@ MonoBehaviour:
   height: 45
   smoothRuns: 1
   percentWall: 0.45
-  wallPrefab: {fileID: 146466, guid: 5ded23ea5f0d4ff4998b952f4c86c011, type: 2}
+  wallPrefab: {fileID: 456954, guid: 5ded23ea5f0d4ff4998b952f4c86c011, type: 2}
   centerEmptyDist: 1.8
+  exitPrefab: {fileID: 495254, guid: 44ad73c2cd30df045af0b585f323eeff, type: 2}
   numEnemies: 40
   enemyPrefabs: []
 --- !u!4 &1157364111
@@ -170,10 +171,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 418254, guid: 9b261a28c2e197b47a8cda7a0ff9b8c9, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 107704, guid: 9b261a28c2e197b47a8cda7a0ff9b8c9, type: 2}
-      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        passThroughPath = Instantiate(passThroughPrefab) as GameObject;
+        passThroughPath = Instantiate(passThroughPrefab);
         passThroughPath.SetActive(false);
 
         rb = GetComponent<Rigidbody2D>();

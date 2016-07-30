@@ -12,9 +12,11 @@ public class Map : MonoBehaviour
     [Range(0, 1)]
     public float percentWall = 0.45f;
 
-    public GameObject wallPrefab;
+    public Transform wallPrefab;
 
     public float centerEmptyDist = 1.8f;
+
+    public Transform exitPrefab;
 
     public int numEnemies = 40;
 
@@ -44,7 +46,6 @@ public class Map : MonoBehaviour
     void Start()
     {
         buildMap();
-        placeRandomWall();
     }
 
     public void buildMap()
@@ -159,9 +160,8 @@ public class Map : MonoBehaviour
             {
                 if (map[x, y] == 1)
                 {
-                    GameObject go = Instantiate(wallPrefab);
-                    go.transform.position = pos(x, y, 0f);
-                    go.transform.parent = transform;
+                    Transform t = Instantiate(wallPrefab, pos(x, y, 0f), Quaternion.identity) as Transform;
+                    t.parent = transform;
                 }
                 else
                 {
@@ -169,6 +169,11 @@ public class Map : MonoBehaviour
                 }
             }
         }
+
+        /* Create Exit */
+        int randIndex = Random.Range(0, openSpots.Count);
+        Instantiate(exitPrefab, pos(openSpots[randIndex][0], openSpots[randIndex][1], 0), Quaternion.identity);
+        openSpots.RemoveAt(randIndex);
 
         createEnemies();
     }
@@ -241,9 +246,8 @@ public class Map : MonoBehaviour
 
         openSpots.RemoveAt(randIndex);
 
-        GameObject go = Instantiate(wallPrefab);
-        go.transform.position = p;
-        go.transform.parent = transform;
+        Transform t = Instantiate(wallPrefab, p, Quaternion.identity) as Transform;
+        t.parent = transform;
     }
 
 }
