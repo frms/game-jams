@@ -14,7 +14,7 @@ public class Map : MonoBehaviour
 
     public GameObject wallPrefab;
 
-    public float centerEmptyDist = 1f;
+    public float centerEmptyDist = 1.8f;
 
     public int numEnemies = 40;
 
@@ -44,6 +44,7 @@ public class Map : MonoBehaviour
     void Start()
     {
         buildMap();
+        placeRandomWall();
     }
 
     public void buildMap()
@@ -185,24 +186,19 @@ public class Map : MonoBehaviour
             for (int i = 0; i < numEnemies; i++)
             {
                 int randEnemyIndex = Random.Range(0, enemyPrefabs.Length);
-                placeEnemy(randEnemyIndex);
+                placeRandomEnemy(randEnemyIndex);
             }
         }
     }
 
-    private void placeEnemy(int enemyIndex)
+    private void placeRandomEnemy(int enemyIndex)
     {
         int randIndex = Random.Range(0, openSpots.Count);
         Vector3 p = pos(openSpots[randIndex][0], openSpots[randIndex][1], 0);
 
-        Collider2D[] cols = Physics2D.OverlapAreaAll(p, p + new Vector3(0.45f, 0.45f, 0.45f));
-
-        for (int i = 0; i < cols.Length; i++)
+        if (Physics2D.OverlapArea(p, p + new Vector3(0.45f, 0.45f, 0.45f)) != null)
         {
-            if (cols[i].tag == "Player" || cols[i].tag == "Enemy")
-            {
-                return;
-            }
+            return;
         }
 
         Quaternion orientation = Quaternion.Euler(0, Random.value * 360f, 0);
@@ -229,7 +225,7 @@ public class Map : MonoBehaviour
         }
         else
         {
-            placeEnemy(i - 1);
+            placeRandomEnemy(i - 1);
         }
     }
 
@@ -238,14 +234,9 @@ public class Map : MonoBehaviour
         int randIndex = Random.Range(0, openSpots.Count);
         Vector3 p = pos(openSpots[randIndex][0], openSpots[randIndex][1], 0f);
 
-        Collider2D[] cols = Physics2D.OverlapAreaAll(p, p + new Vector3(0.45f, 0.45f, 0.45f));
-
-        for (int i = 0; i < cols.Length; i++)
+        if(Physics2D.OverlapArea(p, p + new Vector3(0.45f, 0.45f, 0.45f)) != null)
         {
-            if (cols[i].tag == "Player" || cols[i].tag == "Enemy")
-            {
-                return;
-            }
+            return;
         }
 
         openSpots.RemoveAt(randIndex);

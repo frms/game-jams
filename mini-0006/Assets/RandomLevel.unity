@@ -117,7 +117,7 @@ MonoBehaviour:
   smoothRuns: 1
   percentWall: 0.45
   wallPrefab: {fileID: 146466, guid: 5ded23ea5f0d4ff4998b952f4c86c011, type: 2}
-  centerEmptyDist: 1
+  centerEmptyDist: 1.8
   numEnemies: 40
   enemyPrefabs: []
 --- !u!4 &1157364111
