@@ -1,3 +1,25 @@
 What if passthrough is the main/only way to move in the game?
 
 Maybe reset passthrough ability on contact (especially wall contact), but probably not.
+
+90D8A5FF
+22B14CFF
+115826FF
+
+c5e1a5
+8bc34a
+466225
+
+a4bdcd
+497a9b
+253d4e
+
+
+white 1 2 3 black
+
+background black
+character A 1
+walls B 3
+enemy
+	hurt color C 2
+	safe color B 1
