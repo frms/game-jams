@@ -41,9 +41,21 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if(Input.GetKeyDown(KeyCode.RightArrow))
         {
             passThrough(Vector2.right);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            passThrough(Vector2.left);
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            passThrough(Vector2.up);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            passThrough(Vector2.down);
         }
     }
 
@@ -117,11 +129,11 @@ public class Player : MonoBehaviour
     {
         if (passThroughPath.activeSelf)
         {
-            Vector2 disp = (Vector3) passThroughDest - transform.position;
+            Vector3 disp = (Vector3) passThroughDest - transform.position;
             float dist = disp.magnitude;
             float zRot = Mathf.Atan2(disp.y, disp.x) * Mathf.Rad2Deg;
 
-            passThroughPath.transform.position = transform.position + Vector3.right * dist / 2f;
+            passThroughPath.transform.position = transform.position + disp / 2f;
             passThroughPath.transform.localScale = new Vector3(dist, radius, 1f);
             passThroughPath.transform.rotation = Quaternion.Euler(0, 0, zRot);
         }
