@@ -3,12 +3,18 @@ Strong Thoughts:
 * Make sure there is a clear main path (searching a map and backtracking are boring)
 	* You could simply restrict the level to be on direction (left to right like Mario, top to bottom like Downwell)
 	* You could generate a main line path then build the level around that line path with small offshoots being obvious.
+	* Maybe the main path can branch, but all the branches are valid paths to the end
 
 
 Random Thoughts:
 
 * What if passthrough is the main/only way to move in the game?
 * Maybe reset passthrough ability on contact (especially wall contact), but probably not.
+* Make the map actually be walkable tiles vs fall through tiles (instead of walkable vs wall). So you are leaping across gaps rather than passing through.
+* Make the pass through ability actually be more of a "jump" to location within a range ability
+* Pass Through Controls
+	* Use Mouse / Right Thumb Stick to give pass through direction
+	* Use Mouse Click / Right Thumb stick to give pass through distance and direction
 
 
 Colors:
