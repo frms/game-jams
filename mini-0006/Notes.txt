@@ -3,6 +3,9 @@ Strong Thoughts:
 * Make sure there is a clear main path (searching a map and backtracking are boring)
 	* You could simply restrict the level to be on direction (left to right like Mario, top to bottom like Downwell)
 	* You could generate a main line path then build the level around that line path with small offshoots being obvious.
+		* Maybe look into level generation techniques already exist to see if they can do this (marching square?)
+		* Maybe do a random splattering of dots with a connect the dots kind of logic to make the path
+		* Maybe create the points in the line with for loop version of wandering
 	* Maybe the main path can branch, but all the branches are valid paths to the end
 
 
