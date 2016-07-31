@@ -1,6 +1,17 @@
-What if passthrough is the main/only way to move in the game?
+Strong Thoughts:
 
-Maybe reset passthrough ability on contact (especially wall contact), but probably not.
+* Make sure there is a clear main path
+	* You could simply restrict the level to be on direction (left to right like Mario, top to bottom like Downwell)
+	* You could generate a main line path then build the level around that line path with small offshoots being obvious.
+
+
+Random Thoughts:
+
+* What if passthrough is the main/only way to move in the game?
+* Maybe reset passthrough ability on contact (especially wall contact), but probably not.
+
+
+Colors:
 
 90D8A5FF
 22B14CFF
