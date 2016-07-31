@@ -1,6 +1,6 @@
 Strong Thoughts:
 
-* Make sure there is a clear main path
+* Make sure there is a clear main path (searching a map and backtracking are boring)
 	* You could simply restrict the level to be on direction (left to right like Mario, top to bottom like Downwell)
 	* You could generate a main line path then build the level around that line path with small offshoots being obvious.
 
